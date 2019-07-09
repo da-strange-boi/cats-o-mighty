@@ -1,0 +1,13 @@
+{
+    "token": "discord bot token",
+    "DBLtoken": "discordbot.org api token",
+    "prefix": "cat",
+    "debug": true,
+    "color": {
+        "cats": "#004080",
+        "dex": "#D3FFCE",
+        "utility": "#98BDF0",
+        "owner": "#00CED1",
+        "error": "#FF0000"
+    }
+}
