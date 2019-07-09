@@ -64,6 +64,9 @@ bot.on("message", async message => {
     return;
   };
 
+  //* set up logging
+  require('./utils/logging.js');
+
   //* Setup Command 'start' To Setup The Database For New Users
   require('./utils/newCat.js');
 

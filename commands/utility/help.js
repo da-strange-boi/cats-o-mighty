@@ -19,7 +19,7 @@ module.exports.run = async (bot, message, args) => {
       return message.channel.send(helpEmbed);
     }
     if(message.author.id === "295255543596187650"){
-      helpEmbed.addField(":gem: Bot Owner Commands", "`clearcats`, `addcat`, `addmoney`, `clearmoney`, `showsuggestions`, `userinfo`, `stopcat`");
+      helpEmbed.addField(":gem: Bot Owner Commands", "`clearcats`, `addcat`, `addmoney`, `clearmoney`, `showsuggestions`, `userinfo`, `stopcat`, `checklog`");
       return message.channel.send(helpEmbed);
     } else {
       return message.channel.send(helpEmbed);
