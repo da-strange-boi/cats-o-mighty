@@ -36,7 +36,7 @@ module.exports.run = async (bot, message, args) => {
         animal = args[0].toLowerCase().trim();
         amtAnimal = args[1];
 
-        animalList = ['siamese', 'burmese', 'ragdoll', 'persian', 'mainecoon', 'russianBlue', 'abyssinian', 'manx', 'sphynx', 'cyprus', 'foldex', 'korat', 'singapura', 'tonkinese', 'perterbald', 'chartreux', 'munchkin', 'bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'laliah', 'cher', 'marvin', 'squirtlett', 'cursedcat'];
+        animalList = ['siamese', 'burmese', 'ragdoll', 'persian', 'mainecoon', 'russianblue', 'abyssinian', 'manx', 'sphynx', 'cyprus', 'foldex', 'korat', 'singapura', 'tonkinese', 'perterbald', 'chartreux', 'munchkin', 'bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'laliah', 'cher', 'marvin', 'squirtlett', 'cursedcat'];
         const checkAnimal = () => {  
           for(let i=0; i < animalList.length;i++){
             if(animal === animalList[i]){
