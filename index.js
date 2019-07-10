@@ -88,7 +88,7 @@ bot.on("message", async message => {
     if(catList){
 
       //* Don't Show 'level messages' In DBL As It Is Agaest The Rules
-      if(message.guild.id != "264445053596991498"){
+      if(message.guild.id != "264445053596991498" && message.guild.id != "110373943822540800" && message.guild.id != "374071874222686211"){
         require("./utils/getCats.js");
         require("./utils/checkCats.js");
       }
