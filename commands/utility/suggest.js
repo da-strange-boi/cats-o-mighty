@@ -14,7 +14,8 @@ let cooldowncats = new Set();
 let cdseconds = 300;
 
 module.exports.run = async (bot, message, args) => {
-    //cat suggestion <suggestion>
+
+    //USAGE cat suggestion <suggestion>
 
     //* Select User Data From Database
     Suggestion.findOne({
