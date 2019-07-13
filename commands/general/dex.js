@@ -29,7 +29,7 @@ module.exports.run = async (bot, message, args) => {
       if(catTotalList){
 
         tSiamese = catTotalList.siamese;tBurmese = catTotalList.burmese;tRagdoll = catTotalList.ragdoll;tPersian = catTotalList.persian;tMaineCoon = catTotalList.maineCoon;tRussianBlue = catTotalList.russianBlue;
-        tAbyssinian = catTotalList.abyssinian;tManx = catTotalList.manx;tSphynx = catTotalList.sphynx;tCyprus = catTotalList.cyprus;tFoldex = catTotalList.foldex;
+        tAbyssinian = catTotalList.abyssinian;tManx = catTotalList.manx;tSphynx = catTotalList.sphynx;tCyprus = catTotalList.cyprus;tFoldex = catTotalList.foldex;tTurkishAngora = catTotalList.turkishAngora;
         tKorat = catTotalList.korat;tSingapura = catTotalList.singapura;tTonkinese = catTotalList.tonkinese;tPeterbald = catTotalList.peterbald;tChartreux = catTotalList.chartreux;tMunchkin = catTotalList.munchkin;
         tBandit = catTotalList.bandit;tBug = catTotalList.bug;tLinda = catTotalList.linda;tMittens = catTotalList.mittens;tCash = catTotalList.cash;tJackson = catTotalList.jackson;tCottonball = catTotalList.cottonball;tSonny = catTotalList.sonny;tSmokey = catTotalList.smokey;tLailah = catTotalList.lailah;tCher = catTotalList.cher;tMarvin = catTotalList.marvin;
         tSquirtlett = catTotalList.squirtlett;tCursedcat = catTotalList.cursedcat;
@@ -133,6 +133,16 @@ module.exports.run = async (bot, message, args) => {
           .setDescription(`**Total Got**: ${tMunchkin} \n**Sell Amount**: $200 \n\n *cat suggested by, [C] [R] [K] [N] [I]* \n`)
           .setColor(config.color.dex)
           .setImage('https://i.imgur.com/iUIOKGR.jpg');
+          message.channel.send(dexHelp);
+          ifcat++;
+        }
+
+        if(catInfo === "turkishangora"){
+          dexHelp = new Discord.RichEmbed()
+          .setTitle(`${cap('turkish Angora')}`)
+          .setDescription(`**Total Got**: ${tTurkishAngora} \n**Sell Amount**: $55 \n\n *cat suggested by, ๑DelusionalHermit๑* \n`)
+          .setColor(config.color.dex)
+          .setImage('https://i.imgur.com/LkkPAJh.jpg');
           message.channel.send(dexHelp);
           ifcat++;
         }

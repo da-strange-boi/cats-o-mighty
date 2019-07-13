@@ -14,6 +14,7 @@ const catSchema = mongoose.Schema({
     sphynx: Number,
     cyprus: Number,
     foldex: Number,
+    turkishAngora: Number,
     korat: Number,
     singapura: Number,
     tonkinese: Number,

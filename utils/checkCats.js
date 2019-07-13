@@ -30,6 +30,10 @@ bot.on("message", async message => {
         catList.munchkin = 0;
         catList.save().catch(err => console.log(err));
       }
+      if(catList.turkishAngora === undefined){
+        catList.turkishAngora = 0;
+        catList.save().catch(err => console.log(err));
+      }
     }
   });
 });

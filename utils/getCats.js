@@ -79,12 +79,12 @@ bot.on("message", async message => {
                     if(uncommonCatAmt === uncommonBaseAmt){
                 
                         //* If User Has No Common Cats Don't Give Them Uncommon
-                        uSiamese = catList.siamese; uBurmese = catList.burmese; uRagdoll = catList.ragdoll; uPersian = catList.persian; uMaineCoon = catList.maineCoon;
-                        if(uSiamese === 0 && uBurmese === 0 && uRagdoll === 0 && uPersian === 0 && uMaineCoon === 0){commonCats = false;} else {commonCats = true;}
+                        uSiamese = catList.siamese; uBurmese = catList.burmese;uRagdoll = catList.ragdoll;uPersian = catList.persian;uMaineCoon = catList.maineCoon;uRussianBlue = catList.russianBlue;
+                        if(uSiamese === 0 && uBurmese === 0 && uRagdoll === 0 && uPersian === 0 && uMaineCoon === 0 && uRussianBlue === 0){commonCats = false;} else {commonCats = true;}
                         if(commonCats === false){return;}
                 
                         //* Set Vars For Uncommon Cats
-                        let animales = ['abyssinian', 'manx', 'sphynx', 'cyprus', 'foldex'];
+                        let animales = ['abyssinian', 'manx', 'sphynx', 'cyprus', 'foldex', 'turkishAngora'];
                         let result = Math.floor((Math.random() * animales.length));
                 
                         //* Check To See What Cat It Is Then Add It To Their Cats
@@ -93,7 +93,8 @@ bot.on("message", async message => {
                         if(result === 2){catList.sphynx = catList.sphynx + 1;catTotalList.sphynx = catTotalList.sphynx + 1; catName = "sphynx";}
                         if(result === 3){catList.cyprus = catList.cyprus + 1;catTotalList.cyprus = catTotalList.cyprus + 1; catName = "cyprus";}
                         if(result === 4){catList.foldex = catList.foldex + 1;catTotalList.foldex = catTotalList.foldex + 1; catName = "foldex";}
-                        
+                        if(result === 5){catList.turkishAngora = catList.turkishAngora + 1;catTotalList.turkishAngora = catTotalList.turkishAngora + 1; catName = "turkish angora";}
+
                         //* Start Embed To Show That They Got A Uncommon Cat
                         let uncommonCatEmbed = new Discord.RichEmbed()
                         .setAuthor(message.author.username, message.author.avatarURL)
@@ -103,8 +104,8 @@ bot.on("message", async message => {
                     }
                     if(rareCatAmt === rareBaseAmt){
                         //* If User Has No Uncommon Cats Don't Give Them Rare
-                        uAbyssinian = catList.abyssinian;uManx = catList.manx;uSphynx = catList.sphynx;uCyprus = catList.cyprus;uFoldex = catList.foldex;
-                        if(uAbyssinian === 0 && uManx === 0 && uSphynx === 0 && uCyprus === 0 && uFoldex === 0){uncommonCats = false;} else {uncommonCats = true;}
+                        uAbyssinian = catList.abyssinian;uManx = catList.manx;uSphynx = catList.sphynx;uCyprus = catList.cyprus;uFoldex = catList.foldex;uTurkishAngora = catList.turkishAngora;
+                        if(uAbyssinian === 0 && uManx === 0 && uSphynx === 0 && uCyprus === 0 && uFoldex === 0 && uTurkishAngora === 0){uncommonCats = false;} else {uncommonCats = true;}
                         if(uncommonCats === false){return;}
                 
                         //* Set Vars For Rare Cats
@@ -177,7 +178,7 @@ bot.on("message", async message => {
                 }
                 if(!catTotalList){
                     const newTotal = new totalCat({
-                        totalcat: "placeholder",siamese: 0,burmese: 0,ragdoll: 0,persian: 0,maineCoon: 0,russianBlue: 0,abyssinian: 0,manx: 0,sphynx: 0,cyprus: 0,foldex: 0,korat: 0,singapura: 0,tonkinese: 0,peterbald: 0,chartreux: 0,munchkin: 0,bandit: 0,bug: 0,linda: 0,mittens: 0,cash: 0,jackson: 0,cottonball: 0,sonny: 0,smokey: 0,lailah: 0,cher: 0,marvin: 0,squirtlett: 0,cursecat: 0
+                        totalcat: "placeholder",siamese: 0,burmese: 0,ragdoll: 0,persian: 0,maineCoon: 0,russianBlue: 0,abyssinian: 0,manx: 0,sphynx: 0,cyprus: 0,foldex: 0,turkishAngora: 0,korat: 0,singapura: 0,tonkinese: 0,peterbald: 0,chartreux: 0,munchkin: 0,bandit: 0,bug: 0,linda: 0,mittens: 0,cash: 0,jackson: 0,cottonball: 0,sonny: 0,smokey: 0,lailah: 0,cher: 0,marvin: 0,squirtlett: 0,cursecat: 0
                     })
                     newTotal.save().catch(err => console.log(err));
                     return;
