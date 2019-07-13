@@ -35,6 +35,7 @@ dbl.webhook.on('vote', vote => {
     });
   }
 
+  //* To reset their vote counter
   Daily.findOne({
     userID: vote.user
   }, (err, userDaily) => {
@@ -53,7 +54,7 @@ dbl.webhook.on('vote', vote => {
 
   });
 
-  //* Add A Random Special Cat To Their Cat For Voting
+  //* Add A Random Special Cat To Their Collection For Voting
   Cat.findOne({
     userID: vote.user
   }, (err, catList) => {
@@ -84,5 +85,10 @@ dbl.webhook.on('vote', vote => {
     catList.save().catch(err => console.log(err));
   });
 
-  //! Try To Figure Out How To PM The User That Voted
+  if(vote.isWeekend === true){
+    bot.users.get(vote.user).send(`Thank you for upvoting\nYou have caught a **${catName}** for voting!\nIt's the weekend! You get a bonus of $4,500`)
+  } else {
+    bot.users.get(vote.user).send(`Thank you for upvoting\nYou have caught a **${catName}** for voting!`);
+  }
+  
 });
