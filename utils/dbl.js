@@ -80,15 +80,15 @@ dbl.webhook.on('vote', vote => {
       if(result === 9){catList.lailah = catList.lailah + 1; catName = "lailah";}
       if(result === 10){catList.cher = catList.cher + 1; catName = "cher";}
       if(result === 11){catList.marvin = catList.marvin + 1; catName = "marvin";}
+
+      //* To send a DM to the user letting them know their rewards for voting
+      if(vote.isWeekend === true){
+        bot.users.get(vote.user).send(`Thank you for upvoting\nYou have caught a **${catName}** for voting!\nIt's the weekend! You get a bonus of $4,500`)
+      } else {
+        bot.users.get(vote.user).send(`Thank you for upvoting\nYou have caught a **${catName}** for voting!`);
+      }
     
     }
     catList.save().catch(err => console.log(err));
   });
-
-  if(vote.isWeekend === true){
-    bot.users.get(vote.user).send(`Thank you for upvoting\nYou have caught a **${catName}** for voting!\nIt's the weekend! You get a bonus of $4,500`)
-  } else {
-    bot.users.get(vote.user).send(`Thank you for upvoting\nYou have caught a **${catName}** for voting!`);
-  }
-  
 });
