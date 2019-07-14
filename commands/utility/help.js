@@ -27,7 +27,7 @@ module.exports.run = async (bot, message, args) => {
   }
   //* If The User Specifies A Command Then Send A Detailed Help Message
   if(args[0]){
-    let helpCommand = args[0];
+    let helpCommand = args[0].toLowerCase().trim();
 
     // display help for  collection \\
     if(helpCommand === "collection"){

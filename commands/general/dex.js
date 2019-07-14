@@ -20,7 +20,7 @@ module.exports.run = async (bot, message, args) => {
 
   //* If User Does Specifiy The Cat Type
   if(args[0]){
-    let catInfo = args[0];
+    let catInfo = args[0].toLowerCase().trim();
 
     totalCat.findOne({
       totalcat: "placeholder"

@@ -26,9 +26,11 @@ module.exports.run = async (bot, message, args) => {
     if(err) console.log(err);
     if(catList){
 
+      let catBreed = args[0].toLowerCase().trim();
+
       animalList = ['siamese', 'burmese', 'ragdoll', 'persian', 'mainecoon', 'russianblue', 'abyssinian', 'manx', 'sphynx', 'cyprus', 'foldex', 'turkishangora', 'korat', 'singapura', 'tonkinese', 'perterbald', 'chartreux', 'munchkin', 'bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'laliah', 'cher', 'marvin', 'loki', 'pancake', 'squirtlett', 'cursedcat'];
       for(let i=0;i<animalList.length;i++){
-        if(args[0] === animalList[i]){
+        if(catBreed === animalList[i]){
           if(i <= 5){catType = 'common'}
           if(i >= 7 && i <= 11){catType = 'uncommon'}
           if(i >= 12 && i <= 17){catType = 'rare'}

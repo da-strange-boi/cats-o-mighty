@@ -87,7 +87,7 @@ module.exports.run = async (bot, message, args) => {
 
     //USAGE cat collection {common|uncommon|rare|special|impossible}
     if(args[0]) {
-      let catType = args[0];
+      let catType = args[0].toLowerCase().trim();
       let allCatType = ['common', 'uncommon', 'rare', 'special', 'impossible'];
   
       for(let i=0; i < allCatType.length; i++){
