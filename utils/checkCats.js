@@ -34,6 +34,11 @@ bot.on("message", async message => {
         catList.turkishAngora = 0;
         catList.save().catch(err => console.log(err));
       }
+      if(catList.loki === undefined && catList.pancake === undefined){
+        catList.loki = 0;
+        catList.pancake = 0;
+        catList.save().catch(err => console.log(err));
+      }
     }
   });
 });

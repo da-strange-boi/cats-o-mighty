@@ -64,7 +64,7 @@ dbl.webhook.on('vote', vote => {
       userVoted = vote.user;
 
       //* Set Vars For Special Cats
-      let animales = ['bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin'];
+      let animales = ['bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin', 'loki', 'pancake'];
       let result = Math.floor((Math.random() * animales.length));
 
       //* Check To See What Cat It Is Then Add It To Their Cats
@@ -80,6 +80,8 @@ dbl.webhook.on('vote', vote => {
       if(result === 9){catList.lailah = catList.lailah + 1; catName = "lailah";}
       if(result === 10){catList.cher = catList.cher + 1; catName = "cher";}
       if(result === 11){catList.marvin = catList.marvin + 1; catName = "marvin";}
+      if(result === 12){catList.loki = catList.loki + 1; catName = "loki"}
+      if(result === 13){catList.pancake = catList.pancake + 1; catName = "pancake"}
 
       //* To send a DM to the user letting them know their rewards for voting
       if(vote.isWeekend === true){

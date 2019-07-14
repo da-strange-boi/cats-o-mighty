@@ -31,7 +31,7 @@ module.exports.run = async (bot, message, args) => {
         tSiamese = catTotalList.siamese;tBurmese = catTotalList.burmese;tRagdoll = catTotalList.ragdoll;tPersian = catTotalList.persian;tMaineCoon = catTotalList.maineCoon;tRussianBlue = catTotalList.russianBlue;
         tAbyssinian = catTotalList.abyssinian;tManx = catTotalList.manx;tSphynx = catTotalList.sphynx;tCyprus = catTotalList.cyprus;tFoldex = catTotalList.foldex;tTurkishAngora = catTotalList.turkishAngora;
         tKorat = catTotalList.korat;tSingapura = catTotalList.singapura;tTonkinese = catTotalList.tonkinese;tPeterbald = catTotalList.peterbald;tChartreux = catTotalList.chartreux;tMunchkin = catTotalList.munchkin;
-        tBandit = catTotalList.bandit;tBug = catTotalList.bug;tLinda = catTotalList.linda;tMittens = catTotalList.mittens;tCash = catTotalList.cash;tJackson = catTotalList.jackson;tCottonball = catTotalList.cottonball;tSonny = catTotalList.sonny;tSmokey = catTotalList.smokey;tLailah = catTotalList.lailah;tCher = catTotalList.cher;tMarvin = catTotalList.marvin;
+        tBandit = catTotalList.bandit;tBug = catTotalList.bug;tLinda = catTotalList.linda;tMittens = catTotalList.mittens;tCash = catTotalList.cash;tJackson = catTotalList.jackson;tCottonball = catTotalList.cottonball;tSonny = catTotalList.sonny;tSmokey = catTotalList.smokey;tLailah = catTotalList.lailah;tCher = catTotalList.cher;tMarvin = catTotalList.marvin;tLoki = catTotalList.loki;tPancake = catTotalList.pancake;
         tSquirtlett = catTotalList.squirtlett;tCursedcat = catTotalList.cursedcat;
         
         //* Function To Make The First Letter Of A Word Capitalized
@@ -94,6 +94,8 @@ module.exports.run = async (bot, message, args) => {
         displayCat('lailah', '2500', tLailah, 'https://i.imgur.com/lcWRZZN.jpg');
         displayCat('cher', '2500', tCher, 'https://i.imgur.com/I06Qynx.jpg');
         displayCat('marvin', '2500', tMarvin, 'https://i.imgur.com/izG1phc.jpg');
+        displayCat('loki', '2500', tLoki, 'https://i.imgur.com/PBV6Ijq.jpg');
+        displayCat('pancake', '2500', tPancake, 'https://i.imgur.com/SJ40Y1E.jpg');
 
         //------impossible------
 

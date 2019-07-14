@@ -14,7 +14,7 @@ module.exports.run = async (bot, message, args) => {
     return;
   }
 
-  if(!args[1]){
+  if(!args[0]){
     message.channel.send("Check `cat help userinfo` for correct usage");
     return;
   }

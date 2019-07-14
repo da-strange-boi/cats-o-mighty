@@ -36,8 +36,8 @@ bot.on("message", async message => {
     let rareCatAmt = Math.floor(Math.random() * 145) + 1;
     let rareBaseAmt = Math.floor(Math.random() * 145) + 1;
 
-    let specialCatAmt = Math.floor(Math.random() * 370) + 1;
-    let specialBaseAmt = Math.floor(Math.random() * 370) + 1;
+    let specialCatAmt = Math.floor(Math.random() * 2) + 1;
+    let specialBaseAmt = Math.floor(Math.random() * 2) + 1;
 
     let impossibleCatsAmt = Math.floor(Math.random() * 740) + 1;
     let impossibleBaseAmt = Math.floor(Math.random() * 740) + 1;
@@ -130,9 +130,9 @@ bot.on("message", async message => {
                     if(specialCatAmt === specialBaseAmt){
                 
                         //* No Need To Check If They Have Lower Rank || You Can Get Special No Matter What Cats You Have
-                        
+
                         //* Set Vars For Special Cats
-                        let animales = ['bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin'];
+                        let animales = ['bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin', 'loki', 'pancake'];
                         let result = Math.floor((Math.random() * animales.length));
                 
                         //* Check To See What Cat It Is Then Add It To Their Cats
@@ -148,7 +148,9 @@ bot.on("message", async message => {
                         if(result === 9){catList.lailah = catList.lailah + 1;catTotalList.lailah = catTotalList.lailah + 1; catName = "lailah";}
                         if(result === 10){catList.cher = catList.cher + 1;catTotalList.cher = catTotalList.cher + 1; catName = "cher";}
                         if(result === 11){catList.marvin = catList.marvin + 1;catTotalList.marvin = catTotalList.marvin + 1; catName = "marvin";}
-                
+                        if(result === 12){catList.loki = catList.loki + 1;catTotalList.loki = catTotalList.loki + 1; catName = "loki";}
+                        if(result === 13){catList.pancake = catList.pancake + 1;catTotalList.pancake = catTotalList.pancake + 1; catName = "pancake";}
+
                         //* Start Embed To Show That They Got A Special Cat
                         let specialCatEmbed = new Discord.RichEmbed()
                         .setAuthor(message.author.username, message.author.avatarURL)
@@ -178,7 +180,7 @@ bot.on("message", async message => {
                 }
                 if(!catTotalList){
                     const newTotal = new totalCat({
-                        totalcat: "placeholder",siamese: 0,burmese: 0,ragdoll: 0,persian: 0,maineCoon: 0,russianBlue: 0,abyssinian: 0,manx: 0,sphynx: 0,cyprus: 0,foldex: 0,turkishAngora: 0,korat: 0,singapura: 0,tonkinese: 0,peterbald: 0,chartreux: 0,munchkin: 0,bandit: 0,bug: 0,linda: 0,mittens: 0,cash: 0,jackson: 0,cottonball: 0,sonny: 0,smokey: 0,lailah: 0,cher: 0,marvin: 0,squirtlett: 0,cursecat: 0
+                        totalcat: "placeholder",siamese: 0,burmese: 0,ragdoll: 0,persian: 0,maineCoon: 0,russianBlue: 0,abyssinian: 0,manx: 0,sphynx: 0,cyprus: 0,foldex: 0,turkishAngora: 0,korat: 0,singapura: 0,tonkinese: 0,peterbald: 0,chartreux: 0,munchkin: 0,bandit: 0,bug: 0,linda: 0,mittens: 0,cash: 0,jackson: 0,cottonball: 0,sonny: 0,smokey: 0,lailah: 0,cher: 0,marvin: 0,loki: 0,pancake: 0,squirtlett: 0,cursecat: 0
                     })
                     newTotal.save().catch(err => console.log(err));
                     return;

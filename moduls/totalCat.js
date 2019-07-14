@@ -33,6 +33,8 @@ const totalCatSchema = mongoose.Schema({
     lailah: Number,
     cher: Number,
     marvin: Number,
+    loki: Number,
+    pancake: Number,
     squirtlett: Number,
     cursedcat: Number
 })

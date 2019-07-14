@@ -95,11 +95,11 @@ module.exports.run = async (bot, message, args) => {
               if(specialCatAmt === specialBaseAmt){
                         
                 //* Set Vars For Special Cats
-                let animales = ['bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin'];
+                let animales = ['bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin', 'loki', 'pancake'];
                 let aResult = Math.floor((Math.random() * animales.length));
     
                 //* Check To See What Cat It Is Then Add It To Their Cats
-                if(aResult === 0){catList.bandit = catList.bandit + 1; catName = "bandit";}if(aResult === 1){catList.bug = catList.bug + 1; catName = "bug";}if(aResult === 2){catList.linda = catList.linda + 1; catName = "linda";}if(aResult === 3){catList.mittens = catList.mittens + 1; catName = "mittens";}if(aResult === 4){catList.cash = catList.cash + 1; catName = "cash";}if(aResult === 5){catList.jackson = catList.jackson + 1; catName = "jackson";}if(aResult === 6){catList.cottonball = catList.cottonball + 1; catName = "cottonball";}if(aResult === 7){catList.sonny = catList.sonny + 1; catName = "sonny";}if(aResult === 8){catList.smokey = catList.smokey + 1; catName = "smokey";}if(aResult === 9){catList.lailah = catList.lailah + 1; catName = "lailah";}if(aResult === 10){catList.cher = catList.cher + 1; catName = "cher";}if(aResult === 11){catList.marvin = catList.marvin + 1; catName = "marvin";}
+                if(aResult === 0){catList.bandit = catList.bandit + 1; catName = "bandit";}if(aResult === 1){catList.bug = catList.bug + 1; catName = "bug";}if(aResult === 2){catList.linda = catList.linda + 1; catName = "linda";}if(aResult === 3){catList.mittens = catList.mittens + 1; catName = "mittens";}if(aResult === 4){catList.cash = catList.cash + 1; catName = "cash";}if(aResult === 5){catList.jackson = catList.jackson + 1; catName = "jackson";}if(aResult === 6){catList.cottonball = catList.cottonball + 1; catName = "cottonball";}if(aResult === 7){catList.sonny = catList.sonny + 1; catName = "sonny";}if(aResult === 8){catList.smokey = catList.smokey + 1; catName = "smokey";}if(aResult === 9){catList.lailah = catList.lailah + 1; catName = "lailah";}if(aResult === 10){catList.cher = catList.cher + 1; catName = "cher";}if(aResult === 11){catList.marvin = catList.marvin + 1; catName = "marvin";}if(aResult === 12){catList.loki = catList.loki + 1; catName = "loki";}if(aResult === 13){catList.pancake = catList.pancake + 1; catName = "pancake";}
     
               } else {
                 let moneyList = [200, 250, 300, 350, 400, 500, 1000];
@@ -126,11 +126,11 @@ module.exports.run = async (bot, message, args) => {
               if(specialCatAmt === specialBaseAmt){
                         
                 //* Set Vars For Special Cats
-                let animales = ['bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin'];
+                let animales = ['bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin', 'loki', 'pancake'];
                 let aResult = Math.floor((Math.random() * animales.length));
     
                 //* Check To See What Cat It Is Then Add It To Their Cats
-                if(aResult === 0){catList.bandit = catList.bandit + 1; catName = "bandit";}if(aResult === 1){catList.bug = catList.bug + 1; catName = "bug";}if(aResult === 2){catList.linda = catList.linda + 1; catName = "linda";}if(aResult === 3){catList.mittens = catList.mittens + 1; catName = "mittens";}if(aResult === 4){catList.cash = catList.cash + 1; catName = "cash";}if(aResult === 5){catList.jackson = catList.jackson + 1; catName = "jackson";}if(aResult === 6){catList.cottonball = catList.cottonball + 1; catName = "cottonball";}if(aResult === 7){catList.sonny = catList.sonny + 1; catName = "sonny";}if(aResult === 8){catList.smokey = catList.smokey + 1; catName = "smokey";}if(aResult === 9){catList.lailah = catList.lailah + 1; catName = "lailah";}if(aResult === 10){catList.cher = catList.cher + 1; catName = "cher";}if(aResult === 11){catList.marvin = catList.marvin + 1; catName = "marvin";}
+                if(aResult === 0){catList.bandit = catList.bandit + 1; catName = "bandit";}if(aResult === 1){catList.bug = catList.bug + 1; catName = "bug";}if(aResult === 2){catList.linda = catList.linda + 1; catName = "linda";}if(aResult === 3){catList.mittens = catList.mittens + 1; catName = "mittens";}if(aResult === 4){catList.cash = catList.cash + 1; catName = "cash";}if(aResult === 5){catList.jackson = catList.jackson + 1; catName = "jackson";}if(aResult === 6){catList.cottonball = catList.cottonball + 1; catName = "cottonball";}if(aResult === 7){catList.sonny = catList.sonny + 1; catName = "sonny";}if(aResult === 8){catList.smokey = catList.smokey + 1; catName = "smokey";}if(aResult === 9){catList.lailah = catList.lailah + 1; catName = "lailah";}if(aResult === 10){catList.cher = catList.cher + 1; catName = "cher";}if(aResult === 11){catList.marvin = catList.marvin + 1; catName = "marvin";}if(aResult === 12){catList.loki = catList.loki + 1; catName = "loki";}if(aResult === 13){catList.pancake = catList.pancake + 1; catName = "pancake";}
                 
               }
               let moneyList = [400, 500, 1000, 1500, 2000];
