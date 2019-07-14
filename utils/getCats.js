@@ -36,8 +36,8 @@ bot.on("message", async message => {
     let rareCatAmt = Math.floor(Math.random() * 145) + 1;
     let rareBaseAmt = Math.floor(Math.random() * 145) + 1;
 
-    let specialCatAmt = Math.floor(Math.random() * 2) + 1;
-    let specialBaseAmt = Math.floor(Math.random() * 2) + 1;
+    let specialCatAmt = Math.floor(Math.random() * 370) + 1;
+    let specialBaseAmt = Math.floor(Math.random() * 370) + 1;
 
     let impossibleCatsAmt = Math.floor(Math.random() * 740) + 1;
     let impossibleBaseAmt = Math.floor(Math.random() * 740) + 1;

@@ -29,8 +29,8 @@ module.exports.run = async (bot, message, args) => {
 	.addField(":date: Created On", bot.user.createdAt)
 	.addField(":hourglass: Uptime", `${date.days} Days ${date.hours} Hours ${date.minutes} Minutes ${date.seconds} Seconds`)
 	.addField(":desktop: Number of lines of code", "2,465 lines")
-	.addField(":floppy_disk: Numbers of commands", "16")
-	.addField(":alarm_clock: Time took to make", "72 hours");
+	.addField(":floppy_disk: Numbers of commands", "17")
+	.addField(":alarm_clock: Time took to make", "86 hours");
 
 	return message.channel.send(botEmbed);
 }

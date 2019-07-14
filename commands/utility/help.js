@@ -13,13 +13,13 @@ module.exports.run = async (bot, message, args) => {
     .setDescription("Here is all the commands!\nFor help on the commands, use `cat help {command}`")
     //.setFooter('[] = optional arguments     {} = optional user input')
     .addField(":cat2: General", "`collection`, `daily`, `dex`, `feed`, `leaderboard`, `money`, `profile`, `sell`")
-    .addField(":gear: Utility", "`botinfo`, `help`, `invite`, `ping`, `suggest`, `supportserver`, `updates`, `vote`");
+    .addField(":gear: Utility", "`botinfo`, 'chance', `help`, `invite`, `ping`, `suggest`, `supportserver`, `updates`, `vote`");
     if(message.author.id === "308101246160732160"){
       helpEmbed.addField(":beginner: Bot Admin Commands", "`userinfo`");
       return message.channel.send(helpEmbed);
     }
     if(message.author.id === "295255543596187650"){
-      helpEmbed.addField(":gem: Bot Owner Commands", "`clearcats`, `addcat`, `addmoney`, `clearmoney`, `showsuggestions`, `userinfo`, `stopcat`");
+      helpEmbed.addField(":gem: Bot Owner Commands", "`clearcats`, `addcat`, `addmoney`, `clearmoney`, `showsuggestions`, `userinfo`, `stop`, 'checklog'");
       return message.channel.send(helpEmbed);
     } else {
       return message.channel.send(helpEmbed);
@@ -49,12 +49,12 @@ module.exports.run = async (bot, message, args) => {
     }
     //display help for feed \\
     if(helpCommand === "feed"){
-      message.channel.send("```< cat feed >```");
-      message.channel.send("```What it does:\nnothing currently```");
+      message.channel.send("```< cat feed {cat breed} >```");
+      message.channel.send("```What it does:\nallows you to possibly get the cat you fed```");
     }
     // display help for leaderboard \\
     if(helpCommand === "leaderboard"){
-      message.channel.send("```< cat leaderboard [top] >```");
+      message.channel.send("```< cat leaderboard >```");
       message.channel.send("```What it does:\ndisplay leaderboard of who has the most money```");
     }
     // display help for money \\
@@ -78,6 +78,11 @@ module.exports.run = async (bot, message, args) => {
     if(helpCommand === "botinfo"){
       message.channel.send("``` < cat botinfo >```");
       message.channel.send("```What it does:\ngives info about the bot```");
+    }
+    // display help for chance \\
+    if(helpCommand === "chance"){
+      message.channel.send("``` < cat chance >```");
+      message.channel.send("```What it does:\ngives info about the chances of getting cats and thier prices```");
     }
     // display help for help \\
     if(helpCommand === "help"){
@@ -153,10 +158,10 @@ module.exports.run = async (bot, message, args) => {
       message.channel.send("```< cat showsuggestions >```");
       message.channel.send("```What it does:\nshows the suggestions (if any)```");
     }
-    // display help for stopcat \\
-    if(helpCommand === "stopcat"){
+    // display help for stop \\
+    if(helpCommand === "stop"){
       message.channel.send("***Bot Owner Command***");
-      message.channel.send("```< cat stopcat >```");
+      message.channel.send("```< cat stop >```");
       message.channel.send("```What it does:\ndisconnects the bot from discord turing it offline```");
     }
     // display help for userinfo \\

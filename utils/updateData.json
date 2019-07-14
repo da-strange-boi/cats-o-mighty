@@ -13,5 +13,6 @@
   "date625": "**6/25**\n• Added two new cats: Russian Blue and Munchkin\n• Fixed some typos\n• Reworked some code\n\n If any bugs are found please report them to me, *da strange boi#7087*",
   "date630": "**6/30**\n• Rearranged the help command\n• Updated the `botinfo` command\n• Made the `supportserver` command which gives you a link to the support server",
   "date702": "**7/2**\n• Fixed two bugs where the image for `cat dex cursedcat` wasn't working and where if you type `cat sell common/rare` or `cat sell all` it wouldn't sell the two new cats both reported by\n `disastrous demi dipshit#6885` thanks!\n• Added new command `cat feed` that doesn't do anything (yet)\n• Fixed minor typos and add version number to `cat updates`",
-  "date709": "**7/9**\n• Updated the info in `botinfo`\n• Recoded the `sell` command to (hopefully) make it faster\n-- another update probably won't come for awhile"
+  "date709": "**7/9**\n• Updated the info in `botinfo`\n• Recoded the `sell` command to (hopefully) make it faster\n-- another update probably won't come for awhile",
+  "date714": "**7/14**\n• Reworked code making it faster\n• Added a `chance` command\n• When you vote for the bot you'll get a DM form the bot with your rewards\n• Added new uncommon cat: Turkish Angora\n• Added 2 new special cats: Loki & Pancake\n• Kinda updated the botinfo command\n• The feed command now functions,, thanks to `Schrödinger's cat (Zer0)#6906`\n\n - theres probably a lot of bugs so if you find any please report them"
 }

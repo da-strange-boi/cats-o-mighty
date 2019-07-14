@@ -30,7 +30,7 @@ const Cat = require("./moduls/cats.js");
 const Money = require("./moduls/money.js");
 const Daily = require("./moduls/daily.js");
 
-//* DBL posting stats && DBGG posting stats
+//* DBL posting stats && DB.GG posting stats
 if(config.debug === false){
   require('./utils/dbl.js');
   require('./utils/dbgg.js');
@@ -72,7 +72,7 @@ bot.on("message", async message => {
 
   //* If The User Is A New User, Types 'cat {anything}' Send Them A Message Telling Them To Do 'cat start'
   Cat.findOne({
-      userID: message.author.id
+    userID: message.author.id
   }, (err, catList) => {
     if(err) console.log(err);
     if(!catList){
@@ -86,7 +86,6 @@ bot.on("message", async message => {
     //* Main Code For Running The Commands
 
     if(catList){
-
       //* Don't Show 'level messages' In DBL As It Is Agaest The Rules
       if(message.guild.id != "264445053596991498" && message.guild.id != "110373943822540800" && message.guild.id != "374071874222686211"){
         require("./utils/getCats.js");
