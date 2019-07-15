@@ -30,12 +30,7 @@ const Cat = require("./moduls/cats.js");
 const Money = require("./moduls/money.js");
 const Daily = require("./moduls/daily.js");
 
-//* DBL posting stats && DB.GG posting stats && BFD posting stats
-if(config.debug === false){
-  require('./utils/dbl.js');
-  require('./utils/dbgg.js');
-  require('./utils/BFD.js');
-}
+
 
 //* Includes The Script For Loading All The Commands Within The Bot
 require('./utils/loadCommands.js');
@@ -45,7 +40,16 @@ bot.on("ready", async () => {
     console.log(`${bot.user.username} has started, with ${bot.users.size} users, in ${bot.channels.size} channels of ${bot.guilds.size} guilds.\n`);
 	setInterval(() => {
 		bot.user.setActivity(`with cattos on ${bot.guilds.size} servers | do 'cat help' for help`, { type: "PLAYING"} );
-	}, 600000); // 10 mins
+  }, 600000); // 10 mins
+  
+  //* DBL posting stats && DB.GG posting stats && BFD posting stats
+  if(config.debug === false){
+    require('./utils/db.js');
+    require('./utils/dbgg.js');
+    require('./utils/bfd.js');
+    require('./utils/dbl.js');
+  }
+
 });
 
 //* Whenever A Message Is Sent Run The Code Below
