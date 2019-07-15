@@ -13,13 +13,13 @@ module.exports.run = async (bot, message, args) => {
     .setDescription("Here is all the commands!\nFor help on the commands, use `cat help {command}`")
     //.setFooter('[] = optional arguments     {} = optional user input')
     .addField(":cat2: General", "`collection`, `daily`, `dex`, `feed`, `leaderboard`, `money`, `profile`, `sell`")
-    .addField(":gear: Utility", "`botinfo`, 'chance', `help`, `invite`, `ping`, `suggest`, `supportserver`, `updates`, `vote`");
+    .addField(":gear: Utility", "`botinfo`, `chance`, `help`, `invite`, `ping`, `suggest`, `supportserver`, `updates`, `vote`");
     if(message.author.id === "308101246160732160"){
       helpEmbed.addField(":beginner: Bot Admin Commands", "`userinfo`");
       return message.channel.send(helpEmbed);
     }
     if(message.author.id === "295255543596187650"){
-      helpEmbed.addField(":gem: Bot Owner Commands", "`clearcats`, `addcat`, `addmoney`, `clearmoney`, `showsuggestions`, `userinfo`, `stop`, 'checklog'");
+      helpEmbed.addField(":gem: Bot Owner Commands", "`clearcats`, `addcat`, `addmoney`, `clearmoney`, `showsuggestions`, `userinfo`, `stop`, `checklog`");
       return message.channel.send(helpEmbed);
     } else {
       return message.channel.send(helpEmbed);
