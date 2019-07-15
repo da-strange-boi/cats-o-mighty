@@ -6,6 +6,10 @@ const config = require("../config.json");
 
 bot.on("message", async message => {
 
+  let prefix = config.prefix;
+  //* Make Sure The Prefix Is Used
+  if(!message.content.trim().toLowerCase().startsWith(prefix)) return;
+
   //* Checks To See If Another Bot Sent A Message Or If A User Trys To DM The Bot && Make Sure It Doesn't Respond
   if (message.author.bot || message.channel.type === "dm"){
     return;
@@ -13,9 +17,11 @@ bot.on("message", async message => {
 
   if(cmd === `start`){
     //* If The User Is A New Cat Collector And Runs 'cat start'
-    Cat.findOne({userID: message.author.id}, (err, catList) => {if(err) console.log(err);
+    Cat.findOne({userID: message.author.id}, (err, catList) => {
+      if(err) console.log(err);
       if(catList){
         message.channel.send(`<@${message.author.id}> no need, you're already a cat collector!`);
+        return;
       }
       if(!catList){
         const newCat = new Cat({

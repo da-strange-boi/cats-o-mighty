@@ -23,10 +23,12 @@ bot.on("message", async message => {
     if(catList){
       if(catList.cursedcat === undefined){
         catList.cursedcat = 0;
+        catList.save().catch(err => console.log(err));
       }
       if(catList.russianBlue === undefined && catList.munchkin === undefined){
         catList.russianBlue = 0;
         catList.munchkin = 0;
+        catList.save().catch(err => console.log(err));
       }
       if(catList.turkishAngora === undefined){
         catList.turkishAngora = 0;

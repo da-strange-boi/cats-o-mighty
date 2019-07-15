@@ -30,10 +30,11 @@ const Cat = require("./moduls/cats.js");
 const Money = require("./moduls/money.js");
 const Daily = require("./moduls/daily.js");
 
-//* DBL posting stats && DB.GG posting stats
+//* DBL posting stats && DB.GG posting stats && BFD posting stats
 if(config.debug === false){
   require('./utils/dbl.js');
   require('./utils/dbgg.js');
+  require('./utils/BFD.js');
 }
 
 //* Includes The Script For Loading All The Commands Within The Bot
@@ -86,7 +87,7 @@ bot.on("message", async message => {
     //* Main Code For Running The Commands
 
     if(catList){
-      //* Don't Show 'level messages' In DBL As It Is Agaest The Rules
+      //* Don't Show 'level messages' In (DBL && DBGG && BFD) As It Is Agaest The Rules
       if(message.guild.id != "264445053596991498" && message.guild.id != "110373943822540800" && message.guild.id != "374071874222686211"){
         require("./utils/getCats.js");
         require("./utils/checkCats.js");

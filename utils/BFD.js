@@ -2,16 +2,16 @@ const request = require('request-promise');
 const config = require('../config.json');
 
 setInterval(() => {
-  
+
   const options = {
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': config.auth.DBGGauth,
+      'Authorization': config.auth.BFDauth,
     },
     method: 'POST',
-    uri: 'https://discord.bots.gg/api/v1/bots/569336139186700312/stats',
+    uri: 'https://botsfordiscord.com/api/bot/569336139186700312',
     body: {
-      'guildCount': bot.guilds.size
+      'server_count': bot.guilds.size
     },
     json: true
   }

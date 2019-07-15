@@ -12,7 +12,7 @@ const Daily = require("../moduls/daily.js");
 
 //* discordbots.org API Vars
 const DBL = require("dblapi.js");
-global.dbl = new DBL(config.DBLtoken, { webhookPort: 5001, webhookAuth: "Pigfucker747", statsInterval: 2400000 }, bot);
+global.dbl = new DBL(config.auth.DBLtoken, { webhookPort: 5001, webhookAuth: "Pigfucker747", statsInterval: 2400000 }, bot);
 
 //* Ready Up The Webhook
 dbl.webhook.on('ready', hook => {

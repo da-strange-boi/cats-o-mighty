@@ -1,8 +1,12 @@
 {
     "token": "discord bot token",
-    "DBLtoken": "discordbot.org api token",
     "prefix": "cat",
     "debug": true,
+    "auth"" {
+        "DBLtoken": "token for discordbots.org",
+        "DBGGauth": "auth for discord.bots.gg",
+        "BFDauth": "auth for botsfordiscord.com"
+    }
     "color": {
         "cats": "#004080",
         "dex": "#D3FFCE",
