@@ -36,7 +36,11 @@ module.exports.run = async (bot, message, args) => {
         animal = args[0].toLowerCase().trim();
         amtAnimal = args[1];
 
-        animalList = ['siamese', 'burmese', 'ragdoll', 'persian', 'mainecoon', 'russianblue', 'abyssinian', 'manx', 'sphynx', 'cyprus', 'foldex', 'turkishangora', 'korat', 'singapura', 'tonkinese', 'perterbald', 'chartreux', 'munchkin', 'bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'laliah', 'cher', 'marvin', 'loki', 'pancake', 'squirtlett', 'cursedcat'];
+        if(animal === 'russianblue'){animal = "russianBlue"; animalSellName = "russian blue"}
+        if(animal === 'mainecoon'){animal = "maineCoon"; animalSellName = "maine coon"}
+        if(animal === 'turkishangora'){animal = "turkishAngora"; animalSellName = "turkish angora"}
+
+        animalList = ['siamese', 'burmese', 'ragdoll', 'persian', 'maineCoon', 'russianBlue', 'abyssinian', 'manx', 'sphynx', 'cyprus', 'foldex', 'turkishAngora', 'korat', 'singapura', 'tonkinese', 'perterbald', 'chartreux', 'munchkin', 'bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'laliah', 'cher', 'marvin', 'loki', 'pancake', 'squirtlett', 'cursedcat'];
         const checkAnimal = () => {  
           for(let i=0; i < animalList.length;i++){
             if(animal === animalList[i]){
@@ -90,7 +94,7 @@ module.exports.run = async (bot, message, args) => {
                 let soldCat = new Discord.RichEmbed()
                 .setAuthor(message.author.username, message.author.avatarURL)
                 .setColor(config.color.cats)
-                .setDescription(`You sold ${amtAnimal} ${animalList[i]} cats for $${amtAnimal * catSellPrice}`);
+                .setDescription(`You sold ${amtAnimal} ${animalSellName} cats for $${amtAnimal * catSellPrice}`);
                 message.channel.send(soldCat); 
                 catNum++;
               }

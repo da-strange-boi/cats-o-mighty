@@ -34,14 +34,14 @@ module.exports.run = async (bot, message, args) => {
     uSiamese = catList.siamese;uBurmese = catList.burmese;uRagdoll = catList.ragdoll;uPersian = catList.persian;uMaineCoon = catList.maineCoon;uRussianBlue = catList.russianBlue;
     uAbyssinian = catList.abyssinian;uManx = catList.manx;uSphynx = catList.sphynx;uCyprus = catList.cyprus;uFoldex = catList.foldex;
     uKorat = catList.korat;uSingapura = catList.singapura;uTonkinese = catList.tonkinese;uPeterbald = catList.peterbald;uChartreux = catList.chartreux;uMunchkin = catList.munchkin;
-    uBandit = catList.bandit;uBug = catList.bug;uLinda = catList.linda;uMittens = catList.mittens;uCash = catList.cash;uJackson = catList.jackson;uCottonball = catList.cottonball;uSonny = catList.sonny;uSmokey = catList.smokey;uLailah = catList.lailah;uCher = catList.cher;uMarvin = catList.marvin;
+    uBandit = catList.bandit;uBug = catList.bug;uLinda = catList.linda;uMittens = catList.mittens;uCash = catList.cash;uJackson = catList.jackson;uCottonball = catList.cottonball;uSonny = catList.sonny;uSmokey = catList.smokey;uLailah = catList.lailah;uCher = catList.cher;uMarvin = catList.marvin;uLoki = catList.loki;uPancake = catList.pancake;
     uSquirtlett = catList.squirtlett;uCursedcat = catList.cursedcat;
 
     // check if user has that rank of cat and assign a var depending if they do or not
     if(uSiamese === 0 && uBurmese === 0 && uRagdoll === 0 && uPersian === 0 && uMaineCoon === 0 && uRussianBlue === 0){ commonCats = false;} else { commonCats = true;}
     if(uAbyssinian === 0 && uManx === 0 && uSphynx === 0 && uCyprus === 0 && uFoldex === 0){ uncommonCats = false;} else { uncommonCats = true;}
     if(uKorat === 0 && uSingapura === 0 && uTonkinese === 0 && uPeterbald === 0 && uChartreux === 0 && uMunchkin === 0){ rareCats = false;} else { rareCats = true;}
-    if(uBandit === 0 && uBug === 0 && uLinda === 0 && uMittens === 0 && uCash === 0 && uJackson === 0 && uCottonball === 0 && uSonny === 0 && uSmokey === 0 && uLailah === 0 && uCher === 0 && uMarvin === 0){ specialCats = false;} else { specialCats = true;}
+    if(uBandit === 0 && uBug === 0 && uLinda === 0 && uMittens === 0 && uCash === 0 && uJackson === 0 && uCottonball === 0 && uSonny === 0 && uSmokey === 0 && uLailah === 0 && uCher === 0 && uMarvin === 0 && uLoki === 0 && uPancake === 0){ specialCats = false;} else { specialCats = true;}
     if(uSquirtlett === 0 && uCursedcat === 0){ impossibleCats = false } else { impossibleCats = true }
     
     //* If User Owns No Common Cats (no cats) Tell Them
@@ -60,7 +60,7 @@ module.exports.run = async (bot, message, args) => {
       userinfo.addField(":yellow_heart: Rare :yellow_heart:", `Korat: ${uKorat}\nSingapura: ${uSingapura}\nTonkinese: ${uTonkinese}\nPeterbald: ${uPeterbald}\nChartreux: ${uChartreux}\nMunchkin: ${uMunchkin}`, true)
     }
     if(specialCats === true){
-      userinfo.addField(":sparkling_heart: Special :sparkling_heart:", `Smokey: ${uSmokey}\nBandit: ${uBandit}\nBug: ${uBug}\nLinda: ${uLinda}\nMittens: ${uMittens}\nCash: ${uCash}\nJackson: ${uJackson}\nCottonball: ${uCottonball}\nSonny: ${uSonny}\nLailah: ${uLailah}\nCher: ${uCher}\nMarvin: ${uMarvin}`, true);
+      userinfo.addField(":sparkling_heart: Special :sparkling_heart:", `Smokey: ${uSmokey}\nBandit: ${uBandit}\nBug: ${uBug}\nLinda: ${uLinda}\nMittens: ${uMittens}\nCash: ${uCash}\nJackson: ${uJackson}\nCottonball: ${uCottonball}\nSonny: ${uSonny}\nLailah: ${uLailah}\nCher: ${uCher}\nMarvin: ${uMarvin}\nLoki: ${uLoki}\nPancake: ${uPancake}`, true);
     }
     if(impossibleCats === true){
       userinfo.addField(":gem: Impossible :gem:", `Squirtlett: ${uSquirtlett}\nCursed Cat: ${uCursedcat}`, true)
