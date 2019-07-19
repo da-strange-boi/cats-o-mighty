@@ -175,13 +175,14 @@ bot.on("message", async message => {
                             }
                             if(impossibleCatsAmt === impossibleBaseAmt){
                                 //* Set Vars For Impossible Cats
-                                let animales = ['squirtlett', 'cursedcat'];
+                                let animales = ['squirtlett', 'cursedcat', 'uwu'];
                                 let result = Math.floor((Math.random()*animales.length));
                         
                                 //* Check To See What Cat It Is Then Add It To Their Cats
                         
                                 if(result === 0){catList.squirtlett = catList.squirtlett + 1;catTotalList.squirtlett = catTotalList.squirtlett + 1; catName = "squirtlett";}
                                 if(result === 1){catList.cursedcat = catList.cursedcat + 1;catTotalList.cursedcat = catTotalList.cursedcat + 1; catName = "cursed cat";}
+                                if(result === 2){catList.uwu = catList.uwu + 1;catTotalList.uwu = catTotalList.uwu + 1; catName = "UWU";}
         
                                 //* Start Embed To Show That They Got A Common Cat
                                 if(guildSettings.showCat === true){
@@ -202,7 +203,7 @@ bot.on("message", async message => {
                 }
                 if(!catTotalList){
                     const newTotal = new totalCat({
-                        totalcat: "placeholder",siamese: 0,burmese: 0,ragdoll: 0,persian: 0,maineCoon: 0,russianBlue: 0,abyssinian: 0,manx: 0,sphynx: 0,cyprus: 0,foldex: 0,turkishAngora: 0,korat: 0,singapura: 0,tonkinese: 0,peterbald: 0,chartreux: 0,munchkin: 0,bandit: 0,bug: 0,linda: 0,mittens: 0,cash: 0,jackson: 0,cottonball: 0,sonny: 0,smokey: 0,lailah: 0,cher: 0,marvin: 0,loki: 0,pancake: 0,squirtlett: 0,cursecat: 0
+                        totalcat: "placeholder",siamese: 0,burmese: 0,ragdoll: 0,persian: 0,maineCoon: 0,russianBlue: 0,abyssinian: 0,manx: 0,sphynx: 0,cyprus: 0,foldex: 0,turkishAngora: 0,korat: 0,singapura: 0,tonkinese: 0,peterbald: 0,chartreux: 0,munchkin: 0,bandit: 0,bug: 0,linda: 0,mittens: 0,cash: 0,jackson: 0,cottonball: 0,sonny: 0,smokey: 0,lailah: 0,cher: 0,marvin: 0,loki: 0,pancake: 0,squirtlett: 0,cursecat: 0,uwu: 0
                     })
                     newTotal.save().catch(err => console.log(err));
                     return;

@@ -36,7 +36,8 @@ const totalCatSchema = mongoose.Schema({
     loki: Number,
     pancake: Number,
     squirtlett: Number,
-    cursedcat: Number
+    cursedcat: Number,
+    uwu: Number
 })
 
 module.exports = mongoose.model("catTotalList", totalCatSchema);

@@ -38,6 +38,9 @@ bot.on("message", async message => {
         catList.loki = 0;
         catList.pancake = 0;
       }
+      if(catList.uwu === undefined){
+        catList.uwu = 0;
+      }
       catList.save().catch(err => console.log(err));
     }
   });

@@ -32,7 +32,7 @@ module.exports.run = async (bot, message, args) => {
         tAbyssinian = catTotalList.abyssinian;tManx = catTotalList.manx;tSphynx = catTotalList.sphynx;tCyprus = catTotalList.cyprus;tFoldex = catTotalList.foldex;tTurkishAngora = catTotalList.turkishAngora;
         tKorat = catTotalList.korat;tSingapura = catTotalList.singapura;tTonkinese = catTotalList.tonkinese;tPeterbald = catTotalList.peterbald;tChartreux = catTotalList.chartreux;tMunchkin = catTotalList.munchkin;
         tBandit = catTotalList.bandit;tBug = catTotalList.bug;tLinda = catTotalList.linda;tMittens = catTotalList.mittens;tCash = catTotalList.cash;tJackson = catTotalList.jackson;tCottonball = catTotalList.cottonball;tSonny = catTotalList.sonny;tSmokey = catTotalList.smokey;tLailah = catTotalList.lailah;tCher = catTotalList.cher;tMarvin = catTotalList.marvin;tLoki = catTotalList.loki;tPancake = catTotalList.pancake;
-        tSquirtlett = catTotalList.squirtlett;tCursedcat = catTotalList.cursedcat;
+        tSquirtlett = catTotalList.squirtlett;tCursedcat = catTotalList.cursedcat;tUWU = catTotalList.uwu;
         
         //* Function To Make The First Letter Of A Word Capitalized
         const cap = (string) => {
@@ -61,7 +61,6 @@ module.exports.run = async (bot, message, args) => {
         displayCat('ragdoll', '25', tRagdoll, 'https://i.imgur.com/BHI2A5B.jpg');
         displayCat('persian', '25', tPersian, 'https://i.imgur.com/7zk7qMR.jpg');
         displayCat('mainecoon', '25', tMaineCoon, 'https://i.imgur.com/BdqURwX.png');
-        //displayCat('russianblue', '25', tRussianBlue, 'https://i.imgur.com/XWmYcSC.jpg');
 
         //------uncommon------
 
@@ -78,7 +77,6 @@ module.exports.run = async (bot, message, args) => {
         displayCat('tonkinese', '200', tTonkinese, 'https://i.imgur.com/BVVQ89V.jpg')
         displayCat('peterbald', '200', tPeterbald, 'https://i.imgur.com/OSlqoj7.jpg')
         displayCat('chartreux', '200', tChartreux, 'https://i.imgur.com/dBRF5iR.jpg')
-        //displayCat('munchkin', '200', tMunchkin, 'https://i.imgur.com/iUIOKGR.jpg')
 
         //------special------
 
@@ -98,6 +96,8 @@ module.exports.run = async (bot, message, args) => {
         displayCat('pancake', '2500', tPancake, 'https://i.imgur.com/SJ40Y1E.jpg');
 
         //------impossible------
+
+        displayCat('uwu', '10000', tUWU, 'https://i.imgur.com/WJ87FfU.jpg');
 
         if(catInfo === 'squirtlett'){
           dexHelp = new Discord.RichEmbed()

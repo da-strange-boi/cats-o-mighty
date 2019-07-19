@@ -25,7 +25,7 @@ bot.on("message", async message => {
       }
       if(!catList){
         const newCat = new Cat({
-          userID: message.author.id,siamese: 0,burmese: 0,ragdoll: 0,persian: 0,maineCoon: 0,russianBlue: 0,abyssinian: 0,manx: 0,sphynx: 0,cyprus: 0,foldex: 0,turkishAngora: 0,korat: 0,singapura: 0,tonkinese: 0,peterbald: 0,chartreux: 0,munchkin: 0,bandit: 0,bug: 0,linda: 0,mittens: 0,cash: 0,jackson: 0,cottonball: 0,sonny: 0,smokey: 0,lailah: 0,cher: 0,marvin: 0,loki: 0,pancake: 0,squirtlett: 0,cursedcat: 0
+          userID: message.author.id,siamese: 0,burmese: 0,ragdoll: 0,persian: 0,maineCoon: 0,russianBlue: 0,abyssinian: 0,manx: 0,sphynx: 0,cyprus: 0,foldex: 0,turkishAngora: 0,korat: 0,singapura: 0,tonkinese: 0,peterbald: 0,chartreux: 0,munchkin: 0,bandit: 0,bug: 0,linda: 0,mittens: 0,cash: 0,jackson: 0,cottonball: 0,sonny: 0,smokey: 0,lailah: 0,cher: 0,marvin: 0,loki: 0,pancake: 0,squirtlett: 0,cursedcat: 0,uwu: 0
         })
         newCat.save().catch(err => console.log(err));
       }

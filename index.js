@@ -70,7 +70,7 @@ bot.on("message", async message => {
   };
 
   //* set up logging
-  require('./utils/logging.js');
+  //require('./utils/logging.js');
 
   //* Setup Command 'start' To Setup The Database For New Users
   require('./utils/newCat.js');

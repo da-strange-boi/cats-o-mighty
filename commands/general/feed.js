@@ -28,7 +28,7 @@ module.exports.run = async (bot, message, args) => {
 
       let catBreed = args[0].toLowerCase().trim();
 
-      animalList = ['siamese', 'burmese', 'ragdoll', 'persian', 'mainecoon', 'russianblue', 'abyssinian', 'manx', 'sphynx', 'cyprus', 'foldex', 'turkishangora', 'korat', 'singapura', 'tonkinese', 'perterbald', 'chartreux', 'munchkin', 'bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'laliah', 'cher', 'marvin', 'loki', 'pancake', 'squirtlett', 'cursedcat'];
+      animalList = ['siamese', 'burmese', 'ragdoll', 'persian', 'mainecoon', 'russianblue', 'abyssinian', 'manx', 'sphynx', 'cyprus', 'foldex', 'turkishangora', 'korat', 'singapura', 'tonkinese', 'perterbald', 'chartreux', 'munchkin', 'bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'laliah', 'cher', 'marvin', 'loki', 'pancake', 'squirtlett', 'cursedcat', 'UWU'];
       for(let i=0;i<animalList.length;i++){
         if(catBreed === animalList[i]){
           if(i <= 5){catType = 'common'}

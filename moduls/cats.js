@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+//! ALWAYS KEEP NAMES LOWERCASE 
+
 const catSchema = mongoose.Schema({
     userID: String,
     newUser: Boolean,
@@ -36,7 +38,8 @@ const catSchema = mongoose.Schema({
     loki: Number,
     pancake: Number,
     squirtlett: Number,
-    cursedcat: Number
+    cursedcat: Number,
+    uwu: Number,
 })
 
 module.exports = mongoose.model("catList", catSchema);

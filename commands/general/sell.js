@@ -33,6 +33,7 @@ module.exports.run = async (bot, message, args) => {
 
       //USAGE cat sell simese 1
       if(args[1]){
+        let animalSellName;
         animal = args[0].toLowerCase().trim();
         amtAnimal = args[1];
 
@@ -40,7 +41,7 @@ module.exports.run = async (bot, message, args) => {
         if(animal === 'mainecoon'){animal = "maineCoon"; animalSellName = "maine coon"}
         if(animal === 'turkishangora'){animal = "turkishAngora"; animalSellName = "turkish angora"}
 
-        animalList = ['siamese', 'burmese', 'ragdoll', 'persian', 'maineCoon', 'russianBlue', 'abyssinian', 'manx', 'sphynx', 'cyprus', 'foldex', 'turkishAngora', 'korat', 'singapura', 'tonkinese', 'perterbald', 'chartreux', 'munchkin', 'bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'laliah', 'cher', 'marvin', 'loki', 'pancake', 'squirtlett', 'cursedcat'];
+        animalList = ['siamese', 'burmese', 'ragdoll', 'persian', 'maineCoon', 'russianBlue', 'abyssinian', 'manx', 'sphynx', 'cyprus', 'foldex', 'turkishAngora', 'korat', 'singapura', 'tonkinese', 'perterbald', 'chartreux', 'munchkin', 'bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'laliah', 'cher', 'marvin', 'loki', 'pancake', 'squirtlett', 'cursedcat', 'uwu'];
         const checkAnimal = () => {  
           for(let i=0; i < animalList.length;i++){
             if(animal === animalList[i]){
@@ -81,6 +82,9 @@ module.exports.run = async (bot, message, args) => {
                 if(i >= 18 && i <= 31){catSellPrice = 2500} // special
                 if(i >= 32){catSellPrice = 10000} // impossible
 
+                if(animalSellName === undefined){
+                  animalSellName = animalList[i];
+                }
 
                 if(catList[animalList[i]] === 0){
                   message.channel.send(`You don't have any ${animalList[i]} cats to sell!`);
@@ -116,8 +120,8 @@ module.exports.run = async (bot, message, args) => {
             if(catList){
 
               //* Geting Vars Of All Cats
-              uSiamese = catList.siamese;uBurmese = catList.burmese;uRagdoll = catList.ragdoll;uPersian = catList.persian;uMaineCoon = catList.maineCoon;uRussianBlue = catList.russianBlue;uAbyssinian = catList.abyssinian;uManx = catList.manx;uSphynx = catList.sphynx;uCyprus = catList.cyprus;uFoldex = catList.foldex;uTurkishAngora = catList.turkishAngora;uKorat = catList.korat;uSingapura = catList.singapura;uTonkinese = catList.tonkinese;uPeterbald = catList.peterbald;uChartreux = catList.chartreux;uMunchkin = catList.munchkin;uBandit = catList.bandit;uBug = catList.bug;uLinda = catList.linda;uMittens = catList.mittens;uCash = catList.cash;uJackson = catList.jackson;uCottonball = catList.cottonball;uSonny = catList.sonny;uSmokey = catList.smokey;uLailah = catList.lailah;uCher = catList.cher;uMarvin = catList.marvin;uLoki = catList.loki;uPancake = catList.pancake;uSquirtlett = catList.squirtlett;uCursedcat = catList.cursedcat;
-              let commonCatTotal = uSiamese + uBurmese + uRagdoll + uPersian + uMaineCoon + uRussianBlue;let uncommonCatTotal = uAbyssinian + uManx + uSphynx + uCyprus + uFoldex + uTurkishAngora;let rareCatTotal = uKorat + uSingapura + uTonkinese + uPeterbald + uChartreux + uMunchkin;let specialCatTotal = uBandit + uBug + uLinda + uMittens + uCash + uJackson + uCottonball + uSonny + uSmokey + uLailah + uCher + uMarvin + uLoki + uPancake;let impossibleCatTotal = uSquirtlett + uCursedcat;
+              uSiamese = catList.siamese;uBurmese = catList.burmese;uRagdoll = catList.ragdoll;uPersian = catList.persian;uMaineCoon = catList.maineCoon;uRussianBlue = catList.russianBlue;uAbyssinian = catList.abyssinian;uManx = catList.manx;uSphynx = catList.sphynx;uCyprus = catList.cyprus;uFoldex = catList.foldex;uTurkishAngora = catList.turkishAngora;uKorat = catList.korat;uSingapura = catList.singapura;uTonkinese = catList.tonkinese;uPeterbald = catList.peterbald;uChartreux = catList.chartreux;uMunchkin = catList.munchkin;uBandit = catList.bandit;uBug = catList.bug;uLinda = catList.linda;uMittens = catList.mittens;uCash = catList.cash;uJackson = catList.jackson;uCottonball = catList.cottonball;uSonny = catList.sonny;uSmokey = catList.smokey;uLailah = catList.lailah;uCher = catList.cher;uMarvin = catList.marvin;uLoki = catList.loki;uPancake = catList.pancake;uSquirtlett = catList.squirtlett;uCursedcat = catList.cursedcat;uUWU = catList.uwu;
+              let commonCatTotal = uSiamese + uBurmese + uRagdoll + uPersian + uMaineCoon + uRussianBlue;let uncommonCatTotal = uAbyssinian + uManx + uSphynx + uCyprus + uFoldex + uTurkishAngora;let rareCatTotal = uKorat + uSingapura + uTonkinese + uPeterbald + uChartreux + uMunchkin;let specialCatTotal = uBandit + uBug + uLinda + uMittens + uCash + uJackson + uCottonball + uSonny + uSmokey + uLailah + uCher + uMarvin + uLoki + uPancake;let impossibleCatTotal = uSquirtlett + uCursedcat + uUWU;
 
               //USAGE cat sell all
               if(sellOption === "all" || sellOption === "allcats"){
@@ -235,7 +239,7 @@ module.exports.run = async (bot, message, args) => {
                 }
                 //* Convert The Cats Numbers Into Money
                 userMoney.money = userMoney.money + (impossibleCatTotal * 10000);
-                catList.squirtlett=0;
+                catList.squirtlett=0;catList.cursedcat=0;catList.uwu=0;
                 catList.save().catch(err => console.log(err));
                 let sellImpossibleCatsEmbed = new Discord.RichEmbed().setAuthor(message.author.username, message.author.avatarURL).setColor(config.color.cats).setDescription(`You sold ${impossibleCatTotal} cats for $${(impossibleCatTotal * 10000)}`);
                 message.channel.send(sellImpossibleCatsEmbed);
