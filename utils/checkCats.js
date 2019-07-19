@@ -7,6 +7,7 @@ mongoose.connect("mongodb://localhost:27017/cats-o-mighty", {
     useNewUrlParser: true
 });
 const Cat = require("../moduls/cats.js");
+let Settings = require('../moduls/settings.js');
 
 bot.on("message", async message => {
 
@@ -40,4 +41,18 @@ bot.on("message", async message => {
       catList.save().catch(err => console.log(err));
     }
   });
+
+  Settings.findOne({
+    guildID: message.guild.id
+  }, (err, guildSettings) => {
+    if(err) console.log(err);
+    if(!guildSettings){
+      const newSettings = new Settings({
+        guildID: message.guild.id,showCat: true
+      });
+      newSettings.save().catch(err => console.log(err));
+    }
+
+  });
+
 });
