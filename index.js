@@ -53,8 +53,6 @@ bot.on("ready", async () => {
 //* Whenever A Message Is Sent Run The Code Below
 bot.on("message", async message => {
 
-  if(!bot.guilds.me.hasPermission("SEND_MESSAGES")) return;
-
   //* Set Vars For The Commands
   let prefix = config.prefix;
   let args = message.content.slice(prefix.length).trim().split(' ');

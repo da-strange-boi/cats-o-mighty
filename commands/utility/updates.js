@@ -22,15 +22,16 @@ module.exports.run = async (bot, message, args) => {
   date702 = updateData.date702;
   date709 = updateData.date709;
   date714 = updateData.date714;
+  date719 = updateData.date719;
 
   let bicon = bot.user.displayAvatarURL;
   updateEmbed = new Discord.RichEmbed()
   .setThumbnail(bicon)
   .setColor(config.color.utility)
-  .setTitle(`**${bot.user.username} - 0.3.17**`);
+  .setTitle(`**${bot.user.username} - 0.3.22**`);
 
   if(!args[0]){    
-    updateEmbed.setDescription(date714);updateNum++;
+    updateEmbed.setDescription(date719);updateNum++;
     message.channel.send(updateEmbed);return;
   }
     
@@ -51,6 +52,7 @@ module.exports.run = async (bot, message, args) => {
     if(args[0] === "7/2" || args[0] === "7-2" || args[0] === "702"){updateEmbed.setDescription(date702);updateNum++;}
     if(args[0] === "7/9" || args[0] === "7-9" || args[0] === "709"){updateEmbed.setDescription(date709);updateNum++;}
     if(args[0] === "7/14" || args[0] === "7-14" || args[0] === "714"){updateEmbed.setDescription(date714);updateNum++;}
+    if(args[0] === "7/19" || args[0] === "7-19" || args[0] === "719"){updateEmbed.setDescription(date719);updateNum++;}
 
     message.channel.send(updateEmbed);
   }
