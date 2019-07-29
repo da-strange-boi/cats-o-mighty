@@ -5,6 +5,8 @@ module.exports.run = async (bot, message, args) => {
 
 	//USAGE cat botinfo
 
+	if(message.author.id != "295255543596187650"){ return; }
+
 	function msToTime(ms) {
     days = Math.floor((ms / 86400000)), // 1 Day = 86400000 Milliseconds
     hours = Math.floor((ms % 86400000) / 3600000), // 1 Hour = 3600000 Milliseconds
@@ -25,7 +27,6 @@ module.exports.run = async (bot, message, args) => {
 	.setAuthor(bot.user.username, bot.user.avatarURL)
 	.setColor(config.color.utility)
 	.setThumbnail(bIcon)
-	.setDescription("Bot Information")
 	.addField(":date: Created On", bot.user.createdAt)
 	.addField(":hourglass: Uptime", `${date.days} Days ${date.hours} Hours ${date.minutes} Minutes ${date.seconds} Seconds`)
 	.addField(":desktop: Number of lines of code", "2,465 lines")

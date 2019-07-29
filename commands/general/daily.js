@@ -1,13 +1,8 @@
 const Discord = require("discord.js");
 const ms = require('parse-ms');
-
 const config = require('../../config.json');
-
-const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/cats-o-mighty", {useNewUrlParser: true});
-const Daily = require("../../moduls/daily.js");
-const Cat = require("../../moduls/cats.js");
-const Money = require("../../moduls/money.js");
+const Userdata = require("../../moduls/userdata.js");
+let cooldown = {};
 
 module.exports.run = async (bot, message, args) => {
 
@@ -17,6 +12,14 @@ module.exports.run = async (bot, message, args) => {
      If your streak is below a 7 (under a week) then you get common rewards
      If your streak is above a 7 (over a week) then you get special rewards
   */
+
+  //* Set A Cooldown
+  if(cooldown[message.author.id]){
+    let time = ms(Date.now() - cooldown[message.author.id]);
+    message.channel.send(`hmm **${message.author.username}**, you gotta wait **${3.5 - time.seconds}s**`).then(msg => msg.delete(1000 * (3.5 - time.seconds)));
+    return;
+  }
+  cooldown[message.author.id] = Date.now();
 
   const displayEmbed = (amtMoney, dailyStreak, catName) => {
     let embed = new Discord.RichEmbed()
@@ -33,30 +36,13 @@ module.exports.run = async (bot, message, args) => {
     message.channel.send(embed);
   }
 
-  Daily.findOne({
+  Userdata.findOne({
     userID: message.author.id
-  }, (err, userDaily) => {
+  }, (err, userdata) => {
     if(err) console.log(err);
 
-    if(!userDaily){
-      const newDaily = new Daily({
-        userID: message.author.id, daily: Date.now(), dailyStreak: 0
-      })
-      newDaily.save().catch(err => console.log(err));
-
-      Money.findOne({userID: message.author.id}, (err, userMoney) => {if(err) console.log(err);
-        if(userMoney){
-          userMoney.money = userMoney.money + 500;
-          userMoney.save().catch(err => console.log(err));
-        }});
-
-      let catName;
-      displayEmbed(500, 0, catName)
-      return;
-    }
-
     let timeout = 86400000; //* 24 hours
-    daily = userDaily.daily;
+    daily = userdata.times.dailyTime;
 
     if(daily !== null && timeout - (Date.now() - daily) > 0){
       let time = ms(timeout - (Date.now() - daily));
@@ -66,91 +52,79 @@ module.exports.run = async (bot, message, args) => {
       .setColor(config.color.cats)
       .setFooter('after 7 days you\'ll get better rewards || this still needs a lot of work lol')
       .setDescription(`You have to wait **${time.hours}h ${time.minutes}m ${time.seconds}s** until next daily`)
-      .addField(':star2: Streak', `${userDaily.dailyStreak}`);
+      .addField(':star2: Streak', `${userdata.stats.dailyStreak}`);
       message.channel.send(embed);
     } else {
 
-      userDaily.daily = Date.now();
-      userDaily.dailyStreak = userDaily.dailyStreak + 1;
+      userdata.times.dailyTime = Date.now();
+      userdata.stats.dailyStreak += 1;
 
-      Cat.findOne({
-        userID: message.author.id
-      }, (err, catList) => {
-        if(err) console.log(err);
+      //* If User Has Under A 7 Day Daily Streak
+      if(userdata.stats.dailyStreak < 7){
 
-        Money.findOne({
-          userID: message.author.id
-        }, (err, userMoney) => {
-          if(err) console.log(err);
-          if(userMoney){
+        let catName;let amtMoney;
 
-            //* If User Has Under A 7 Day Daily Streak
-            if(userDaily.dailyStreak < 7){
+        let specialCatAmt = Math.floor(Math.random() * 6) + 1;
+        let specialBaseAmt = Math.floor(Math.random() * 6) + 1;
 
-              let catName;let amtMoney;
+        if(specialCatAmt === specialBaseAmt){
+                  
+          //* Set Vars For Special Cats
+          let animales = ['bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin', 'loki', 'loverboy'];
+          let aResult = Math.floor((Math.random() * animales.length));
 
-              let specialCatAmt = Math.floor(Math.random() * 6) + 1;
-              let specialBaseAmt = Math.floor(Math.random() * 6) + 1;
+          //* Check To See What Cat It Is Then Add It To Their Cats
+          if(aResult === 0){userdata.cats.bandit += 1; catName = "bandit";}if(aResult === 1){userdata.cats.bug += 1; catName = "bug";}if(aResult === 2){userdata.cats.linda += 1; catName = "linda";}if(aResult === 3){userdata.cats.mittens += 1; catName = "mittens";}if(aResult === 4){userdata.cats.cash += 1; catName = "cash";}if(aResult === 5){userdata.cats.jackson += 1; catName = "jackson";}if(aResult === 6){userdata.cats.cottonball += 1; catName = "cottonball";}if(aResult === 7){userdata.cats.sonny += 1; catName = "sonny";}if(aResult === 8){userdata.cats.smokey += 1; catName = "smokey";}if(aResult === 9){userdata.cats.lailah += 1; catName = "lailah";}if(aResult === 10){userdata.cats.cher += 1; catName = "cher";}if(aResult === 11){userdata.cats.marvin += 1; catName = "marvin";}if(aResult === 12){userdata.cats.loki += 1; catName = "loki";}if(aResult === 13){userdata.cats.loverboy += 1; catName = "loverboy";}
 
-              if(specialCatAmt === specialBaseAmt){
-                        
-                //* Set Vars For Special Cats
-                let animales = ['bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin', 'loki', 'pancake'];
-                let aResult = Math.floor((Math.random() * animales.length));
-    
-                //* Check To See What Cat It Is Then Add It To Their Cats
-                if(aResult === 0){catList.bandit = catList.bandit + 1; catName = "bandit";}if(aResult === 1){catList.bug = catList.bug + 1; catName = "bug";}if(aResult === 2){catList.linda = catList.linda + 1; catName = "linda";}if(aResult === 3){catList.mittens = catList.mittens + 1; catName = "mittens";}if(aResult === 4){catList.cash = catList.cash + 1; catName = "cash";}if(aResult === 5){catList.jackson = catList.jackson + 1; catName = "jackson";}if(aResult === 6){catList.cottonball = catList.cottonball + 1; catName = "cottonball";}if(aResult === 7){catList.sonny = catList.sonny + 1; catName = "sonny";}if(aResult === 8){catList.smokey = catList.smokey + 1; catName = "smokey";}if(aResult === 9){catList.lailah = catList.lailah + 1; catName = "lailah";}if(aResult === 10){catList.cher = catList.cher + 1; catName = "cher";}if(aResult === 11){catList.marvin = catList.marvin + 1; catName = "marvin";}if(aResult === 12){catList.loki = catList.loki + 1; catName = "loki";}if(aResult === 13){catList.pancake = catList.pancake + 1; catName = "pancake";}
-    
-              } else {
-                let moneyList = [200, 250, 300, 350, 400, 500, 1000];
-                let mResult = Math.floor((Math.random() * moneyList.length));
+        } else {
+          let moneyList = [200, 250, 300, 350, 400, 500, 1000];
+          let mResult = Math.floor((Math.random() * moneyList.length));
 
-                if(mResult === 0){userMoney.money = userMoney.money + 200; amtMoney = '200'}
-                if(mResult === 1){userMoney.money = userMoney.money + 250; amtMoney = '250'}
-                if(mResult === 2){userMoney.money = userMoney.money + 300; amtMoney = '300'}
-                if(mResult === 3){userMoney.money = userMoney.money + 350; amtMoney = '250'}
-                if(mResult === 4){userMoney.money = userMoney.money + 400; amtMoney = '400'}
-                if(mResult === 5){userMoney.money = userMoney.money + 500; amtMoney = '500'}
-                if(mResult === 6){userMoney.money = userMoney.money + 1000; amtMoney = '1,000'}
+          if(mResult === 0){userdata.money.catmoney += 200; amtMoney = '200'}
+          if(mResult === 1){userdata.money.catmoney += 250; amtMoney = '250'}
+          if(mResult === 2){userdata.money.catmoney += 300; amtMoney = '300'}
+          if(mResult === 3){userdata.money.catmoney += 350; amtMoney = '250'}
+          if(mResult === 4){userdata.money.catmoney += 400; amtMoney = '400'}
+          if(mResult === 5){userdata.money.catmoney += 500; amtMoney = '500'}
+          if(mResult === 6){userdata.money.catmoney += 1000; amtMoney = '1,000'}
 
-              }
-              displayEmbed(amtMoney, userDaily.dailyStreak, catName)
-            }
-            //* If User Has Over A 7 Day Daily Streak
-            if(userDaily.dailyStreak > 7){
-              let catName;let amtMoney;
+        }
+        displayEmbed(amtMoney, userdata.stats.dailyStreak, catName)
+      }
+      //* If User Has Over A 7 Day Daily Streak
+      if(userdata.stats.dailyStreak > 7){
+        let catName;let amtMoney;
 
-              let specialCatAmt = Math.floor(Math.random() * 3) + 1;
-              let specialBaseAmt = Math.floor(Math.random() * 3) + 1;
+        let specialCatAmt = Math.floor(Math.random() * 3) + 1;
+        let specialBaseAmt = Math.floor(Math.random() * 3) + 1;
 
-              if(specialCatAmt === specialBaseAmt){
-                        
-                //* Set Vars For Special Cats
-                let animales = ['bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin', 'loki', 'pancake'];
-                let aResult = Math.floor((Math.random() * animales.length));
-    
-                //* Check To See What Cat It Is Then Add It To Their Cats
-                if(aResult === 0){catList.bandit = catList.bandit + 1; catName = "bandit";}if(aResult === 1){catList.bug = catList.bug + 1; catName = "bug";}if(aResult === 2){catList.linda = catList.linda + 1; catName = "linda";}if(aResult === 3){catList.mittens = catList.mittens + 1; catName = "mittens";}if(aResult === 4){catList.cash = catList.cash + 1; catName = "cash";}if(aResult === 5){catList.jackson = catList.jackson + 1; catName = "jackson";}if(aResult === 6){catList.cottonball = catList.cottonball + 1; catName = "cottonball";}if(aResult === 7){catList.sonny = catList.sonny + 1; catName = "sonny";}if(aResult === 8){catList.smokey = catList.smokey + 1; catName = "smokey";}if(aResult === 9){catList.lailah = catList.lailah + 1; catName = "lailah";}if(aResult === 10){catList.cher = catList.cher + 1; catName = "cher";}if(aResult === 11){catList.marvin = catList.marvin + 1; catName = "marvin";}if(aResult === 12){catList.loki = catList.loki + 1; catName = "loki";}if(aResult === 13){catList.pancake = catList.pancake + 1; catName = "pancake";}
-                
-              }
-              let moneyList = [400, 500, 1000, 1500, 2000];
-              let mResult = Math.floor((Math.random() * moneyList.length));
+        if(specialCatAmt === specialBaseAmt){
+                  
+          //* Set Vars For Special Cats
+          let animales = ['bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin', 'loki', 'loverboy'];
+          let aResult = Math.floor((Math.random() * animales.length));
 
-              if(mResult === 0){userMoney.money = userMoney.money + 400; amtMoney = '400'}
-              if(mResult === 1){userMoney.money = userMoney.money + 500; amtMoney = '500'}
-              if(mResult === 2){userMoney.money = userMoney.money + 1000; amtMoney = '1000'}
-              if(mResult === 3){userMoney.money = userMoney.money + 1500; amtMoney = '1500'}
-              if(mResult === 4){userMoney.money = userMoney.money + 2000; amtMoney = '2000'}
-              displayEmbed(amtMoney, userDaily.dailyStreak, catName)
-            }
-          }
-          userMoney.save().catch(err => console.log(err));
-        });
-        catList.save().catch(err => console.log(err));
-      });
-      userDaily.save().catch(err => console.log(err));
+          //* Check To See What Cat It Is Then Add It To Their Cats
+          if(aResult === 0){userdata.cats.bandit += 1; catName = "bandit";}if(aResult === 1){userdata.cats.bug += 1; catName = "bug";}if(aResult === 2){userdata.cats.linda += 1; catName = "linda";}if(aResult === 3){userdata.cats.mittens += 1; catName = "mittens";}if(aResult === 4){userdata.cats.cash += 1; catName = "cash";}if(aResult === 5){userdata.cats.jackson += 1; catName = "jackson";}if(aResult === 6){userdata.cats.cottonball += 1; catName = "cottonball";}if(aResult === 7){userdata.cats.sonny += 1; catName = "sonny";}if(aResult === 8){userdata.cats.smokey += 1; catName = "smokey";}if(aResult === 9){userdata.cats.lailah += 1; catName = "lailah";}if(aResult === 10){userdata.cats.cher += 1; catName = "cher";}if(aResult === 11){userdata.cats.marvin += 1; catName = "marvin";}if(aResult === 12){userdata.cats.loki += 1; catName = "loki";}if(aResult === 13){userdata.cats.loverboy += 1; catName = "loverboy";}
+          
+        }
+        let moneyList = [400, 500, 1000, 1500, 2000];
+        let mResult = Math.floor((Math.random() * moneyList.length));
+
+        if(mResult === 0){userdata.money.catmoney += 400; amtMoney = '400'}
+        if(mResult === 1){userdata.money.catmoney += 500; amtMoney = '500'}
+        if(mResult === 2){userdata.money.catmoney += 1000; amtMoney = '1,000'}
+        if(mResult === 3){userdata.money.catmoney += 1500; amtMoney = '1,500'}
+        if(mResult === 4){userdata.money.catmoney += 2000; amtMoney = '2,000'}
+        displayEmbed(amtMoney, userdata.stats.dailyStreak, catName)
+      }
+    userdata.save().catch(err => console.log(err));
     }
   });
+  //* Delete The Cooldown // Resetting It
+  setTimeout(() => {
+    delete cooldown[message.author.id];
+  }, 3500);
 }
 
 module.exports.help = {

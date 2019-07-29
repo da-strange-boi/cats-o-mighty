@@ -17,9 +17,6 @@ setInterval(() => {
   }
 
   request(options)
-  .then(function(response){
-    return true
-  })
   .catch(function(err){
     console.log(err);
   });

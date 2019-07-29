@@ -1,11 +1,7 @@
 const Discord = require("discord.js");
 let config = require("../../config.json");
 
-const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/cats-o-mighty", {
-    useNewUrlParser: true
-});
-const Cat = require("../../moduls/cats.js");
+const Userdata = require("../../moduls/userdata.js");
 
 module.exports.run = async (bot, message, args) => {
     if(message.author.id != "295255543596187650"){ return; }
@@ -24,20 +20,20 @@ module.exports.run = async (bot, message, args) => {
             if (!bUser) return message.channel.send("Heyo that person doesn't exist in the database lol");
             let amtCat = Number(args[2]);
 
-            Cat.findOne({
+            Userdata.findOne({
                 userID: bUser.id
-            }, (err, catList) => {
+            }, (err, userdata) => {
                 if(err) console.log(err);
 
-                if(args[1] === "siamese"){catList.siamese = catList.siamese + amtCat;}if(args[1] === "burmese"){catList.burmese = catList.burmese + amtCat;}if(args[1] === "ragdoll"){catList.ragdoll = catList.ragdoll + amtCat;}if(args[1] === "persian"){catList.persian = catList.persian + amtCat;}if(args[1] === "maine coon" || args[1] === "mainecoon"){catList.maineCoon = catList.maineCoon + amtCat;}if(args[1] === "russianblue"){catList.russianBlue = catList.russianBlue + amtCat;}
-                if(args[1] === "abyssinian"){catList.abyssinian = catList.abyssinian + amtCat;}if(args[1] === "manx"){catList.manx = catList.manx + amtCat;}if(args[1] === "sphynx"){catList.sphynx = catList.sphynx + amtCat;}if(args[1] === "cyprus"){catList.cyprus = catList.cyprus + amtCat;}if(args[1] === "foldex"){catList.foldex = catList.foldex + amtCat;}
-                if(args[1] === "korat"){catList.korat = catList.korat + amtCat;}if(args[1] === "singapura"){catList.singapura = catList.singapura + amtCat;}if(args[1] === "tonkinese"){catList.tonkinese = catList.tonkinese + amtCat;}if(args[1] === "peterbald"){catList.peterbald = catList.peterbald + amtCat;}if(args[1] === "chartreux"){catList.chartreux = catList.chartreux + amtCat;}if(args[1] === "munchkin"){catList.munchkin = catList.munchkin + amtCat;}
-                if(args[1] === "bandit"){catList.bandit = catList.bandit + amtCat;}if(args[1] === "bug"){catList.bug = catList.bug + amtCat;}if(args[1] === "linda"){catList.linda = catList.linda + amtCat;}if(args[1] === "mittens"){catList.mittens = catList.mittens + amtCat;}if(args[1] === "cash"){catList.cash = catList.cash + amtCat;}if(args[1] === "jackson"){catList.jackson = catList.jackson + amtCat;}if(args[1] === "cottonball"){catList.cottonball = catList.cottonball + amtCat;}if(args[1] === "sonny"){catList.sonny = catList.sonny + amtCat;}if(args[1] === "smokey"){catList.smokey = catList.smokey + amtCat;}if(args[1] === "lailah"){catList.lailah = catList.lailah + amtCat;}if(args[1] === "cher"){catList.cher = catList.cher + amtCat;}if(args[1] === "marvin"){catList.marvin = catList.marvin + amtCat;}if(args[1] === "loki"){catList.loki = catList.loki + amtCat;}if(args[1] === "pancake"){catList.pancake = catList.pancake + amtCat;}
-                if(args[1] === "squirtlett"){catList.squirtlett = catList.squirtlett + amtCat;}if(args[1] === "cursedcat"){catList.cursedcat = catList.cursedcat + amtCat;}if(args[1] === "uwu"){catList.uwu = catList.uwu + amtCat;}
+                if(args[1] === "siamese"){userdata.cats.siamese += amtCat;}if(args[1] === "burmese"){userdata.cats.burmese += amtCat;}if(args[1] === "ragdoll"){userdata.cats.ragdoll += amtCat;}if(args[1] === "persian"){userdata.cats.persian += amtCat;}if(args[1] === "maine coon" || args[1] === "mainecoon"){userdata.cats.mainecoon += amtCat;}if(args[1] === "russianblue"){userdata.cats.russianblue += amtCat;}
+                if(args[1] === "abyssinian"){userdata.cats.abyssinian += amtCat;}if(args[1] === "manx"){userdata.cats.manx += amtCat;}if(args[1] === "sphynx"){userdata.cats.sphynx += amtCat;}if(args[1] === "cyprus"){userdata.cats.cyprus += amtCat;}if(args[1] === "foldex"){userdata.cats.foldex += amtCat;}if(args[1] === "turkishangora"){userdata.cats.turkishangora += amtCat;}
+                if(args[1] === "korat"){userdata.cats.korat += amtCat;}if(args[1] === "singapura"){userdata.cats.singapura += amtCat;}if(args[1] === "tonkinese"){userdata.cats.tonkinese += amtCat;}if(args[1] === "peterbald"){userdata.cats.peterbald += amtCat;}if(args[1] === "chartreux"){userdata.cats.chartreux += amtCat;}if(args[1] === "munchkin"){userdata.cats.munchkin += amtCat;}
+                if(args[1] === "bandit"){userdata.cats.bandit += amtCat;}if(args[1] === "bug"){userdata.cats.bug += amtCat;}if(args[1] === "linda"){userdata.cats.linda += amtCat;}if(args[1] === "mittens"){userdata.cats.mittens += amtCat;}if(args[1] === "cash"){userdata.cats.cash += amtCat;}if(args[1] === "jackson"){userdata.cats.jackson += amtCat;}if(args[1] === "cottonball"){userdata.cats.cottonball += amtCat;}if(args[1] === "sonny"){userdata.cats.sonny += amtCat;}if(args[1] === "smokey"){userdata.cats.smokey += amtCat;}if(args[1] === "lailah"){userdata.cats.lailah += amtCat;}if(args[1] === "cher"){userdata.cats.cher += amtCat;}if(args[1] === "marvin"){userdata.cats.marvin += amtCat;}if(args[1] === "loki"){userdata.cats.loki += amtCat;}if(args[1] === "loverboy"){userdata.cats.loverboy += amtCat;}
+                if(args[1] === "squirtlett"){userdata.cats.squirtlett += amtCat;}if(args[1] === "cursedcat"){userdata.cats.cursedcat += amtCat;}if(args[1] === "uwu"){userdata.cats.uwu += amtCat;}
 
-                catList.save().catch(err => console.log(err));
+                userdata.save().catch(err => console.log(err));
 
-                message.channel.send(`The catto been addo!\n${args[2]} ${args[1]}'s has been added to ${bUser} account`);
+                message.channel.send(`${args[2]} ${args[1]}'s has been added to ${bUser} account`);
             });
             return;
         }
@@ -45,22 +41,22 @@ module.exports.run = async (bot, message, args) => {
         //USAGE cat addcat {cat name} {amount}
         if(args[1]){
             //* Select My Data From The Database
-            Cat.findOne({
+            Userdata.findOne({
                 userID: message.author.id
-            }, (err, catList) => {
+            }, (err, userdata) => {
                 if(err) console.log(err);
 
                 let amtCat = Number(args[1]);
 
-                if(args[0] === "siamese"){catList.siamese = catList.siamese + amtCat;}if(args[0] === "burmese"){catList.burmese = catList.burmese + amtCat;}if(args[0] === "ragdoll"){catList.ragdoll = catList.ragdoll + amtCat;}if(args[0] === "persian"){catList.persian = catList.persian + amtCat;}if(args[0] === "maine coon" || args[0] === "mainecoon"){catList.maineCoon = catList.maineCoon + amtCat;}if(args[0] === "russianblue"){catList.russianBlue = catList.russianBlue + amtCat;}
-                if(args[0] === "abyssinian"){catList.abyssinian = catList.abyssinian + amtCat;}if(args[0] === "manx"){catList.manx = catList.manx + amtCat;}if(args[0] === "sphynx"){catList.sphynx = catList.sphynx + amtCat;}if(args[0] === "cyprus"){catList.cyprus = catList.cyprus + amtCat;}if(args[0] === "foldex"){catList.foldex = catList.foldex + amtCat;}if(args[0] === "turkishangora"){catList.turkishAngora = catList.turkishAngora + amtCat;}
-                if(args[0] === "korat"){catList.korat = catList.korat + amtCat;}if(args[0] === "singapura"){catList.singapura = catList.singapura + amtCat;}if(args[0] === "tonkinese"){catList.tonkinese = catList.tonkinese + amtCat;}if(args[0] === "peterbald"){catList.peterbald = catList.peterbald + amtCat;}if(args[0] === "chartreux"){catList.chartreux = catList.chartreux + amtCat;}if(args[0] === "munchkin"){catList.munchkin = catList.munchkin + amtCat;}
-                if(args[0] === "bandit"){catList.bandit = catList.bandit + amtCat;}if(args[0] === "bug"){catList.bug = catList.bug + amtCat;}if(args[0] === "linda"){catList.linda = catList.linda + amtCat;}if(args[0] === "mittens"){catList.mittens = catList.mittens + amtCat;}if(args[0] === "cash"){catList.cash = catList.cash + amtCat;}if(args[0] === "jackson"){catList.jackson = catList.jackson + amtCat;}if(args[0] === "cottonball"){catList.cottonball = catList.cottonball + amtCat;}if(args[0] === "sonny"){catList.sonny = catList.sonny + amtCat;}if(args[0] === "smokey"){catList.smokey = catList.smokey + amtCat;}if(args[0] === "lailah"){catList.lailah = catList.lailah + amtCat;}if(args[0] === "cher"){catList.cher = catList.cher + amtCat;}if(args[0] === "marvin"){catList.marvin = catList.marvin + amtCat;}if(args[0] === "loki"){catList.loki = catList.loki + amtCat;}if(args[0] === "pancake"){catList.pancake = catList.pancake + amtCat;}
-                if(args[0] === "squirtlett"){catList.squirtlett = catList.squirtlett + amtCat;}if(args[0] === "cursedcat"){catList.cursedcat = catList.cursedcat + amtCat;}if(args[0] === "uwu"){catList.uwu = catList.uwu + amtCat;}
+                if(args[0] === "siamese"){userdata.cats.siamese += amtCat;}if(args[0] === "burmese"){userdata.cats.burmese += amtCat;}if(args[0] === "ragdoll"){userdata.cats.ragdoll += amtCat;}if(args[0] === "persian"){userdata.cats.persian += amtCat;}if(args[0] === "maine coon" || args[0] === "mainecoon"){userdata.cats.mainecoon += amtCat;}if(args[0] === "russianblue"){userdata.cats.russianblue += amtCat;}
+                if(args[0] === "abyssinian"){userdata.cats.abyssinian += amtCat;}if(args[0] === "manx"){userdata.cats.manx += amtCat;}if(args[0] === "sphynx"){userdata.cats.sphynx += amtCat;}if(args[0] === "cyprus"){userdata.cats.cyprus += amtCat;}if(args[0] === "foldex"){userdata.cats.foldex += amtCat;}if(args[0] === "turkishangora"){userdata.cats.turkishangora += amtCat;}
+                if(args[0] === "korat"){userdata.cats.korat += amtCat;}if(args[0] === "singapura"){userdata.cats.singapura += amtCat;}if(args[0] === "tonkinese"){userdata.cats.tonkinese += amtCat;}if(args[0] === "peterbald"){userdata.cats.peterbald += amtCat;}if(args[0] === "chartreux"){userdata.cats.chartreux += amtCat;}if(args[0] === "munchkin"){userdata.cats.munchkin += amtCat;}
+                if(args[0] === "bandit"){userdata.cats.bandit += amtCat;}if(args[0] === "bug"){userdata.cats.bug += amtCat;}if(args[0] === "linda"){userdata.cats.linda += amtCat;}if(args[0] === "mittens"){userdata.cats.mittens += amtCat;}if(args[0] === "cash"){userdata.cats.cash += amtCat;}if(args[0] === "jackson"){userdata.cats.jackson += amtCat;}if(args[0] === "cottonball"){userdata.cats.cottonball += amtCat;}if(args[0] === "sonny"){userdata.cats.sonny += amtCat;}if(args[0] === "smokey"){userdata.cats.smokey += amtCat;}if(args[0] === "lailah"){userdata.cats.lailah += amtCat;}if(args[0] === "cher"){userdata.cats.cher += amtCat;}if(args[0] === "marvin"){userdata.cats.marvin += amtCat;}if(args[0] === "loki"){userdata.cats.loki += amtCat;}if(args[0] === "loverboy"){userdata.cats.loverboy += amtCat;}
+                if(args[0] === "squirtlett"){userdata.cats.squirtlett += amtCat;}if(args[0] === "cursedcat"){userdata.cats.cursedcat += amtCat;}if(args[0] === "uwu"){userdata.cats.uwu += amtCat;}
 
-                catList.save().catch(err => console.log(err));
+                userdata.save().catch(err => console.log(err));
 
-                message.channel.send(`The catto been addo!\n${args[1]} ${args[0]}'s has been added to your account`);
+                message.channel.send(`${args[1]} ${args[0]}'s has been added to your account`);
             });
         }
     }

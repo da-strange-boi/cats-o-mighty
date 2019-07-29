@@ -1,0 +1,11 @@
+const mongoose = require("mongoose");
+
+const suggestionsSchema = mongoose.Schema({
+    placeholder: String,
+    userID: String,
+    userTag: String,
+    suggestionNumber: Number,
+    suggestion: String
+})
+
+module.exports = mongoose.model("userSuggestion", suggestionsSchema);

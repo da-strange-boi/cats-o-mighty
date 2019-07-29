@@ -1,60 +1,68 @@
-// discord / json vars
 const Discord = require("discord.js");
+const ms = require('parse-ms');
 let config = require("../../config.json");
-
-//mongoose vars
-const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/cats-o-mighty", {
-    useNewUrlParser: true
-});
-const Money = require("../../moduls/money.js");
+const Userdata = require("../../moduls/userdata.js");
+let cooldown = {};
 
 module.exports.run = async (bot, message, args) => {
 
+  //* Set A Cooldown
+  if(cooldown[message.author.id]){
+    let time = ms(Date.now() - cooldown[message.author.id]);
+    message.channel.send(`hmm **${message.author.username}**, you gotta wait **${3.5 - time.seconds}s**`).then(msg => msg.delete(1000 * (3.5 - time.seconds)));
+    return;
+  }
+  cooldown[message.author.id] = Date.now();
+
   //* Select User Data From Database
-  Money.find({
-    placeholder: "global"
-  }).sort([
-    ['money', 'descending']
-  ]).exec((err, res) => {
+  Userdata.find({}).sort([
+    ['catmoney', 'descending']
+  ]).exec((err, userdata) => {
     if(err) console.log(err);
+    let member;
 
-      // https://stackoverflow.com/questions/149055/how-can-i-format-numbers-as-dollars-currency-string-in-javascript
-      function formatMoney(amount, decimalCount = 0, decimal = ".", thousands = ",") {try {decimalCount = Math.abs(decimalCount);decimalCount = isNaN(decimalCount) ? 2 : decimalCount;const negativeSign = amount < 0 ? "-" : "";let i = parseInt(amount = Math.abs(Number(amount) || 0).toFixed(decimalCount)).toString();let j = (i.length > 3) ? i.length % 3 : 0;return negativeSign + (j ? i.substr(0, j) + thousands : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousands) + (decimalCount ? decimal + Math.abs(amount - i).toFixed(decimalCount).slice(2) : "");} catch (e) {console.log(e)}};
-      // end of code i copied
-      
-      let embed = new Discord.RichEmbed()
-      .setTitle("**Leaderboard**")
+    // https://stackoverflow.com/questions/149055/how-can-i-format-numbers-as-dollars-currency-string-in-javascript
+    function formatMoney(amount, decimalCount = 0, decimal = ".", thousands = ",") {try {decimalCount = Math.abs(decimalCount);decimalCount = isNaN(decimalCount) ? 2 : decimalCount;const negativeSign = amount < 0 ? "-" : "";let i = parseInt(amount = Math.abs(Number(amount) || 0).toFixed(decimalCount)).toString();let j = (i.length > 3) ? i.length % 3 : 0;return negativeSign + (j ? i.substr(0, j) + thousands : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousands) + (decimalCount ? decimal + Math.abs(amount - i).toFixed(decimalCount).slice(2) : "");} catch (e) {console.log(e)}};
+    // end of code i copied
+    
+    let embed = new Discord.RichEmbed()
+    .setTitle("**Leaderboard**")
 
-      //* If There Are No Results
-      if(res.length === 0){
-        embed.setColor(config.color.error);
-        embed.addField("No data found", "Sell some cats to be on the leaderboard")
-          
-      } else if (res.length < 10){
-        //* If Less Then 10 Results
-        embed.setColor(config.color.cats);
-        for(i = 0; i < res.length; i++) {
-          let member = res[i].userUsername;
-          if(i === 0){embed.addField(`${i + 1}. <:gold:579860509264969739> ${member} <:gold:579860509264969739>`, `Money: **$${formatMoney(res[i].money)}**`);}
-          else if(i === 1){embed.addField(`${i + 1}. <:silver:579860480500301844> ${member} <:silver:579860480500301844>`, `Money: **$${formatMoney(res[i].money)}**`);}
-          else if(i === 2){embed.addField(`${i + 1}. <:bronze:579860359196704770> ${member} <:bronze:579860359196704770>`, `Money: **$${formatMoney(res[i].money)}**`);}
-          else if(i > 2){embed.addField(`${i + 1}. ${member}`, `Money: **$${formatMoney(res[i].money)}**`);}
-        }   
-      } else {
-        //* If More Then 10 Results
-        embed.setColor(config.color.cats);
-        for(i = 0; i < 10; i++) {
-          let member = res[i].userUsername;
-          if(member === "da strange boi"){ i++; }
-          if(i === 0){embed.addField(`${i + 1}. <:gold:579860509264969739> ${member} <:gold:579860509264969739>`, `Money: **$${formatMoney(res[i].money)}**`);}
-          else if(i === 1){embed.addField(`${i + 1}. <:silver:579860480500301844> ${member} <:silver:579860480500301844>`, `Money: **$${formatMoney(res[i].money)}**`);}
-          else if(i === 2){embed.addField(`${i + 1}. <:bronze:579860359196704770> ${member} <:bronze:579860359196704770>`, `Money: **$${formatMoney(res[i].money)}**`);}
-          else if(i > 2){embed.addField(`${i + 1}. ${member}`, `Money: **$${formatMoney(res[i].money)}**`);}
-        }
+    //* If There Are No Results
+    if(userdata.length === 0){
+      embed.setColor(config.color.error);
+      embed.addField("No data found", "Sell some cats to be on the leaderboard")
+        
+    } else if (userdata.length < 10){
+      //* If Less Then 10 Results
+      embed.setColor(config.color.cats);
+      for(i = 0; i < userdata.length; i++) {
+        if(message.author.id === "295255543596187650"){member = userdata[i].userTag
+        }else{member = userdata[i].userTag.slice(0, -5)}
+        if(i === 0){embed.addField(`${i + 1}. <:gold:579860509264969739> ${member} <:gold:579860509264969739>`, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`);}
+        else if(i === 1){embed.addField(`${i + 1}. <:silver:579860480500301844> ${member} <:silver:579860480500301844>`, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`);}
+        else if(i === 2){embed.addField(`${i + 1}. <:bronze:579860359196704770> ${member} <:bronze:579860359196704770>`, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`);}
+        else if(i > 2){embed.addField(`${i + 1}. ${member}`, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`);}
+      }   
+    } else {
+      //* If More Then 10 Results
+      embed.setColor(config.color.cats);
+      for(i = 0; i < 10; i++) {
+        if(message.author.id === "295255543596187650"){member = userdata[i].userTag
+        }else{member = userdata[i].userTag.slice(0, -5)}
+        if(member === "da strange boi" || member === "da strange boi#7087"){ i++; }
+        if(i === 0){embed.addField(`${i + 1}. <:gold:579860509264969739> ${member} <:gold:579860509264969739>`, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`);}
+        else if(i === 1){embed.addField(`${i + 1}. <:silver:579860480500301844> ${member} <:silver:579860480500301844>`, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`);}
+        else if(i === 2){embed.addField(`${i + 1}. <:bronze:579860359196704770> ${member} <:bronze:579860359196704770>`, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`);}
+        else if(i > 2){embed.addField(`${i + 1}. ${member}`, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`);}
       }
+    }
     message.channel.send(embed);
   });
+  //* Delete The Cooldown // Resetting It
+  setTimeout(() => {
+    delete cooldown[message.author.id];
+  }, 3500);
 }
 
 module.exports.help = {

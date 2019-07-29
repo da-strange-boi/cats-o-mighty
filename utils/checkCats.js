@@ -2,12 +2,8 @@
 const Discord = require("discord.js");
 
 //* Mongoose Vars (database)
-const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/cats-o-mighty", {
-    useNewUrlParser: true
-});
-const Cat = require("../moduls/cats.js");
-let Settings = require('../moduls/settings.js');
+const Userdata = require("../moduls/userdata.js");
+let Guildsettings = require('../moduls/guildsettings.js');
 
 bot.on("message", async message => {
 
@@ -17,41 +13,39 @@ bot.on("message", async message => {
   };
 
   //* Select A User Data From The Database
-  Cat.findOne({
+  Userdata.findOne({
     userID: message.author.id
-  }, (err, catList) => {
+  }, (err, userdata) => {
     if(err) console.log(err);
-    if(catList){
-      if(catList.cursedcat === undefined){
-        catList.cursedcat = 0;
-        catList.save().catch(err => console.log(err));
+    if(userdata){
+      if(userdata.cats.cursedcat === undefined){
+        userdata.cats.cursedcat = 0;
       }
-      if(catList.russianBlue === undefined && catList.munchkin === undefined){
-        catList.russianBlue = 0;
-        catList.munchkin = 0;
-        catList.save().catch(err => console.log(err));
+      if(userdata.cats.russianBlue === undefined && userdata.cats.munchkin === undefined){
+        userdata.cats.russianBlue = 0;
+        userdata.cats.munchkin = 0;
       }
-      if(catList.turkishAngora === undefined){
-        catList.turkishAngora = 0;
+      if(userdata.cats.turkishAngora === undefined){
+        userdata.cats.turkishAngora = 0;
       }
-      if(catList.loki === undefined && catList.pancake === undefined){
-        catList.loki = 0;
-        catList.pancake = 0;
+      if(userdata.cats.loki === undefined && userdata.cats.loverboy === undefined){
+        userdata.cats.loki = 0;
+        userdata.cats.loverboy = 0;
       }
-      if(catList.uwu === undefined){
-        catList.uwu = 0;
+      if(userdata.cats.uwu === undefined){
+        userdata.cats.uwu = 0;
       }
-      catList.save().catch(err => console.log(err));
+      userdata.save().catch(err => console.log(err));
     }
   });
 
-  Settings.findOne({
+  Guildsettings.findOne({
     guildID: message.guild.id
   }, (err, guildSettings) => {
-    if(err) console.log(err);
+    if(err) throw err;
     if(!guildSettings){
-      const newSettings = new Settings({
-        guildID: message.guild.id,showCat: true
+      const newSettings = new Guildsettings({
+        guildID: message.guild.id,CatGottenPopupMessage: true
       });
       newSettings.save().catch(err => console.log(err));
     }

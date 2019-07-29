@@ -5,7 +5,6 @@
 //? questioning
 ////get rid of a peac of code////
 
-runCommand = true;
 newUser = false;
 
 //* Main Discord Vars
@@ -16,26 +15,22 @@ bot.aliases = new Discord.Collection();
 
 //* .json Vars
 const config = require("./config.json");
-let cooldown = new Set();
-let cdseconds = 3.5;
-
 
 //* Other Module Vars
 global.fs = require("fs");
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/cats-o-mighty", {
+mongoose.connect("mongodb://localhost:27017/catsdataparse", {
   useNewUrlParser: true
 });
-const Cat = require("./moduls/cats.js");
-const Money = require("./moduls/money.js");
-const Daily = require("./moduls/daily.js");
+const Userdata = require("./moduls/userdata.js");
+
 
 //* DBL posting stats && DB.GG posting stats && BFD posting stats
 if(config.debug === false){
-  require('./utils/db.js');
-  require('./utils/dbgg.js');
-  require('./utils/bfd.js');
-  require('./utils/dbl.js');
+  require('./utils/API/db.js');
+  require('./utils/API/dbgg.js');
+  require('./utils/API/bfd.js');
+  require('./utils/API/dbl.js');
 }
 
 //* Includes The Script For Loading All The Commands Within The Bot
@@ -43,7 +38,9 @@ require('./utils/loadCommands.js');
 
 //* When The Bot Is 'ready' Console Log Some Info && Set The Bot Activity
 bot.on("ready", async () => {
-    console.log(`${bot.user.username} has started, with ${bot.users.size} users, in ${bot.channels.size} channels of ${bot.guilds.size} guilds.\n`);
+  let realUsers = bot.users.filter(user => !user.bot).size;
+  let botUsers = bot.users.filter(bot => bot.bot).size;
+  console.log(`\n~~${bot.user.username} has started~~\n${realUsers} users\n${botUsers} bots\n${bot.channels.size} channels\n${bot.guilds.size} guilds\n`);
 	setInterval(() => {
 		bot.user.setActivity(`with cattos on ${bot.guilds.size} servers | do 'cat help' for help`, { type: "PLAYING"} );
   }, 600000); // 10 min
@@ -52,6 +49,9 @@ bot.on("ready", async () => {
 
 //* Whenever A Message Is Sent Run The Code Below
 bot.on("message", async message => {
+
+  //! FOR TESTING
+  if(message.author.id != '295255543596187650') return;
 
   //* Set Vars For The Commands
   let prefix = config.prefix;
@@ -67,18 +67,15 @@ bot.on("message", async message => {
     return;
   };
 
-  //* set up logging
-  //require('./utils/logging.js');
-
   //* Setup Command 'start' To Setup The Database For New Users
   require('./utils/newCat.js');
 
   //* If The User Is A New User, Types 'cat {anything}' Send Them A Message Telling Them To Do 'cat start'
-  Cat.findOne({
+  Userdata.findOne({
     userID: message.author.id
-  }, (err, catList) => {
+  }, (err, userdata) => {
     if(err) console.log(err);
-    if(!catList){
+    if(!userdata){
       if(cmd != "start"){
         let newPersonEmbed = new Discord.RichEmbed().setAuthor(message.author.username, message.author.avatarURL).setColor(config.color.utility).setDescription("hmm it looks like you're a new cat collector!!\nDo `cat start` to start collecting cats");
         message.channel.send(newPersonEmbed);
@@ -88,24 +85,14 @@ bot.on("message", async message => {
 
     //* Main Code For Running The Commands
 
-    if(catList){
+    if(userdata){
       //* Don't Show 'level messages' In (DBL && DBGG && BFD) As It Is Agaest The Rules
       if(message.guild.id != "264445053596991498" && message.guild.id != "110373943822540800" && message.guild.id != "374071874222686211"){
         require("./utils/getCats.js");
         require("./utils/checkCats.js");
       }
-
-      //? Maybe Find A Better Way To Do This
-      //* Set A Cooldown For Commands
-      if(cmd != `${prefix}collection` || cmd != `${prefix}cattos` || cmd != `${prefix}c`){
-        if(cooldown.has(message.author.id)){
-          message.channel.send(`<@${message.author.id}>You gotta wait 3.5 seconds between commands`).then(msg => msg.delete(3500));
-          runCommand = false;
-        }
-        cooldown.add(message.author.id);
-      }
       
-      if(runCommand === true && newUser === false) {
+      if(newUser === false) {
 
         //* Load All The Commands From ./commands/
         if(bot.commands.has(cmd)) {
@@ -115,12 +102,6 @@ bot.on("message", async message => {
         if(command) command.run(bot, message, args);
 
       }
-
-      //* Delete The Cooldown Resetting It
-      setTimeout(() => {
-        cooldown.delete(message.author.id);
-        runCommand = true;
-      }, cdseconds * 1000)
     }
   });
 });

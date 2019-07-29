@@ -1,11 +1,6 @@
 const Discord = require("discord.js");
 let config = require("../../config.json");
-
-const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/cats-o-mighty", {
-    useNewUrlParser: true
-});
-const Money = require("../../moduls/money.js");
+const Userdata = require("../../moduls/userdata.js");
 
 module.exports.run = async (bot, message, args) => {
     if(message.author.id != "295255543596187650"){ return; }
@@ -19,16 +14,16 @@ module.exports.run = async (bot, message, args) => {
             if (!bUser) return message.channel.send("Heyo that person doesn't exist in the database lol");
             let amtMoney = Number(args[1]);
 
-            Money.findOne({
+            Userdata.findOne({
                 userID: bUser.id
-            }, (err, userMoney) => {
+            }, (err, userdata) => {
                 if(err) console.log(err);
-                if(userMoney){
-                    userMoney.money = userMoney.money + amtMoney;
-                    userMoney.save().catch(err => console.log(err));
-                    message.channel.send(`It's been done master!\n$${amtMoney} has been added to ${bUser}'s account`);
+                if(userdata){
+                    userdata.money.catmoney += amtMoney;
+                    userdata.save().catch(err => console.log(err));
+                    message.channel.send(`Yes`);
                 }
-                if(!userMoney){
+                if(!userdata){
                     return message.channel.send("Heyo that person doesn't exist lol");
                 }
                 return;
@@ -36,14 +31,14 @@ module.exports.run = async (bot, message, args) => {
 
         } else {
             let amtMoney = Number(args[0]);
-            Money.findOne({
+            Userdata.findOne({
                 userID: message.author.id
-            }, (err, userMoney) => {
+            }, (err, userdata) => {
                 if(err) console.log(err);
-                if(userMoney){
-                    userMoney.money = userMoney.money + amtMoney;
-                    userMoney.save().catch(err => console.log(err));
-                    message.channel.send(`It's been done master!\n$${amtMoney} has been added to your account`);
+                if(userdata){
+                    userdata.money.catmoney += amtMoney;
+                    userdata.save().catch(err => console.log(err));
+                    message.channel.send(`Yes`);
                 }
                 return;
             });

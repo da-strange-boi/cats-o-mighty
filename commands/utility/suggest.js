@@ -3,11 +3,7 @@ const Discord = require("discord.js");
 const config = require("../../config.json");
 
 //* Mongoose Database Vars
-const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/cats-o-mighty", {
-    useNewUrlParser: true
-});
-const Suggestion = require("../../moduls/suggestion.js");
+const Suggestion = require("../../moduls/suggestions.js");
 
 //* Cooldown Vars
 let cooldowncats = new Set();
@@ -42,8 +38,9 @@ module.exports.run = async (bot, message, args) => {
 
         //* Get The Suggestion And Add It To The Database
         let suggestion = args.join(" ");
+        let numRand = Math.floor(Math.random() * 100000);
         const newSuggestion = new Suggestion({
-            placeholder: "global",userID: message.author.id,userUsername: message.author.tag,suggestion: suggestion
+            placeholder: "global",userID: message.author.id,userTag: message.author.tag,suggestionNumber: numRand,suggestion: suggestion
         })
         newSuggestion.save().catch(err => console.log(err));
 

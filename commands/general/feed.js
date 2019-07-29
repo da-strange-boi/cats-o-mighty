@@ -1,11 +1,8 @@
 const Discord = require("discord.js");
+const ms = require('parse-ms');
 const config = require("../../config.json");
-
-const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/cats-o-mighty", {
-    useNewUrlParser: true
-});
-const Cat = require("../../moduls/cats.js");
+const Userdata = require("../../moduls/userdata.js");
+let cooldown = {};
 
 module.exports.run = async (bot, message, args) => {
 
@@ -20,15 +17,23 @@ module.exports.run = async (bot, message, args) => {
     return;
   }
 
-  Cat.findOne({
+  //* Set A Cooldown
+  if(cooldown[message.author.id]){
+    let time = ms(Date.now() - cooldown[message.author.id]);
+    message.channel.send(`hmm **${message.author.username}**, you gotta wait **${3.5 - time.seconds}s**`).then(msg => msg.delete(1000 * (3.5 - time.seconds)));
+    return;
+  }
+  cooldown[message.author.id] = Date.now();
+
+  Userdata.findOne({
     userID: message.author.id
-  }, (err, catList) => {
+  }, (err, userdata) => {
     if(err) console.log(err);
-    if(catList){
+    if(userdata){
 
       let catBreed = args[0].toLowerCase().trim();
 
-      animalList = ['siamese', 'burmese', 'ragdoll', 'persian', 'mainecoon', 'russianblue', 'abyssinian', 'manx', 'sphynx', 'cyprus', 'foldex', 'turkishangora', 'korat', 'singapura', 'tonkinese', 'perterbald', 'chartreux', 'munchkin', 'bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'laliah', 'cher', 'marvin', 'loki', 'pancake', 'squirtlett', 'cursedcat', 'UWU'];
+      animalList = ['siamese', 'burmese', 'ragdoll', 'persian', 'mainecoon', 'russianblue', 'abyssinian', 'manx', 'sphynx', 'cyprus', 'foldex', 'turkishangora', 'korat', 'singapura', 'tonkinese', 'perterbald', 'chartreux', 'munchkin', 'bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'laliah', 'cher', 'marvin', 'loki', 'loverboy', 'squirtlett', 'cursedcat', 'uwu'];
       for(let i=0;i<animalList.length;i++){
         if(catBreed === animalList[i]){
           if(i <= 5){catType = 'common'}
@@ -38,10 +43,10 @@ module.exports.run = async (bot, message, args) => {
           if(i >= 32){catType = 'impossible'}
 
           if(catType === 'common'){
-            let commonCatAmt = Math.floor(Math.random() * 25) + 1;
-            let commonCatBase = Math.floor(Math.random() * 25) + 1;
+            let commonCatAmt = Math.floor(Math.random() * 13) + 1;
+            let commonCatBase = Math.floor(Math.random() * 13) + 1;
             if(commonCatAmt === commonCatBase){
-              catList[animalList[i]] = catList[animalList[i]] + 1;
+              userdata.cats[animalList[i]] += 1;
               let feedSucc = new Discord.RichEmbed()
               .setTitle('ooo look at that!')
               .setColor(config.color.cats)
@@ -56,10 +61,10 @@ module.exports.run = async (bot, message, args) => {
             }
           }
           if(catType === 'uncommon'){
-            let uncommonCatAmt = Math.floor(Math.random() * 80) + 1;
-            let uncommonCatBase = Math.floor(Math.random() * 80) + 1;
+            let uncommonCatAmt = Math.floor(Math.random() * 40) + 1;
+            let uncommonCatBase = Math.floor(Math.random() * 40) + 1;
             if(uncommonCatAmt === uncommonCatBase){
-              catList[animalList[i]] = catList[animalList[i]] + 1;
+              userdata.cats[animalList[i]] += 1;
               let feedSucc = new Discord.RichEmbed()
               .setTitle('ooo look at that!')
               .setColor(config.color.cats)
@@ -74,10 +79,10 @@ module.exports.run = async (bot, message, args) => {
             }
           }
           if(catType === 'rare'){
-            let rareCatAmt = Math.floor(Math.random() * 145) + 1;
-            let rareCatBase = Math.floor(Math.random() * 145) + 1;
+            let rareCatAmt = Math.floor(Math.random() * 73) + 1;
+            let rareCatBase = Math.floor(Math.random() * 73) + 1;
             if(rareCatAmt === rareCatBase){
-              catList[animalList[i]] = catList[animalList[i]] + 1;
+              userdata.cats[animalList[i]] += 1;
               let feedSucc = new Discord.RichEmbed()
               .setTitle('ooo look at that!')
               .setColor(config.color.cats)
@@ -92,10 +97,10 @@ module.exports.run = async (bot, message, args) => {
             }
           }
           if(catType === 'special'){
-            let specialCatAmt = Math.floor(Math.random() * 370) + 1;
-            let specialCatBase = Math.floor(Math.random() * 370) + 1;
+            let specialCatAmt = Math.floor(Math.random() * 185) + 1;
+            let specialCatBase = Math.floor(Math.random() * 185) + 1;
             if(specialCatAmt === specialCatBase){
-              catList[animalList[i]] = catList[animalList[i]] + 1;
+              userdata.cats[animalList[i]] += 1;
               let feedSucc = new Discord.RichEmbed()
               .setTitle('ooo look at that!')
               .setColor(config.color.cats)
@@ -110,10 +115,10 @@ module.exports.run = async (bot, message, args) => {
             }
           }
           if(catType === 'impossible'){
-            let impossibleCatAmt = Math.floor(Math.random() * 740) + 1;
-            let impossibleCatBase = Math.floor(Math.random() * 740) + 1;
+            let impossibleCatAmt = Math.floor(Math.random() * 370) + 1;
+            let impossibleCatBase = Math.floor(Math.random() * 370) + 1;
             if(impossibleCatAmt === impossibleCatBase){
-              catList[animalList[i]] = catList[animalList[i]] + 1;
+              userdata.cats[animalList[i]] += 1;
               let feedSucc = new Discord.RichEmbed()
               .setTitle('ooo look at that!')
               .setColor(config.color.cats)
@@ -130,8 +135,12 @@ module.exports.run = async (bot, message, args) => {
         }
       }
     }
-    catList.save().catch(err => console.log(err));
+    userdata.save().catch(err => console.log(err));
   });
+  //* Delete The Cooldown // Resetting It
+  setTimeout(() => {
+    delete cooldown[message.author.id];
+  }, 3500);
 }
 
 module.exports.help = {

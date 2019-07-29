@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const config = require('../../config.json');
 
 let modules = ['CatGottenPopupMessage'];
-let Settings = require('../../moduls/settings.js');
+let Guildsettings = require('../../moduls/guildsettings.js');
 
 module.exports.run = async (bot, message, args) => {
 
@@ -12,7 +12,7 @@ module.exports.run = async (bot, message, args) => {
   if(!message.member.hasPermission("MANAGE_GUILD")) return;
 
 
-  Settings.findOne({
+  Guildsettings.findOne({
     guildID: message.guild.id
   }, (err, guildSettings) => {
     if(err) console.log(err);
@@ -22,7 +22,7 @@ module.exports.run = async (bot, message, args) => {
       let settingsEmbed = new Discord.RichEmbed()
       .setTitle('Settings')
       .setColor(config.color.utility)
-      .setDescription(`CatGottenPopupMessage: **${guildSettings.showCat}**`);
+      .setDescription(`CatGottenPopupMessage: **${guildSettings.CatGottenPopupMessage}**`);
       message.channel.send(settingsEmbed);
       return;
     }
@@ -33,9 +33,9 @@ module.exports.run = async (bot, message, args) => {
         if(guildSettings){
           if(args[1] !== 'true' && args[1] !== 'false'){ message.channel.send('Please enter **true** or **false**');return;}
           if(args[1] === 'true'){
-            guildSettings.showCat = true;
+            guildSettings.CatGottenPopupMessage = true;
             message.channel.send('module: CatGottenPopupMessage\nhas been set to: **true**');
-          } else {guildSettings.showCat = false;message.channel.send('module: CatGottenPopupMessage\nhas been set to: **false**');}
+          } else {guildSettings.CatGottenPopupMessage = false;message.channel.send('module: CatGottenPopupMessage\nhas been set to: **false**');}
           guildSettings.save().catch(err => console.log(err));
           return;
         }

@@ -3,11 +3,7 @@ const Discord = require("discord.js");
 let config = require("../../config.json");
 
 //mongoose vars
-const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/cats-o-mighty", {
-    useNewUrlParser: true
-});
-const Suggestion = require("../../moduls/suggestion.js");
+const Suggestion = require("../../moduls/suggestions.js");
 
 module.exports.run = async (bot, message, args) => {
 
@@ -40,13 +36,13 @@ module.exports.run = async (bot, message, args) => {
                     //* If Less Then 10 Results
                     embed.setColor(config.color.owner);
                     for(i = 0; i < res.length; i++) {
-                        embed.addField(`${u + 1}. ${res[i].userUsername} || ${res[i].userID}`, `**Suggestion**: ${res[i].suggestion}`);
+                        embed.addField(`${u + 1}. ${res[i].userTag} (${res[i].userID}) || #${res[i].suggestionNumber}`, `${res[i].suggestion}`);
                     }   
                 } else {
                     //* If More Then 10 Results
                     embed.setColor(config.color.owner);
                     for(i = 0; i < 10; i++) {
-                        embed.addField(`${u + 1}. ${res[i].userUsername} || ${res[i].userID}`, `**Suggestion**: ${res[i].suggestion}`);
+                        embed.addField(`${u + 1}. ${res[i].userTag} (${res[i].userID}) || #${res[i].suggestionNumber}`, `${res[i].suggestion}`);
                     }
                 }
                 message.channel.send(embed);

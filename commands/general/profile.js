@@ -1,12 +1,8 @@
 const Discord = require("discord.js");
+const ms = require('parse-ms');
 const Canvas = require("canvas");
-
-const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/cats-o-mighty", {
-    useNewUrlParser: true
-});
-const Money = require("../../moduls/money.js");
-
+const Userdata = require("../../moduls/userdata.js");
+let cooldown = {};
 
 //* A Simple Function To Format Text Properly
 const applyText = (canvas, size, text) => { 
@@ -21,6 +17,14 @@ const applyText = (canvas, size, text) => {
 module.exports.run = async (bot, message, args) => {
 
   //USAGE cat profile
+
+  //* Set A Cooldown
+  if(cooldown[message.author.id]){
+    let time = ms(Date.now() - cooldown[message.author.id]);
+    message.channel.send(`hmm **${message.author.username}**, you gotta wait **${10 - time.seconds}s**`).then(msg => msg.delete(1000 * (10 - time.seconds)));
+    return;
+  }
+  cooldown[message.author.id] = Date.now();
 
   //* Setup Some Vars For Canvas
   const canvas = Canvas.createCanvas(800, 500);
@@ -45,11 +49,11 @@ module.exports.run = async (bot, message, args) => {
   };
   // end of code i copied
 
-  Money.findOne({
+  Userdata.findOne({
     userID: message.author.id
-  }, (err, userMoney) => {
+  }, (err, userdata) => {
     if(err) console.log(err);
-    if(userMoney){
+    if(userdata){
 
       ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
@@ -59,10 +63,10 @@ module.exports.run = async (bot, message, args) => {
       ctx.fillText(message.author.tag, 50, 70);
 
       //* Money Display On Image
-      let uMoney = userMoney.money;
-      ctx.font = applyText(canvas, 60, `Money\n\n$${formatMoney(uMoney)}`);
+      let uMoney = userdata.money.catmoney;
+      ctx.font = applyText(canvas, 60, `Cat Money\n\n$${formatMoney(uMoney)}`);
       ctx.fillStyle = '#ffffff';
-      ctx.fillText(`Money\n\n$${formatMoney(uMoney)}`, 30, 260);
+      ctx.fillText(`Cat Money\n\n$${formatMoney(uMoney)}`, 30, 260);
 
       //* work in progress text
       ctx.font = applyText(canvas, 30, 'This is still a work in progress');
@@ -89,6 +93,11 @@ module.exports.run = async (bot, message, args) => {
   const attachment = new Discord.Attachment(canvas.toBuffer(), 'profile.png');
 
   message.channel.send(attachment);
+
+  //* Delete The Cooldown // Resetting It
+  setTimeout(() => {
+    delete cooldown[message.author.id];
+  }, 10000);
 }
 
 module.exports.help = {

@@ -1,36 +1,29 @@
 const Discord = require("discord.js");
+const ms = require('parse-ms');
 const config = require("../../config.json");
-
-//mongoose vars
-const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/cats-o-mighty", {
-  useNewUrlParser: true
-});
-const Cat = require("../../moduls/cats.js");
-
-let cooldowncats = new Set();
-let cdseconds = 30;
+const Userdata = require("../../moduls/userdata.js");
+let cooldown = {};
 
 module.exports.run = async (bot, message, args) => {
 
   //* Select A User Data From The Database
-  Cat.findOne({
+  Userdata.findOne({
     userID: message.author.id
-  }, (err, catList) => {
+  }, (err, userdata) => {
     if(err) console.log(err);
 
     // set vars of cat numbers the user has || common, uncommon, rare, special
-    uSiamese = catList.siamese;uBurmese = catList.burmese;uRagdoll = catList.ragdoll;uPersian = catList.persian;uMaineCoon = catList.maineCoon;uRussianBlue = catList.russianBlue;
-    uAbyssinian = catList.abyssinian;uManx = catList.manx;uSphynx = catList.sphynx;uCyprus = catList.cyprus;uFoldex = catList.foldex;uTurkishAngora = catList.turkishAngora;
-    uKorat = catList.korat;uSingapura = catList.singapura;uTonkinese = catList.tonkinese;uPeterbald = catList.peterbald;uChartreux = catList.chartreux;uMunchkin = catList.munchkin;
-    uBandit = catList.bandit;uBug = catList.bug;uLinda = catList.linda;uMittens = catList.mittens;uCash = catList.cash;uJackson = catList.jackson;uCottonball = catList.cottonball;uSonny = catList.sonny;uSmokey = catList.smokey;uLailah = catList.lailah;uCher = catList.cher;uMarvin = catList.marvin;uLoki = catList.loki;uPancake = catList.pancake;
-    uSquirtlett = catList.squirtlett;uCursedcat = catList.cursedcat;uUWU = catList.uwu;
+    uSiamese = userdata.cats.siamese;uBurmese = userdata.cats.burmese;uRagdoll = userdata.cats.ragdoll;uPersian = userdata.cats.persian;uMaineCoon = userdata.cats.mainecoon;uRussianBlue = userdata.cats.russianblue;
+    uAbyssinian = userdata.cats.abyssinian;uManx = userdata.cats.manx;uSphynx = userdata.cats.sphynx;uCyprus = userdata.cats.cyprus;uFoldex = userdata.cats.foldex;uTurkishAngora = userdata.cats.turkishangora;
+    uKorat = userdata.cats.korat;uSingapura = userdata.cats.singapura;uTonkinese = userdata.cats.tonkinese;uPeterbald = userdata.cats.peterbald;uChartreux = userdata.cats.chartreux;uMunchkin = userdata.cats.munchkin;
+    uBandit = userdata.cats.bandit;uBug = userdata.cats.bug;uLinda = userdata.cats.linda;uMittens = userdata.cats.mittens;uCash = userdata.cats.cash;uJackson = userdata.cats.jackson;uCottonball = userdata.cats.cottonball;uSonny = userdata.cats.sonny;uSmokey = userdata.cats.smokey;uLailah = userdata.cats.lailah;uCher = userdata.cats.cher;uMarvin = userdata.cats.marvin;uLoki = userdata.cats.loki;uLoverboy = userdata.cats.loverboy;
+    uSquirtlett = userdata.cats.squirtlett;uCursedcat = userdata.cats.cursedcat;uUWU = userdata.cats.uwu;
 
     // check if user has that rank of cat and assign a var depending if they do or not
     if(uSiamese === 0 && uBurmese === 0 && uRagdoll === 0 && uPersian === 0 && uMaineCoon === 0 && uRussianBlue === 0){ commonCats = false;} else { commonCats = true;}
     if(uAbyssinian === 0 && uManx === 0 && uSphynx === 0 && uCyprus === 0 && uFoldex === 0 && uTurkishAngora === 0){ uncommonCats = false;} else { uncommonCats = true;}
-    if(uKorat === 0 && uSingapura === 0 && uTonkinese === 0 && uPeterbald === 0 && uChartreux === 0 && uMunchkin === 0 && uLoki === 0 && uPancake === 0){ rareCats = false;} else { rareCats = true;}
-    if(uBandit === 0 && uBug === 0 && uLinda === 0 && uMittens === 0 && uCash === 0 && uJackson === 0 && uCottonball === 0 && uSonny === 0 && uSmokey === 0 && uLailah === 0 && uCher === 0 && uMarvin === 0 && uLoki === 0 && uPancake === 0){ specialCats = false;} else { specialCats = true;}
+    if(uKorat === 0 && uSingapura === 0 && uTonkinese === 0 && uPeterbald === 0 && uChartreux === 0 && uMunchkin === 0){ rareCats = false;} else { rareCats = true;}
+    if(uBandit === 0 && uBug === 0 && uLinda === 0 && uMittens === 0 && uCash === 0 && uJackson === 0 && uCottonball === 0 && uSonny === 0 && uSmokey === 0 && uLailah === 0 && uCher === 0 && uMarvin === 0 && uLoki === 0 && uLoverboy === 0){ specialCats = false;} else { specialCats = true;}
     if(uSquirtlett === 0 && uCursedcat === 0 && uUWU === 0){ impossibleCats = false } else { impossibleCats = true }
     
     //* If User Owns No Common Cats (no cats) Tell Them
@@ -46,43 +39,40 @@ module.exports.run = async (bot, message, args) => {
     if(!args[0]){
 
       //* Set A Cooldown
-      if(cooldowncats.has(message.author.id)){
-        let cooldownEmbed = new Discord.RichEmbed()
-        .setAuthor(message.author.username, message.author.avatarURL)
-        .setDescription(`You gotta wait 30 seconds before looking at your full cat collection again\nyou can do \`cat collection common\` to look at your cats`)
-        .setColor(config.color.error);
-        message.channel.send(cooldownEmbed).then(msg => msg.delete(30000));
+      if(cooldown[message.author.id]){
+        let time = ms(Date.now() - cooldown[message.author.id]);
+        message.channel.send(`hmm **${message.author.username}**, you gotta wait **${30 - time.seconds}s**`).then(msg => msg.delete(1000 * (30 - time.seconds)));
         return;
-        }
-        cooldowncats.add(message.author.id);
+      }
+      cooldown[message.author.id] = Date.now();
 
-        //* Make Embed To Display The Cats The User Has
-        let catsEmbed = new Discord.RichEmbed()
-        .setAuthor(message.author.username + " cat collection!")
-        .setColor(config.color.cats);
+      //* Make Embed To Display The Cats The User Has
+      let catsEmbed = new Discord.RichEmbed()
+      .setAuthor(message.author.username + " cat collection!")
+      .setColor(config.color.cats);
 
-        //* See What Categories Of Cats The User Has Then Add Them
-        if(commonCats === true){
-          catsEmbed.addField(":heart: Common :heart:", `Siamese: ${uSiamese}\nBurmese: ${uBurmese}\nRagdoll: ${uRagdoll}\nPersian: ${uPersian}\nMaine Coon: ${uMaineCoon}\nRussian Blue: ${uRussianBlue}`, true);
-        }
-        if(uncommonCats === true){
-          catsEmbed.addField(":blue_heart: Uncommon :blue_heart:", `Abyssinian: ${uAbyssinian}\nManx: ${uManx}\nSphynx: ${uSphynx}\nCyprus: ${uCyprus}\nFoldex: ${uFoldex}\nTurkish Angora: ${uTurkishAngora}`, true);
-        }
-        if(rareCats === true){
-          catsEmbed.addField(":yellow_heart: Rare :yellow_heart:", `Korat: ${uKorat}\nSingapura: ${uSingapura}\nTonkinese: ${uTonkinese}\nPeterbald: ${uPeterbald}\nChartreux: ${uChartreux}\nMunchkin: ${uMunchkin}`, true);
-        }
-        if(specialCats === true){
-          catsEmbed.addField(":sparkling_heart: Special :sparkling_heart:", `Smokey: ${uSmokey}\nBandit: ${uBandit}\nBug: ${uBug}\nLinda: ${uLinda}\nMittens: ${uMittens}\nCash: ${uCash}\nJackson: ${uJackson}\nCottonball: ${uCottonball}\nSonny: ${uSonny}\nLailah: ${uLailah}\nCher: ${uCher}\nMarvin: ${uMarvin}\nLoki: ${uLoki}\nPancake: ${uPancake}`, true);
-        }
-        if(impossibleCats === true){
-          catsEmbed.addField(":gem: Impossible :gem:", `Squirtlett: ${uSquirtlett}\nCursed Cat: ${uCursedcat}\nUWU: ${uUWU}`, true);
-        }
-        message.channel.send(catsEmbed);
+      //* See What Categories Of Cats The User Has Then Add Them
+      if(commonCats === true){
+        catsEmbed.addField(":heart: Common :heart:", `Siamese: ${uSiamese}\nBurmese: ${uBurmese}\nRagdoll: ${uRagdoll}\nPersian: ${uPersian}\nMaine Coon: ${uMaineCoon}\nRussian Blue: ${uRussianBlue}`, true);
+      }
+      if(uncommonCats === true){
+        catsEmbed.addField(":blue_heart: Uncommon :blue_heart:", `Abyssinian: ${uAbyssinian}\nManx: ${uManx}\nSphynx: ${uSphynx}\nCyprus: ${uCyprus}\nFoldex: ${uFoldex}\nTurkish Angora: ${uTurkishAngora}`, true);
+      }
+      if(rareCats === true){
+        catsEmbed.addField(":yellow_heart: Rare :yellow_heart:", `Korat: ${uKorat}\nSingapura: ${uSingapura}\nTonkinese: ${uTonkinese}\nPeterbald: ${uPeterbald}\nChartreux: ${uChartreux}\nMunchkin: ${uMunchkin}`, true);
+      }
+      if(specialCats === true){
+        catsEmbed.addField(":sparkling_heart: Special :sparkling_heart:", `Smokey: ${uSmokey}\nBandit: ${uBandit}\nBug: ${uBug}\nLinda: ${uLinda}\nMittens: ${uMittens}\nCash: ${uCash}\nJackson: ${uJackson}\nCottonball: ${uCottonball}\nSonny: ${uSonny}\nLailah: ${uLailah}\nCher: ${uCher}\nMarvin: ${uMarvin}\nLoki: ${uLoki}\nLoverboy: ${uLoverboy}`, true);
+      }
+      if(impossibleCats === true){
+        catsEmbed.addField(":gem: Impossible :gem:", `Squirtlett: ${uSquirtlett}\nCursed Cat: ${uCursedcat}\nUWU: ${uUWU}`, true);
+      }
+      message.channel.send(catsEmbed);
 
-        //* Delete The Cooldown // Resetting It
-        setTimeout(() => {
-          cooldowncats.delete(message.author.id)
-        }, cdseconds * 1000)
+      //* Delete The Cooldown // Resetting It
+      setTimeout(() => {
+        delete cooldown[message.author.id];
+      }, 30000);
     }
 
     //USAGE cat collection {common|uncommon|rare|special|impossible}
@@ -112,7 +102,7 @@ module.exports.run = async (bot, message, args) => {
             catsEmbed.addField(":yellow_heart: Rare :yellow_heart:", `Korat: ${uKorat}\nSingapura: ${uSingapura}\nTonkinese: ${uTonkinese}\nPeterbald: ${uPeterbald}\nChartreux: ${uChartreux}\nMunchkin: ${uMunchkin}`, true);
           }
           if(allCatType[i] === "special"){
-            catsEmbed.addField(":sparkling_heart: Special :sparkling_heart:", `Smokey: ${uSmokey}\nBandit: ${uBandit}\nBug: ${uBug}\nLinda: ${uLinda}\nMittens: ${uMittens}\nCash: ${uCash}\nJackson: ${uJackson}\nCottonball: ${uCottonball}\nSonny: ${uSonny}\nLailah: ${uLailah}\nCher: ${uCher}\nMarvin: ${uMarvin}\nLoki: ${uLoki}\nPancake: ${uPancake}`, true);
+            catsEmbed.addField(":sparkling_heart: Special :sparkling_heart:", `Smokey: ${uSmokey}\nBandit: ${uBandit}\nBug: ${uBug}\nLinda: ${uLinda}\nMittens: ${uMittens}\nCash: ${uCash}\nJackson: ${uJackson}\nCottonball: ${uCottonball}\nSonny: ${uSonny}\nLailah: ${uLailah}\nCher: ${uCher}\nMarvin: ${uMarvin}\nLoki: ${uLoki}\nLoverboy: ${uLoverboy}`, true);
           }
           if(allCatType[i] === "impossible"){
             catsEmbed.addField(":gem: Impossible :gem:", `Squirtlett: ${uSquirtlett}\nCursed Cat: ${uCursedcat}\nUWU: ${uUWU}`, true);
