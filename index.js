@@ -20,7 +20,8 @@ const config = require("./config.json");
 global.fs = require("fs");
 const mongoose = require("mongoose");
 mongoose.connect("mongodb://localhost:27017/cats-o-mighty", {
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  useFindAndModify: false
 });
 const Userdata = require("./moduls/userdata.js");
 
