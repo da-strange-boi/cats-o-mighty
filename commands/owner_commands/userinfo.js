@@ -28,8 +28,6 @@ module.exports.run = async (bot, message, args) => {
       return;
     }
 
-    console.log(userdata);
-
     let userinfo = new Discord.RichEmbed()
     .setColor(config.color.owner);
 

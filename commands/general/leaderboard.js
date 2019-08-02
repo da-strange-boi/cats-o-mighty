@@ -4,6 +4,17 @@ let config = require("../../config.json");
 const Userdata = require("../../moduls/userdata.js");
 let cooldown = {};
 
+// function hasNumbers(t)
+// {
+// var regex = /#[0-9]{4}$/g;
+// return regex.test(t);
+// }
+
+const hasTag = (t) => {
+  let regex = /#[0-9]{4}$/g;
+  return regex.test(t);
+}
+
 module.exports.run = async (bot, message, args) => {
 
   //* Set A Cooldown
@@ -53,9 +64,14 @@ module.exports.run = async (bot, message, args) => {
       embed.setColor(config.color.cats);
       for(i = 0; i < 10; i++) {
         //* Will use later
-        // if(message.author.id === "295255543596187650"){member = userdata[i].userTag
-        // }else{member = userdata[i].userTag.slice(0, -5)}
-        member = userdata[i].userTag
+        if(message.author.id === "295255543596187650"){member = userdata[i].userTag
+        }else{
+          if(hasTag(userdata[i].userTag) === true){
+            member = userdata[i].userTag.slice(0, -5)
+          } else {
+            member = userdata[i].userTag
+          }
+        }
         if(userdata[i].userTag != "da strange boi" && userdata[i].userTag != "da strange boi#7087"){
           if(i === 0){embed.addField(`${i + 1}. <:gold:579860509264969739> ${member} <:gold:579860509264969739>`, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`);}
           else if(i === 1){embed.addField(`${i + 1}. <:silver:579860480500301844> ${member} <:silver:579860480500301844>`, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`);}

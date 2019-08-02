@@ -14,10 +14,8 @@ module.exports.run = async (bot, message, args) => {
     //USAGE cat suggestion <suggestion>
 
     //* Select User Data From Database
-    Suggestion.findOne({
-        userID: message.author.id
-    }, (err, userSuggestion) => {
-        if(err) console.log(err);
+    Suggestion.findOne({}, (err, userSuggestion) => {
+        if(err) throw err;
 
         //* Check To See If User Entered A Suggestion
         if(!args[0]){
@@ -40,7 +38,7 @@ module.exports.run = async (bot, message, args) => {
         let suggestion = args.join(" ");
         let numRand = Math.floor(Math.random() * 100000);
         const newSuggestion = new Suggestion({
-            placeholder: "global",userID: message.author.id,userTag: message.author.tag,suggestionNumber: numRand,suggestion: suggestion
+            userID: message.author.id,userTag: message.author.tag,suggestionNumber: numRand,suggestion: suggestion
         })
         newSuggestion.save().catch(err => console.log(err));
 

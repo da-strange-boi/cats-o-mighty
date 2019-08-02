@@ -35,6 +35,7 @@ bot.on("message", async message => {
       if(userdata.cats.uwu === undefined){
         userdata.cats.uwu = 0;
       }
+      userdata.userTag = message.author.tag;
       userdata.save().catch(err => console.log(err));
     }
   });

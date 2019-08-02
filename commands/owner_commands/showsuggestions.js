@@ -11,9 +11,7 @@ module.exports.run = async (bot, message, args) => {
         return; 
     }else if (message.author.id === "295255543596187650") {
         //* Select User Data From Database
-        Suggestion.find({
-            placeholder: "global"
-        }, (err, res) => {
+        Suggestion.find({}, (err, res) => {
             if(err) console.log(err);
             if(!res){
                 let noSuggestionsEmbed = new Discord.RichEmbed()
@@ -32,17 +30,10 @@ module.exports.run = async (bot, message, args) => {
                     embed.setColor(config.color.error);
                     embed.addField("No data found", "No one has suggesed anything")
                     
-                } else if (res.length < 10){
-                    //* If Less Then 10 Results
+                } else {
                     embed.setColor(config.color.owner);
                     for(i = 0; i < res.length; i++) {
-                        embed.addField(`${u + 1}. ${res[i].userTag} (${res[i].userID}) || #${res[i].suggestionNumber}`, `${res[i].suggestion}`);
-                    }   
-                } else {
-                    //* If More Then 10 Results
-                    embed.setColor(config.color.owner);
-                    for(i = 0; i < 10; i++) {
-                        embed.addField(`${u + 1}. ${res[i].userTag} (${res[i].userID}) || #${res[i].suggestionNumber}`, `${res[i].suggestion}`);
+                        embed.addField(`${res[i].userTag} (${res[i].userID}) || #${res[i].suggestionNumber}`, `${res[i].suggestion}`);
                     }
                 }
                 message.channel.send(embed);

@@ -105,18 +105,24 @@ bot.on("message", async message => {
 
 bot.on("guildCreate", async guild => {
   let catsomighty = bot.guilds.find(search => search.id === '574420903169884170');
-  let logChannel = catsomighty.channels.find(search => search.name === 'bot-added');
+  let logChannel = catsomighty.channels.find(search => search.name === 'bot-server-info');
   if(!logChannel) return console.log("Can't find incidents channel.");
 
   let date = new Date();
   let guildCreateEmbed = new Discord.RichEmbed()
-  .setTitle("**Bot added to server**")
-  .setDescription(`**Server Count Is Now** ${bot.guilds.size}`)
+  .setDescription(`**• Guild:** \`${guild.name}\`\n**• Members:** \`${guild.memberCount}\`\n**• Owner:** \`${guild.owner.user.tag}\`\n**• Region:** \`${guild.region}\``)
+  .setFooter(`${bot.guilds.size} guilds`)
   .setColor(config.color.utility)
-  .addField("**Server Name**", `${guild.name}`)
-  .addField("**Members in server**", `${guild.memberCount}`)
-  .addField("**Server Region**", `${guild.region}`)
   .setTimestamp(date);
+  if(guild.iconURL != null){
+    guildCreateEmbed.setThumbnail(guild.iconURL)
+  }
+  if(guild.large === true){
+    guildCreateEmbed.setTitle(':inbox_tray: Added Guild **LARGE**');
+  } else {guildCreateEmbed.setTitle(':inbox_tray: Added Guild');}
+  if(guild.verified === true){
+    guildCreateEmbed.addField('Verified', 'i dont know how to make this look good :p')
+  }
 
   logChannel.send(guildCreateEmbed);
 
@@ -124,16 +130,24 @@ bot.on("guildCreate", async guild => {
 
 bot.on("guildDelete", async guild => {
   let catsomighty = bot.guilds.find(search => search.id === '574420903169884170');
-  let logChannel = catsomighty.channels.find(search => search.name === 'bot-added');
+  let logChannel = catsomighty.channels.find(search => search.name === 'bot-server-info');
   if(!logChannel) return console.log("Can't find incidents channel.");
 
   let date = new Date();
   let guildDeleteEmbed = new Discord.RichEmbed()
-  .setTitle("**Bot deleted from server**")
-  .setDescription(`**Server Count Is Now** ${bot.guilds.size}`)
+  .setDescription(`**• Guild:** \`${guild.name}\`\n**• Members:** \`${guild.memberCount}\`\n**• Owner:** \`${guild.owner.user.tag}\`\n**• Region:** \`${guild.region}\``)
+  .setFooter(`${bot.guilds.size} guilds`)
   .setColor(config.color.error)
-  .addField("**Server Name**", `${guild.name}`)
   .setTimestamp(date);
+  if(guild.iconURL != null){
+    guildDeleteEmbed.setThumbnail(guild.iconURL)
+  }
+  if(guild.large === true){
+    guildDeleteEmbed.setTitle(':inbox_tray: Removed Guild **LARGE**');
+  } else {guildDeleteEmbed.setTitle(':inbox_tray: Removed Guild');}
+  if(guild.verified === true){
+    guildDeleteEmbed.addField('Verified', 'i dont know how to make this look good :p')
+  }
 
   logChannel.send(guildDeleteEmbed);
 });

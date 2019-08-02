@@ -102,7 +102,7 @@ module.exports.run = async (bot, message, args) => {
     // display help for suggest \\
     if(helpCommand === "suggest"){
       message.channel.send("```< cat suggest {the suggestion} >```");
-      message.channel.send("```What it does:\nallows you to suggest a change to be made to the bot\n or allows you to report a bug within the bot```");
+      message.channel.send("```What it does:\nallows you to suggest a change to be made to the bot```");
     }
     // display help for supportserver \\
     if(helpCommand === "supportserver"){

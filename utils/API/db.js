@@ -21,6 +21,10 @@ dbl.webhook.on('vote', vote => {
   }, (err, userdata) => {
     if(err) throw err;
 
+    if(!userdata){
+      return;
+    }
+
     //* If It's The Weekend Add $5,000 To Their Account
     userdata.money.catmoney += 5000;
 
