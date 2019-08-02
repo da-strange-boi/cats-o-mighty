@@ -1,7 +1,7 @@
 let config = require("../../config.json");
 
 //* Mongoose Vars (database)
-const Userdata = require("../moduls/userdata.js");
+const Userdata = require("../../moduls/userdata.js");
 
 //* discordbots.org API Vars
 const DBL = require("dblapi.js");
