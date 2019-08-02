@@ -72,12 +72,10 @@ module.exports.run = async (bot, message, args) => {
             member = userdata[i].userTag
           }
         }
-        if(userdata[i].userTag != "da strange boi" && userdata[i].userTag != "da strange boi#7087"){
-          if(i === 0){embed.addField(`${i + 1}. <:gold:579860509264969739> ${member} <:gold:579860509264969739>`, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`);}
-          else if(i === 1){embed.addField(`${i + 1}. <:silver:579860480500301844> ${member} <:silver:579860480500301844>`, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`);}
-          else if(i === 2){embed.addField(`${i + 1}. <:bronze:579860359196704770> ${member} <:bronze:579860359196704770>`, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`);}
-          else if(i > 2){embed.addField(`${i + 1}. ${member}`, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`);}
-        }
+        if(i === 0){embed.addField(`${i + 1}. <:gold:579860509264969739> \`${member}\` <:gold:579860509264969739>`, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`);}
+        else if(i === 1){embed.addField(`${i + 1}. <:silver:579860480500301844> \`${member}\` <:silver:579860480500301844>`, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`);}
+        else if(i === 2){embed.addField(`${i + 1}. <:bronze:579860359196704770> \`${member}\` <:bronze:579860359196704770>`, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`);}
+        else if(i > 2){embed.addField(`${i + 1}. \`${member}\``, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`);}
       }
     }
     message.channel.send(embed);

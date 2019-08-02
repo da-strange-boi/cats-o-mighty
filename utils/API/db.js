@@ -1,5 +1,4 @@
-const Discord = require("discord.js");
-let config = require("../config.json");
+let config = require("../../config.json");
 
 //* Mongoose Vars (database)
 const Userdata = require("../moduls/userdata.js");

@@ -50,6 +50,11 @@ bot.on("ready", async () => {
 //* Whenever A Message Is Sent Run The Code Below
 bot.on("message", async message => {
 
+  //* Check to see if the bot has the permissions
+  if(message.guild.me.hasPermission(['SEND_MESSAGES', 'MANAGE_MESSAGES', 'USE_EXTERNAL_EMOJIS', 'EMBED_LINKS', 'ADD_REACTIONS']) === false){
+    return;
+  }
+
   //* Set Vars For The Commands
   let prefix = config.prefix;
   let args = message.content.slice(prefix.length).trim().split(' ');
@@ -105,7 +110,7 @@ bot.on("message", async message => {
 
 bot.on("guildCreate", async guild => {
   let catsomighty = bot.guilds.find(search => search.id === '574420903169884170');
-  let logChannel = catsomighty.channels.find(search => search.name === 'bot-server-info');
+  let logChannel = catsomighty.channels.find(search => search.name === 'bot-server-data');
   if(!logChannel) return console.log("Can't find incidents channel.");
 
   let date = new Date();
@@ -130,7 +135,7 @@ bot.on("guildCreate", async guild => {
 
 bot.on("guildDelete", async guild => {
   let catsomighty = bot.guilds.find(search => search.id === '574420903169884170');
-  let logChannel = catsomighty.channels.find(search => search.name === 'bot-server-info');
+  let logChannel = catsomighty.channels.find(search => search.name === 'bot-server-data');
   if(!logChannel) return console.log("Can't find incidents channel.");
 
   let date = new Date();
@@ -143,8 +148,8 @@ bot.on("guildDelete", async guild => {
     guildDeleteEmbed.setThumbnail(guild.iconURL)
   }
   if(guild.large === true){
-    guildDeleteEmbed.setTitle(':inbox_tray: Removed Guild **LARGE**');
-  } else {guildDeleteEmbed.setTitle(':inbox_tray: Removed Guild');}
+    guildDeleteEmbed.setTitle(':outbox_tray: Removed Guild **LARGE**');
+  } else {guildDeleteEmbed.setTitle(':outbox_tray: Removed Guild');}
   if(guild.verified === true){
     guildDeleteEmbed.addField('Verified', 'i dont know how to make this look good :p')
   }

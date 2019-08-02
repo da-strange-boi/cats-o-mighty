@@ -1,6 +1,5 @@
-const Discord = require('discord.js');
 const request = require('request-promise');
-const config = require('../config.json');
+const config = require('../../config.json');
 
 setInterval(() => {
 
