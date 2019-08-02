@@ -50,9 +50,6 @@ bot.on("ready", async () => {
 //* Whenever A Message Is Sent Run The Code Below
 bot.on("message", async message => {
 
-  //! FOR TESTING
-  if(message.author.id != '295255543596187650') return;
-
   //* Set Vars For The Commands
   let prefix = config.prefix;
   let args = message.content.slice(prefix.length).trim().split(' ');

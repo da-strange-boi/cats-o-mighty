@@ -16,7 +16,7 @@ module.exports.run = async (bot, message, args) => {
 
   //* Select User Data From Database
   Userdata.find({}).sort([
-    ['catmoney', 'descending']
+    ['money.catmoney', 'descending']
   ]).exec((err, userdata) => {
     if(err) console.log(err);
     let member;
@@ -37,24 +37,31 @@ module.exports.run = async (bot, message, args) => {
       //* If Less Then 10 Results
       embed.setColor(config.color.cats);
       for(i = 0; i < userdata.length; i++) {
-        if(message.author.id === "295255543596187650"){member = userdata[i].userTag
-        }else{member = userdata[i].userTag.slice(0, -5)}
-        if(i === 0){embed.addField(`${i + 1}. <:gold:579860509264969739> ${member} <:gold:579860509264969739>`, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`);}
-        else if(i === 1){embed.addField(`${i + 1}. <:silver:579860480500301844> ${member} <:silver:579860480500301844>`, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`);}
-        else if(i === 2){embed.addField(`${i + 1}. <:bronze:579860359196704770> ${member} <:bronze:579860359196704770>`, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`);}
-        else if(i > 2){embed.addField(`${i + 1}. ${member}`, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`);}
+        //* Will use later
+        // if(message.author.id === "295255543596187650"){member = userdata[i].userTag
+        // }else{member = userdata[i].userTag.slice(0, -5)}
+        member = userdata[i].userTag
+        if(userdata[i].userTag != "da strange boi" && userdata[i].userTag != "da strange boi#7087"){
+          if(i === 0){embed.addField(`${i + 1}. <:gold:579860509264969739> ${member} <:gold:579860509264969739>`, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`);}
+          else if(i === 1){embed.addField(`${i + 1}. <:silver:579860480500301844> ${member} <:silver:579860480500301844>`, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`);}
+          else if(i === 2){embed.addField(`${i + 1}. <:bronze:579860359196704770> ${member} <:bronze:579860359196704770>`, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`);}
+          else if(i > 2){embed.addField(`${i + 1}. ${member}`, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`);}
+        }
       }   
     } else {
       //* If More Then 10 Results
       embed.setColor(config.color.cats);
       for(i = 0; i < 10; i++) {
-        if(message.author.id === "295255543596187650"){member = userdata[i].userTag
-        }else{member = userdata[i].userTag.slice(0, -5)}
-        if(member === "da strange boi" || member === "da strange boi#7087"){ i++; }
-        if(i === 0){embed.addField(`${i + 1}. <:gold:579860509264969739> ${member} <:gold:579860509264969739>`, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`);}
-        else if(i === 1){embed.addField(`${i + 1}. <:silver:579860480500301844> ${member} <:silver:579860480500301844>`, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`);}
-        else if(i === 2){embed.addField(`${i + 1}. <:bronze:579860359196704770> ${member} <:bronze:579860359196704770>`, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`);}
-        else if(i > 2){embed.addField(`${i + 1}. ${member}`, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`);}
+        //* Will use later
+        // if(message.author.id === "295255543596187650"){member = userdata[i].userTag
+        // }else{member = userdata[i].userTag.slice(0, -5)}
+        member = userdata[i].userTag
+        if(userdata[i].userTag != "da strange boi" && userdata[i].userTag != "da strange boi#7087"){
+          if(i === 0){embed.addField(`${i + 1}. <:gold:579860509264969739> ${member} <:gold:579860509264969739>`, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`);}
+          else if(i === 1){embed.addField(`${i + 1}. <:silver:579860480500301844> ${member} <:silver:579860480500301844>`, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`);}
+          else if(i === 2){embed.addField(`${i + 1}. <:bronze:579860359196704770> ${member} <:bronze:579860359196704770>`, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`);}
+          else if(i > 2){embed.addField(`${i + 1}. ${member}`, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`);}
+        }
       }
     }
     message.channel.send(embed);
