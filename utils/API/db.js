@@ -1,6 +1,5 @@
+const Discord = require('discord.js');
 let config = require("../../config.json");
-
-//* Mongoose Vars (database)
 const Userdata = require("../../moduls/userdata.js");
 
 //* discordbots.org API Vars
@@ -54,11 +53,17 @@ dbl.webhook.on('vote', vote => {
     if(result === 13){userdata.cats.loverboy += 1; catName = "loverboy"}
 
     //* To send a DM to the user letting them know their rewards for voting
+
+    let votedEmbed = Discord.RichEmbed()
+    .setColor(config.color.cats);
     if(vote.isWeekend === true){
-      bot.users.get(votedUser).send(`Thank you for upvoting\nYou have caught a **${catName}** for voting!\nIt's the weekend! You get a bonus of $5,000`)
+      votedEmbed.setAuthor('Thanks for upvoting Cats o Mighty • Weekend Rewards', bot.user.avatarURL);
+      votedEmbed.setDescription(`**For upvoting Cats o Mighty you get:**\n\n:cat2: ${catName}\n:moneybag: $5,000\n\n:alarm_clock: **In 12 hours you can vote again to get more rewards!**`);
     } else {
-      bot.users.get(votedUser).send(`Thank you for upvoting\nYou have caught a **${catName}** for voting!`);
+      votedEmbed.setAuthor('Thanks for upvoting Cats o Mighty', bot.user.avatarURL);
+      votedEmbed.setDescription(`**For upvoting Cats o Mighty you get:**\n\n:cat2: ${catName}\n\n:alarm_clock: **In 12 hours you can vote again to get more rewards!**`);
     }
+    bot.users.get(votedUser).send(votedEmbed);
 
     //* Save value to database
     userdata.save().catch(err => console.log(err));

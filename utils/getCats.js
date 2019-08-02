@@ -38,7 +38,6 @@ bot.on("message", async message => {
         userID: message.author.id
     }, (err, userdata) => {
         if(err) console.log(err);
-        if(!userdata){console.log('userdata error')}
         if(userdata){
             
 

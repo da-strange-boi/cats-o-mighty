@@ -19,7 +19,7 @@ const config = require("./config.json");
 //* Other Module Vars
 global.fs = require("fs");
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/catsdataparse", {
+mongoose.connect("mongodb://localhost:27017/cats-o-mighty", {
   useNewUrlParser: true
 });
 const Userdata = require("./moduls/userdata.js");
@@ -50,11 +50,6 @@ bot.on("ready", async () => {
 //* Whenever A Message Is Sent Run The Code Below
 bot.on("message", async message => {
 
-  //* Check to see if the bot has the permissions
-  if(message.guild.me.hasPermission(['SEND_MESSAGES', 'MANAGE_MESSAGES', 'USE_EXTERNAL_EMOJIS', 'EMBED_LINKS', 'ADD_REACTIONS']) === false){
-    return;
-  }
-
   //* Set Vars For The Commands
   let prefix = config.prefix;
   let args = message.content.slice(prefix.length).trim().split(' ');
@@ -68,6 +63,11 @@ bot.on("message", async message => {
   if (message.author.bot || message.channel.type === "dm"){
     return;
   };
+
+  //* Check to see if the bot has the permissions
+  if(message.guild.me.hasPermission(['SEND_MESSAGES', 'MANAGE_MESSAGES', 'USE_EXTERNAL_EMOJIS', 'EMBED_LINKS', 'ADD_REACTIONS']) === false){
+    return;
+  }
 
   //* Setup Command 'start' To Setup The Database For New Users
   require('./utils/newCat.js');
