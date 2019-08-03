@@ -53,10 +53,10 @@ bot.on("message", async message => {
 
   //* Figure out if the user used @mention or cat for the prefix
   let prefix;
-  if(message.content.startsWith('<@571953614361329674>')){
-    prefix = '<@571953614361329674>';
-    if(message.content.trim() === '<@571953614361329674>'){
-      message.channel.send(`**${message.author.username}**, my prefix is \`cat\` uwu`)
+  if(message.content.startsWith('<@569336139186700312>')){
+    prefix = '<@569336139186700312>';
+    if(message.content.trim() === '<@569336139186700312>'){
+      message.channel.send(`**${message.author.username}**, my prefix is \`cat\` uwu`);
     }
   } else if(message.content.startsWith('cat')){
     prefix = 'cat';
