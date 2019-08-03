@@ -12,7 +12,7 @@ bot.on("message", async message => {
     if (message.author.bot || message.channel.type === "dm"){
         return;
     };
-    
+
     let prefix = config.prefix;
     if(message.content.startsWith(`<@${bot.user.id}>`)){
         prefix = `<@${bot.user.id}>`;
@@ -47,7 +47,6 @@ bot.on("message", async message => {
         if(err) console.log(err);
         if(userdata){
             
-
             Totals.findOne({}, (err, totalList) => {
                 if(err) console.log(err);
                 if(!totalList){
@@ -84,7 +83,7 @@ bot.on("message", async message => {
                                     let commonCatEmbed = new Discord.RichEmbed()
                                     .setAuthor(message.author.username, message.author.avatarURL)
                                     .setColor(config.color.cats)
-                                    .setDescription("You got an " + catName + " cat! uwu");
+                                    .setDescription("You got a " + catName + " cat! uwu");
                                     message.channel.send(commonCatEmbed).then(msg => msg.delete(6000));
                                 }
                         
@@ -113,7 +112,7 @@ bot.on("message", async message => {
                                     let uncommonCatEmbed = new Discord.RichEmbed()
                                     .setAuthor(message.author.username, message.author.avatarURL)
                                     .setColor(config.color.cats)
-                                    .setDescription("You got an " + catName + " cat! uwu");
+                                    .setDescription("You got a " + catName + " cat! uwu");
                                     message.channel.send(uncommonCatEmbed).then(msg => msg.delete(6000));
                                 }
                             }
@@ -140,7 +139,7 @@ bot.on("message", async message => {
                                     let rareCatEmbed = new Discord.RichEmbed()
                                     .setAuthor(message.author.username, message.author.avatarURL)
                                     .setColor(config.color.cats)
-                                    .setDescription("You got an " + catName + " cat! uwu");
+                                    .setDescription("You got a " + catName + " cat! uwu");
                                     message.channel.send(rareCatEmbed).then(msg => msg.delete(6000));
                                 }
                             }
@@ -173,7 +172,7 @@ bot.on("message", async message => {
                                     let specialCatEmbed = new Discord.RichEmbed()
                                     .setAuthor(message.author.username, message.author.avatarURL)
                                     .setColor(config.color.cats)
-                                    .setDescription("You got an " + catName + "! uwu");
+                                    .setDescription("You got a " + catName + "! uwu");
                                     message.channel.send(specialCatEmbed).then(msg => msg.delete(6000));
                                 }
                             }
@@ -193,17 +192,14 @@ bot.on("message", async message => {
                                     let impossibleCatEmbed = new Discord.RichEmbed()
                                     .setAuthor(message.author.username, message.author.avatarURL)
                                     .setColor(config.color.cats)
-                                    .setDescription("You got an " + catName + " cat! uwu");
+                                    .setDescription("You got a " + catName + " cat! uwu");
                                     message.channel.send(impossibleCatEmbed).then(msg => msg.delete(6000));
                                 }
-                        
                             }
-
                         }
                         totalList.save().catch(err => console.log(err));
                         userdata.save().catch(err => console.log(err));
                     });
-
                 }
             });
         }
