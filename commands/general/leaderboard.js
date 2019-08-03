@@ -4,12 +4,6 @@ let config = require("../../config.json");
 const Userdata = require("../../moduls/userdata.js");
 let cooldown = {};
 
-// function hasNumbers(t)
-// {
-// var regex = /#[0-9]{4}$/g;
-// return regex.test(t);
-// }
-
 const hasTag = (t) => {
   let regex = /#[0-9]{4}$/g;
   return regex.test(t);
@@ -18,7 +12,7 @@ const hasTag = (t) => {
 module.exports.run = async (bot, message, args) => {
 
   //* Set A Cooldown
-  if(cooldown[message.author.id]){
+  if(cooldown[message.author.id] && cooldown[message.author.id > 0]){
     let time = ms(Date.now() - cooldown[message.author.id]);
     message.channel.send(`hmm **${message.author.username}**, you gotta wait **${3.5 - time.seconds}s**`).then(msg => msg.delete(1000 * (3.5 - time.seconds)));
     return;

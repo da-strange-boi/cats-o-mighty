@@ -39,7 +39,7 @@ module.exports.run = async (bot, message, args) => {
     if(!args[0]){
 
       //* Set A Cooldown
-      if(cooldown[message.author.id]){
+      if(cooldown[message.author.id] && cooldown[message.author.id > 0]){
         let time = ms(Date.now() - cooldown[message.author.id]);
         message.channel.send(`hmm **${message.author.username}**, you gotta wait **${30 - time.seconds}s**`).then(msg => msg.delete(1000 * (30 - time.seconds)));
         return;
