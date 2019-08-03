@@ -6,7 +6,7 @@ const Userdata = require("../../moduls/userdata.js");
 
 module.exports.run = async (bot, message, args) => {
   //* If someone who is not a mod enters this command
-  if(!message.author.id === "295255543596187650" && !message.author.id === "308101246160732160"){
+  if(!message.author.id === "295255543596187650" && !message.author.id === "481318379907579916" && !message.author.id === "308101246160732160"){
     return;
   }
 
