@@ -12,6 +12,13 @@ bot.on("message", async message => {
     if (message.author.bot || message.channel.type === "dm"){
         return;
     };
+    
+    let prefix = config.prefix;
+    if(message.content.startsWith(`<@${bot.user.id}>`)){
+        prefix = `<@${bot.user.id}>`;
+    }
+
+    if(message.content.trim().toLowerCase().startsWith(prefix)) return;
 
     //* The Random Way To Get Cats
     // common: 30 || uncommon: 70 || rare: 150 || special: 350
