@@ -51,8 +51,18 @@ bot.on("ready", async () => {
 //* Whenever A Message Is Sent Run The Code Below
 bot.on("message", async message => {
 
+  //* Figure out if the user used @mention or cat for the prefix
+  let prefix;
+  if(message.content.startsWith('<@571953614361329674>')){
+    prefix = '<@571953614361329674>';
+    if(message.content.trim() === '<@571953614361329674>'){
+      message.channel.send(`**${message.author.username}**, my prefix is \`cat\` uwu`)
+    }
+  } else if(message.content.startsWith('cat')){
+    prefix = 'cat';
+  }
+
   //* Set Vars For The Commands
-  let prefix = config.prefix;
   let args = message.content.slice(prefix.length).trim().split(' ');
   global.cmd = args.shift().toLowerCase();
   let command;
