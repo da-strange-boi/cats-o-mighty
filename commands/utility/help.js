@@ -14,7 +14,7 @@ module.exports.run = async (bot, message, args) => {
     //.setFooter('[] = optional arguments     {} = optional user input')
     .addField(":cat2: General", "`collection`, `daily`, `dex`, `feed`, `leaderboard`, `money`, `profile`, `sell`")
     .addField(":gear: Utility", "`chance`, `help`, `invite`, `ping`, `suggest`, `supportserver`, `updates`, `vote`");
-    if(message.author.id === "308101246160732160"){
+    if(message.author.id === "308101246160732160" || message.author.id === '481318379907579916'){
       helpEmbed.addField(":beginner: Bot Admin Commands", "`userinfo`");
       return message.channel.send(helpEmbed);
     }

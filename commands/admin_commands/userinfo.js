@@ -1,10 +1,14 @@
 const Discord = require('discord.js');
 const config = require('../../config.json');
+const ms = require('parse-ms');
 
 //mongoose vars
 const Userdata = require("../../moduls/userdata.js");
 
 module.exports.run = async (bot, message, args) => {
+
+  //USAGE cat userinfo {id/name} {the data}
+
   //* If someone who is not a mod enters this command
   if(!message.author.id === "295255543596187650" && !message.author.id === "481318379907579916" && !message.author.id === "308101246160732160"){
     return;
@@ -15,16 +19,13 @@ module.exports.run = async (bot, message, args) => {
     return;
   }
 
-  userid = args[0].trim();
+  user = args[0].trim();
 
   //* Select A User Data From The Database
-  Userdata.findOne({
-    userID: userid
-  }, (err, userdata) => {
-    if(err) console.log(err);
+  Userdata.findOne({userID: user}, (err, userdata) => {
 
     if(!userdata){
-      console.log('nope');
+      message.channel.send('not a user?');
       return;
     }
 
@@ -72,8 +73,17 @@ module.exports.run = async (bot, message, args) => {
     function formatMoney(amount, decimalCount = 0, decimal = ".", thousands = ",") {try {decimalCount = Math.abs(decimalCount);decimalCount = isNaN(decimalCount) ? 2 : decimalCount;const negativeSign = amount < 0 ? "-" : "";let i = parseInt(amount = Math.abs(Number(amount) || 0).toFixed(decimalCount)).toString();let j = (i.length > 3) ? i.length % 3 : 0;return negativeSign + (j ? i.substr(0, j) + thousands : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousands) + (decimalCount ? decimal + Math.abs(amount - i).toFixed(decimalCount).slice(2) : "");} catch (e) {console.log(e)}};
     userinfo.addField('User Money', `**$${formatMoney(uMoney)}**`);
 
-    uDaily = userdata.stats.dailyStreak;
-    userinfo.addField('User Daily', `${uDaily}`);
+    uDailyStreak = userdata.stats.dailyStreak;
+    uDailyTime = userdata.times.dailyTime;
+    uDTime = ms(Date.now() - uDailyTime);
+    if(uDailyTime === 0){
+      userinfo.addField('User Daily', `Daily Streak: ${uDailyStreak}\nLast Daily: none`);
+    } else {
+      userinfo.addField('User Daily', `Daily Streak: ${uDailyStreak}\nLast Daily: **${uDTime.days}d ${uDTime.hours}h ${uDTime.minutes}m ${uDTime.seconds}s**`);
+    }
+    
+
+    userinfo.addField('Etc Info', `cats sold: ${userdata.stats.catsSold}\nused bot: ${userdata.stats.saidCat}`);
 
     message.channel.send(userinfo);
 
