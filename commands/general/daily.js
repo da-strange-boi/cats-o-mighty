@@ -21,11 +21,11 @@ module.exports.run = async (bot, message, args) => {
   }
   cooldown[message.author.id] = Date.now();
 
-  const displayEmbed = (amtMoney, dailyStreak, catName) => {
+  const displayEmbed = async (amtMoney, dailyStreak, catName) => {
     let embed = new Discord.RichEmbed()
     .setAuthor(`Daily`, message.author.displayAvatarURL)
     .setColor(config.color.cats)
-    .setFooter('after 7 days you\'ll get better rewards || this still needs a lot of work lol')
+    .setFooter('after 7 days you\'ll get better rewards')
     .addField(':star2: Streak', `${dailyStreak}`);
     if(amtMoney){
       embed.addField(`:moneybag: Collected Money`, `$${amtMoney}`)
@@ -33,15 +33,15 @@ module.exports.run = async (bot, message, args) => {
     if(catName){
       embed.addField(`Random stray cat you found`, `${catName}`)
     }
-    message.channel.send(embed);
+    await message.channel.send(embed);
   }
 
   Userdata.findOne({
     userID: message.author.id
-  }, (err, userdata) => {
+  }, async (err, userdata) => {
     if(err) console.log(err);
 
-    let timeout = 86400000; //* 24 hours
+    let timeout = 60000; //* 24 hours (86400000)
     daily = userdata.times.dailyTime;
 
     if(daily !== null && timeout - (Date.now() - daily) > 0){
@@ -50,10 +50,10 @@ module.exports.run = async (bot, message, args) => {
       let embed = new Discord.RichEmbed()
       .setAuthor(`Daily`, message.author.displayAvatarURL)
       .setColor(config.color.cats)
-      .setFooter('after 7 days you\'ll get better rewards || this still needs a lot of work lol')
+      .setFooter('after 7 days you\'ll get better rewards')
       .setDescription(`You have to wait **${time.hours}h ${time.minutes}m ${time.seconds}s** until next daily`)
       .addField(':star2: Streak', `${userdata.stats.dailyStreak}`);
-      message.channel.send(embed);
+      await message.channel.send(embed);
     } else {
 
       userdata.times.dailyTime = Date.now();
