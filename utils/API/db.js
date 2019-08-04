@@ -54,7 +54,7 @@ dbl.webhook.on('vote', vote => {
 
     //* To send a DM to the user letting them know their rewards for voting
 
-    let votedEmbed = Discord.RichEmbed()
+    let votedEmbed = new Discord.RichEmbed()
     .setColor(config.color.cats);
     if(vote.isWeekend === true){
       votedEmbed.setAuthor('Thanks for upvoting Cats o Mighty • Weekend Rewards', bot.user.avatarURL);
