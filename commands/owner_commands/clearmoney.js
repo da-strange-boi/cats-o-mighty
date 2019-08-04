@@ -33,7 +33,7 @@ module.exports.run = async (bot, message, args) => {
                 if(userdata){
                     userdata.money.catmoney = 0;
                     userdata.save().catch(err => console.log(err));
-                    message.channel.send(`It's been done master!\nmoney has been cleard from your account`);
+                    message.channel.send(`It's been done master!\nmoney has been cleared from your account`);
                 }
                 return;
             });

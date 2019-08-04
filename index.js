@@ -24,6 +24,7 @@ mongoose.connect("mongodb://localhost:27017/cats-o-mighty", {
   useFindAndModify: false
 });
 const Userdata = require("./moduls/userdata.js");
+const Logs = require('./moduls/logs.js');
 
 
 //* DBL posting stats && DB.GG posting stats && BFD posting stats
@@ -103,6 +104,23 @@ bot.on("message", async message => {
         require("./utils/getCats.js");
         require("./utils/checkCats.js");
       }
+
+      //* Logging stuff
+      userdata.stats.saidCat += 1;
+      userdata.save().catch(err => console.log(err));
+
+      Logs.findOne({}, (err, log) => {
+        if(log){
+          log.botUsed += 1;
+          log.save().catch(err => console.log(err));
+        }
+        if(!log){
+          let newLog = new Logs({
+            botUsed: 1
+          });
+          newLog.save().catch(err => console.log(err));
+        }
+      });
       
       if(newUser === false) {
 
