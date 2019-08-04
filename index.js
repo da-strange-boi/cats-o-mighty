@@ -19,7 +19,7 @@ const config = require("./config.json");
 //* Other Module Vars
 global.fs = require("fs");
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/cats-o-mighty", {
+mongoose.connect("mongodb://localhost:27017/catsdataparse", {
   useNewUrlParser: true,
   useFindAndModify: false
 });
