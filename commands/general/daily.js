@@ -41,7 +41,7 @@ module.exports.run = async (bot, message, args) => {
   }, async (err, userdata) => {
     if(err) console.log(err);
 
-    let timeout = 60000; //* 24 hours (86400000)
+    let timeout = 86400000; //* 24 hours (86400000)
     daily = userdata.times.dailyTime;
 
     if(daily !== null && timeout - (Date.now() - daily) > 0){
