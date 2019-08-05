@@ -36,7 +36,7 @@ module.exports.run = async (bot, message, args) => {
 
   if(!args[0]){    
     updateEmbed.setDescription(date804);updateNum++;
-    message.channel.send(updateEmbed);return;
+    await message.channel.send(updateEmbed);return;
   }
     
   if(args[0]){
