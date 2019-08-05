@@ -89,15 +89,15 @@ module.exports.run = async (bot, message, args) => {
         //------special------
 
         displayCat('bandit', '2,500', tBandit, 'https://i.imgur.com/FjSuQay.jpg');
-        displayCat('bug', '2,500', tBug, 'https://i.imgur.com/lvO0EA8.jpg');
+        displayCat('bug', '2,500', tBug, 'https://i.imgur.com/umoPzou.jpg');
         displayCat('linda', '2,500', tLinda, 'https://i.imgur.com/LmHVdDn.jpg');
-        displayCat('mittens', '2,500', tMittens, 'https://i.imgur.com/BCsUSU6.jpg');
-        displayCat('cash', '2,500', tCash, 'https://i.imgur.com/rWnjhLM.jpg');
+        displayCat('mittens', '2,500', tMittens, 'https://i.imgur.com/vPyIsRd.jpg');
+        displayCat('cash', '2,500', tCash, 'https://i.imgur.com/21odRlh.jpg');
         displayCat('jackson', '2,500', tJackson, 'https://i.imgur.com/NdE2s2E.jpg');
-        displayCat('cottonball', '2,500', tCottonball, 'https://i.imgur.com/3jI4GjU.jpg');
-        displayCat('sonny', '2,500', tSonny, 'https://i.imgur.com/bda6zxd.jpg');
+        displayCat('cottonball', '2,500', tCottonball, 'https://i.imgur.com/ceqsPX4.jpg');
+        displayCat('sonny', '2,500', tSonny, 'https://i.imgur.com/r7Fb0xU.jpg');
         displayCat('smokey', '2,500', tSmokey, 'https://i.imgur.com/9uxOMQB.jpg');
-        displayCat('lailah', '2,500', tLailah, 'https://i.imgur.com/lcWRZZN.jpg');
+        displayCat('lailah', '2,500', tLailah, 'https://i.imgur.com/XEBy623.jpg');
         displayCat('cher', '2,500', tCher, 'https://i.imgur.com/I06Qynx.jpg');
         displayCat('marvin', '2,500', tMarvin, 'https://i.imgur.com/izG1phc.jpg');
         displayCat('loki', '2,500', tLoki, 'https://i.imgur.com/PBV6Ijq.jpg');
