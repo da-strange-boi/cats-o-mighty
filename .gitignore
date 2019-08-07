@@ -1,0 +1,16 @@
+.vscode/
+node_modules/
+website/
+
+# images
+cat_Images/common
+cat_Images/uncommon
+cat_Images/rare
+cat_Images/special
+cat_Images/impossible
+cat_Images/emojis
+cat_Images/cat_o_mighty_pfp.jpg
+
+config.json
+INFO.txt
+templateCats.json

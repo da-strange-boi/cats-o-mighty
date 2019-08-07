@@ -1,11 +1,12 @@
 {
-    "token": "discord bot token",
+    "token": "NTcxOTUzNjE0MzYxMzI5Njc0.XMX60w.5UlwsBgVEUGhDNaNb24RS2WKO_c",
     "prefix": "cat",
     "debug": true,
     "auth": {
-        "DBLtoken": "token for discordbots.org",
-        "DBGGauth": "auth for discord.bots.gg",
-        "BFDauth": "auth for botsfordiscord.com"
+        "DBauth": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU2OTMzNjEzOTE4NjcwMDMxMiIsImJvdCI6dHJ1ZSwiaWF0IjoxNTU5MTk0MDU5fQ.HeT7hfAJ58hkBzS4U-fccFBnjMlkIwKCo3GsW0RQX-A",
+        "DBGGauth": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGkiOnRydWUsImlkIjoiMjk1MjU1NTQzNTk2MTg3NjUwIiwiaWF0IjoxNTYxNTE4NjMwfQ.V2rjWT3yJulKfl-UWSbKTXZjT6ZXHU9rsCIELR9nvI0",
+        "BFDauth": "454c701eef35fe9dbb8c9af6b5008a69742995d3977c57fa6bc994e448518ef14b2446632d82165854bdd75514648eaefea8c8b15b7b6c8f01cfdd519a7a57d0",
+        "DBLauth": "f5ddd431613126fe54de43a2a64d0a675ce404cedd068947a04782dead525a57"
     },
     "color": {
         "cats": "#004080",
