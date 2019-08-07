@@ -152,7 +152,7 @@ bot.on("guildCreate", async guild => {
     guildCreateEmbed.setThumbnail(guild.iconURL)
   }
   if(guild.large === true){
-    guildCreateEmbed.setTitle(':inbox_tray: Added Guild **LARGE**');
+    guildCreateEmbed.setTitle(':inbox_tray: Added Guild - **large**');
   } else {guildCreateEmbed.setTitle(':inbox_tray: Added Guild');}
   if(guild.verified === true){
     guildCreateEmbed.addField('Verified', 'i dont know how to make this look good :p')
@@ -177,7 +177,7 @@ bot.on("guildDelete", async guild => {
     guildDeleteEmbed.setThumbnail(guild.iconURL)
   }
   if(guild.large === true){
-    guildDeleteEmbed.setTitle(':outbox_tray: Removed Guild **LARGE**');
+    guildDeleteEmbed.setTitle(':outbox_tray: Removed Guild - **large**');
   } else {guildDeleteEmbed.setTitle(':outbox_tray: Removed Guild');}
   if(guild.verified === true){
     guildDeleteEmbed.addField('Verified', 'i dont know how to make this look good :p')

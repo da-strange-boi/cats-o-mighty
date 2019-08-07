@@ -1,6 +1,5 @@
 {
     "prefix": "cat",
-    "debug": true,
     "color": {
         "cats": "#004080",
         "dex": "#D3FFCE",
