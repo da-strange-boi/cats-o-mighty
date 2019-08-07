@@ -43,11 +43,11 @@ bot.on("message", async message => {
 
     Userdata.findOne({
         userID: message.author.id
-    }, (err, userdata) => {
+    }, async (err, userdata) => {
         if(err) console.log(err);
         if(userdata){
             
-            Totals.findOne({}, (err, totalList) => {
+            Totals.findOne({}, async (err, totalList) => {
                 if(err) console.log(err);
                 if(!totalList){
                     const total = new Totals({
@@ -59,7 +59,7 @@ bot.on("message", async message => {
 
                     Guildsettings.findOne({
                         guildID: message.guild.id
-                    }, (err, guildSettings) => {
+                    }, async (err, guildSettings) => {
                         if(err) console.log(err);
                         if(!guildSettings){console.log('guildSettings error')}
                         if(guildSettings){
@@ -79,12 +79,14 @@ bot.on("message", async message => {
                                 if(result === 5){userdata.cats.russianblue += 1;totalList.cats.russianblue += 1; catName = "russian blue";}
                         
                                 //* Start Embed To Show That They Got A Common Cat
-                                if(guildSettings.CatGottenPopupMessage === true){
-                                    let commonCatEmbed = new Discord.RichEmbed()
-                                    .setAuthor(message.author.username, message.author.avatarURL)
-                                    .setColor(config.color.cats)
-                                    .setDescription("You got a " + catName + " cat! uwu");
-                                    message.channel.send(commonCatEmbed).then(msg => msg.delete(6000));
+                                let commonCatEmbed = new Discord.RichEmbed()
+                                .setAuthor(message.author.username, message.author.avatarURL)
+                                .setColor(config.color.cats)
+                                .setDescription("You got a " + catName + " cat! uwu");
+                                if(guildSettings.CatGottenPopupMessage === 'show'){
+                                    await message.channel.send(commonCatEmbed);
+                                } else if(guildSettings.CatGottenPopupMessage === 'disappear'){
+                                    await message.channel.send(commonCatEmbed).then(msg => msg.delete(6000));
                                 }
                         
                             }
@@ -108,12 +110,14 @@ bot.on("message", async message => {
                                 if(result === 5){userdata.cats.turkishangora += 1;totalList.cats.turkishangora += 1; catName = "turkish angora";}
         
                                 //* Start Embed To Show That They Got A Uncommon Cat
-                                if(guildSettings.CatGottenPopupMessage === true){
-                                    let uncommonCatEmbed = new Discord.RichEmbed()
-                                    .setAuthor(message.author.username, message.author.avatarURL)
-                                    .setColor(config.color.cats)
-                                    .setDescription("You got a " + catName + " cat! uwu");
-                                    message.channel.send(uncommonCatEmbed).then(msg => msg.delete(6000));
+                                let uncommonCatEmbed = new Discord.RichEmbed()
+                                .setAuthor(message.author.username, message.author.avatarURL)
+                                .setColor(config.color.cats)
+                                .setDescription("You got a " + catName + " cat! uwu");
+                                if(guildSettings.CatGottenPopupMessage === 'show'){
+                                    await message.channel.send(uncommonCatEmbed);
+                                } else if(guildSettings.CatGottenPopupMessage === 'disappear'){
+                                    await message.channel.send(uncommonCatEmbed).then(msg => msg.delete(6000));
                                 }
                             }
                             if(rareCatAmt === rareBaseAmt){
@@ -135,12 +139,14 @@ bot.on("message", async message => {
                                 if(result === 5){userdata.cats.munchkin += 1;totalList.cats.munchkin += 1; catName = "munchkin";}
         
                                 //* Start Embed To Show That They Got A Rare Cat
-                                if(guildSettings.CatGottenPopupMessage === true){
-                                    let rareCatEmbed = new Discord.RichEmbed()
-                                    .setAuthor(message.author.username, message.author.avatarURL)
-                                    .setColor(config.color.cats)
-                                    .setDescription("You got a " + catName + " cat! uwu");
-                                    message.channel.send(rareCatEmbed).then(msg => msg.delete(6000));
+                                let rareCatEmbed = new Discord.RichEmbed()
+                                .setAuthor(message.author.username, message.author.avatarURL)
+                                .setColor(config.color.cats)
+                                .setDescription("You got a " + catName + " cat! uwu");
+                                if(guildSettings.CatGottenPopupMessage === 'show'){
+                                    await message.channel.send(rareCatEmbed);
+                                } else if(guildSettings.CatGottenPopupMessage === 'disappear'){
+                                    await message.channel.send(rareCatEmbed).then(msg => msg.delete(6000));
                                 }
                             }
                             if(specialCatAmt === specialBaseAmt){
@@ -168,12 +174,14 @@ bot.on("message", async message => {
                                 if(result === 13){userdata.cats.loverboy += 1;totalList.cats.loverboy += 1; catName = "loverboy";}
         
                                 //* Start Embed To Show That They Got A Special Cat
-                                if(guildSettings.CatGottenPopupMessage === true){
-                                    let specialCatEmbed = new Discord.RichEmbed()
-                                    .setAuthor(message.author.username, message.author.avatarURL)
-                                    .setColor(config.color.cats)
-                                    .setDescription("You got a " + catName + "! uwu");
-                                    message.channel.send(specialCatEmbed).then(msg => msg.delete(6000));
+                                let specialCatEmbed = new Discord.RichEmbed()
+                                .setAuthor(message.author.username, message.author.avatarURL)
+                                .setColor(config.color.cats)
+                                .setDescription("You got a " + catName + "! uwu");
+                                if(guildSettings.CatGottenPopupMessage === 'show'){
+                                    await message.channel.send(specialCatEmbed);
+                                } else if(guildSettings.CatGottenPopupMessage === 'disappear'){
+                                    await message.channel.send(specialCatEmbed).then(msg => msg.delete(6000));
                                 }
                             }
                             if(impossibleCatsAmt === impossibleBaseAmt){
@@ -188,12 +196,14 @@ bot.on("message", async message => {
                                 if(result === 2){userdata.cats.uwu += 1;totalList.cats.uwu += 1; catName = "UWU";}
         
                                 //* Start Embed To Show That They Got A Common Cat
-                                if(guildSettings.CatGottenPopupMessage === true){
-                                    let impossibleCatEmbed = new Discord.RichEmbed()
-                                    .setAuthor(message.author.username, message.author.avatarURL)
-                                    .setColor(config.color.cats)
-                                    .setDescription("You got a " + catName + " cat! uwu");
-                                    message.channel.send(impossibleCatEmbed).then(msg => msg.delete(6000));
+                                let impossibleCatEmbed = new Discord.RichEmbed()
+                                .setAuthor(message.author.username, message.author.avatarURL)
+                                .setColor(config.color.cats)
+                                .setDescription("You got a " + catName + " cat! uwu");
+                                if(guildSettings.CatGottenPopupMessage === 'show'){
+                                    await message.channel.send(impossibleCatEmbed);
+                                } else if(guildSettings.CatGottenPopupMessage === 'disappear'){
+                                    await message.channel.send(impossibleCatEmbed).then(msg => msg.delete(6000));
                                 }
                             }
                         }

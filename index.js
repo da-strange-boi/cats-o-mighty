@@ -29,7 +29,7 @@ const Logs = require('./moduls/logs.js');
 
 
 //* DBL posting stats && DB.GG posting stats && BFD posting stats
-if(process.env.DEBUG === false){
+if(process.env.DEBUG === 'false'){
   require('./utils/API/db.js');
   require('./utils/API/dbgg.js');
   require('./utils/API/bfd.js');

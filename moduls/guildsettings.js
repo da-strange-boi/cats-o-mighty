@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const guildsettingsSchema = mongoose.Schema({
   guildID: String,
-  CatGottenPopupMessage: Boolean
+  CatGottenPopupMessage: String
 });
 
 module.exports = mongoose.model("guildSettings", guildsettingsSchema);
