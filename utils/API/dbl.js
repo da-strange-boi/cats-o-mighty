@@ -1,5 +1,4 @@
 const request = require('request-promise');
-const config = require('../../config.json');
 
 setInterval(() => {
 
@@ -8,7 +7,7 @@ setInterval(() => {
   const options = {
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bot ${config.auth.DBLauth}`,
+      'Authorization': `Bot ${process.env.DISCORD_BOT_LIST_AUTH}`,
     },
     method: 'POST',
     uri: 'https://discordbotlist.com/api/bots/569336139186700312/stats',

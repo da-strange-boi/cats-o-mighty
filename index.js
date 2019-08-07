@@ -17,6 +17,7 @@ bot.aliases = new Discord.Collection();
 const config = require("./config.json");
 
 //* Other Module Vars
+require('dotenv/config');
 global.fs = require("fs");
 const mongoose = require("mongoose");
 mongoose.connect("mongodb://localhost:27017/cats-o-mighty", {
@@ -28,7 +29,7 @@ const Logs = require('./moduls/logs.js');
 
 
 //* DBL posting stats && DB.GG posting stats && BFD posting stats
-if(config.debug === false){
+if(process.env.DEBUG === false){
   require('./utils/API/db.js');
   require('./utils/API/dbgg.js');
   require('./utils/API/bfd.js');
@@ -186,4 +187,4 @@ bot.on("guildDelete", async guild => {
 });
 
 //* Login As The Bot (making it go online)
-bot.login(config.token);
+bot.login(process.env.BOT_TOKEN);

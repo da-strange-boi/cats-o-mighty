@@ -1,12 +1,11 @@
 const request = require('request-promise');
-const config = require('../../config.json');
 
 setInterval(() => {
 
   const options = {
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': config.auth.BFDauth,
+      'Authorization': process.env.BOTS_FOR_DISCORD_AUTH,
     },
     method: 'POST',
     uri: 'https://botsfordiscord.com/api/bot/569336139186700312',

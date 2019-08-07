@@ -1,3 +1,4 @@
+# etc folders
 .vscode/
 node_modules/
 website/
@@ -11,6 +12,9 @@ cat_Images/impossible
 cat_Images/emojis
 cat_Images/cat_o_mighty_pfp.jpg
 
-config.json
+# just info
 INFO.txt
 templateCats.json
+
+# secret stuff
+.env

@@ -1,12 +1,11 @@
 const request = require('request-promise');
-const config = require('../../config.json');
 
 setInterval(() => {
   
   const options = {
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': config.auth.DBGGauth,
+      'Authorization': process.env.DISCORD_BOTS_G_AUTH,
     },
     method: 'POST',
     uri: 'https://discord.bots.gg/api/v1/bots/569336139186700312/stats',

@@ -4,7 +4,7 @@ const Userdata = require("../../moduls/userdata.js");
 
 //* discordbots.org API Vars
 const DBL = require("dblapi.js");
-global.dbl = new DBL(config.auth.DBauth, { webhookPort: 5001, webhookAuth: "Pigfucker747", statsInterval: 2400000 }, bot);
+global.dbl = new DBL(process.env.DISCORD_BOTS_AUTH, { webhookPort: 5001, webhookAuth: "Pigfucker747", statsInterval: 2400000 }, bot);
 
 //* Ready Up The Webhook
 dbl.webhook.on('ready', hook => {
