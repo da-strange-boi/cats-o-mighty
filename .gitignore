@@ -4,17 +4,17 @@ node_modules/
 website/
 
 # images
-cat_Images/common
-cat_Images/uncommon
-cat_Images/rare
-cat_Images/special
-cat_Images/impossible
-cat_Images/emojis
-cat_Images/cat_o_mighty_pfp.jpg
+images/common
+images/uncommon
+images/rare
+images/special
+images/impossible
+images/emojis
+images/cat_o_mighty_pfp.jpg
 
 # just info
 INFO.txt
 templateCats.json
 
-# secret stuff
+# secret data stuff
 .env

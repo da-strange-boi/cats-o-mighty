@@ -29,7 +29,7 @@ module.exports.run = async (bot, message, args) => {
   //* Setup Some Vars For Canvas
   const canvas = Canvas.createCanvas(800, 500);
   const ctx = canvas.getContext('2d');
-  const background = await Canvas.loadImage('./cat_Images/profileBackground.png');
+  const background = await Canvas.loadImage('./images/profileBackground.png');
 
   // https://stackoverflow.com/questions/149055/how-can-i-format-numbers-as-dollars-currency-string-in-javascript
   function formatMoney(amount, decimalCount = 0, decimal = ".", thousands = ",") {

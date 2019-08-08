@@ -21,12 +21,15 @@ module.exports.run = async (bot, message, args) => {
   }
   cooldown[message.author.id] = Date.now();
 
-  const displayEmbed = async (amtMoney, dailyStreak, catName) => {
+  const displayEmbed = async (amtMoney, dailyStreak, catName, note) => {
     let embed = new Discord.RichEmbed()
     .setAuthor(`Daily`, message.author.displayAvatarURL)
     .setColor(config.color.cats)
     .setFooter('after 7 days you\'ll get better rewards')
     .addField(':star2: Streak', `${dailyStreak}`);
+    if(note){
+      embed.setDescription(note);
+    }
     if(amtMoney){
       embed.addField(`:moneybag: Collected Money`, `$${amtMoney}`)
     }
@@ -42,6 +45,7 @@ module.exports.run = async (bot, message, args) => {
     if(err) console.log(err);
 
     let timeout = 86400000; //* 24 hours (86400000)
+    let resetTime = 7200000; //* 48 hours (7200000)
     daily = userdata.times.dailyTime;
 
     if(daily !== null && timeout - (Date.now() - daily) > 0){
@@ -54,6 +58,12 @@ module.exports.run = async (bot, message, args) => {
       .setDescription(`You have to wait **${time.hours}h ${time.minutes}m ${time.seconds}s** until next daily`)
       .addField(':star2: Streak', `${userdata.stats.dailyStreak}`);
       await message.channel.send(embed);
+    } else if((Date.now() - daily) > resetTime) {
+      userdata.times.dailyTime = Date.now();
+      userdata.stats.dailyStreak = 1;
+      userdata.money.catmoney += 350;
+      displayEmbed('300', '1', 'smokey', 'your streak has restarted')
+      userdata.save().catch(err => console.log(err));
     } else {
 
       userdata.times.dailyTime = Date.now();
@@ -92,7 +102,7 @@ module.exports.run = async (bot, message, args) => {
         displayEmbed(amtMoney, userdata.stats.dailyStreak, catName)
       }
       //* If User Has Over A 7 Day Daily Streak
-      if(userdata.stats.dailyStreak > 7){
+      if(userdata.stats.dailyStreak >= 7){
         let catName;let amtMoney;
 
         let specialCatAmt = Math.floor(Math.random() * 3) + 1;
