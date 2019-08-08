@@ -13,6 +13,9 @@ module.exports.run = async (bot, message, args) => {
 
     //USAGE cat suggestion <suggestion>
 
+    await message.channel.send("This command will be temporary disabled due to a massive amount of suggestions");
+    return;
+
     //* Select User Data From Database
     Suggestion.findOne({}, async (err, userSuggestion) => {
         if(err) throw err;
