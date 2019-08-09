@@ -49,4 +49,33 @@ bot.on("message", async message => {
       });
     });
   }
+
+  //* If The User Is A New User, Types 'cat {anything}' Send Them A Message Telling Them To Do 'cat start'
+  Userdata.findOne({
+    userID: message.author.id
+  }, (err, userdata) => {
+    if(err) console.log(err);
+    if(!userdata){
+      if(cmd != "start"){
+        let newPersonEmbed = new Discord.RichEmbed().setAuthor(message.author.username, message.author.avatarURL).setColor(config.color.utility).setDescription("hmm it looks like you're a new cat collector!!\nDo `cat start` to start collecting cats");
+        message.channel.send(newPersonEmbed);
+        return;
+      }
+    }
+
+    //* Main Code For Running The Commands
+
+    if(userdata){
+      //* Don't Show 'level messages' In (DBL && DBGG && BFD) As It Is Agaest The Rules
+      if(message.guild.id != "264445053596991498" && message.guild.id != "110373943822540800" && message.guild.id != "374071874222686211"){
+        require("../utils/getCats.js");
+        require("../utils/checkCats.js");
+      }
+
+      //* Logging stuff
+      userdata.stats.saidCat += 1;
+      userdata.save().catch(err => console.log(err));
+
+    }
+  });
 });

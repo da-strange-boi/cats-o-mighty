@@ -67,7 +67,9 @@ module.exports.run = async (bot, message, args) => {
       if(impossibleCats === true){
         catsEmbed.addField(":gem: Impossible :gem:", `Squirtlett: ${uSquirtlett}\nCursed Cat: ${uCursedcat}\nUWU: ${uUWU}`, true);
       }
-      await message.channel.send(catsEmbed);
+      message.channel.send(catsEmbed);
+
+      console.log(cooldown);
 
       //* Delete The Cooldown // Resetting It
       setTimeout(() => {

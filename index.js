@@ -1,15 +1,12 @@
-//! Alerts
-//TODO yeah
-//USAGE yep
-//* Information
-//? questioning
-////get rid of a peac of code////
-
 newUser = false;
 
 //* Main Discord Vars
 Discord = require("discord.js");
-global.bot = new Discord.Client({ disableEveryone: true });
+global.bot = new Discord.Client({
+  fetchAllMembers: false,
+  disableEveryone: true,
+  disabledEvents: ['GUILD_MEMBER_ADD', 'GUILD_MEMBER_REMOVE', 'GUILD_MEMBER_UPDATE', 'GUILD_MEMBERS_CHUNK', 'GUILD_INTEGRATIONS_UPDATE', 'GUILD_ROLE_CREATE', 'GUILD_ROLE_DELETE', 'GUILD_ROLE_UPDATE', 'GUILD_BAN_ADD', 'GUILD_BAN_REMOVE', 'CHANNEL_CREATE', 'CHANNEL_DELETE', 'CHANNEL_UPDATE', 'CHANNEL_PINS_UPDATE', 'MESSAGE_DELETE', 'MESSAGE_UPDATE', 'MESSAGE_DELETE_BULK', 'MESSAGE_REACTION_ADD', 'MESSAGE_REACTION_REMOVE', 'MESSAGE_REACTION_REMOVE_ALL', 'USER_UPDATE', 'USER_NOTE_UPDATE', 'USER_SETTINGS_UPDATE', 'PRESENCE_UPDATE', 'VOICE_STATE_UPDATE', 'TYPING_START', 'VOICE_SERVER_UPDATE', 'RELATIONSHIP_ADD', 'RELATIONSHIP_REMOVE'],
+});
 bot.commands = new Discord.Collection();
 bot.aliases = new Discord.Collection();
 
@@ -26,7 +23,6 @@ mongoose.connect("mongodb://localhost:27017/cats-o-mighty", {
 });
 const Userdata = require("./moduls/userdata.js");
 const Logs = require('./moduls/logs.js');
-
 
 //* DBL posting stats && DB.GG posting stats && BFD posting stats
 if(process.env.DEBUG === 'false'){
@@ -47,7 +43,7 @@ bot.on("ready", async () => {
 	setInterval(() => {
 		bot.user.setActivity(`with cattos on ${bot.guilds.size} servers | do 'cat help' for help`, { type: "PLAYING"} );
   }, 600000); // 10 min
-
+  require('./utils/webhook.js');
 });
 
 //* Whenever A Message Is Sent Run The Code Below
@@ -84,57 +80,30 @@ bot.on("message", async message => {
   //* Setup Command 'start' To Setup The Database For New Users
   require('./utils/newCat.js');
 
-  //* If The User Is A New User, Types 'cat {anything}' Send Them A Message Telling Them To Do 'cat start'
-  Userdata.findOne({
-    userID: message.author.id
-  }, (err, userdata) => {
-    if(err) console.log(err);
-    if(!userdata){
-      if(cmd != "start"){
-        let newPersonEmbed = new Discord.RichEmbed().setAuthor(message.author.username, message.author.avatarURL).setColor(config.color.utility).setDescription("hmm it looks like you're a new cat collector!!\nDo `cat start` to start collecting cats");
-        message.channel.send(newPersonEmbed);
-        return;
-      }
+  // Loging stuff
+  Logs.findOne({}, (err, log) => {
+    if(log){
+      log.botUsed += 1;
+      log.save().catch(err => console.log(err));
     }
-
-    //* Main Code For Running The Commands
-
-    if(userdata){
-      //* Don't Show 'level messages' In (DBL && DBGG && BFD) As It Is Agaest The Rules
-      if(message.guild.id != "264445053596991498" && message.guild.id != "110373943822540800" && message.guild.id != "374071874222686211"){
-        require("./utils/getCats.js");
-        require("./utils/checkCats.js");
-      }
-
-      //* Logging stuff
-      userdata.stats.saidCat += 1;
-      userdata.save().catch(err => console.log(err));
-
-      Logs.findOne({}, (err, log) => {
-        if(log){
-          log.botUsed += 1;
-          log.save().catch(err => console.log(err));
-        }
-        if(!log){
-          let newLog = new Logs({
-            botUsed: 1
-          });
-          newLog.save().catch(err => console.log(err));
-        }
+    if(!log){
+      let newLog = new Logs({
+        botUsed: 1
       });
-      
-      if(newUser === false) {
-
-        //* Load All The Commands From ./commands/
-        if(bot.commands.has(cmd)) {
-          command = bot.commands.get(cmd);
-        } else {command = bot.commands.get(bot.aliases.get(cmd));}
-
-        if(command) command.run(bot, message, args);
-
-      }
+      newLog.save().catch(err => console.log(err));
     }
   });
+      
+  if(newUser === false) {
+
+    //* Load All The Commands From ./commands/
+    if(bot.commands.has(cmd)) {
+      command = bot.commands.get(cmd);
+    } else {command = bot.commands.get(bot.aliases.get(cmd));}
+
+    if(command) command.run(bot, message, args);
+
+  }
 });
 
 bot.on("guildCreate", async guild => {
