@@ -54,7 +54,7 @@ exports.run = async (bot, message, args) => {
       }   
     } else {
       //* If More Then 10 Results
-      embed.setColor(config.color.cats);
+      embed.setColor(bot.config.color.cats);
       for(i = 0; i < 10; i++) {
         //* Will use later
         if(message.author.id === "295255543596187650"){member = userdata[i].userTag

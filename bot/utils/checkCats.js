@@ -32,7 +32,7 @@ exports.run = (bot, message) => {
   }, (err, guildSettings) => {
     if(err) bot.log('databaseError', err);
     if(!guildSettings){
-      const newSettings = new Guildsettings({
+      const newSettings = new bot.db.Guildsettings({
         guildID: message.guild.id,CatGottenPopupMessage: 'disappear'
       });
       newSettings.save().catch(err => console.log(err));

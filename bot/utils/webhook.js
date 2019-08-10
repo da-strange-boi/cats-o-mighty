@@ -1,6 +1,6 @@
 let loop;
 exports.ping = async (bot) => {
-  let catsomighty = bot.guilds.find(search => search.id === '586062467080257537');
+  let catsomighty = bot.guilds.find(search => search.id === process.env.COM_GUILD_ID);
   let logChannel = catsomighty.channels.find(search => search.name === 'status');
   if(!logChannel) return console.log("Can't find incidents channel.");
 

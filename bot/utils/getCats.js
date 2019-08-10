@@ -92,7 +92,7 @@ module.exports = async (bot, message) => {
                 if(commonCats === false){return;}
         
                 //* Set Vars For Uncommon Cats
-                let animales = ['abyssinian', 'manx', 'sphynx', 'cyprus', 'foldex', 'turkishAngora'];
+                let animales = ['abyssinian', 'manx', 'sphynx', 'cyprus', 'foldex', 'turkishangora'];
                 let result = Math.floor((Math.random() * animales.length));
         
                 //* Check To See What Cat It Is Then Add It To Their Cats
