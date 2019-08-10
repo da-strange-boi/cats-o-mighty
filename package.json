@@ -2,7 +2,7 @@
   "name": "cats-o-mighty",
   "version": "1.0.0",
   "description": "A cat collector bot for discord",
-  "main": "index.js",
+  "main": "bot/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,7 +11,9 @@
     "url": "git+https://github.com/da-strange-boi/cats-o-mighty.git"
   },
   "keywords": [
-    "cat", "cat collector", "cats o mighty"
+    "cat",
+    "cat collector",
+    "cats o mighty"
   ],
   "author": "Tyler",
   "license": "ISC",
@@ -21,6 +23,7 @@
   "homepage": "https://github.com/da-strange-boi/cats-o-mighty#readme",
   "dependencies": {
     "canvas": "^2.5.0",
+    "chalk": "^2.4.2",
     "dblapi.js": "^2.3.0",
     "discord.js": "^11.5.1",
     "mongoose": "^5.6.8",

@@ -4,13 +4,13 @@ node_modules/
 website/
 
 # images
-images/common
-images/uncommon
-images/rare
-images/special
-images/impossible
-images/emojis
-images/cat_o_mighty_pfp.jpg
+bot/images/common
+bot/images/uncommon
+bot/images/rare
+bot/images/special
+bot/images/impossible
+bot/images/emojis
+bot/images/cat_o_mighty_pfp.jpg
 
 # just info
 INFO.txt
