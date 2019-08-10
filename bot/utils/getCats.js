@@ -12,7 +12,6 @@ module.exports = async (bot, message) => {
 
   if(getmessage.content.trim().toLowerCase().startsWith(prefix)) return;
 
-  
 
   //* The Random Way To Get Cats
   // common: 30 || uncommon: 70 || rare: 150 || special: 350
@@ -20,8 +19,8 @@ module.exports = async (bot, message) => {
   // common: 25 || uncommon: 60 || rare: 145 || special: 290 || impossible: 550 - updated: 5/24/19
   // common: 25 || uncommon: 80 || rare: 145 || special: 370 || impossible: 740 - updated: 6/7/19
   
-  let commonCatAmt = Math.floor(Math.random() * 3) + 1;
-  let commonBaseAmt = Math.floor(Math.random() * 3) + 1;
+  let commonCatAmt = Math.floor(Math.random() * 25) + 1;
+  let commonBaseAmt = Math.floor(Math.random() * 25) + 1;
 
   let uncommonCatAmt = Math.floor(Math.random() * 80) + 1;
   let uncommonBaseAmt = Math.floor(Math.random() * 80) + 1;
