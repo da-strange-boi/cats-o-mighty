@@ -113,7 +113,7 @@ exports.run = async (bot, message, args) => {
   });
 }
 
-module.exports.help = {
+exports.help = {
   name: "collection",
   aliases: ['cattos', 'c']
 }
