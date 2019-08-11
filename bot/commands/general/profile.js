@@ -20,7 +20,7 @@ exports.run = async (bot, message, args) => {
   //* Set A Cooldown
   if(cooldown[message.author.id] && cooldown[message.author.id] > 0){
     let time = ms(Date.now() - cooldown[message.author.id]);
-    message.channel.send(`hmm **${message.author.username}**, you gotta wait **${10 - time.seconds}s**`).then(msg => msg.delete(1000 * (10 - time.seconds)));
+    await message.channel.send(`hmm **${message.author.username}**, you gotta wait **${10 - time.seconds}s**`).then(msg => msg.delete(1000 * (10 - time.seconds)));
     return;
   }
   cooldown[message.author.id] = Date.now();
@@ -91,7 +91,7 @@ exports.run = async (bot, message, args) => {
 
   const attachment = new Discord.Attachment(canvas.toBuffer(), 'profile.png');
 
-  message.channel.send(attachment);
+  await message.channel.send(attachment);
 
   //* Delete The Cooldown // Resetting It
   setTimeout(() => {

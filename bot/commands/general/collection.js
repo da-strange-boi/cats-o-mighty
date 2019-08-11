@@ -39,7 +39,7 @@ exports.run = async (bot, message, args) => {
       //* Set A Cooldown
       if(cooldown[message.author.id] && cooldown[message.author.id] > 0){
         let time = ms(Date.now() - cooldown[message.author.id]);
-        message.channel.send(`hmm **${message.author.username}**, you gotta wait **${30 - time.seconds}s**`).then(msg => msg.delete(1000 * (30 - time.seconds)));
+        await message.channel.send(`hmm **${message.author.username}**, you gotta wait **${30 - time.seconds}s**`).then(msg => msg.delete(1000 * (30 - time.seconds)));
         return;
       }
       cooldown[message.author.id] = Date.now();
@@ -80,16 +80,16 @@ exports.run = async (bot, message, args) => {
   
       for(let i=0; i < allCatType.length; i++){
         
-        if(allCatType[i] === catType){if(commonCats === false && catType === 'common'){message.channel.send(`<@${message.author.id}> you don't have any common cats to look at! sad uwu`);return;}}
-        if(allCatType[i] === catType){if(uncommonCats === false && catType === 'uncommon'){message.channel.send(`<@${message.author.id}> you don't have any uncommon cats to look at! sad uwu`);return;}}
-        if(allCatType[i] === catType){if(rareCats === false && catType === 'rare'){message.channel.send(`<@${message.author.id}> you don't have any rare cats to look at! sad uwu`);return;}}
-        if(allCatType[i] === catType){if(specialCats === false && catType === 'special'){message.channel.send(`<@${message.author.id}> you don't have any special cats to look at! sad uwu`);return;}}
-        if(allCatType[i] === catType){if(impossibleCats === false && catType === 'impossible'){message.channel.send(`<@${message.author.id}> you don't have any impossible cats to look at! sad uwu`);return;}}
+        if(allCatType[i] === catType){if(commonCats === false && catType === 'common'){message.channel.send(`**${message.author.username}**, you don't have any common cats to look at! sad uwu`);return;}}
+        if(allCatType[i] === catType){if(uncommonCats === false && catType === 'uncommon'){message.channel.send(`**${message.author.username}**, you don't have any uncommon cats to look at! sad uwu`);return;}}
+        if(allCatType[i] === catType){if(rareCats === false && catType === 'rare'){message.channel.send(`**${message.author.username}**, you don't have any rare cats to look at! sad uwu`);return;}}
+        if(allCatType[i] === catType){if(specialCats === false && catType === 'special'){message.channel.send(`**${message.author.username}**, you don't have any special cats to look at! sad uwu`);return;}}
+        if(allCatType[i] === catType){if(impossibleCats === false && catType === 'impossible'){message.channel.send(`**${message.author.username}**, you don't have any impossible cats to look at! sad uwu`);return;}}
         
         if(catType === allCatType[i]){
           let catsEmbed = new Discord.RichEmbed()
           .setAuthor(message.author.username + `'s ${allCatType[i]} cat collection!`)
-          .setColor(config.color.cats);
+          .setColor(bot.config.color.cats);
           if(allCatType[i] === "common"){
             catsEmbed.addField(":heart: Common :heart:", `Siamese: ${uSiamese}\nBurmese: ${uBurmese}\nRagdoll: ${uRagdoll}\nPersian: ${uPersian}\nMaine Coon: ${uMaineCoon}\nRussian Blue: ${uRussianBlue}`, true);
           }

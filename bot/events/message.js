@@ -2,8 +2,6 @@ exports.run = (bot, message) => {
 
   if(!message.guild || message.IsPrivate || message.author.bot) return;
 
-  if(message.author.id !== "295255543596187650") return;
-
   let prefix = bot.config.prefix;
   if(message.content.startsWith(`<@${bot.user.id}>`)){
     prefix = `<@${bot.user.id}>`;
@@ -17,20 +15,20 @@ exports.run = (bot, message) => {
   let args = message.content.slice(prefix.length).trim().split(' ');
   let cmd = args.shift().toLowerCase();
 
-  let newCat = require('../utils/processCommand.js');
-  newCat.run(bot, message, cmd, args, prefix);
+  let processCommand = require('../utils/processCommand.js');
+  processCommand.run(bot, message, cmd, args, prefix);
 
   // Loging stuff
   bot.db.Logs.findOne({}, (err, log) => {
     if(log){
       log.botUsed += 1;
-      log.save().catch(err => console.log(err));
+      log.save().catch(err => bot.log("warning", `Log saving error: ${err}`));
     }
     if(!log){
       let newLog = new bot.db.Logs({
         botUsed: 1
       });
-      newLog.save().catch(err => console.log(err));
+      newLog.save().catch(err => bot.log("warning", `Log saving error: ${err}`));
     }
   });
 }

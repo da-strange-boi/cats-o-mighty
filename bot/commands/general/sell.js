@@ -5,20 +5,21 @@ catNum = 0;
 exports.run = async (bot, message, args) => {
   bot.db.Userdata.findOne({
     userID: message.author.id
-  }, (err, userdata) => {
+  }, async (err, userdata) => {
     if(err) console.log(err);
     if(!userdata){message.channel.send('Account Error');return;}
     if(userdata){
 
       //* If The User Doesn't Specify Anything (cat sell)
       if(!args[0]){
-        message.channel.send(`<@${message.author.id}> please use the command correctly, check 'cat help sell'`);
+        message.channel.send(`**${message.author.username}**, please use the command correctly, check \`cat help sell\``);
+        return;
       }
 
       //* Set A Cooldown
       if(cooldown[message.author.id] && cooldown[message.author.id] > 0){
         let time = ms(Date.now() - cooldown[message.author.id]);
-        message.channel.send(`hmm **${message.author.username}**, you gotta wait **${3.5 - time.seconds}s**`).then(msg => msg.delete(1000 * (3.5 - time.seconds)));
+        await message.channel.send(`hmm **${message.author.username}**, you gotta wait **${3.5 - time.seconds}s**`).then(msg => msg.delete(1000 * (3.5 - time.seconds)));
         return;
       }
       cooldown[message.author.id] = Date.now();

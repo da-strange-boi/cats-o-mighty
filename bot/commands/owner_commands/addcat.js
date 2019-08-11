@@ -1,13 +1,12 @@
-const Discord = require("discord.js");
 exports.run = async (bot, message, args) => {
     if(message.author.id != "295255543596187650"){ return; }
     if(message.author.id === "295255543596187650"){
         //USAGE cat addcat {cat name} {amount} || addcat {@user} {cat name} {amount}
-        //TODO The Whole Command
 
         //* If Command Isn't Use Properly
         if(!args[0] || !args[1]){
-            message.channel.send("check `cat help addcat` you fucking dumbass")
+            message.channel.send("check `cat help addcat` you fucking dumbass");
+            return;
         }
 
         //USAGE addcat {@user} {cat name} {amount}

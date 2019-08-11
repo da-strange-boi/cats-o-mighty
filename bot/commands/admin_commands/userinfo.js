@@ -77,7 +77,6 @@ exports.run = async (bot, message, args) => {
       userinfo.addField('User Daily', `Daily Streak: ${uDailyStreak}\nLast Daily: **${uDTime.days}d ${uDTime.hours}h ${uDTime.minutes}m ${uDTime.seconds}s**`);
     }
     
-
     userinfo.addField('Etc Info', `cats sold: ${userdata.stats.catsSold}\nused bot: ${userdata.stats.saidCat}`);
 
     message.channel.send(userinfo);

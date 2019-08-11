@@ -179,6 +179,6 @@ exports.run = async (bot, message, args) => {
   }
 }
 exports.help = {
-    name: "help",
-    aliases: []
+  name: "help",
+  aliases: []
 }

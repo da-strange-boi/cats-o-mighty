@@ -1,7 +1,6 @@
 const Discord = require('discord.js');
 
 exports.run = async (bot, message) => {
-  //bot.on("message", async getmessage => {
 
   if(!message.guild || message.IsPrivate || message.author.bot) return;
 
@@ -77,7 +76,7 @@ exports.run = async (bot, message) => {
                 .setColor(bot.config.color.cats)
                 .setDescription("You got a " + catName + " cat! uwu");
                 if(guildSettings.CatGottenPopupMessage === 'show'){
-                  await message.channel.send(commonCatEmbed);
+                  message.channel.send(commonCatEmbed);
                 } else if(guildSettings.CatGottenPopupMessage === 'disappear' || guildSettings.CatGottenPopupMessage === true){
                   await message.channel.send(commonCatEmbed).then(msg => msg.delete(6000));
                 }
@@ -108,7 +107,7 @@ exports.run = async (bot, message) => {
                 .setColor(bot.config.color.cats)
                 .setDescription("You got a " + catName + " cat! uwu");
                 if(guildSettings.CatGottenPopupMessage === 'show'){
-                  await message.channel.send(uncommonCatEmbed);
+                  message.channel.send(uncommonCatEmbed);
                 } else if(guildSettings.CatGottenPopupMessage === 'disappear' || guildSettings.CatGottenPopupMessage === true){
                   await message.channel.send(uncommonCatEmbed).then(msg => msg.delete(6000));
                 }
@@ -137,7 +136,7 @@ exports.run = async (bot, message) => {
                 .setColor(bot.config.color.cats)
                 .setDescription("You got a " + catName + " cat! uwu");
                 if(guildSettings.CatGottenPopupMessage === 'show'){
-                  await message.channel.send(rareCatEmbed);
+                  message.channel.send(rareCatEmbed);
                 } else if(guildSettings.CatGottenPopupMessage === 'disappear' || guildSettings.CatGottenPopupMessage === true){
                   await message.channel.send(rareCatEmbed).then(msg => msg.delete(6000));
                 }
@@ -172,7 +171,7 @@ exports.run = async (bot, message) => {
                 .setColor(bot.config.color.cats)
                 .setDescription("You got a " + catName + "! uwu");
                 if(guildSettings.CatGottenPopupMessage === 'show'){
-                  await message.channel.send(specialCatEmbed);
+                  message.channel.send(specialCatEmbed);
                 } else if(guildSettings.CatGottenPopupMessage === 'disappear' || guildSettings.CatGottenPopupMessage === true){
                   await message.channel.send(specialCatEmbed).then(msg => msg.delete(6000));
                 }
@@ -194,7 +193,7 @@ exports.run = async (bot, message) => {
                 .setColor(bot.config.color.cats)
                 .setDescription("You got a " + catName + " cat! uwu");
                 if(guildSettings.CatGottenPopupMessage === 'show'){
-                  await message.channel.send(impossibleCatEmbed);
+                  message.channel.send(impossibleCatEmbed);
                 } else if(guildSettings.CatGottenPopupMessage === 'disappear' || guildSettings.CatGottenPopupMessage === true){
                   await message.channel.send(impossibleCatEmbed).then(msg => msg.delete(6000));
                 }
@@ -207,5 +206,4 @@ exports.run = async (bot, message) => {
       });
     }
   });
-//});
 }

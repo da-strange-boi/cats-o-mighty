@@ -5,16 +5,14 @@ exports.run = async (bot, message, cmd, args, prefix) => {
   let command;
 
   //* Checks To See If Another Bot Sent A Message Or If A User Trys To DM The Bot && Make Sure It Doesn't Respond
-  if (message.author.bot || message.channel.type === "dm"){
-    return;
-  };
+  if (message.author.bot || message.channel.type === "dm") return;
 
   if(cmd === `start`){
     //* If The User Is A New Cat Collector And Runs 'cat start'
     bot.db.Userdata.findOne({userID: message.author.id}, async (err, userdata) => {
-      if(err) throw err;
+      if(err) bot.log("priority", `processCommand userdata failed: ${err}`);
       bot.db.Guildsettings.findOne({guildID: message.guild.id}, async (err, settings) => {
-        if(err) throw err;
+        if(err) bot.log("priority", `processCommand guildsettings failed: ${err}`);
         if(userdata){
           message.channel.send(`<@${message.author.id}> no need, you're already a cat collector!`);
           return;
@@ -29,13 +27,13 @@ exports.run = async (bot, message, cmd, args, prefix) => {
             times: {dailyTime: 0,voteTime: 0,usedBotLast: date},
             stats: {catsSold: 0,saidCat: 1,dailyStreak: 0}
           });
-          newUserData.save().catch(err => console.log(err));
+          newUserData.save().catch(err => bot.log("priority", `processCommand userdata saving failed: ${err}`));
 
           if(!settings){
             const newGuildSettings = new bot.db.Guildsettings({
               guildID: message.guild.id,CatGottenPopupMessage: true
             });
-            newGuildSettings.save().catch(err => console.log(err));
+            newGuildSettings.save().catch(err => bot.log("priority", `processCommand guildsettings saving failed: ${err}`));
           }
 
           let newUserEmbed = new Discord.RichEmbed().setAuthor(message.author.username, message.author.avatarURL).setColor(bot.config.color.utility).setDescription("Welcome new cat collector!\nto get started do `cat help` to get the list of commands");
@@ -50,7 +48,7 @@ exports.run = async (bot, message, cmd, args, prefix) => {
   bot.db.Userdata.findOne({
     userID: message.author.id
   }, (err, userdata) => {
-    if(err) console.log(err);
+    if(err) bot.log("priority", `processCommand userdata failed: ${err}`)
     if(!userdata){
       if(cmd != "start"){
         if(!message.content.trim().toLowerCase().startsWith(prefix)) return;
@@ -76,7 +74,7 @@ exports.run = async (bot, message, cmd, args, prefix) => {
 
       //* Logging stuff
       userdata.stats.saidCat += 1;
-      userdata.save().catch(err => console.log(err));
+      userdata.save().catch(err => bot.log("priority", `processCommand userdata logging failed: ${err}`));
 
       if(bot.commands.has(cmd)) {
         command = bot.commands.get(cmd);

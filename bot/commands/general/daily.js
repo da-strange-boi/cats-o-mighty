@@ -59,8 +59,16 @@ exports.run = async (bot, message, args) => {
     } else if((Date.now() - daily) > resetTime) {
       userdata.times.dailyTime = Date.now();
       userdata.stats.dailyStreak = 1;
+      
+      //* Set Vars For Special Cats
+      let animales = ['bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin', 'loki', 'loverboy'];
+      let aResult = Math.floor((Math.random() * animales.length));
+
+      //* Check To See What Cat It Is Then Add It To Their Cats
+      if(aResult === 0){userdata.cats.bandit += 1; catName = "bandit";}if(aResult === 1){userdata.cats.bug += 1; catName = "bug";}if(aResult === 2){userdata.cats.linda += 1; catName = "linda";}if(aResult === 3){userdata.cats.mittens += 1; catName = "mittens";}if(aResult === 4){userdata.cats.cash += 1; catName = "cash";}if(aResult === 5){userdata.cats.jackson += 1; catName = "jackson";}if(aResult === 6){userdata.cats.cottonball += 1; catName = "cottonball";}if(aResult === 7){userdata.cats.sonny += 1; catName = "sonny";}if(aResult === 8){userdata.cats.smokey += 1; catName = "smokey";}if(aResult === 9){userdata.cats.lailah += 1; catName = "lailah";}if(aResult === 10){userdata.cats.cher += 1; catName = "cher";}if(aResult === 11){userdata.cats.marvin += 1; catName = "marvin";}if(aResult === 12){userdata.cats.loki += 1; catName = "loki";}if(aResult === 13){userdata.cats.loverboy += 1; catName = "loverboy";}
+
       userdata.money.catmoney += 350;
-      displayEmbed('300', '1', 'smokey', 'your streak has restarted')
+      displayEmbed('300', '1', catName, 'your streak has restarted')
       userdata.save().catch(err => console.log(err));
     } else {
 

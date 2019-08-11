@@ -8,13 +8,14 @@ exports.run = async (bot, message, args) => {
 
   //* If User Doesn't Specifiy What Cat To Look At
   if(!args[0]){
-    message.channel.send(`<@${message.author.id}> you need to specify which cat to look at`).then(msg => msg.delete(6000));
+    message.channel.send(`**${message.author.username}**, you need to specify which cat to look at`);
+    return;
   }
 
   //* Set A Cooldown
   if(cooldown[message.author.id] && cooldown[message.author.id] > 0){
     let time = ms(Date.now() - cooldown[message.author.id]);
-    message.channel.send(`hmm **${message.author.username}**, you gotta wait **${3.5 - time.seconds}s**`).then(msg => msg.delete(1000 * (3.5 - time.seconds)));
+    await message.channel.send(`hmm **${message.author.username}**, you gotta wait **${3.5 - time.seconds}s**`).then(msg => msg.delete(1000 * (3.5 - time.seconds)));
     return;
   }
   cooldown[message.author.id] = Date.now();
