@@ -17,9 +17,6 @@ exports.run = (bot, message) => {
   let args = message.content.slice(prefix.length).trim().split(' ');
   let cmd = args.shift().toLowerCase();
 
-  //* Make Sure The Prefix Is Used
-  if(!message.content.trim().toLowerCase().startsWith(prefix)) return;
-
   let newCat = require('../utils/processCommand.js');
   newCat.run(bot, message, cmd, args, prefix);
 

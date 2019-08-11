@@ -1,16 +1,16 @@
 const Discord = require('discord.js');
 
-module.exports = async (bot, message) => {
-  bot.on("message", async getmessage => {
+exports.run = async (bot, message) => {
+  //bot.on("message", async getmessage => {
 
-  if(!getmessage.guild || getmessage.IsPrivate || getmessage.author.bot) return;
+  if(!message.guild || message.IsPrivate || message.author.bot) return;
 
   let prefix = bot.config.prefix;
-  if(getmessage.content.startsWith(`<@${bot.user.id}>`)){
+  if(message.content.startsWith(`<@${bot.user.id}>`)){
     prefix = `<@${bot.user.id}>`;
   }
 
-  if(getmessage.content.trim().toLowerCase().startsWith(prefix)) return;
+  if(message.content.trim().toLowerCase().startsWith(prefix)) return;
 
 
   //* The Random Way To Get Cats
@@ -58,7 +58,6 @@ module.exports = async (bot, message) => {
             if(guildSettings){
 
               if(commonCatAmt === commonBaseAmt){
-                
                 //* Set Vars For Common Cats
                 let animales = ['siamese', 'burmese', 'ragdoll', 'cyprus', 'mainecoon', 'russianblue'];
                 let result = Math.floor((Math.random()*animales.length));
@@ -208,5 +207,5 @@ module.exports = async (bot, message) => {
       });
     }
   });
-});
+//});
 }

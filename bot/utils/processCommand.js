@@ -1,10 +1,8 @@
 const Discord = require('discord.js');
 
-module.exports.run = async (bot, message, cmd, args, prefix) => {
+exports.run = async (bot, message, cmd, args, prefix) => {
 
   let command;
-  //* Make Sure The Prefix Is Used
-  if(!message.content.trim().toLowerCase().startsWith(prefix)) return;
 
   //* Checks To See If Another Bot Sent A Message Or If A User Trys To DM The Bot && Make Sure It Doesn't Respond
   if (message.author.bot || message.channel.type === "dm"){
@@ -67,9 +65,13 @@ module.exports.run = async (bot, message, cmd, args, prefix) => {
       //* Don't Show 'level messages' In (DBL && DBGG && BFD) As It Is Agaest The Rules
       if(message.guild.id != "264445053596991498" && message.guild.id != "110373943822540800" && message.guild.id != "374071874222686211"){
         let checkCats = require("./checkCats.js");
-        require("./getCats.js")(bot, message);
+        let getCats = require("./getCats.js");
         checkCats.run(bot, message);
+        getCats.run(bot, message);
       }
+
+      //* Make Sure The Prefix Is Used
+      if(!message.content.trim().toLowerCase().startsWith(prefix)) return;
 
       //* Logging stuff
       userdata.stats.saidCat += 1;
