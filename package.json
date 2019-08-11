@@ -4,7 +4,7 @@
   "description": "A cat collector bot for discord",
   "main": "bot/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "update:packages": "npm update --save-dev && npm update --save"
   },
   "repository": {
     "type": "git",
@@ -26,7 +26,7 @@
     "chalk": "^2.4.2",
     "dblapi.js": "^2.3.0",
     "discord.js": "^11.5.1",
-    "mongoose": "^5.6.8",
+    "mongoose": "^5.6.9",
     "parse-ms": "^2.1.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.4",
