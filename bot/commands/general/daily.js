@@ -43,7 +43,7 @@ exports.run = async (bot, message, args) => {
     if(err) console.log(err);
 
     let timeout = 86400000; //* 24 hours (86400000)
-    let resetTime = 7200000; //* 48 hours (7200000)
+    let resetTime = 172800000; //* 48 hours (172800000)
     daily = userdata.times.dailyTime;
 
     if(daily !== null && timeout - (Date.now() - daily) > 0){
