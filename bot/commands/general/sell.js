@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 const ms = require('parse-ms');
 let cooldown = {};
+let animalList = ['siamese', 'burmese', 'ragdoll', 'persian', 'mainecoon', 'russianblue', 'abyssinian', 'manx', 'sphynx', 'cyprus', 'foldex', 'turkishangora', 'korat', 'singapura', 'tonkinese', 'peterbald', 'chartreux', 'munchkin', 'bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin', 'loki', 'loverboy', 'squirtlett', 'cursedcat', 'uwu'];
 catNum = 0;
 exports.run = async (bot, message, args) => {
   bot.db.Userdata.findOne({
@@ -30,7 +31,6 @@ exports.run = async (bot, message, args) => {
         animal = args[0].toLowerCase().trim();
         amtAnimal = args[1];
 
-        animalList = ['siamese', 'burmese', 'ragdoll', 'persian', 'mainecoon', 'russianblue', 'abyssinian', 'manx', 'sphynx', 'cyprus', 'foldex', 'turkishangora', 'korat', 'singapura', 'tonkinese', 'peterbald', 'chartreux', 'munchkin', 'bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin', 'loki', 'loverboy', 'squirtlett', 'cursedcat', 'uwu'];
         const checkAnimal = () => {  
           for(let i=0; i < animalList.length;i++){
             if(animal === animalList[i]){
@@ -220,6 +220,31 @@ exports.run = async (bot, message, args) => {
           let sellImpossibleCatsEmbed = new Discord.RichEmbed().setAuthor(message.author.username, message.author.avatarURL).setColor(bot.config.color.cats).setDescription(`You sold ${impossibleCatTotal} cats for $${(impossibleCatTotal * 10000)}`);
           message.channel.send(sellImpossibleCatsEmbed);
           userdata.stats.catsSold += impossibleCatTotal;
+        }
+        else {
+          for(i=0;i<animalList.length;i++){
+            if(sellOption === animalList[i]){
+              if(i <= 5){catSellPrice = 25} // common
+              if(i >= 7 && i <= 11){catSellPrice = 55} // uncommon
+              if(i >= 12 && i <= 17){catSellPrice = 200} // rare
+              if(i >= 18 && i <= 31){catSellPrice = 2500} // special
+              if(i >= 32){catSellPrice = 10000} // impossible
+              if(userdata.cats[animalList[i]] === 0){
+                message.channel.send(`You don't have any ${animalList[i]} cats to sell!`);
+                return;
+              }
+              amtAnimal = userdata.cats[animalList[i]];
+              userdata.cats[animalList[i]] = userdata.cats[animalList[i]] - amtAnimal;
+              userdata.money.catmoney += (amtAnimal * catSellPrice);
+              let soldCat = new Discord.RichEmbed()
+              .setAuthor(message.author.username, message.author.avatarURL)
+              .setColor(bot.config.color.cats)
+              .setDescription(`You sold ${amtAnimal} ${animalList[i]} cats for $${amtAnimal * catSellPrice}`);
+              message.channel.send(soldCat); 
+              userdata.stats.catsSold += amtAnimal;
+              catNum++;
+            }
+          }
         }
       }
       //* Delete The Cooldown // Resetting It
