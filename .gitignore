@@ -1,7 +1,6 @@
 # etc folders
 .vscode/
 node_modules/
-website/
 
 # images
 bot/images/common

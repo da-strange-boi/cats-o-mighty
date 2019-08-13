@@ -45,20 +45,15 @@ exports.run = async (bot, message, args) => {
 
         if(checkAnimal() === 'neg'){
           message.channel.send('You can\'t sell negative amounts of cats!');
+          delete cooldown[message.author.id];
           return;
         } 
         else if(checkAnimal() === 'num'){
           message.channel.send('That\'s not a number!');
-          return;
-        }
-        else if(checkAnimal() === 'animal'){
-          message.channel.send('That\'s not a vaild animal!');
+          delete cooldown[message.author.id];
           return;
         }
 
-
-            
-        //? Try To Find A Better Way To Do This,,, Please ||| hey i found a better way to do this
         for(let i=0;i < animalList.length; i++){
           if(animal === animalList[i]){
             if(i <= 5){catSellPrice = 25} // common
@@ -73,6 +68,7 @@ exports.run = async (bot, message, args) => {
 
             if(userdata.cats[animalList[i]] === 0){
               message.channel.send(`You don't have any ${animalList[i]} cats to sell!`);
+              delete cooldown[message.author.id];
               return;
             }
             if(userdata.cats[animalList[i]] - amtAnimal < 0){
@@ -92,7 +88,7 @@ exports.run = async (bot, message, args) => {
       }
 
       //USAGE cat sell [all, catType{common || uncommon || rare || special || impossible}
-      if(args[0]){
+      if(args[0] && !args[1]){
         let sellOption = args[0];
         
         //* Geting Vars Of All Cats
@@ -258,5 +254,5 @@ exports.run = async (bot, message, args) => {
 
 exports.help = {
   name: "sell",
-  aliases: []
+  aliases: ['kill']
 }

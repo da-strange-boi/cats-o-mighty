@@ -9,8 +9,9 @@ exports.run = async (bot, message, args) => {
     .setColor(bot.config.color.utility)
     .setTitle("List of commands")
     .setDescription("Here is all the commands!\nFor help on the commands, use `cat help {command}`")
-    .addField(":cat2: General", "`collection`, `daily`, `dex`, `feed`, `leaderboard`, `money`, `profile`, `sell`")
-    .addField(":gear: Utility", "`chance`, `help`, `invite`, `ping`, `settings`, `suggest`, `supportserver`, `updates`, `vote`");
+    .addField(":cat2: General", "`collection`, `daily`, `dex`, `feed`, `leaderboard`, `money`, `profile`, `sell`, `vote`")
+    .addField(":cat: Fun", "`image`")
+    .addField(":gear: Utility", "`chance`, `help`, `invite`, `ping`, `settings`, `suggest`, `supportserver`, `updates`");
     if(message.author.id === '481318379907579916' || message.author.id === '552316796439494658'){
       helpEmbed.addField(":beginner: Bot Admin Commands", "`userinfo`");
       return message.channel.send(helpEmbed);
@@ -26,6 +27,11 @@ exports.run = async (bot, message, args) => {
   if(args[0]){
     let helpCommand = args[0].toLowerCase().trim();
 
+    // display help for image \\
+    if(helpCommand === "image"){
+      message.channel.send("```< cat image >```");
+      message.channel.send("```What it does:\nsends a random picture of a cat```");
+    }
     // display help for  collection \\
     if(helpCommand === "collection"){
       message.channel.send("```< cat collection [rank of cat] >```");
