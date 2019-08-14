@@ -86,8 +86,7 @@ exports.run = async (bot, message) => {
               if(uncommonCatAmt === uncommonBaseAmt){
           
                 //* If User Has No Common Cats Don't Give Them Uncommon
-                uSiamese = userdata.cats.siamese; uBurmese = userdata.cats.burmese;uRagdoll = userdata.cats.ragdoll;uPersian = userdata.cats.persian;uMaineCoon = userdata.cats.mainecoon;uRussianBlue = userdata.cats.russianblue;
-                if(uSiamese === 0 && uBurmese === 0 && uRagdoll === 0 && uPersian === 0 && uMaineCoon === 0 && uRussianBlue === 0){commonCats = false;} else {commonCats = true;}
+                if(userdata.cats.siamese === 0 && userdata.cats.burmese === 0 && userdata.cats.ragdoll === 0 && userdata.cats.persian === 0 && userdata.cats.mainecoon === 0 && userdata.cats.russianblue === 0 && userdata.cats.calico === 0 && userdata.cats.tabby === 0){commonCats = false;} else {commonCats = true;}
                 if(commonCats === false){return;}
         
                 let animals = bot.catdata.cats('uncommon', 'array');
@@ -101,8 +100,7 @@ exports.run = async (bot, message) => {
               }
               if(rareCatAmt === rareBaseAmt){
                 //* If User Has No Uncommon Cats Don't Give Them Rare
-                uAbyssinian = userdata.cats.abyssinian;uManx = userdata.cats.manx;uSphynx = userdata.cats.sphynx;uCyprus = userdata.cats.cyprus;uFoldex = userdata.cats.foldex;uTurkishAngora = userdata.cats.turkishangora;
-                if(uAbyssinian === 0 && uManx === 0 && uSphynx === 0 && uCyprus === 0 && uFoldex === 0 && uTurkishAngora === 0){uncommonCats = false;} else {uncommonCats = true;}
+                if(userdata.cats.abyssinian === 0 && userdata.cats.manx === 0 && userdata.cats.sphynx === 0 && userdata.cats.cyprus === 0 && userdata.cats.foldex === 0 && userdata.cats.turkishangora === 0 && userdata.cats.norwegianforest === 0){uncommonCats = false;} else {uncommonCats = true;}
                 if(uncommonCats === false){return;}
         
                 let animals = bot.catdata.cats('rare', 'array');
