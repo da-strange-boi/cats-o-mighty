@@ -61,11 +61,11 @@ exports.run = async (bot, message, args) => {
       userdata.stats.dailyStreak = 1;
       
       //* Set Vars For Special Cats
-      let animales = ['bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin', 'loki', 'loverboy'];
-      let aResult = Math.floor((Math.random() * animales.length));
+      let animals = bot.catdata.cats('sepcial', 'array');
+      let aResult = Math.floor((Math.random() * animals.length));
 
       //* Check To See What Cat It Is Then Add It To Their Cats
-      if(aResult === 0){userdata.cats.bandit += 1; catName = "bandit";}if(aResult === 1){userdata.cats.bug += 1; catName = "bug";}if(aResult === 2){userdata.cats.linda += 1; catName = "linda";}if(aResult === 3){userdata.cats.mittens += 1; catName = "mittens";}if(aResult === 4){userdata.cats.cash += 1; catName = "cash";}if(aResult === 5){userdata.cats.jackson += 1; catName = "jackson";}if(aResult === 6){userdata.cats.cottonball += 1; catName = "cottonball";}if(aResult === 7){userdata.cats.sonny += 1; catName = "sonny";}if(aResult === 8){userdata.cats.smokey += 1; catName = "smokey";}if(aResult === 9){userdata.cats.lailah += 1; catName = "lailah";}if(aResult === 10){userdata.cats.cher += 1; catName = "cher";}if(aResult === 11){userdata.cats.marvin += 1; catName = "marvin";}if(aResult === 12){userdata.cats.loki += 1; catName = "loki";}if(aResult === 13){userdata.cats.loverboy += 1; catName = "loverboy";}
+      userdata.cats[animals[aResult]] += 1;
 
       userdata.money.catmoney += 350;
       displayEmbed('300', '1', catName, 'your streak has restarted')
@@ -86,26 +86,20 @@ exports.run = async (bot, message, args) => {
         if(specialCatAmt === specialBaseAmt){
                   
           //* Set Vars For Special Cats
-          let animales = ['bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin', 'loki', 'loverboy'];
+          let animals = bot.catdata.cats('sepcial', 'array');
           let aResult = Math.floor((Math.random() * animales.length));
 
           //* Check To See What Cat It Is Then Add It To Their Cats
-          if(aResult === 0){userdata.cats.bandit += 1; catName = "bandit";}if(aResult === 1){userdata.cats.bug += 1; catName = "bug";}if(aResult === 2){userdata.cats.linda += 1; catName = "linda";}if(aResult === 3){userdata.cats.mittens += 1; catName = "mittens";}if(aResult === 4){userdata.cats.cash += 1; catName = "cash";}if(aResult === 5){userdata.cats.jackson += 1; catName = "jackson";}if(aResult === 6){userdata.cats.cottonball += 1; catName = "cottonball";}if(aResult === 7){userdata.cats.sonny += 1; catName = "sonny";}if(aResult === 8){userdata.cats.smokey += 1; catName = "smokey";}if(aResult === 9){userdata.cats.lailah += 1; catName = "lailah";}if(aResult === 10){userdata.cats.cher += 1; catName = "cher";}if(aResult === 11){userdata.cats.marvin += 1; catName = "marvin";}if(aResult === 12){userdata.cats.loki += 1; catName = "loki";}if(aResult === 13){userdata.cats.loverboy += 1; catName = "loverboy";}
+          userdata.cats[animals[aResult]] += 1;
 
         } else {
           let moneyList = [200, 250, 300, 350, 400, 500, 1000];
           let mResult = Math.floor((Math.random() * moneyList.length));
 
-          if(mResult === 0){userdata.money.catmoney += 200; amtMoney = '200'}
-          if(mResult === 1){userdata.money.catmoney += 250; amtMoney = '250'}
-          if(mResult === 2){userdata.money.catmoney += 300; amtMoney = '300'}
-          if(mResult === 3){userdata.money.catmoney += 350; amtMoney = '250'}
-          if(mResult === 4){userdata.money.catmoney += 400; amtMoney = '400'}
-          if(mResult === 5){userdata.money.catmoney += 500; amtMoney = '500'}
-          if(mResult === 6){userdata.money.catmoney += 1000; amtMoney = '1,000'}
+          userdata.money.catmoney += moneyList[mResult];
 
         }
-        displayEmbed(amtMoney, userdata.stats.dailyStreak, catName)
+        displayEmbed(moneyList[mResult], userdata.stats.dailyStreak, catName)
       }
       //* If User Has Over A 7 Day Daily Streak
       if(userdata.stats.dailyStreak >= 7){
@@ -117,22 +111,19 @@ exports.run = async (bot, message, args) => {
         if(specialCatAmt === specialBaseAmt){
                   
           //* Set Vars For Special Cats
-          let animales = ['bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin', 'loki', 'loverboy'];
-          let aResult = Math.floor((Math.random() * animales.length));
+          let animals = bot.catdata.cats('sepcial', 'array');
+          let aResult = Math.floor((Math.random() * animals.length));
 
           //* Check To See What Cat It Is Then Add It To Their Cats
-          if(aResult === 0){userdata.cats.bandit += 1; catName = "bandit";}if(aResult === 1){userdata.cats.bug += 1; catName = "bug";}if(aResult === 2){userdata.cats.linda += 1; catName = "linda";}if(aResult === 3){userdata.cats.mittens += 1; catName = "mittens";}if(aResult === 4){userdata.cats.cash += 1; catName = "cash";}if(aResult === 5){userdata.cats.jackson += 1; catName = "jackson";}if(aResult === 6){userdata.cats.cottonball += 1; catName = "cottonball";}if(aResult === 7){userdata.cats.sonny += 1; catName = "sonny";}if(aResult === 8){userdata.cats.smokey += 1; catName = "smokey";}if(aResult === 9){userdata.cats.lailah += 1; catName = "lailah";}if(aResult === 10){userdata.cats.cher += 1; catName = "cher";}if(aResult === 11){userdata.cats.marvin += 1; catName = "marvin";}if(aResult === 12){userdata.cats.loki += 1; catName = "loki";}if(aResult === 13){userdata.cats.loverboy += 1; catName = "loverboy";}
+          userdata.cats[animals[aResult]] += 1;
           
         }
         let moneyList = [400, 500, 1000, 1500, 2000];
         let mResult = Math.floor((Math.random() * moneyList.length));
 
-        if(mResult === 0){userdata.money.catmoney += 400; amtMoney = '400'}
-        if(mResult === 1){userdata.money.catmoney += 500; amtMoney = '500'}
-        if(mResult === 2){userdata.money.catmoney += 1000; amtMoney = '1,000'}
-        if(mResult === 3){userdata.money.catmoney += 1500; amtMoney = '1,500'}
-        if(mResult === 4){userdata.money.catmoney += 2000; amtMoney = '2,000'}
-        displayEmbed(amtMoney, userdata.stats.dailyStreak, catName)
+        userdata.money.catmoney += moneyList[mResult];
+
+        displayEmbed(moneyList[mResult], userdata.stats.dailyStreak, catName)
       }
     userdata.save().catch(err => console.log(err));
     }

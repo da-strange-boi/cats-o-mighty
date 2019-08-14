@@ -79,7 +79,6 @@ exports.run = async (bot, message, cmd, args, prefix) => {
         command = bot.commands.get(cmd);
       } else {command = bot.commands.get(bot.aliases.get(cmd));}
       if(command) command.run(bot, message, args);
-
     }
   });
 }

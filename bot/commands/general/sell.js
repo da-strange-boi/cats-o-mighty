@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const ms = require('parse-ms');
 let cooldown = {};
-let animalList = ['siamese', 'burmese', 'ragdoll', 'persian', 'mainecoon', 'russianblue', 'abyssinian', 'manx', 'sphynx', 'cyprus', 'foldex', 'turkishangora', 'korat', 'singapura', 'tonkinese', 'peterbald', 'chartreux', 'munchkin', 'bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin', 'loki', 'loverboy', 'squirtlett', 'cursedcat', 'uwu'];
+let animalList = bot.catdata.fullcat('array');
 catNum = 0;
 exports.run = async (bot, message, args) => {
   bot.db.Userdata.findOne({
