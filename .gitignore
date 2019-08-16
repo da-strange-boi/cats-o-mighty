@@ -17,3 +17,6 @@ templateCats.json
 
 # secret data stuff
 .env
+
+# something stupid that may or may not be added
+bot/utils/catNames.js

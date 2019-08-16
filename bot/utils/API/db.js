@@ -31,7 +31,7 @@ exports.run = async (bot) => {
       let votedUser = vote.user;
 
       //* Set Vars For Special Cats
-      let animals = bot.catdata.cats('special', 'array');
+      let animals = ['bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin', 'loki', 'loverboy'];
       let result = Math.floor((Math.random() * animals.length));
 
       //* Check To See What Cat It Is Then Add It To Their Cats

@@ -42,7 +42,7 @@ exports.run = async (bot, message) => {
       bot.db.Totals.findOne({}, async (err, totalList) => {
         if(err) bot.log("databaseError", err);
         if(!totalList){
-          let catobjname = bot.catdata.fullcat('object');
+          let catobjname = {siamese: 0,burmese: 0,ragdoll: 0,persian: 0,mainecoon: 0,russianblue: 0,calico: 0,tabby: 0,abyssinian: 0,manx: 0,sphynx: 0,cyprus: 0,foldex: 0,turkishangora: 0,norwegianforest: 0,korat: 0,singapura: 0,tonkinese: 0,peterbald: 0,chartreux: 0,munchkin: 0,britishshorthair: 0,bandit: 0,bug: 0,linda: 0,mittens: 0,cash: 0,jackson: 0,cottonball: 0,sonny: 0,smokey: 0,lailah: 0,cher: 0,marvin: 0,loki: 0,loverboy: 0,squirtlett: 0,cursedcat: 0,uwu: 0,tom: 0,demoncat: 0}
           const total = new bot.db.Totals({
             catobjname
           });
@@ -71,16 +71,15 @@ exports.run = async (bot, message) => {
 
               if(commonCatAmt === commonBaseAmt){
                 //* Set Vars For Common Cats
-                let animals = bot.catdata.cats('common', 'array');
+                let animals = ['siamese', 'burmese', 'ragdoll', 'persian', 'mainecoon', 'russianblue', 'calico', 'tabby'];
                 let result = Math.floor((Math.random()*animals.length));
         
                 //* Add Cat To Their Collection
 
                 userdata.cats[animals[result]] += 1;
                 totalList.cats[animals[result]] += 1;
-                catName = animals[result];
         
-                showCatEmbed(catName);
+                showCatEmbed(animals[result]);
           
               }
               if(uncommonCatAmt === uncommonBaseAmt){
@@ -89,7 +88,7 @@ exports.run = async (bot, message) => {
                 if(userdata.cats.siamese === 0 && userdata.cats.burmese === 0 && userdata.cats.ragdoll === 0 && userdata.cats.persian === 0 && userdata.cats.mainecoon === 0 && userdata.cats.russianblue === 0 && userdata.cats.calico === 0 && userdata.cats.tabby === 0){commonCats = false;} else {commonCats = true;}
                 if(commonCats === false){return;}
         
-                let animals = bot.catdata.cats('uncommon', 'array');
+                let animals = ['abyssinian', 'manx', 'sphynx', 'cyprus', 'foldex', 'turkishangora', 'norwegianforest'];
                 let result = Math.floor((Math.random() * animals.length));
 
                 userdata.cats[animals[result]] += 1;
@@ -103,7 +102,7 @@ exports.run = async (bot, message) => {
                 if(userdata.cats.abyssinian === 0 && userdata.cats.manx === 0 && userdata.cats.sphynx === 0 && userdata.cats.cyprus === 0 && userdata.cats.foldex === 0 && userdata.cats.turkishangora === 0 && userdata.cats.norwegianforest === 0){uncommonCats = false;} else {uncommonCats = true;}
                 if(uncommonCats === false){return;}
         
-                let animals = bot.catdata.cats('rare', 'array');
+                let animals = ['korat', 'singapura', 'tonkinese', 'peterbald', 'chartreux', 'munchkin', 'britishshorthair'];
                 let result = Math.floor((Math.random() * animals.length));
 
                 userdata.cats[animals[result]] += 1;
@@ -116,7 +115,7 @@ exports.run = async (bot, message) => {
           
                 //* No Need To Check If They Have Lower Rank || You Can Get Special No Matter What Cats You Have
 
-                let animals = bot.catdata.cats('special', 'array');
+                let animals = ['bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin', 'loki', 'loverboy'];
                 let result = Math.floor((Math.random() * animals.length));
         
                 userdata.cats[animals[result]] += 1;
@@ -127,7 +126,7 @@ exports.run = async (bot, message) => {
               }
               if(impossibleCatsAmt === impossibleBaseAmt){
                 //* Set Vars For Impossible Cats
-                let animals = bot.catdata.cats('impossible', 'array');
+                let animals = ['squirtlett', 'cursedcat', 'uwu', 'tom', 'demoncat'];
                 let result = Math.floor((Math.random()*animals.length));
         
                 userdata.cats[animals[result]] += 1;

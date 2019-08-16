@@ -11,7 +11,7 @@ bot.log = require("./logging/basic.js");
 bot.config = require('./config.json');
 bot.db = require('./utils/db.js');
 bot.wh = require('./utils/webhook.js');
-bot.catdata = require('./utils/catNames.js');
+//bot.catdata = require('./utils/catNames.js');
 bot.commands = new Discord.Collection();
 bot.aliases = new Discord.Collection();
 

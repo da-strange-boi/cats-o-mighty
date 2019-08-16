@@ -2,6 +2,8 @@ const Discord = require("discord.js");
 const ms = require('parse-ms');
 let cooldown = {};
 
+let specialCats = ['bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin', 'loki', 'loverboy'];
+
 exports.run = async (bot, message, args) => {
 
   //USAGE cat daily
@@ -61,14 +63,14 @@ exports.run = async (bot, message, args) => {
       userdata.stats.dailyStreak = 1;
       
       //* Set Vars For Special Cats
-      let animals = bot.catdata.cats('sepcial', 'array');
+      let animals = specialCats;
       let aResult = Math.floor((Math.random() * animals.length));
 
       //* Check To See What Cat It Is Then Add It To Their Cats
       userdata.cats[animals[aResult]] += 1;
 
       userdata.money.catmoney += 350;
-      displayEmbed('300', '1', catName, 'your streak has restarted')
+      displayEmbed('300', '1', animals[aResult], 'your streak has restarted')
       userdata.save().catch(err => console.log(err));
     } else {
 
@@ -83,14 +85,16 @@ exports.run = async (bot, message, args) => {
         let specialCatAmt = Math.floor(Math.random() * 6) + 1;
         let specialBaseAmt = Math.floor(Math.random() * 6) + 1;
 
+        //* Set Vars For Special Cats
+        let animals = specialCats;
+        let aResult = Math.floor((Math.random() * animals.length));
+
         if(specialCatAmt === specialBaseAmt){
-                  
-          //* Set Vars For Special Cats
-          let animals = bot.catdata.cats('sepcial', 'array');
-          let aResult = Math.floor((Math.random() * animales.length));
 
           //* Check To See What Cat It Is Then Add It To Their Cats
           userdata.cats[animals[aResult]] += 1;
+
+          displayEmbed(undefined, userdata.stats.dailyStreak, animals[aResult]);
 
         } else {
           let moneyList = [200, 250, 300, 350, 400, 500, 1000];
@@ -98,8 +102,8 @@ exports.run = async (bot, message, args) => {
 
           userdata.money.catmoney += moneyList[mResult];
 
+          displayEmbed(moneyList[mResult], userdata.stats.dailyStreak, catName);
         }
-        displayEmbed(moneyList[mResult], userdata.stats.dailyStreak, catName)
       }
       //* If User Has Over A 7 Day Daily Streak
       if(userdata.stats.dailyStreak >= 7){
@@ -108,11 +112,11 @@ exports.run = async (bot, message, args) => {
         let specialCatAmt = Math.floor(Math.random() * 3) + 1;
         let specialBaseAmt = Math.floor(Math.random() * 3) + 1;
 
+        //* Set Vars For Special Cats
+        let animals = specialCats;
+        let aResult = Math.floor((Math.random() * animals.length));
+
         if(specialCatAmt === specialBaseAmt){
-                  
-          //* Set Vars For Special Cats
-          let animals = bot.catdata.cats('sepcial', 'array');
-          let aResult = Math.floor((Math.random() * animals.length));
 
           //* Check To See What Cat It Is Then Add It To Their Cats
           userdata.cats[animals[aResult]] += 1;
@@ -123,7 +127,7 @@ exports.run = async (bot, message, args) => {
 
         userdata.money.catmoney += moneyList[mResult];
 
-        displayEmbed(moneyList[mResult], userdata.stats.dailyStreak, catName)
+        displayEmbed(moneyList[mResult], userdata.stats.dailyStreak, animals[aResult])
       }
     userdata.save().catch(err => console.log(err));
     }
