@@ -13,6 +13,12 @@ exports.run = async (bot, message, cmd, args, prefix) => {
       bot.db.Guildsettings.findOne({guildID: message.guild.id}, async (err, settings) => {
         if(err) bot.log("priority", `processCommand guildsettings failed: ${err}`);
         if(userdata){
+          // make sure the prefix is being used when typing 'cat start'
+          let prefix = bot.config.prefix;
+          if(message.content.startsWith(`<@${bot.user.id}>`)){
+            prefix = `<@${bot.user.id}>`;
+          }
+          if(!message.content.trim().toLowerCase().startsWith(prefix)) return;
           message.channel.send(`<@${message.author.id}> no need, you're already a cat collector!`);
           return;
         }

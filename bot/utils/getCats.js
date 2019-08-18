@@ -8,7 +8,6 @@ exports.run = async (bot, message) => {
   if(message.content.startsWith(`<@${bot.user.id}>`)){
     prefix = `<@${bot.user.id}>`;
   }
-
   if(message.content.trim().toLowerCase().startsWith(prefix)) return;
 
 
