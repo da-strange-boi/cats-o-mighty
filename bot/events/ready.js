@@ -12,6 +12,7 @@ exports.run = async (bot) => {
       bot.log('system', 'Bot stats posted');
     }, 2400000); // 40 mins
   }
-  bot.wh.ping(bot);
+  // Disable the webhook for now until chanages can be made
+  //bot.wh.ping(bot);
   bot.log(`system`, `${bot.user.username} is online!`);
 }

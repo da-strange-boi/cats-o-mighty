@@ -2,11 +2,16 @@ const Discord = require('discord.js');
 const DBL = require("dblapi.js");
 
 exports.run = async (bot) => {
-  global.dbl = new DBL(process.env.DISCORD_BOTS_AUTH, { webhookPort: 5001, webhookAuth: process.env.DISCORD_BOTS_WSAUTH, statsInterval: 2400000 }, bot);
+  global.dbl = new DBL(process.env.DISCORD_BOTS_AUTH, { webhookPort: 5001, webhookAuth: process.env.DISCORD_BOTS_WSAUTH}, bot);
 
   //* Ready Up The Webhook
   dbl.webhook.on('ready', hook => {
     bot.log('system', `Webhook running at http://${hook.hostname}:${hook.port}${hook.path}`);
+  });
+
+  // Post The Stats Of The Bot
+  setInterval(() => {
+    dbl.on('posted', () => {});
   });
 
   //* Whenever Someone Votes Run Code
