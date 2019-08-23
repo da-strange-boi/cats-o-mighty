@@ -25,16 +25,18 @@ exports.run = async (bot, message, args) => {
     let embed = new Discord.RichEmbed()
     .setAuthor(`Daily`, message.author.displayAvatarURL)
     .setColor(bot.config.color.cats)
-    .setFooter('after 7 days you\'ll get better rewards')
     .addField(':star2: Streak', `${dailyStreak}`);
     if(note){
       embed.setDescription(note);
     }
     if(amtMoney){
-      embed.addField(`:moneybag: Collected Money`, `$${amtMoney}`)
+      embed.addField(`:moneybag: Collected Money`, `$${amtMoney}`);
     }
     if(catName){
-      embed.addField(`Random stray cat you found`, `${catName}`)
+      embed.addField(`Random stray cat you found`, `${catName}`);
+    }
+    if(dailyStreak <= 7){
+      embed.setFooter('after 7 days you\'ll get better rewards');
     }
     message.channel.send(embed);
   }
@@ -70,7 +72,7 @@ exports.run = async (bot, message, args) => {
       userdata.cats[animals[aResult]] += 1;
 
       userdata.money.catmoney += 350;
-      displayEmbed('300', '1', animals[aResult], 'your streak has restarted')
+      displayEmbed('300', userdata.stats.dailyStreak, animals[aResult], 'Your streak has restarted')
       userdata.save().catch(err => console.log(err));
     } else {
 

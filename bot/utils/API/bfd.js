@@ -1,20 +1,13 @@
-const request = require('request-promise');
+const fetch = require('node-fetch');
 exports.run = async (bot) => {
-  const options = {
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': process.env.BOTS_FOR_DISCORD_AUTH,
-    },
-    method: 'POST',
-    uri: 'https://botsfordiscord.com/api/bot/569336139186700312',
+  fetch('https://botsfordiscord.com/api/bot/569336139186700312', {
+    method: 'post',
     body: {
       'server_count': bot.guilds.size
     },
-    json: true
-  }
-
-  request(options)
-  .catch(function(err){
-    bot.log('warning', `Bots for Discord API Error: ${err}`);
-  });
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': process.env.BOTS_FOR_DISCORD_AUTH,
+    }
+  }).catch(err => bot.log('warning', `BFD API: ${err}`));
 }

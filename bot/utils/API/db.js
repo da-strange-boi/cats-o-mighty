@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const DBL = require("dblapi.js");
 
 exports.run = async (bot) => {
-  global.dbl = new DBL(process.env.DISCORD_BOTS_AUTH, { webhookPort: 5001, webhookAuth: process.env.DISCORD_BOTS_WSAUTH}, bot);
+  const dbl = new DBL(process.env.DISCORD_BOTS_AUTH, { webhookPort: 5001, webhookAuth: process.env.DISCORD_BOTS_WSAUTH});
 
   //* Ready Up The Webhook
   dbl.webhook.on('ready', hook => {
@@ -12,13 +12,13 @@ exports.run = async (bot) => {
   // Post The Stats Of The Bot
   setInterval(() => {
     dbl.on('posted', () => {});
-  });
+  }, 2400000); // 40 mins
 
   //* Whenever Someone Votes Run Code
   dbl.webhook.on('vote', vote => {
 
     bot.db.Userdata.findOne({
-      userID: vote.user
+      userID: vote.user 
     }, (err, userdata) => {
       if(err) bot.log('databaseError', `Discordbots.org API Error: ${err}`)
 
