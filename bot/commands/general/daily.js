@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const ms = require('parse-ms');
 let cooldown = {};
 
-let specialCats = ['bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin', 'loki', 'loverboy'];
+let specialCats = ['bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin', 'loki', 'loverboy', 'killerclaws'];
 
 exports.run = async (bot, message, args) => {
 

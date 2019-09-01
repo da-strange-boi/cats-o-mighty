@@ -26,15 +26,16 @@ exports.run = async (bot, message, args) => {
   date804 = updateData.date804;
   date813 = updateData.date813;
   date816 = updateData.date816;
+  date901 = updateData.date901;
 
   let bicon = bot.user.displayAvatarURL;
   updateEmbed = new Discord.RichEmbed()
   .setThumbnail(bicon)
   .setColor(bot.config.color.utility)
-  .setTitle(`**${bot.user.username} - 0.5.12**`);
+  .setTitle(`**${bot.user.username} - 0.5.13**`);
 
   if(!args[0]){    
-    updateEmbed.setDescription(date816);updateNum++;
+    updateEmbed.setDescription(date901);updateNum++;
     message.channel.send(updateEmbed);return;
   }
     

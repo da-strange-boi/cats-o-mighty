@@ -30,6 +30,9 @@ exports.run = (bot, message) => {
         userdata.cats.tom = 0;
         userdata.cats.demoncat = 0;
       }
+      if(userdata.cats.killerclaws === undefined){
+        userdata.cats.killerclaws = 0;
+      }
       userdata.userTag = message.author.tag;
       userdata.save().catch(err => console.log(err));
     }

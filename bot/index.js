@@ -31,5 +31,5 @@ const init = async () => {
   });
   loadCommands.run(bot, fs);
   bot.log("system", `The bot is launching and attempting to login to discord`);
-};
+}
 init();

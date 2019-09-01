@@ -31,7 +31,7 @@ exports.run = async (bot, message, args) => {
         tSiamese = totalList.cats.siamese;tBurmese = totalList.cats.burmese;tRagdoll = totalList.cats.ragdoll;tPersian = totalList.cats.persian;tMaineCoon = totalList.cats.mainecoon;tRussianBlue = totalList.cats.russianblue;tCalico = totalList.cats.calico;tTabby = totalList.cats.tabby;
         tAbyssinian = totalList.cats.abyssinian;tManx = totalList.cats.manx;tSphynx = totalList.cats.sphynx;tCyprus = totalList.cats.cyprus;tFoldex = totalList.cats.foldex;tTurkishAngora = totalList.cats.turkishangora;tNorwegianForest = totalList.cats.norwegianforest;
         tKorat = totalList.cats.korat;tSingapura = totalList.cats.singapura;tTonkinese = totalList.cats.tonkinese;tPeterbald = totalList.cats.peterbald;tChartreux = totalList.cats.chartreux;tMunchkin = totalList.cats.munchkin;tBritishShorthair = totalList.cats.britishshorthair;
-        tBandit = totalList.cats.bandit;tBug = totalList.cats.bug;tLinda = totalList.cats.linda;tMittens = totalList.cats.mittens;tCash = totalList.cats.cash;tJackson = totalList.cats.jackson;tCottonball = totalList.cats.cottonball;tSonny = totalList.cats.sonny;tSmokey = totalList.cats.smokey;tLailah = totalList.cats.lailah;tCher = totalList.cats.cher;tMarvin = totalList.cats.marvin;tLoki = totalList.cats.loki;tLoverboy = totalList.cats.loverboy;
+        tBandit = totalList.cats.bandit;tBug = totalList.cats.bug;tLinda = totalList.cats.linda;tMittens = totalList.cats.mittens;tCash = totalList.cats.cash;tJackson = totalList.cats.jackson;tCottonball = totalList.cats.cottonball;tSonny = totalList.cats.sonny;tSmokey = totalList.cats.smokey;tLailah = totalList.cats.lailah;tCher = totalList.cats.cher;tMarvin = totalList.cats.marvin;tLoki = totalList.cats.loki;tLoverboy = totalList.cats.loverboy;tKillerClaws = totalList.cats.killerclaws;
         tSquirtlett = totalList.cats.squirtlett;tCursedcat = totalList.cats.cursedcat;tUWU = totalList.cats.uwu;tTom = totalList.cats.tom;tDemoncat = totalList.cats.demoncat;
         
         //* Function To Make The First Letter Of A Word Capitalized
@@ -89,20 +89,21 @@ exports.run = async (bot, message, args) => {
 
         //------special------
 
-        displayCat('bandit', '2,500', tBandit, 'https://i.imgur.com/FjSuQay.jpg');
+        displayCat('bandit', '2,500', tBandit, 'https://i.imgur.com/yxIaIqe.jpg');
         displayCat('bug', '2,500', tBug, 'https://i.imgur.com/umoPzou.jpg');
-        displayCat('linda', '2,500', tLinda, 'https://i.imgur.com/LmHVdDn.jpg');
+        displayCat('linda', '2,500', tLinda, 'https://i.imgur.com/uieRlR9.jpg');
         displayCat('mittens', '2,500', tMittens, 'https://i.imgur.com/vPyIsRd.jpg');
         displayCat('cash', '2,500', tCash, 'https://i.imgur.com/21odRlh.jpg');
         displayCat('jackson', '2,500', tJackson, 'https://i.imgur.com/NdE2s2E.jpg');
         displayCat('cottonball', '2,500', tCottonball, 'https://i.imgur.com/ceqsPX4.jpg');
         displayCat('sonny', '2,500', tSonny, 'https://i.imgur.com/r7Fb0xU.jpg');
-        displayCat('smokey', '2,500', tSmokey, 'https://i.imgur.com/9uxOMQB.jpg');
+        displayCat('smokey', '2,500', tSmokey, 'https://i.imgur.com/Z2vz3un.jpg');
         displayCat('lailah', '2,500', tLailah, 'https://i.imgur.com/XEBy623.jpg');
         displayCat('cher', '2,500', tCher, 'https://i.imgur.com/I06Qynx.jpg');
         displayCat('marvin', '2,500', tMarvin, 'https://i.imgur.com/izG1phc.jpg');
         displayCat('loki', '2,500', tLoki, 'https://i.imgur.com/PBV6Ijq.jpg');
         displayCat('loverboy', '2,500', tLoverboy, 'https://i.imgur.com/SJ40Y1E.jpg');
+        displayCat('killerclaws', '2,500', tKillerClaws, 'https://i.imgur.com/eRO5bK5.jpg');
 
         //------impossible------
         

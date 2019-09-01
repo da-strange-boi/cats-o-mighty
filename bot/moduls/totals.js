@@ -39,6 +39,7 @@ const totalsSchema = mongoose.Schema({
     marvin: Number,
     loki: Number,
     loverboy: Number,
+    killerclaws: Number,
     squirtlett: Number,
     cursedcat: Number,
     uwu: Number,

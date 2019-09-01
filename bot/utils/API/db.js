@@ -40,7 +40,7 @@ exports.run = async (bot) => {
       let votedUser = vote.user;
 
       //* Set Vars For Special Cats
-      let animals = ['bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin', 'loki', 'loverboy'];
+      let animals = ['bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin', 'loki', 'loverboy', 'killerclaws'];
       let result = Math.floor((Math.random() * animals.length));
 
       //* Check To See What Cat It Is Then Add It To Their Cats
@@ -58,6 +58,7 @@ exports.run = async (bot) => {
       if(result === 11){userdata.cats.marvin += 1; catName = "marvin";}
       if(result === 12){userdata.cats.loki += 1; catName = "loki"}
       if(result === 13){userdata.cats.loverboy += 1; catName = "loverboy"}
+      if(result === 14){userdata.cats.killerclaws += 1; catname = "killerclaws"}
 
       //* To send a DM to the user letting them know their rewards for voting
 

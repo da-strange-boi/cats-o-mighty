@@ -21,5 +21,6 @@
   "date803": "**8/3**\n• Bot responses to its @mention\n• You won't get cats when sending a command\n• Possibly fixed problem with cooldown",
   "date804": "**8/4**\n• Just some bug fixes",
   "date813": "**8/13**\n• Added new image command that sends a picture/gif of a cat\n• Simple updates to help command\n• You can now sell all of a cat by doing `cat sell {cat name}`\n• Fixed cooldown\n• A settings command was made\n• The daily streak works like a streak and will reset after 24 hours of not claiming",
-  "date816": "**8/16**\n• 7 new cats were added\n• some minor bug fixes"
+  "date816": "**8/16**\n• 7 new cats were added\n• some minor bug fixes",
+  "date901": "**9/1**\n• 1 new special cat add - Killer Claws\n• Small fix with the `feed` comamnd\n• Still trying to fix bot stats not updating\n• Updated `dex` images for Linda, Bandit, and Smokey"
 }
