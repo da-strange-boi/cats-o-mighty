@@ -11,8 +11,6 @@ exports.run = (bot, message) => {
     }
   }
 
-  if(message.author.id !== '295255543596187650') return;
-
   //* Set Vars For The Commands
   let args = message.content.slice(prefix.length).trim().split(' ');
   let cmd = args.shift().toLowerCase();
