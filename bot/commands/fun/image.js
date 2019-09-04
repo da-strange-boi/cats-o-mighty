@@ -31,5 +31,5 @@ exports.run = async (bot, message, args) => {
 
 exports.help = {
   name: 'image',
-  aliases: []
+  aliases: ['picture', 'pic']
 }

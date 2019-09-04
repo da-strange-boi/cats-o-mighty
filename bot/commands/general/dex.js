@@ -100,7 +100,7 @@ exports.run = async (bot, message, args) => {
         displayCat('smokey', '2,500', tSmokey, 'https://i.imgur.com/Z2vz3un.jpg');
         displayCat('lailah', '2,500', tLailah, 'https://i.imgur.com/XEBy623.jpg');
         displayCat('cher', '2,500', tCher, 'https://i.imgur.com/I06Qynx.jpg');
-        displayCat('marvin', '2,500', tMarvin, 'https://i.imgur.com/izG1phc.jpg');
+        displayCat('marvin', '2,500', tMarvin, 'https://i.imgur.com/AO3QmAU.jpg');
         displayCat('loki', '2,500', tLoki, 'https://i.imgur.com/PBV6Ijq.jpg');
         displayCat('loverboy', '2,500', tLoverboy, 'https://i.imgur.com/SJ40Y1E.jpg');
         displayCat('killerclaws', '2,500', tKillerClaws, 'https://i.imgur.com/eRO5bK5.jpg');
