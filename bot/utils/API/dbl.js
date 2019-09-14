@@ -11,5 +11,4 @@ exports.run = async (bot) => {
       'Authorization': `Bot ${process.env.DISCORD_BOT_LIST_AUTH}`,
     }
   }).catch(err => bot.log('warning', `DBL API: ${err}`));
-
 }
