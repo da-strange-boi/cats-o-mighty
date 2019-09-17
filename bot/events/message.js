@@ -16,9 +16,13 @@ exports.run = async (bot, message) => {
   processCommand.run(bot, message, cmd, args, prefix);
   if (!cmd || permCheck(message, bot, cmd) == false) return;
   if(!message.content.trim().toLowerCase().startsWith(prefix)) return;
-  try {
-    cmd.run(bot, message, args)
-  } catch (Error) {
-    bot.log("error", Error)
-  }
+  bot.db.Userdata.findOne({userID: message.author.id}, async (err, userdata) => {
+    if(userdata){
+      try {
+        cmd.run(bot, message, args)
+      } catch (Error) {
+        bot.log("error", Error)
+      }
+    }
+  });
 }
