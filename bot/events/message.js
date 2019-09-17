@@ -1,8 +1,8 @@
-exports.run = (bot, message) => {
-
-  if(!message.guild || message.IsPrivate || message.author.bot) return;
-
-  let prefix = bot.config.prefix;
+let prefix = 'cat';
+exports.run = async (bot, message) => {
+  if (!message.guild || message.IsPrivate || message.author.bot) return;
+  let permCheck = require("../handlers/permCheck.js");
+  let processCommand = require('../handlers/processCommand');
   if(message.content.startsWith(`<@${bot.user.id}>`)){
     prefix = `<@${bot.user.id}>`;
     if(message.content.trim() === `<@${bot.user.id}>`){
@@ -10,25 +10,15 @@ exports.run = (bot, message) => {
       return;
     }
   }
-
-  //* Set Vars For The Commands
-  let args = message.content.slice(prefix.length).trim().split(' ');
-  let cmd = args.shift().toLowerCase();
-
-  let processCommand = require('../utils/processCommand.js');
+  const args = message.content.slice(prefix.length).trim().split(/ +/g)
+  const command = args.shift().toLowerCase(); 
+  let cmd = bot.getCmd(bot, message, command, args);
   processCommand.run(bot, message, cmd, args, prefix);
-
-  // Loging stuff
-  bot.db.Logs.findOne({}, (err, log) => {
-    if(log){
-      log.botUsed += 1;
-      log.save().catch(err => bot.log("warning", `Log saving error: ${err}`));
-    }
-    if(!log){
-      let newLog = new bot.db.Logs({
-        botUsed: 1
-      });
-      newLog.save().catch(err => bot.log("warning", `Log saving error: ${err}`));
-    }
-  });
+  if (!cmd || permCheck(message, bot, cmd) == false) return;
+  if(!message.content.trim().toLowerCase().startsWith(prefix)) return;
+  try {
+    cmd.run(bot, message, args)
+  } catch (Error) {
+    bot.log("error", Error)
+  }
 }
