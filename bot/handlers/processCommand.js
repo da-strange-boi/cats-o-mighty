@@ -1,6 +1,8 @@
 const Discord = require('discord.js');
 exports.run = async (bot, message, cmd, args, prefix) => {
 
+  if(!message.content.trim().toLowerCase().startsWith(prefix)) return;
+
   if(cmd.help.name === `start`){
     //* If The User Is A New Cat Collector And Runs 'cat start'
     bot.db.Userdata.findOne({userID: message.author.id}, async (err, userdata) => {
