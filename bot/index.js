@@ -20,6 +20,19 @@ bot.aliases = new Discord.Collection();
 //login
 bot.login(process.env.TOKEN);
 
+const dataStats = async () => {
+  if(process.env.DEBUG === 'false'){
+    let BFD = require('lib/API/bfd.js'), DB = require('lib/API/db.js'), DBGG = require('lib/API/dbgg.js'), DBL = require('lib/API/dbl.js');
+    await DB.run(bot);
+    setInterval(() => {
+      await BFD.run(bot);
+      await DBGG.run(bot);
+      await DBL.run(bot);
+    }, 2400000); // 40 mins
+  }
+}
+dataStats();
+
 //setup events
 const init = async () => {
   fs.readdir("./bot/events/", (err, files) => {

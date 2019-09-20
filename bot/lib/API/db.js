@@ -10,9 +10,8 @@ exports.run = async (bot) => {
   });
 
   // Post The Stats Of The Bot
-  setInterval(() => {
-    dbl.on('posted', () => {console.log('HOLY SHIT IT WORKED')});
-  }, 2400000); // 40 mins
+  console.log('main test -- ignore')
+  dbl.on('posted', () => {console.log('HOLY SHIT IT WORKED')});
 
   dbl.on('error', e => {
     console.log(`Oops! ${e}`);
