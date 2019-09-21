@@ -50,6 +50,7 @@ const dataStats = async (client) => {
     return;
   }
 }
+dataStats(bot);
 
 
 //setup events
