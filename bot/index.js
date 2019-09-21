@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+let schedule = require('node-schedule');
 const fs = require('fs');
 const bot = new Discord.Client({
   fetchAllMembers: false,
@@ -11,7 +12,6 @@ bot.log = require("./lib/logging");
 bot.config = require('./config.json');
 bot.db = require('./lib/db.js');
 // bot.wh = require('./utils/webhook.js');
-bot.catdata = require("./lib/catData");
 bot.getCmd = require("./handlers/getCommands");
 require("./handlers/commandHandler")(bot);
 bot.commands = new Discord.Collection();
@@ -20,23 +20,42 @@ bot.aliases = new Discord.Collection();
 //login
 bot.login(process.env.TOKEN);
 
-const dataStats = async () => {
+// const dataStats = async () => {
+//   if(process.env.DEBUG === 'false'){
+//     let BFD = require('lib/API/bfd.js'), DB = require('lib/API/db.js'), DBGG = require('lib/API/dbgg.js'), DBL = require('lib/API/dbl.js');
+//     await DB.run(bot);
+//     setInterval(async() => {
+//       await BFD.run(bot);
+//       await DBGG.run(bot);
+//       await DBL.run(bot);
+//     }, 2400000); // 40 mins
+//   }
+// }
+// dataStats();
+
+
+const dataStats = async (client) => {
   if(process.env.DEBUG === 'false'){
-    let BFD = require('lib/API/bfd.js'), DB = require('lib/API/db.js'), DBGG = require('lib/API/dbgg.js'), DBL = require('lib/API/dbl.js');
-    await DB.run(bot);
-    setInterval(() => {
-      await BFD.run(bot);
-      await DBGG.run(bot);
-      await DBL.run(bot);
-    }, 2400000); // 40 mins
+    let BFD = require('lib/API/bfd.js');
+    let DB = require('lib/API/db.js');
+    let DBGG = require('lib/API/dbgg.js');
+    let DBL = require('lib/API/dbl.js');
+    DB.run(client);
+    let job = schedule.scheduleJob('0 */45 * * * *', function(){
+      BFD.run(client);
+      DBGG.run(client);
+      DBL.run(client);
+    });
+  } else {
+    return;
   }
 }
-dataStats();
+
 
 //setup events
 const init = async () => {
   fs.readdir("./bot/events/", (err, files) => {
-    if (err) return bot.log(`error`, `Failed to load all events\n===============\n\n${err}`)
+    if (err) return bot.log(`error`, `Failed to load all events\n===============\n\n${err}`);
     files.forEach(file => {
       let eventFunction = require(`./events/${file}`);
       let eventName = file.split(".")[0];

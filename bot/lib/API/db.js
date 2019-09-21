@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const DBL = require("dblapi.js");
+require('dotenv/config');
 
 exports.run = async (bot) => {
   const dbl = new DBL(process.env.DISCORD_BOTS_AUTH, { webhookPort: 5454, webhookAuth: process.env.DISCORD_BOTS_WSAUTH, statsInterval: 2400000}, bot);
@@ -10,10 +11,10 @@ exports.run = async (bot) => {
   });
 
   // Post The Stats Of The Bot
-  console.log('main test -- ignore')
-  dbl.on('posted', () => {console.log('HOLY SHIT IT WORKED')});
+  console.log('main test -- ignore');
+  dbl.webhook.on('posted', () => {console.log('HOLY SHIT IT WORKED')});
 
-  dbl.on('error', e => {
+  dbl.webhook.on('error', e => {
     console.log(`Oops! ${e}`);
   });
 
@@ -41,23 +42,24 @@ exports.run = async (bot) => {
       //* Set Vars For Special Cats
       let animals = ['bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin', 'loki', 'loverboy', 'killerclaws'];
       let result = Math.floor((Math.random() * animals.length));
+      let catName;
 
       //* Check To See What Cat It Is Then Add It To Their Cats
-      if(result === 0){userdata.cats.bandit += 1; catName = "bandit";}
-      if(result === 1){userdata.cats.bug += 1; catName = "bug";}
-      if(result === 2){userdata.cats.linda += 1; catName = "linda";}
-      if(result === 3){userdata.cats.mittens += 1; catName = "mittens";}
-      if(result === 4){userdata.cats.cash += 1; catName = "cash";}
-      if(result === 5){userdata.cats.jackson += 1; catName = "jackson";}
-      if(result === 6){userdata.cats.cottonball += 1; catName = "cottonball";}
-      if(result === 7){userdata.cats.sonny += 1; catName = "sonny";}
-      if(result === 8){userdata.cats.smokey += 1; catName = "smokey";}
-      if(result === 9){userdata.cats.lailah += 1; catName = "lailah";}
-      if(result === 10){userdata.cats.cher += 1; catName = "cher";}
-      if(result === 11){userdata.cats.marvin += 1; catName = "marvin";}
+      if(result === 0){userdata.cats.bandit += 1; catName = "bandit"}
+      if(result === 1){userdata.cats.bug += 1; catName = "bug"}
+      if(result === 2){userdata.cats.linda += 1; catName = "linda"}
+      if(result === 3){userdata.cats.mittens += 1; catName = "mittens"}
+      if(result === 4){userdata.cats.cash += 1; catName = "cash"}
+      if(result === 5){userdata.cats.jackson += 1; catName = "jackson"}
+      if(result === 6){userdata.cats.cottonball += 1; catName = "cottonball"}
+      if(result === 7){userdata.cats.sonny += 1; catName = "sonny"}
+      if(result === 8){userdata.cats.smokey += 1; catName = "smokey"}
+      if(result === 9){userdata.cats.lailah += 1; catName = "lailah"}
+      if(result === 10){userdata.cats.cher += 1; catName = "cher"}
+      if(result === 11){userdata.cats.marvin += 1; catName = "marvin"}
       if(result === 12){userdata.cats.loki += 1; catName = "loki"}
       if(result === 13){userdata.cats.loverboy += 1; catName = "loverboy"}
-      if(result === 14){userdata.cats.killerclaws += 1; catname = "killerclaws"}
+      if(result === 14){userdata.cats.killerclaws += 1; catName = "killerclaws"}
 
       //* To send a DM to the user letting them know their rewards for voting
 
@@ -76,5 +78,4 @@ exports.run = async (bot) => {
       userdata.save().catch(err => console.log(err));
     });
   });
-
 }
