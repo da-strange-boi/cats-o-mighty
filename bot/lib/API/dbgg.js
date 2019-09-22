@@ -1,7 +1,6 @@
 const fetch = require('node-fetch');
 exports.run = async (bot) => {
   let bodydata = {guildCount: bot.guilds.size}
-  bot.log('warning', 'DBGG Stats Updated');
   fetch('https://discord.bots.gg/api/v1/bots/569336139186700312/stats', {
     method: 'post',
     body: JSON.stringify(bodydata),

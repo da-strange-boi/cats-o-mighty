@@ -45,6 +45,7 @@ const dataStats = async (client) => {
       BFD.run(client);
       DBGG.run(client);
       DBL.run(client);
+      bot.log('default', 'Stats posted to bot lists');
     });
   } else {
     return;

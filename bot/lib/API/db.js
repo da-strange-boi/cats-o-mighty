@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
 const DBL = require("dblapi.js");
-require('dotenv/config');
 
 exports.run = async (bot) => {
   const dbl = new DBL(process.env.DISCORD_BOTS_AUTH, { webhookPort: 5454, webhookAuth: process.env.DISCORD_BOTS_WSAUTH, statsInterval: 2400000}, bot);
@@ -11,8 +10,7 @@ exports.run = async (bot) => {
   });
 
   // Post The Stats Of The Bot
-  console.log('main test -- ignore');
-  dbl.webhook.on('posted', () => {console.log('HOLY SHIT IT WORKED')});
+  dbl.webhook.on('posted', () => {});
 
   dbl.webhook.on('error', e => {
     console.log(`Oops! ${e}`);
