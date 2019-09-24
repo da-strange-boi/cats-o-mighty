@@ -118,18 +118,20 @@ exports.run = async (bot, message, args) => {
         let animals = specialCats;
         let aResult = Math.floor((Math.random() * animals.length));
 
+        let moneyList = [800, 1000, 1700, 2000, 15000];
+        let mResult = Math.floor((Math.random() * moneyList.length));
+        userdata.money.catmoney += moneyList[mResult];
+
         if(specialCatAmt === specialBaseAmt){
 
           //* Check To See What Cat It Is Then Add It To Their Cats
           userdata.cats[animals[aResult]] += 1;
+          displayEmbed(moneyList[mResult], userdata.stats.dailyStreak, animals[aResult]);
           
+        } else {
+          displayEmbed(moneyList[mResult], userdata.stats.dailyStreak, undefined);
         }
-        let moneyList = [400, 500, 1000, 1500, 2000];
-        let mResult = Math.floor((Math.random() * moneyList.length));
 
-        userdata.money.catmoney += moneyList[mResult];
-
-        displayEmbed(moneyList[mResult], userdata.stats.dailyStreak, animals[aResult]);
       }
     userdata.save().catch(err => console.log(err));
     }
