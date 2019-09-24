@@ -1,51 +1,52 @@
 const Discord = require('discord.js');
 exports.run = async (bot, message, cmd, args, prefix) => {
 
-  if(!message.content.trim().toLowerCase().startsWith(prefix)) return;
-  if(!cmd.help) return;
-
-  if(cmd.help.name === `start`){
-    //* If The User Is A New Cat Collector And Runs 'cat start'
-    bot.db.Userdata.findOne({userID: message.author.id}, async (err, userdata) => {
-      if(err) bot.log("priority", `processCommand userdata failed: ${err}`);
-      bot.db.Guildsettings.findOne({guildID: message.guild.id}, async (err, settings) => {
-        if(err) bot.log("priority", `processCommand guildsettings failed: ${err}`);
-        if(userdata){
-          // make sure the prefix is being used when typing 'cat start'
-          let prefix = bot.config.prefix;
-          if(message.content.startsWith(`<@${bot.user.id}>`)){
-            prefix = `<@${bot.user.id}>`;
+  if(cmd.hasOwnProperty('help')){
+    if(!message.content.trim().toLowerCase().startsWith(prefix)) return;
+    if(cmd.help.name === `start`){
+      //* If The User Is A New Cat Collector And Runs 'cat start'
+      bot.db.Userdata.findOne({userID: message.author.id}, async (err, userdata) => {
+        if(err) bot.log("priority", `processCommand userdata failed: ${err}`);
+        bot.db.Guildsettings.findOne({guildID: message.guild.id}, async (err, settings) => {
+          if(err) bot.log("priority", `processCommand guildsettings failed: ${err}`);
+          if(userdata){
+            // make sure the prefix is being used when typing 'cat start'
+            let prefix = bot.config.prefix;
+            if(message.content.startsWith(`<@${bot.user.id}>`)){
+              prefix = `<@${bot.user.id}>`;
+            }
+            if(!message.content.trim().toLowerCase().startsWith(prefix)) return;
+            message.channel.send(`<@${message.author.id}> no need, you're already a cat collector!`);
+            return;
           }
-          if(!message.content.trim().toLowerCase().startsWith(prefix)) return;
-          message.channel.send(`<@${message.author.id}> no need, you're already a cat collector!`);
-          return;
-        }
-        if(!userdata){
-          let date = Date.now();
-          const newUserData = new bot.db.Userdata({
-            userID: message.author.id,
-            userTag: message.author.tag,
-            cats: {siamese: 0,burmese: 0,ragdoll: 0,persian: 0,mainecoon: 0,russianblue: 0,calico: 0,tabby: 0,abyssinian: 0,manx: 0,sphynx: 0,cyprus: 0,foldex: 0,turkishangora: 0,norwegianforest: 0,korat: 0,singapura: 0,tonkinese: 0,peterbald: 0,chartreux: 0,munchkin: 0,britishshorthair: 0,bandit: 0,bug: 0,linda: 0,mittens: 0,cash: 0,jackson: 0,cottonball: 0,sonny: 0,smokey: 0,lailah: 0,cher: 0,marvin: 0,loki: 0,loverboy: 0,killerclaws: 0,squirtlett: 0,cursedcat: 0,uwu: 0,tom: 0,demoncat: 0},
-            money: {catmoney: 0},
-            times: {dailyTime: 0,voteTime: 0,usedBotLast: date},
-            stats: {catsSold: 0,saidCat: 1,dailyStreak: 0}
-          });
-          newUserData.save().catch(err => bot.log("error", `processCommand userdata saving failed: ${err}`));
-
-          if(!settings){
-            const newGuildSettings = new bot.db.Guildsettings({
-              guildID: message.guild.id,CatGottenPopupMessage: true
+          if(!userdata){
+            let date = Date.now();
+            const newUserData = new bot.db.Userdata({
+              userID: message.author.id,
+              userTag: message.author.tag,
+              cats: {siamese: 0,burmese: 0,ragdoll: 0,persian: 0,mainecoon: 0,russianblue: 0,calico: 0,tabby: 0,abyssinian: 0,manx: 0,sphynx: 0,cyprus: 0,foldex: 0,turkishangora: 0,norwegianforest: 0,korat: 0,singapura: 0,tonkinese: 0,peterbald: 0,chartreux: 0,munchkin: 0,britishshorthair: 0,bandit: 0,bug: 0,linda: 0,mittens: 0,cash: 0,jackson: 0,cottonball: 0,sonny: 0,smokey: 0,lailah: 0,cher: 0,marvin: 0,loki: 0,loverboy: 0,killerclaws: 0,squirtlett: 0,cursedcat: 0,uwu: 0,tom: 0,demoncat: 0},
+              money: {catmoney: 0},
+              times: {dailyTime: 0,voteTime: 0,usedBotLast: date},
+              stats: {catsSold: 0,saidCat: 1,dailyStreak: 0}
             });
-            newGuildSettings.save().catch(err => bot.log("error", `processCommand guildsettings saving failed: ${err}`));
+            newUserData.save().catch(err => bot.log("error", `processCommand userdata saving failed: ${err}`));
+  
+            if(!settings){
+              const newGuildSettings = new bot.db.Guildsettings({
+                guildID: message.guild.id,CatGottenPopupMessage: true
+              });
+              newGuildSettings.save().catch(err => bot.log("error", `processCommand guildsettings saving failed: ${err}`));
+            }
+  
+            let newUserEmbed = new Discord.RichEmbed().setAuthor(message.author.username, message.author.avatarURL).setColor(bot.config.color.utility).setDescription("Welcome new cat collector!\nto get started do `cat help` to get the list of commands");
+            message.channel.send(newUserEmbed);
+            return;
           }
-
-          let newUserEmbed = new Discord.RichEmbed().setAuthor(message.author.username, message.author.avatarURL).setColor(bot.config.color.utility).setDescription("Welcome new cat collector!\nto get started do `cat help` to get the list of commands");
-          message.channel.send(newUserEmbed);
-          return;
-        }
+        });
       });
-    });
+    }
   }
+  
 
   //* If The User Is A New User, Types 'cat {anything}' Send Them A Message Telling Them To Do 'cat start'
   bot.db.Userdata.findOne({
