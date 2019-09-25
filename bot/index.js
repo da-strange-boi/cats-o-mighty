@@ -20,26 +20,12 @@ bot.aliases = new Discord.Collection();
 //login
 bot.login(process.env.TOKEN);
 
-// const dataStats = async () => {
-//   if(process.env.DEBUG === 'false'){
-//     let BFD = require('lib/API/bfd.js'), DB = require('lib/API/db.js'), DBGG = require('lib/API/dbgg.js'), DBL = require('lib/API/dbl.js');
-//     await DB.run(bot);
-//     setInterval(async() => {
-//       await BFD.run(bot);
-//       await DBGG.run(bot);
-//       await DBL.run(bot);
-//     }, 2400000); // 40 mins
-//   }
-// }
-// dataStats();
-
-
 const dataStats = async (client) => {
   if(process.env.DEBUG === 'false'){
-    let BFD = require('lib/API/bfd.js');
-    let DB = require('lib/API/db.js');
-    let DBGG = require('lib/API/dbgg.js');
-    let DBL = require('lib/API/dbl.js');
+    let BFD = require('./lib/API/bfd.js');
+    let DB = require('./lib/API/db.js');
+    let DBGG = require('./lib/API/dbgg.js');
+    let DBL = require('./lib/API/dbl.js');
     DB.run(client);
     let job = schedule.scheduleJob('0 */45 * * * *', function(){
       BFD.run(client);

@@ -54,11 +54,13 @@ exports.run = async (bot, message, cmd, args, prefix) => {
   }, (err, userdata) => {
     if(err) bot.log("error", `processCommand userdata failed: ${err}`)
     if(!userdata){
-      if(cmd.help.name != "start"){
-        if(!message.content.trim().toLowerCase().startsWith(prefix)) return;
-        let newPersonEmbed = new Discord.RichEmbed().setAuthor(message.author.username, message.author.avatarURL).setColor(bot.config.color.utility).setDescription("hmm it looks like you're a new cat collector!!\nDo `cat start` to start collecting cats");
-        message.channel.send(newPersonEmbed);
-        return;
+      if(cmd.hasOwnProperty('help')){
+        if(cmd.help.name != "start"){
+          if(!message.content.trim().toLowerCase().startsWith(prefix)) return;
+          let newPersonEmbed = new Discord.RichEmbed().setAuthor(message.author.username, message.author.avatarURL).setColor(bot.config.color.utility).setDescription("hmm it looks like you're a new cat collector!!\nDo `cat start` to start collecting cats");
+          message.channel.send(newPersonEmbed);
+          return;
+        }
       }
     }
 
