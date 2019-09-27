@@ -7,7 +7,7 @@ exports.run = async (bot, message, args) => {
   //* Set A Cooldown
   if(cooldown[message.author.id] && cooldown[message.author.id] > 0){
     let time = ms(Date.now() - cooldown[message.author.id]);
-    await message.channel.send(`hmm **${message.author.username}**, you gotta wait **${5 - time.seconds}s**`).then(msg => msg.delete(1000 * (5 - time.seconds)));
+    await message.channel.send(`hmm **${message.author.username}**, you gotta wait **${10 - time.seconds}s**`).then(msg => msg.delete(1000 * (10 - time.seconds)));
     return;
   }
   cooldown[message.author.id] = Date.now();
@@ -24,7 +24,7 @@ exports.run = async (bot, message, args) => {
   //* Delete The Cooldown // Resetting It
   setTimeout(() => {
     delete cooldown[message.author.id];
-  }, 5000);
+  }, 10000);
 }
 
 exports.help = {
