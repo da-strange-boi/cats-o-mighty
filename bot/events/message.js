@@ -1,17 +1,22 @@
-let prefix = 'cat';
 exports.run = async (bot, message) => {
   if (!message.guild || message.IsPrivate || message.author.bot) return;
-  let permCheck = require("../handlers/permCheck.js");
-  let processCommand = require('../handlers/processCommand');
-  if(message.content.startsWith(`<@${bot.user.id}>`)){
+
+  let prefix;
+  if(message.content.startsWith(`<@${bot.user.id}>`) || message.content.startsWith(`<@!${bot.user.id}>`)){
     prefix = `<@${bot.user.id}>`;
     if(message.content.trim() === `<@${bot.user.id}>`){
-      message.channel.send(`**${message.author.username}**, my prefix is \`cat\` uwu`);
-      return;
+      return message.channel.send(`**${message.author.username}**, my prefix is \`cat\` uwu`);
     }
+  } else {
+    prefix = 'cat';
   }
+
+  let permCheck = require("../handlers/permCheck.js");
+  let processCommand = require('../handlers/processCommand');
+
   const args = message.content.slice(prefix.length).trim().split(/ +/g)
-  const command = args.shift().toLowerCase(); 
+  const command = args.shift().toLowerCase();
+
   let cmd = bot.getCmd(bot, message, command, args);
   processCommand.run(bot, message, cmd, args, prefix);
   if (!cmd || permCheck(message, bot, cmd) == false) return;
