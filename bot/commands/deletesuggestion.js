@@ -1,8 +1,6 @@
 exports.run = (bot, message, args) => {
   //USAGE deletesuggestion {suggestion number}
 
-  if(message.author.id != '295255543596187650'){ return; }
-
   if(!args[0]){
     message.channel.send('check the help');
     return;

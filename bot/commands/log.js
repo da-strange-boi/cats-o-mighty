@@ -1,5 +1,4 @@
 exports.run = async (bot, message, args) => {
-  if(!message.author.id === "295255543596187650") return;
 
   bot.db.Logs.findOne({}, (err, log) => {
     if(log){

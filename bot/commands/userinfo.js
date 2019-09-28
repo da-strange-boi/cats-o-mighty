@@ -4,11 +4,6 @@ exports.run = async (bot, message, args) => {
 
   //USAGE cat userinfo {id/name} {the data}
 
-  //* If someone who is not a mod enters this command
-  if(message.author.id !== "295255543596187650" && message.author.id !== "481318379907579916" && message.author.id !== "552316796439494658"){
-    return;
-  }
-
   if(!args[0]){
     message.channel.send("Check `cat help userinfo` for correct usage");
     return;

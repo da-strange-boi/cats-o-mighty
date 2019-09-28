@@ -17,24 +17,20 @@ exports.run = async (bot, message, args) => {
   
   //USAGE cat stop
   
-  //* Make sure no one else can use this command
-  if(message.author.id !== "295255543596187650") return;
-  if(message.author.id === "295255543596187650"){
 
-    let date = msToTime(bot.uptime);
+  let date = msToTime(bot.uptime);
 
-    let stopcatEmbed = new Discord.RichEmbed()
-    .setAuthor(bot.user.tag, bot.user.avatarURL)
-    .setColor(bot.config.color.error)
-    .setDescription(`**${bot.user.username}** stopping in **${bot.guilds.size}** servers with **${bot.users.size}** users\nwith an uptime of ${date.days} days ${date.hours} hours ${date.minutes} minutes ${date.seconds} seconds\nbot will stop shortly`);
+  let stopcatEmbed = new Discord.RichEmbed()
+  .setAuthor(bot.user.tag, bot.user.avatarURL)
+  .setColor(bot.config.color.error)
+  .setDescription(`**${bot.user.username}** stopping in **${bot.guilds.size}** servers with **${bot.users.size}** users\nwith an uptime of ${date.days} days ${date.hours} hours ${date.minutes} minutes ${date.seconds} seconds\nbot will stop shortly`);
 
-    await message.channel.send(stopcatEmbed);
-    
-    setTimeout(() => {
-      bot.log('offline', 'shutdown');
-      bot.destroy();
-    }, 5000);
-  }
+  await message.channel.send(stopcatEmbed);
+  
+  setTimeout(() => {
+    bot.log('offline', 'shutdown');
+    bot.destroy();
+  }, 5000);
 }
 
 exports.help = {

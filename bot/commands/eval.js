@@ -1,6 +1,5 @@
 const { inspect } = require('util')
 exports.run = async (bot, message, args) => {
-  if(message.author.id != '295255543596187650'){ return; }
   let toEval = args.join(" ");
   let evaluated = inspect(eval(toEval, { depth: 0 }));
   try {
