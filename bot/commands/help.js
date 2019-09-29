@@ -9,9 +9,9 @@ exports.run = async (bot, message, args) => {
     .setColor(bot.config.color.utility)
     .setTitle("List of commands")
     .setDescription("Here is all the commands!\nFor help on the commands, use `cat help {command}`\n[web version](https://www.dastrangeboi.tk/catsomighty/help.php)")
-    .addField(":cat2: General", "`collection`, `daily`, `dex`, `feed`, `leaderboard`, `money`, `profile`, `sell`, `vote`")
+    .addField(":cat2: General", "`chance`, `collection`, `daily`, `dex`, `feed`, `leaderboard`, `money`, `profile`, `sell`, `vote`")
     .addField(":cat: Fun", "`image`, `facts`")
-    .addField(":gear: Utility", "`chance`, `help`, `invite`, `ping`, `settings`, `suggest`, `supportserver`");
+    .addField(":gear: Utility", "`disable`, `help`, `invite`, `ping`, `settings`, `supportserver`");
     if(message.author.id === '481318379907579916' || message.author.id === '552316796439494658'){
       helpEmbed.addField(":beginner: Bot Admin Commands", "`userinfo`");
       return message.channel.send(helpEmbed);
@@ -49,6 +49,11 @@ exports.run = async (bot, message, args) => {
       message.channel.send("```< cat dex {cat name} >```");
       message.channel.send("```What it does:\nshows info on the cat```");
       message.channel.send("```Aliases: catinfo```");
+    }
+    // display help for disable \\
+    if(helpCommand === "disable"){
+      message.channel.send("```< cat disable >```");
+      message.channel.send("```What it does:\ntoggles getting cats from messages```");
     }
     // display help for facts \\
     if(helpCommand === "facts"){

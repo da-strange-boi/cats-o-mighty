@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const userdataSchema = mongoose.Schema({
   userID: String,
   userTag: String,
+  disable: Boolean,
   cats: {
     siamese: Number,
     burmese: Number,

@@ -37,6 +37,8 @@ exports.run = async (bot, message) => {
   }, async (err, userdata) => {
     if(err) bot.log("databaseError", err);
     if(userdata){
+
+      if(userdata.disable) return;
         
       bot.db.Totals.findOne({}, async (err, totalList) => {
         if(err) bot.log("databaseError", err);
