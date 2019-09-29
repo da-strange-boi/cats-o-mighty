@@ -1,9 +1,10 @@
 const chalk = require("chalk");
+const dateformatter = require('@dastrangeboi/date-formatter');
 const config = require("../config.json");
 
 const date = function getNowDateTimeStr(){
   let date = new Date();
-  return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
+  return `${dateformatter(date, 'number')}`;
 }
 
 const logging = async function Log(type, message){

@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/da-strange-boi/cats-o-mighty#readme",
   "dependencies": {
+    "@dastrangeboi/date-formatter": "^1.0.3",
     "canvas": "^2.5.0",
     "chalk": "^2.4.2",
     "dblapi.js": "^2.3.0",
