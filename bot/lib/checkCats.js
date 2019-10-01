@@ -33,6 +33,12 @@ exports.run = (bot, message) => {
       if(userdata.cats.killerclaws === undefined){
         userdata.cats.killerclaws = 0;
       }
+      if(userdata.cats.devonrex === undefined && userdata.cats.ojosazules === undefined && userdata.cats.bongocat === undefined && userdata.cats.grumpycat === undefined){
+        userdata.cats.devonrex = 0;
+        userdata.cats.ojosazules = 0;
+        userdata.cats.bongocat = 0;
+        userdata.cats.grumpycat = 0;
+      }
       userdata.userTag = message.author.tag;
       userdata.save().catch(err => console.log(err));
     }

@@ -20,6 +20,7 @@ const userdataSchema = mongoose.Schema({
     foldex: Number,
     turkishangora: Number,
     norwegianforest: Number,
+    devonrex: Number,
     korat: Number,
     singapura: Number,
     tonkinese: Number,
@@ -27,6 +28,7 @@ const userdataSchema = mongoose.Schema({
     chartreux: Number,
     munchkin: Number,
     britishshorthair: Number,
+    ojosazules: Number,
     bandit: Number,
     bug: Number,
     linda: Number,
@@ -46,7 +48,9 @@ const userdataSchema = mongoose.Schema({
     cursedcat: Number,
     uwu: Number,
     tom: Number,
-    demoncat: Number
+    demoncat: Number,
+    bongocat: Number,
+    grumpycat: Number
   },
   money: {
     catmoney: Number

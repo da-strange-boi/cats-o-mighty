@@ -29,10 +29,10 @@ exports.run = async (bot, message, args) => {
       if(totalList){
 
         tSiamese = totalList.cats.siamese;tBurmese = totalList.cats.burmese;tRagdoll = totalList.cats.ragdoll;tPersian = totalList.cats.persian;tMaineCoon = totalList.cats.mainecoon;tRussianBlue = totalList.cats.russianblue;tCalico = totalList.cats.calico;tTabby = totalList.cats.tabby;
-        tAbyssinian = totalList.cats.abyssinian;tManx = totalList.cats.manx;tSphynx = totalList.cats.sphynx;tCyprus = totalList.cats.cyprus;tFoldex = totalList.cats.foldex;tTurkishAngora = totalList.cats.turkishangora;tNorwegianForest = totalList.cats.norwegianforest;
-        tKorat = totalList.cats.korat;tSingapura = totalList.cats.singapura;tTonkinese = totalList.cats.tonkinese;tPeterbald = totalList.cats.peterbald;tChartreux = totalList.cats.chartreux;tMunchkin = totalList.cats.munchkin;tBritishShorthair = totalList.cats.britishshorthair;
+        tAbyssinian = totalList.cats.abyssinian;tManx = totalList.cats.manx;tSphynx = totalList.cats.sphynx;tCyprus = totalList.cats.cyprus;tFoldex = totalList.cats.foldex;tTurkishAngora = totalList.cats.turkishangora;tNorwegianForest = totalList.cats.norwegianforest;tDevonrex = totalList.cats.devonrex;
+        tKorat = totalList.cats.korat;tSingapura = totalList.cats.singapura;tTonkinese = totalList.cats.tonkinese;tPeterbald = totalList.cats.peterbald;tChartreux = totalList.cats.chartreux;tMunchkin = totalList.cats.munchkin;tBritishShorthair = totalList.cats.britishshorthair;tOjosazules = totalList.cats.ojosazules;
         tBandit = totalList.cats.bandit;tBug = totalList.cats.bug;tLinda = totalList.cats.linda;tMittens = totalList.cats.mittens;tCash = totalList.cats.cash;tJackson = totalList.cats.jackson;tCottonball = totalList.cats.cottonball;tSonny = totalList.cats.sonny;tSmokey = totalList.cats.smokey;tLailah = totalList.cats.lailah;tCher = totalList.cats.cher;tMarvin = totalList.cats.marvin;tLoki = totalList.cats.loki;tLoverboy = totalList.cats.loverboy;tKillerClaws = totalList.cats.killerclaws;
-        tSquirtlett = totalList.cats.squirtlett;tCursedcat = totalList.cats.cursedcat;tUWU = totalList.cats.uwu;tTom = totalList.cats.tom;tDemoncat = totalList.cats.demoncat;
+        tSquirtlett = totalList.cats.squirtlett;tCursedcat = totalList.cats.cursedcat;tUWU = totalList.cats.uwu;tTom = totalList.cats.tom;tDemoncat = totalList.cats.demoncat;tBongocat = totalList.cats.bongocat;tGrumpycat = totalList.cats.grumpycat;
         
         //* Function To Make The First Letter Of A Word Capitalized
         const cap = (string) => {
@@ -76,6 +76,7 @@ exports.run = async (bot, message, args) => {
         displayCat('foldex', '55', tFoldex, 'https://i.imgur.com/AQl6z6t.jpg');
         displayCat('turkishangora', '55', tTurkishAngora, 'https://i.imgur.com/LkkPAJh.jpg', '*cat suggested by, __๑DelusionalHermit๑__*');
         displayCat('norwegianforest', '55', tNorwegianForest, 'https://i.imgur.com/s54Hq6D.jpg', '*cat suggested by, __mxrningstar__ and __Cactus Cat__*');
+        displayCat('devonrex', '55', tDevonrex, 'https://i.imgur.com/Dg20uZJ.jpg');
 
         //------rare------
 
@@ -86,6 +87,7 @@ exports.run = async (bot, message, args) => {
         displayCat('chartreux', '200', tChartreux, 'https://i.imgur.com/dBRF5iR.jpg');
         displayCat('munchkin', '200', tMunchkin, 'https://i.imgur.com/iUIOKGR.jpg', '*cat suggested by, __[C] [R] [K] [N] [I]__*');
         displayCat('britishshorthair', '200', tBritishShorthair, 'https://i.imgur.com/u8zG7fG.jpg', '*cat suggested by, __TheRealNicole__*');
+        displayCat('ojosazules', '200', tOjosazules, 'https://i.imgur.com/vzYywnk.jpg');
 
         //------special------
 
@@ -112,6 +114,8 @@ exports.run = async (bot, message, args) => {
         displayCat('uwu', '10,000', tUWU, 'https://i.imgur.com/WJ87FfU.jpg');
         displayCat('tom', '10,000', tTom, 'https://i.imgur.com/Nj05cMm.png', '*cat suggested by, __˙ssǝlǝs∩__*');
         displayCat('demoncat', '10,000', tDemoncat, 'https://i.imgur.com/Li7UCFf.png');
+        displayCat('bongocat', '10,000', tBongocat, 'https://i.imgur.com/DZPzDEo.gif');
+        displayCat('grumpycat', '10,000', tGrumpycat, 'https://i.imgur.com/sGIlYdc.jpg', 'R.I.P Tardar Sauce');
 
         if (ifcat === 0){message.channel.send("check `cat help dex` for how to use the command")};
       }

@@ -29,14 +29,14 @@ exports.run = async (bot, message, args) => {
     if(userdata){
 
       let catBreed = args[0].toLowerCase().trim();
-      let animalList = ['siamese', 'burmese', 'ragdoll', 'persian', 'mainecoon', 'russianblue', 'calico', 'tabby', 'abyssinian', 'manx', 'sphynx', 'cyprus', 'foldex', 'turkishangora', 'norwegianforest', 'korat', 'singapura', 'tonkinese', 'peterbald', 'chartreux', 'munchkin', 'britishshorthair', 'bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin', 'loki', 'loverboy', 'killerclaws', 'squirtlett', 'cursedcat', 'uwu', 'tom', 'demoncat'];
+      let animalList = ['siamese', 'burmese', 'ragdoll', 'persian', 'mainecoon', 'russianblue', 'calico', 'tabby', 'abyssinian', 'manx', 'sphynx', 'cyprus', 'foldex', 'turkishangora', 'norwegianforest', 'devonrex', 'korat', 'singapura', 'tonkinese', 'peterbald', 'chartreux', 'munchkin', 'britishshorthair', 'ojosazules', 'bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin', 'loki', 'loverboy', 'killerclaws', 'squirtlett', 'cursedcat', 'uwu', 'tom', 'demoncat', 'bongocat', 'grumpycat'];
       for(let i=0;i<animalList.length;i++){
         if(catBreed === animalList[i]){
           if(i <= 7){catType = 'common'} // common
-          if(i >= 8 && i <= 14){catType = 'uncommon'} // uncommon
-          if(i >= 15 && i <= 21){catType = 'rare'} // rare
-          if(i >= 22 && i <= 36){catType = 'special'} // special
-          if(i >= 37){catType = 'impossible'} // impossible
+          if(i >= 8 && i <= 15){catType = 'uncommon'} // uncommon
+          if(i >= 16 && i <= 23){catType = 'rare'} // rare
+          if(i >= 24 && i <= 38){catType = 'special'} // special
+          if(i >= 39){catType = 'impossible'} // impossible
 
           if(catType === 'common'){
             let commonCatAmt = Math.floor(Math.random() * 13) + 1;

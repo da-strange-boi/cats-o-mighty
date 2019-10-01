@@ -18,6 +18,7 @@ const totalsSchema = mongoose.Schema({
     foldex: Number,
     turkishangora: Number,
     norwegianforest: Number,
+    devonrex: Number,
     korat: Number,
     singapura: Number,
     tonkinese: Number,
@@ -25,6 +26,7 @@ const totalsSchema = mongoose.Schema({
     chartreux: Number,
     munchkin: Number,
     britishshorthair: Number,
+    ojosazules: Number,
     bandit: Number,
     bug: Number,
     linda: Number,
@@ -44,7 +46,9 @@ const totalsSchema = mongoose.Schema({
     cursedcat: Number,
     uwu: Number,
     tom: Number,
-    demoncat: Number
+    demoncat: Number,
+    bongocat: Number,
+    grumpycat: Number
   }
 })
 
