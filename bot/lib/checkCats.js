@@ -1,3 +1,7 @@
+/*
+  this is just all one big mess that probably shouldn't be messed with
+  unless a cat is being added or this method is being changed :)
+*/
 exports.run = (bot, message) => {
   //* Select A User Data From The Database
   bot.db.Userdata.findOne({
@@ -38,6 +42,9 @@ exports.run = (bot, message) => {
         userdata.cats.ojosazules = 0;
         userdata.cats.bongocat = 0;
         userdata.cats.grumpycat = 0;
+      }
+      if(userdata.cats.ghostcat === undefined){
+        userdata.cats.ghostcat = 0;
       }
       userdata.userTag = message.author.tag;
       userdata.save().catch(err => console.log(err));

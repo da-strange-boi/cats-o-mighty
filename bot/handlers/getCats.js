@@ -32,6 +32,9 @@ exports.run = async (bot, message) => {
   let impossibleCatsAmt = Math.floor(Math.random() * 740) + 1;
   let impossibleBaseAmt = Math.floor(Math.random() * 740) + 1;
 
+  let seasonalCatAmt = Math.floor(Math.random() * 850) + 1;
+  let seasonalBaseAmt = Math.floor(Math.random() * 850) + 1;
+
   bot.db.Userdata.findOne({
     userID: message.author.id
   }, async (err, userdata) => {
@@ -44,7 +47,7 @@ exports.run = async (bot, message) => {
         if(err) bot.log("databaseError", err);
         if(!totalList){
           const total = new bot.db.Totals({
-            cats: {siamese: 0,burmese: 0,ragdoll: 0,persian: 0,mainecoon: 0,russianblue: 0,calico: 0,tabby: 0,abyssinian: 0,manx: 0,sphynx: 0,cyprus: 0,foldex: 0,turkishangora: 0,norwegianforest: 0,devonrex: 0,korat: 0,singapura: 0,tonkinese: 0,peterbald: 0,chartreux: 0,munchkin: 0,britishshorthair: 0,ojosazules: 0,bandit: 0,bug: 0,linda: 0,mittens: 0,cash: 0,jackson: 0,cottonball: 0,sonny: 0,smokey: 0,lailah: 0,cher: 0,marvin: 0,loki: 0,loverboy: 0,killerclaws: 0,squirtlett: 0,cursedcat: 0,uwu: 0,tom: 0,demoncat: 0,bongocat: 0,grumpycat: 0}
+            cats: {siamese: 0,burmese: 0,ragdoll: 0,persian: 0,mainecoon: 0,russianblue: 0,calico: 0,tabby: 0,abyssinian: 0,manx: 0,sphynx: 0,cyprus: 0,foldex: 0,turkishangora: 0,norwegianforest: 0,devonrex: 0,korat: 0,singapura: 0,tonkinese: 0,peterbald: 0,chartreux: 0,munchkin: 0,britishshorthair: 0,ojosazules: 0,bandit: 0,bug: 0,linda: 0,mittens: 0,cash: 0,jackson: 0,cottonball: 0,sonny: 0,smokey: 0,lailah: 0,cher: 0,marvin: 0,loki: 0,loverboy: 0,killerclaws: 0,squirtlett: 0,cursedcat: 0,uwu: 0,tom: 0,demoncat: 0,bongocat: 0,grumpycat: 0,ghostcat: 0}
           });
           total.save().catch(err => console.log(err));
         }
@@ -57,15 +60,15 @@ exports.run = async (bot, message) => {
             if(!guildSettings){bot.log('database', 'guildSettings error')}
             if(guildSettings){
 
-              const showCatEmbed = async (catName) => {
+              const showCatEmbed = (catName) => {
                 let embed = new Discord.RichEmbed()
                 .setAuthor(message.author.username, message.author.avatarURL)
                 .setColor(bot.config.color.cats)
-                .setDescription(`You got a ${catName} cat! uwu`);
+                .setDescription(`You got a ${catName}! uwu`);
                 if(guildSettings.CatGottenPopupMessage === 'show'){
                   message.channel.send(embed);
                 } else if(guildSettings.CatGottenPopupMessage === 'disappear' || guildSettings.CatGottenPopupMessage === true){
-                  await message.channel.send(embed).then(msg => msg.delete(6000));
+                  message.channel.send(embed).then(msg => msg.delete(6000));
                 }
               }
 
@@ -134,6 +137,25 @@ exports.run = async (bot, message) => {
                 catName = animals[result];
 
                 showCatEmbed(catName);
+              }
+              if(seasonalCatAmt === seasonalBaseAmt){
+
+                date = new Date();
+  
+                // Checking the date to see if its the week of halloween
+                let dateFrom = '10/27/2019'.split("/"), dateTo = '11/2/2019'.split("/"), dateCheck = `${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}`.split("/");
+                let from = new Date(dateFrom[2], parseInt(dateFrom[1])-1, dateFrom[0]), to = new Date(dateTo[2], parseInt(dateTo[1])-1, dateTo[0]), check = new Date(dateCheck[2], parseInt(dateCheck[1])-1, dateCheck[0]);
+                let isWeekOfHalloween = check > from && check < to;
+  
+                if(isWeekOfHalloween){
+                  let animals = ['ghostcat'];
+                  let result = Math.floor((Math.random()*animals.length));
+  
+                  userdata.cats[animals[result]] += 1;
+                  totalList.cats[animals[result]] += 1;
+                  catName = animals[result];
+                  showCatEmbed(catName);
+                }
               }
             }
             totalList.save().catch(err => console.log(err));

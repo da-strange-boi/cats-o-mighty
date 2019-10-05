@@ -16,6 +16,7 @@ exports.run = async (bot, message, args) => {
     uKorat = userdata.cats.korat;uSingapura = userdata.cats.singapura;uTonkinese = userdata.cats.tonkinese;uPeterbald = userdata.cats.peterbald;uChartreux = userdata.cats.chartreux;uMunchkin = userdata.cats.munchkin;uBritishShorthair = userdata.cats.britishshorthair;uOjosazules = userdata.cats.ojosazules;
     uBandit = userdata.cats.bandit;uBug = userdata.cats.bug;uLinda = userdata.cats.linda;uMittens = userdata.cats.mittens;uCash = userdata.cats.cash;uJackson = userdata.cats.jackson;uCottonball = userdata.cats.cottonball;uSonny = userdata.cats.sonny;uSmokey = userdata.cats.smokey;uLailah = userdata.cats.lailah;uCher = userdata.cats.cher;uMarvin = userdata.cats.marvin;uLoki = userdata.cats.loki;uLoverboy = userdata.cats.loverboy;uKillerClaws = userdata.cats.killerclaws;
     uSquirtlett = userdata.cats.squirtlett;uCursedcat = userdata.cats.cursedcat;uUWU = userdata.cats.uwu;uTom = userdata.cats.tom;uDemoncat = userdata.cats.demoncat;uBongocat = userdata.cats.bongocat;uGrumpycat = userdata.cats.grumpycat;
+    uGhostcat = userdata.cats.ghostcat;
 
     // check if user has that rank of cat and assign a var depending if they do or not
     if(uSiamese === 0 && uBurmese === 0 && uRagdoll === 0 && uPersian === 0 && uMaineCoon === 0 && uRussianBlue === 0 && uCalico === 0 && uTabby === 0){ commonCats = false;} else { commonCats = true;}
@@ -23,9 +24,10 @@ exports.run = async (bot, message, args) => {
     if(uKorat === 0 && uSingapura === 0 && uTonkinese === 0 && uPeterbald === 0 && uChartreux === 0 && uMunchkin === 0 && uBritishShorthair === 0 && uOjosazules === 0){ rareCats = false;} else { rareCats = true;}
     if(uBandit === 0 && uBug === 0 && uLinda === 0 && uMittens === 0 && uCash === 0 && uJackson === 0 && uCottonball === 0 && uSonny === 0 && uSmokey === 0 && uLailah === 0 && uCher === 0 && uMarvin === 0 && uLoki === 0 && uLoverboy === 0 && uKillerClaws === 0){ specialCats = false;} else { specialCats = true;}
     if(uSquirtlett === 0 && uCursedcat === 0 && uUWU === 0 && uTom === 0 && uDemoncat === 0 && uBongocat === 0 && uGrumpycat === 0){ impossibleCats = false } else { impossibleCats = true }
+    if(uGhostcat === 0){ seasonalCats = false } else { seasonalCats = true }
     
     //* If User Owns No Common Cats (no cats) Tell Them
-    if(commonCats === false && uncommonCats === false && rareCats === false && specialCats === false && impossibleCats === false){
+    if(commonCats === false && uncommonCats === false && rareCats === false && specialCats === false && impossibleCats === false && seasonalCats === false){
       let noCatsEmbed = new Discord.RichEmbed()
       .setColor(bot.config.color.error)
       .setDescription(`Sorry **${message.author.username}** you dont have any cats`);
@@ -65,6 +67,9 @@ exports.run = async (bot, message, args) => {
       if(impossibleCats === true){
         catsEmbed.addField(":gem: Impossible :gem:", `Squirtlett: ${uSquirtlett}\nCursed Cat: ${uCursedcat}\nUWU: ${uUWU}\nTom: ${uTom}\nDemon Cat: ${uDemoncat}\nBongo Cat: ${uBongocat}\nGrumpy Cat: ${uGrumpycat}`, true);
       }
+      if(seasonalCats === true){
+        catsEmbed.addField(":ghost: Seasonal :ghost:", `Ghost Cat: ${uGhostcat}`);
+      }
       message.channel.send(catsEmbed);
 
       //* Delete The Cooldown // Resetting It
@@ -76,7 +81,7 @@ exports.run = async (bot, message, args) => {
     //USAGE cat collection {common|uncommon|rare|special|impossible}
     if(args[0]) {
       let catType = args[0].toLowerCase().trim();
-      let allCatType = ['common', 'uncommon', 'rare', 'special', 'impossible'];
+      let allCatType = ['common', 'uncommon', 'rare', 'special', 'impossible', 'seasonal'];
   
       for(let i=0; i < allCatType.length; i++){
         
@@ -85,6 +90,7 @@ exports.run = async (bot, message, args) => {
         if(allCatType[i] === catType){if(rareCats === false && catType === 'rare'){message.channel.send(`**${message.author.username}**, you don't have any rare cats to look at! sad uwu`);return;}}
         if(allCatType[i] === catType){if(specialCats === false && catType === 'special'){message.channel.send(`**${message.author.username}**, you don't have any special cats to look at! sad uwu`);return;}}
         if(allCatType[i] === catType){if(impossibleCats === false && catType === 'impossible'){message.channel.send(`**${message.author.username}**, you don't have any impossible cats to look at! sad uwu`);return;}}
+        if(allCatType[i] === catType){if(seasonalCats === false && catType === 'seasonal'){message.channel.send(`**${message.author.username}**, you don't have any seasonal cats to look at! sad uwu`);return;}}
         
         if(catType === allCatType[i]){
           let catsEmbed = new Discord.RichEmbed()
@@ -104,6 +110,9 @@ exports.run = async (bot, message, args) => {
           }
           if(allCatType[i] === "impossible"){
             catsEmbed.addField(":gem: Impossible :gem:", `Squirtlett: ${uSquirtlett}\nCursed Cat: ${uCursedcat}\nUWU: ${uUWU}\nTom: ${uTom}\nDemon Cat: ${uDemoncat}\nBongo Cat: ${uBongocat}\nGrumpy Cat: ${uGrumpycat}`, true);
+          }
+          if(seasonalCats === true){
+            catsEmbed.addField(":ghost: Seasonal :ghost:", `Ghost Cat: ${uGhostcat}`);
           }
           message.channel.send(catsEmbed);
           return;

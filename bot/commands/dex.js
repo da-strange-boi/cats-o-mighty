@@ -33,7 +33,8 @@ exports.run = async (bot, message, args) => {
         tKorat = totalList.cats.korat;tSingapura = totalList.cats.singapura;tTonkinese = totalList.cats.tonkinese;tPeterbald = totalList.cats.peterbald;tChartreux = totalList.cats.chartreux;tMunchkin = totalList.cats.munchkin;tBritishShorthair = totalList.cats.britishshorthair;tOjosazules = totalList.cats.ojosazules;
         tBandit = totalList.cats.bandit;tBug = totalList.cats.bug;tLinda = totalList.cats.linda;tMittens = totalList.cats.mittens;tCash = totalList.cats.cash;tJackson = totalList.cats.jackson;tCottonball = totalList.cats.cottonball;tSonny = totalList.cats.sonny;tSmokey = totalList.cats.smokey;tLailah = totalList.cats.lailah;tCher = totalList.cats.cher;tMarvin = totalList.cats.marvin;tLoki = totalList.cats.loki;tLoverboy = totalList.cats.loverboy;tKillerClaws = totalList.cats.killerclaws;
         tSquirtlett = totalList.cats.squirtlett;tCursedcat = totalList.cats.cursedcat;tUWU = totalList.cats.uwu;tTom = totalList.cats.tom;tDemoncat = totalList.cats.demoncat;tBongocat = totalList.cats.bongocat;tGrumpycat = totalList.cats.grumpycat;
-        
+        tGhostcat = totalList.cats.ghostcat;
+
         //* Function To Make The First Letter Of A Word Capitalized
         const cap = (string) => {
           return string.charAt(0).toUpperCase() + string.slice(1);
@@ -47,8 +48,8 @@ exports.run = async (bot, message, args) => {
             .setColor(bot.config.color.dex)
             .setImage(`${url}`);
             if(sidenote){
-              dexHelp.setDescription(`**Total Got**: ${totalCat} \n**Sell Amount**: $${sellAmount} \n\n ${sidenote} \n`);
-            } else {dexHelp.setDescription(`**Total Got**: ${totalCat} \n**Sell Amount**: $${sellAmount}`);}
+              dexHelp.setDescription(`**Total Got**: ${totalCat} \n**Sell Amount**: ${sellAmount} \n\n ${sidenote} \n`);
+            } else {dexHelp.setDescription(`**Total Got**: ${totalCat} \n**Sell Amount**: ${sellAmount}`);}
             message.channel.send(dexHelp);
             ifcat++;
           }
@@ -116,6 +117,10 @@ exports.run = async (bot, message, args) => {
         displayCat('demoncat', '10,000', tDemoncat, 'https://i.imgur.com/Li7UCFf.png');
         displayCat('bongocat', '10,000', tBongocat, 'https://i.imgur.com/DZPzDEo.gif');
         displayCat('grumpycat', '10,000', tGrumpycat, 'https://i.imgur.com/sGIlYdc.jpg', 'R.I.P Tardar Sauce');
+
+        //------seasonal------
+
+        displayCat('ghostcat', "Can't sell", tGhostcat, 'https://i.imgur.com/qlbLgWj.jpg', '*Halloween of 2019*')
 
         if (ifcat === 0){message.channel.send("check `cat help dex` for how to use the command")};
       }

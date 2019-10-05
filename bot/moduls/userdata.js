@@ -50,7 +50,8 @@ const userdataSchema = mongoose.Schema({
     tom: Number,
     demoncat: Number,
     bongocat: Number,
-    grumpycat: Number
+    grumpycat: Number,
+    ghostcat: Number
   },
   money: {
     catmoney: Number

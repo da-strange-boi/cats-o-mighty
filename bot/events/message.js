@@ -19,7 +19,7 @@ exports.run = async (bot, message) => {
 
   let cmd = bot.getCmd(bot, message, command, args);
   processCommand.run(bot, message, cmd, args, prefix);
-  if (!cmd || permCheck(message, bot, cmd) == false) return;
+  if (!cmd || permCheck(message, bot, cmd, prefix) == false) return;
   if(!message.content.trim().toLowerCase().startsWith(prefix)) return;
   bot.db.Userdata.findOne({userID: message.author.id}, async (err, userdata) => {
     if(userdata){
