@@ -13,7 +13,7 @@ const logging = async function Log (type, message) {
       break
     case 'error': console.log(chalk.inverse('[LOG][ERROR]') + chalk.hex(config.color.red)(` ${message} `) + chalk.blue(date()))
       break
-    case 'statsPosted': console.log(chalk.inverse('[LOG][STATS POSTED]') + chalk.hex(config.color.catblue)(` ${message} `) + chalk.blue(date()))
+    case 'statsPosted': console.log(chalk.inverse('[LOG][STATS POSTED]') + chalk.hex(config.color.blue)(` ${message} `) + chalk.blue(date()))
       break
     default: console.log(chalk.inverse('[LOG][DEFAULT]') + chalk.hex(config.color.white)(` ${message} `) + chalk.blue(date()))
       break

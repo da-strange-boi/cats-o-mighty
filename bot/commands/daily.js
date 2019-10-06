@@ -23,7 +23,7 @@ exports.run = async (bot, message) => {
   const displayEmbed = async (amtMoney, dailyStreak, catName, note) => {
     const embed = new Discord.RichEmbed()
       .setAuthor('Daily', message.author.displayAvatarURL)
-      .setColor(bot.config.color.cats)
+      .setColor(bot.config.color.blue)
       .addField(':star2: Streak', `${dailyStreak}`)
     if (note) {
       embed.setDescription(note)
@@ -52,7 +52,7 @@ exports.run = async (bot, message) => {
 
       const embed = new Discord.RichEmbed()
         .setAuthor('Daily', message.author.displayAvatarURL)
-        .setColor(bot.config.color.cats)
+        .setColor(bot.config.color.blue)
         .setFooter('after 7 days you\'ll get better rewards')
         .setDescription(`You have to wait **${time.hours}h ${time.minutes}m ${time.seconds}s** until next daily`)
         .addField(':star2: Streak', `${userdata.stats.dailyStreak}`)

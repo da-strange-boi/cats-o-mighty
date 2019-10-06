@@ -5,7 +5,7 @@ exports.run = async (bot, message, args) => {
   //* If User Just Puts "cat help" Send The Help Message
   if (!args[0]) {
     const helpEmbed = new Discord.RichEmbed()
-      .setColor(bot.config.color.utility)
+      .setColor(bot.config.color.darkblue)
       .setTitle('List of commands')
       .setDescription('Here is all the commands!\nFor help on the commands, use `cat help {command}`\n[web version](https://www.dastrangeboi.tk/catsomighty/help.php)')
       .addField(':cat2: General', '`chance`, `collection`, `daily`, `dex`, `feed`, `leaderboard`, `money`, `profile`, `sell`, `vote`')

@@ -35,7 +35,7 @@ exports.run = async (bot, message, args) => {
   const bicon = bot.user.displayAvatarURL
   updateEmbed = new Discord.RichEmbed()
     .setThumbnail(bicon)
-    .setColor(bot.config.color.utility)
+    .setColor(bot.config.color.darkblue)
     .setTitle(`**${bot.user.username} - 0.5.13**`)
 
   if (!args[0]) {

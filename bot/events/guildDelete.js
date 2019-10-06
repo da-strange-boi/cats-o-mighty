@@ -9,7 +9,7 @@ exports.run = async (bot, guild) => {
   const guildDeleteEmbed = new Discord.RichEmbed()
     .setDescription(`**• Guild:** \`${guild.name}\`\n**• Members:** \`${guild.memberCount}\`\n**• Owner:** \`${guild.owner.user.tag}\`\n**• Region:** \`${guild.region}\``)
     .setFooter(`${bot.guilds.size} guilds`)
-    .setColor(bot.config.color.error)
+    .setColor(bot.config.color.red)
     .setTimestamp(date)
   if (guild.iconURL !== null) {
     guildDeleteEmbed.setThumbnail(guild.iconURL)

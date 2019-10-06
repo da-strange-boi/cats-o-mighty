@@ -61,7 +61,7 @@ exports.run = async (bot) => {
       //* To send a DM to the user letting them know their rewards for voting
 
       const votedEmbed = new Discord.RichEmbed()
-        .setColor(bot.config.color.cats)
+        .setColor(bot.config.color.blue)
       if (vote.isWeekend === true) {
         votedEmbed.setAuthor('Thanks for upvoting Cats o Mighty • Weekend Rewards', bot.user.avatarURL)
         votedEmbed.setDescription(`**For upvoting Cats o Mighty you get:**\n\n:cat2: ${catName}\n:moneybag: $5,000\n\n:alarm_clock: **In 12 hours you can vote again to get more rewards!**`)

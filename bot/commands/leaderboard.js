@@ -30,10 +30,10 @@ exports.run = async (bot, message, args) => {
 
     //* If There Are No Results
     if (userdata.length === 0) {
-      embed.setColor(bot.config.color.error)
+      embed.setColor(bot.config.color.red)
       embed.addField('No data found', 'Sell some cats to be on the leaderboard')
     } else if (userdata.length < 10) {
-      embed.setColor(bot.config.color.cats)
+      embed.setColor(bot.config.color.blue)
       for (let i = 0; i < userdata.length; i++) {
         if (message.author.id === '295255543596187650') {
           member = userdata[i].userTag
@@ -47,10 +47,10 @@ exports.run = async (bot, message, args) => {
         if (i === 0) { embed.addField(`${i + 1}. <:gold:579860509264969739> ${member} <:gold:579860509264969739>`, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`) } else if (i === 1) { embed.addField(`${i + 1}. <:silver:579860480500301844> ${member} <:silver:579860480500301844>`, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`) } else if (i === 2) { embed.addField(`${i + 1}. <:bronze:579860359196704770> ${member} <:bronze:579860359196704770>`, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`) } else if (i > 2) { embed.addField(`${i + 1}. ${member}`, `Cat Money: **$${formatMoney(userdata[i].money.catmoney)}**`) }
       }
     } else {
-      //* If More Then 10 Results
-      embed.setColor(bot.config.color.cats)
+      // If More Then 10 Results
+      embed.setColor(bot.config.color.blue)
       for (let i = 0; i < 10; i++) {
-        //* Will use later
+        // Will use later
         if (message.author.id === '295255543596187650') {
           member = userdata[i].userTag
         } else {

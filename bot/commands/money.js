@@ -37,7 +37,7 @@ exports.run = async (bot, message, args) => {
       const uMoney = userdata.money.catmoney
       const moneyEmbed = new Discord.RichEmbed()
         .setAuthor(message.author.username, message.author.avatarURL)
-        .setColor(bot.config.color.cats)
+        .setColor(bot.config.color.blue)
         .setDescription(`You have **$${formatMoney(uMoney)}**`)
       message.channel.send(moneyEmbed)
     }

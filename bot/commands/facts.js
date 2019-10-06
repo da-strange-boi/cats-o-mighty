@@ -16,7 +16,7 @@ exports.run = async (bot, message, args) => {
   const factsEmbed = new Discord.RichEmbed()
     .setTitle('Random Cat Fact')
     .setDescription(`\`${body.text}\``)
-    .setColor(bot.config.color.cats)
+    .setColor(bot.config.color.blue)
   await message.channel.send(factsEmbed)
 
   // Delete The Cooldown // Resetting It

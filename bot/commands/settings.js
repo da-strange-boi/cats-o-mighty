@@ -15,7 +15,7 @@ exports.run = async (bot, message, args) => {
       if (!args[0]) {
         const settingsEmbed = new Discord.RichEmbed()
           .setTitle('Settings - [uppercases matter]')
-          .setColor(bot.config.color.utility)
+          .setColor(bot.config.color.darkblue)
           .setDescription(`CatGottenPopupMessage: **${guildSettings.CatGottenPopupMessage}**`)
         message.channel.send(settingsEmbed)
         return

@@ -42,7 +42,7 @@ exports.run = async (bot, message, args) => {
           if (catInfo === `${catName}`) {
             const dexHelp = new Discord.RichEmbed()
               .setTitle(`${cap(catName)}`)
-              .setColor(bot.config.color.dex)
+              .setColor(bot.config.color.tanish)
               .setImage(`${url}`)
             if (sidenote) {
               dexHelp.setDescription(`**Total Got**: ${totalCat} \n**Sell Amount**: ${sellAmount} \n\n ${sidenote} \n`)

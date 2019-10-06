@@ -18,7 +18,7 @@ exports.run = async (bot, message, args) => {
 
   const botEmbed = new Discord.RichEmbed()
     .setAuthor(bot.user.username, bot.user.avatarURL)
-    .setColor(bot.config.color.utility)
+    .setColor(bot.config.color.darkblue)
     .setThumbnail(bIcon)
     .addField(':date: Created On', bot.user.createdAt)
     .addField(':hourglass: Uptime', `${date.days} Days ${date.hours} Hours ${date.minutes} Minutes ${date.seconds} Seconds`)

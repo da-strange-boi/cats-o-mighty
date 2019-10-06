@@ -4,7 +4,7 @@ exports.run = async (bot, message, args) => {
 
   const supportserverEmbed = new Discord.RichEmbed()
     .setDescription('[click here to join the Cats o Mighty support server](https://discord.gg/V5hvqeJ)')
-    .setColor(bot.config.color.cats)
+    .setColor(bot.config.color.blue)
   message.channel.send(supportserverEmbed)
 }
 exports.help = {

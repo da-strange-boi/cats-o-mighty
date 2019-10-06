@@ -41,13 +41,13 @@ exports.run = async (bot, message, args) => {
               userdata.cats[animalList[i]] += 1
               const feedSucc = new Discord.RichEmbed()
                 .setTitle('ooo look at that!')
-                .setColor(bot.config.color.cats)
+                .setColor(bot.config.color.blue)
                 .setDescription(`a ${animalList[i]} decied to like that you fed it and hopped into your arms`)
               message.channel.send(feedSucc)
             } else {
               const feedFail = new Discord.RichEmbed()
                 .setTitle('hmm nothing')
-                .setColor(bot.config.color.cats)
+                .setColor(bot.config.color.blue)
                 .setDescription(`a ${animalList[i]} liked that you fed it but it ran away`)
               message.channel.send(feedFail)
             }
@@ -59,13 +59,13 @@ exports.run = async (bot, message, args) => {
               userdata.cats[animalList[i]] += 1
               const feedSucc = new Discord.RichEmbed()
                 .setTitle('ooo look at that!')
-                .setColor(bot.config.color.cats)
+                .setColor(bot.config.color.blue)
                 .setDescription(`a ${animalList[i]} decied to like that you fed it and hopped into your arms`)
               message.channel.send(feedSucc)
             } else {
               const feedFail = new Discord.RichEmbed()
                 .setTitle('hmm nothing')
-                .setColor(bot.config.color.cats)
+                .setColor(bot.config.color.blue)
                 .setDescription(`a ${animalList[i]} liked that you fed it but it ran away`)
               message.channel.send(feedFail)
             }
@@ -77,13 +77,13 @@ exports.run = async (bot, message, args) => {
               userdata.cats[animalList[i]] += 1
               const feedSucc = new Discord.RichEmbed()
                 .setTitle('ooo look at that!')
-                .setColor(bot.config.color.cats)
+                .setColor(bot.config.color.blue)
                 .setDescription(`a ${animalList[i]} decied to like that you fed it and hopped into your arms`)
               message.channel.send(feedSucc)
             } else {
               const feedFail = new Discord.RichEmbed()
                 .setTitle('hmm nothing')
-                .setColor(bot.config.color.cats)
+                .setColor(bot.config.color.blue)
                 .setDescription(`a ${animalList[i]} liked that you fed it but it ran away`)
               message.channel.send(feedFail)
             }
@@ -95,13 +95,13 @@ exports.run = async (bot, message, args) => {
               userdata.cats[animalList[i]] += 1
               const feedSucc = new Discord.RichEmbed()
                 .setTitle('ooo look at that!')
-                .setColor(bot.config.color.cats)
+                .setColor(bot.config.color.blue)
                 .setDescription(`a ${animalList[i]} decied to like that you fed it and hopped into your arms`)
               message.channel.send(feedSucc)
             } else {
               const feedFail = new Discord.RichEmbed()
                 .setTitle('hmm nothing')
-                .setColor(bot.config.color.cats)
+                .setColor(bot.config.color.blue)
                 .setDescription(`a ${animalList[i]} liked that you fed it but it ran away`)
               message.channel.send(feedFail)
             }
@@ -113,13 +113,13 @@ exports.run = async (bot, message, args) => {
               userdata.cats[animalList[i]] += 1
               const feedSucc = new Discord.RichEmbed()
                 .setTitle('ooo look at that!')
-                .setColor(bot.config.color.cats)
+                .setColor(bot.config.color.blue)
                 .setDescription(`a ${animalList[i]} decied to like that you fed it and hopped into your arms`)
               message.channel.send(feedSucc)
             } else {
               const feedFail = new Discord.RichEmbed()
                 .setTitle('hmm nothing')
-                .setColor(bot.config.color.cats)
+                .setColor(bot.config.color.blue)
                 .setDescription(`a ${animalList[i]} liked that you fed it but it ran away`)
               message.channel.send(feedFail)
             }

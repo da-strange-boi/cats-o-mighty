@@ -9,7 +9,7 @@ exports.run = async (bot, guild) => {
   const guildCreateEmbed = new Discord.RichEmbed()
     .setDescription(`**• Guild:** \`${guild.name}\`\n**• Members:** \`${guild.memberCount}\`\n**• Owner:** \`${guild.owner.user.tag}\`\n**• Region:** \`${guild.region}\``)
     .setFooter(`${bot.guilds.size} guilds`)
-    .setColor(bot.config.color.utility)
+    .setColor(bot.config.color.darkblue)
     .setTimestamp(date)
   if (guild.iconURL !== null) {
     guildCreateEmbed.setThumbnail(guild.iconURL)

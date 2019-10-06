@@ -25,7 +25,7 @@ exports.run = async (bot, message, args) => {
       const cooldownEmbed = new Discord.RichEmbed()
         .setAuthor(message.author.username, message.author.avatarURL)
         .setDescription('You gotta wait 5 minutes before adding another suggestion to avoid spam\nif you abuse this command you will be banned from the bot for a day')
-        .setColor(bot.config.color.error)
+        .setColor(bot.config.color.red)
       await message.channel.send(cooldownEmbed).then(msg => msg.delete(300000))
       return
     }
@@ -42,7 +42,7 @@ exports.run = async (bot, message, args) => {
     const suggestionEmbed = new Discord.RichEmbed()
       .setAuthor(message.author.username, message.author.avatarURL)
       .setDescription('Thanks so much for the suggestion!!\nI\'ll take it into consideration and possibly add it to the bot')
-      .setColor(bot.config.color.cats)
+      .setColor(bot.config.color.blue)
     await message.channel.send(suggestionEmbed)
 
     //* Delete The Cooldown When Time Is Up // Resetting It

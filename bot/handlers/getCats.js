@@ -105,7 +105,7 @@ exports.run = async (bot, message) => {
                   const showCatEmbed = catName => {
                     const embed = new Discord.RichEmbed()
                       .setAuthor(message.author.username, message.author.avatarURL)
-                      .setColor(bot.config.color.cats)
+                      .setColor(bot.config.color.blue)
                       .setDescription(`You got a ${catName}! uwu`)
                     if (guildSettings.CatGottenPopupMessage === 'show') {
                       message.channel.send(embed)

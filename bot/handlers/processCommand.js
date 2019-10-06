@@ -87,7 +87,7 @@ exports.run = async (bot, message, cmd, args, prefix) => {
 
                 const newUserEmbed = new Discord.RichEmbed()
                   .setAuthor(message.author.username, message.author.avatarURL)
-                  .setColor(bot.config.color.utility)
+                  .setColor(bot.config.color.darkblue)
                   .setDescription('Welcome new cat collector!\nto get started do `cat help` to get the list of commands')
                 return message.channel.send(newUserEmbed)
               }
@@ -108,7 +108,7 @@ exports.run = async (bot, message, cmd, args, prefix) => {
             if (!message.content.trim().toLowerCase().startsWith(prefix)) return
             const newPersonEmbed = new Discord.RichEmbed()
               .setAuthor(message.author.username, message.author.avatarURL)
-              .setColor(bot.config.color.utility)
+              .setColor(bot.config.color.darkblue)
               .setDescription("hmm it looks like you're a new cat collector!!\nDo `cat start` to start collecting cats")
             return message.channel.send(newPersonEmbed)
           }

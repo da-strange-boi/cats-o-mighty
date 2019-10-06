@@ -27,7 +27,7 @@ exports.run = async (bot, message, args) => {
     // If User Owns No Common Cats (no cats) Tell Them
     if (commonCats === false && uncommonCats === false && rareCats === false && specialCats === false && impossibleCats === false && seasonalCats === false) {
       const noCatsEmbed = new Discord.RichEmbed()
-        .setColor(bot.config.color.error)
+        .setColor(bot.config.color.red)
         .setDescription(`Sorry **${message.author.username}** you dont have any cats`)
       return message.channel.send(noCatsEmbed)
     }
@@ -45,7 +45,7 @@ exports.run = async (bot, message, args) => {
       // Make Embed To Display The Cats The User Has
       const catsEmbed = new Discord.RichEmbed()
         .setAuthor(message.author.username + ' cat collection!')
-        .setColor(bot.config.color.cats)
+        .setColor(bot.config.color.blue)
 
       //* See What Categories Of Cats The User Has Then Add Them
       if (commonCats === true) {
@@ -90,7 +90,7 @@ exports.run = async (bot, message, args) => {
         if (catType === allCatType[i]) {
           const catsEmbed = new Discord.RichEmbed()
             .setAuthor(message.author.username + `'s ${allCatType[i]} cat collection!`)
-            .setColor(bot.config.color.cats)
+            .setColor(bot.config.color.blue)
           if (allCatType[i] === 'common') {
             catsEmbed.addField(':heart: Common :heart:', `Siamese: ${uSiamese}\nBurmese: ${uBurmese}\nRagdoll: ${uRagdoll}\nPersian: ${uPersian}\nMaine Coon: ${uMaineCoon}\nRussian Blue: ${uRussianBlue}\nCalico: ${uCalico}\nTabby: ${uTabby}`, true)
           }

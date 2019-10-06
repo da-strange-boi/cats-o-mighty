@@ -16,7 +16,7 @@ exports.run = async (bot, message, args) => {
   const imageEmbed = new Discord.RichEmbed()
     .setTitle('Random Cat Pictrue/Gif')
     .setDescription(`Image didn't load? [Click here](${body.file})`)
-    .setColor(bot.config.color.cats)
+    .setColor(bot.config.color.blue)
     .setImage(body.file)
   await message.channel.send(imageEmbed)
 
