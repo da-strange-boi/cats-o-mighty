@@ -1,7 +1,7 @@
 exports.run = async (bot, message, args) => {
   // {USAGE} cat disable
 
-  bot.db.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
+  bot.database.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
     if (err) bot.log('error', err)
 
     if (userdata.disable) {

@@ -5,20 +5,13 @@ const animalList = ['siamese', 'burmese', 'ragdoll', 'persian', 'mainecoon', 'ru
 exports.run = async (bot, message, args) => {
   // eslint-disable-next-line no-unused-vars
   let catNum = 0
-  bot.db.Userdata.findOne({
-    userID: message.author.id
-  }, async (err, userdata) => {
+  bot.database.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
     if (err) bot.log('error', err)
 
-    if (!userdata) {
-      return message.channel.send('Account Error')
-    }
+    if (!userdata) return message.channel.send('Account Error')
     if (userdata) {
       // If The User Doesn't Specify Anything (cat sell)
-      if (!args[0]) {
-        message.channel.send(`**${message.author.username}**, please use the command correctly, check \`cat help sell\``)
-        return
-      }
+      if (!args[0]) return message.channel.send(`**${message.author.username}**, please use the command correctly, check \`cat help sell\``)
 
       // Set A Cooldown
       if (cooldown[message.author.id] && (Date.now() - cooldown[message.author.id]) > 0) {
@@ -84,8 +77,6 @@ exports.run = async (bot, message, args) => {
               .setColor(bot.config.color.blue)
               .setDescription(`You sold ${amtAnimal} ${animalSellName} cats for $${amtAnimal * catSellPrice}`)
             message.channel.send(soldCat)
-            // TODO: fix this
-            // userdata.stats.catsSold += amtAnimal;
             catNum++
           }
         }
@@ -95,13 +86,13 @@ exports.run = async (bot, message, args) => {
       if (args[0] && !args[1]) {
         const sellOption = args[0]
 
-        //* Geting Vars Of All Cats
+        // Geting Vars Of All Cats
         const uSiamese = userdata.cats.siamese; const uBurmese = userdata.cats.burmese; const uRagdoll = userdata.cats.ragdoll; const uPersian = userdata.cats.persian; const uMaineCoon = userdata.cats.mainecoon; const uRussianBlue = userdata.cats.russianblue; const uCalico = userdata.cats.calico; const uTabby = userdata.cats.tabby; const uAbyssinian = userdata.cats.abyssinian; const uManx = userdata.cats.manx; const uSphynx = userdata.cats.sphynx; const uCyprus = userdata.cats.cyprus; const uFoldex = userdata.cats.foldex; const uTurkishAngora = userdata.cats.turkishangora; const uNorwegianForest = userdata.cats.norwegianforest; const uDevonrex = userdata.cats.devonrex; const uKorat = userdata.cats.korat; const uSingapura = userdata.cats.singapura; const uTonkinese = userdata.cats.tonkinese; const uPeterbald = userdata.cats.peterbald; const uChartreux = userdata.cats.chartreux; const uMunchkin = userdata.cats.munchkin; const uBritishShorthair = userdata.cats.britishshorthair; const uOjosazules = userdata.cats.ojosazules; const uBandit = userdata.cats.bandit; const uBug = userdata.cats.bug; const uLinda = userdata.cats.linda; const uMittens = userdata.cats.mittens; const uCash = userdata.cats.cash; const uJackson = userdata.cats.jackson; const uCottonball = userdata.cats.cottonball; const uSonny = userdata.cats.sonny; const uSmokey = userdata.cats.smokey; const uLailah = userdata.cats.lailah; const uCher = userdata.cats.cher; const uMarvin = userdata.cats.marvin; const uLoki = userdata.cats.loki; const uLoverBoy = userdata.cats.loverboy; const uKillerClaws = userdata.cats.killerclaws; const uSquirtlett = userdata.cats.squirtlett; const uCursedcat = userdata.cats.cursedcat; const uUWU = userdata.cats.uwu; const uTom = userdata.cats.tom; const uDemoncat = userdata.cats.demoncat; const uBongocat = userdata.cats.bongocat; const uGrumpycat = userdata.cats.grumpycat
         const commonCatTotal = uSiamese + uBurmese + uRagdoll + uPersian + uMaineCoon + uRussianBlue + uCalico + uTabby; const uncommonCatTotal = uAbyssinian + uManx + uSphynx + uCyprus + uFoldex + uTurkishAngora + uNorwegianForest + uDevonrex; const rareCatTotal = uKorat + uSingapura + uTonkinese + uPeterbald + uChartreux + uMunchkin + uBritishShorthair + uOjosazules; const specialCatTotal = uBandit + uBug + uLinda + uMittens + uCash + uJackson + uCottonball + uSonny + uSmokey + uLailah + uCher + uMarvin + uLoki + uLoverBoy + uKillerClaws; const impossibleCatTotal = uSquirtlett + uCursedcat + uUWU + uTom + uDemoncat + uBongocat + uGrumpycat
 
-        // USAGE cat sell all
+        // {USAGE} cat sell all
         if (sellOption === 'all' || sellOption === 'allcats') {
-          //* Check To See If User Has Any Cats
+          // Check To See If User Has Any Cats
           if (commonCatTotal === 0 && uncommonCatTotal === 0 && rareCatTotal === 0 && specialCatTotal === 0 && impossibleCatTotal === 0) {
             const noCats = new Discord.RichEmbed()
               .setAuthor(message.author.username, message.author.avatarURL)
@@ -111,7 +102,7 @@ exports.run = async (bot, message, args) => {
             catNum++
             return
           }
-          //* Convert The Cats Numbers Into Money
+          // Convert The Cats Numbers Into Money
           userdata.money.catmoney += (commonCatTotal * 25)
           userdata.money.catmoney += (uncommonCatTotal * 55)
           userdata.money.catmoney += (rareCatTotal * 200)
@@ -126,7 +117,6 @@ exports.run = async (bot, message, args) => {
             .setColor(bot.config.color.blue)
             .setDescription(`You sold ${catTotal} cats for $${(commonCatTotal * 25) + (uncommonCatTotal * 55) + (rareCatTotal * 200) + (specialCatTotal * 2500) + (impossibleCatTotal * 10000)}`)
           message.channel.send(sellAllCatsEmbed)
-          // userdata.stats.catsSold += catTotal;
         // eslint-disable-next-line brace-style
         }
 
@@ -143,14 +133,14 @@ exports.run = async (bot, message, args) => {
             catNum++
             return
           }
-          //* Convert The Cats Numbers Into Money
+          // Convert The Cats Numbers Into Money
           userdata.money.catmoney += (commonCatTotal * 25)
           userdata.cats.siamese = 0; userdata.cats.burmese = 0; userdata.cats.ragdoll = 0; userdata.cats.persian = 0; userdata.cats.mainecoon = 0; userdata.cats.russianblue = 0; userdata.cats.calico = 0; userdata.cats.tabby = 0
           const sellCommonCatsEmbed = new Discord.RichEmbed().setAuthor(message.author.username, message.author.avatarURL).setColor(bot.config.color.blue).setDescription(`You sold ${commonCatTotal} cats for $${(commonCatTotal * 25)}`)
           message.channel.send(sellCommonCatsEmbed)
           // userdata.stats.catsSold += commonCatTotal;
         } else if (sellOption === 'uncommon' || sellOption === 'uncommoncat' || sellOption === 'uncommons') {
-          //* Check To See If User Has Any Uncommon Cats
+          // Check To See If User Has Any Uncommon Cats
           if (uncommonCatTotal === 0) {
             const noUncommonCats = new Discord.RichEmbed()
               .setAuthor(message.author.username, message.author.avatarURL)
@@ -160,14 +150,13 @@ exports.run = async (bot, message, args) => {
             catNum++
             return
           }
-          //* Convert The Cats Numbers Into Money
+          // Convert The Cats Numbers Into Money
           userdata.money.catmoney += (uncommonCatTotal * 55)
           userdata.cats.abyssinian = 0; userdata.cats.manx = 0; userdata.cats.sphynx = 0; userdata.cats.cyprus = 0; userdata.cats.foldex = 0; userdata.cats.turkishangora = 0; userdata.cats.norwegianforest = 0; userdata.cats.devonrex = 0
           const sellUncommonCatsEmbed = new Discord.RichEmbed().setAuthor(message.author.username, message.author.avatarURL).setColor(bot.config.color.blue).setDescription(`You sold ${uncommonCatTotal} cats for $${(uncommonCatTotal * 55)}`)
           message.channel.send(sellUncommonCatsEmbed)
-          // userdata.stats.catsSold += uncommonCatTotal;
         } else if (sellOption === 'rare' || sellOption === 'rarecat' || sellOption === 'rarecats') {
-          //* Check To See If User Has Any Rare Cats
+          // Check To See If User Has Any Rare Cats
           if (rareCatTotal === 0) {
             const noRareCats = new Discord.RichEmbed()
               .setAuthor(message.author.username, message.author.avatarURL)
@@ -177,14 +166,13 @@ exports.run = async (bot, message, args) => {
             catNum++
             return
           }
-          //* Convert The Cats Numbers Into Money
+          // Convert The Cats Numbers Into Money
           userdata.money.catmoney += (rareCatTotal * 200)
           userdata.cats.korat = 0; userdata.cats.singapura = 0; userdata.cats.tonkinese = 0; userdata.cats.peterbald = 0; userdata.cats.chartreux = 0; userdata.cats.munchkin = 0; userdata.cats.britishshorthair = 0; userdata.cats.ojosazules = 0
           const sellRareCatsEmbed = new Discord.RichEmbed().setAuthor(message.author.username, message.author.avatarURL).setColor(bot.config.color.blue).setDescription(`You sold ${rareCatTotal} cats for $${(rareCatTotal * 200)}`)
           message.channel.send(sellRareCatsEmbed)
-          // userdata.stats.catsSold += rareCatTotal;
         } else if (sellOption === 'special' || sellOption === 'specialcat' || sellOption === 'specialcats') {
-          //* Check To See If User Has Any Special Cats
+          // Check To See If User Has Any Special Cats
           if (specialCatTotal === 0) {
             const noSpecialCats = new Discord.RichEmbed()
               .setAuthor(message.author.username, message.author.avatarURL)
@@ -194,14 +182,14 @@ exports.run = async (bot, message, args) => {
             catNum++
             return
           }
-          //* Convert The Cats Numbers Into Money
+          // Convert The Cats Numbers Into Money
           userdata.money.catmoney += (specialCatTotal * 2500)
           userdata.cats.bandit = 0; userdata.cats.bug = 0; userdata.cats.linda = 0; userdata.cats.mittens = 0; userdata.cats.cash = 0; userdata.cats.jackson = 0; userdata.cats.cottonball = 0; userdata.cats.sonny = 0; userdata.cats.smokey = 0; userdata.cats.lailah = 0; userdata.cats.cher = 0; userdata.cats.marvin = 0; userdata.cats.loki = 0; userdata.cats.loverboy = 0; userdata.cats.killerclaws = 0
           const sellSpecialCatsEmbed = new Discord.RichEmbed().setAuthor(message.author.username, message.author.avatarURL).setColor(bot.config.color.blue).setDescription(`You sold ${specialCatTotal} cats for $${(specialCatTotal * 2500)}`)
           message.channel.send(sellSpecialCatsEmbed)
           // userdata.stats.catsSold += specialCatTotal;
         } else if (sellOption === 'impossible' || sellOption === 'impossiblecat' || sellOption === 'impossiblecats') {
-          //* Check To See If User Has Any Impossible Cats
+          // Check To See If User Has Any Impossible Cats
           if (impossibleCatTotal === 0) {
             const noImpossibleCats = new Discord.RichEmbed()
               .setAuthor(message.author.username, message.author.avatarURL)
@@ -211,12 +199,11 @@ exports.run = async (bot, message, args) => {
             catNum++
             return
           }
-          //* Convert The Cats Numbers Into Money
+          // Convert The Cats Numbers Into Money
           userdata.money.catmoney += (impossibleCatTotal * 10000)
           userdata.cats.squirtlett = 0; userdata.cats.cursedcat = 0; userdata.cats.uwu = 0; userdata.cats.tom = 0; userdata.cats.demoncat = 0; userdata.cats.bongocat = 0; userdata.cats.grumpycat = 0
           const sellImpossibleCatsEmbed = new Discord.RichEmbed().setAuthor(message.author.username, message.author.avatarURL).setColor(bot.config.color.blue).setDescription(`You sold ${impossibleCatTotal} cats for $${(impossibleCatTotal * 10000)}`)
           message.channel.send(sellImpossibleCatsEmbed)
-          // userdata.stats.catsSold += impossibleCatTotal;
         } else {
           for (let i = 0; i < animalList.length; i++) {
             if (sellOption === animalList[i]) {
@@ -244,7 +231,7 @@ exports.run = async (bot, message, args) => {
           }
         }
       }
-      //* Delete The Cooldown // Resetting It
+      // Delete The Cooldown // Resetting It
       setTimeout(() => {
         delete cooldown[message.author.id]
       }, 3500)

@@ -1,13 +1,13 @@
 const fetch = require('node-fetch')
 exports.run = async (bot) => {
-  const realUsers = bot.users.filter(user => !user.bot).size
-  const bodydata = { guilds: bot.guilds.size, users: realUsers }
+  const realUsersCount = bot.users.filter(user => !user.bot).size
+  const bodydataToPost = { guilds: bot.guilds.size, users: realUsersCount }
   fetch('https://discordbotlist.com/api/bots/569336139186700312/stats', {
     method: 'POST',
-    body: JSON.stringify(bodydata),
+    body: JSON.stringify(bodydataToPost),
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bot ${process.env.DISCORD_BOT_LIST_AUTH}`
     }
-  }).catch(err => bot.log('warning', `DBL API: ${err}`))
+  }).catch(err => bot.log('error', `DBL API: ${err}`))
 }

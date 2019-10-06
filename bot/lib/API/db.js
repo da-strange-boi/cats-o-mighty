@@ -16,50 +16,43 @@ exports.run = async (bot) => {
     console.log(`Oops! ${e}`)
   })
 
-  //* Whenever Someone Votes Run Code
+  // Whenever Someone Votes
   dbl.webhook.on('vote', vote => {
-    bot.db.Userdata.findOne({
-      userID: vote.user
-    }, (err, userdata) => {
-      if (err) bot.log('databaseError', `Discordbots.org API Error: ${err}`)
+    bot.database.Userdata.findOne({ userID: vote.user }, (err, userdata) => {
+      if (err) bot.log('error', `Discordbots.org API Error: ${err}`)
 
-      if (!userdata) {
-        return
-      }
+      if (!userdata) return
 
-      //* If It's The Weekend Add $5,000 To Their Account
+      // If It's The Weekend Add $5,000 To Their Account
       userdata.money.catmoney += 5000
 
-      //* To reset their vote counter
+      // To reset their vote counter
       userdata.times.voteTime = Date.now()
 
-      //* Add A Random Special Cat To Their Collection For Voting
       const votedUser = vote.user
-
-      //* Set Vars For Special Cats
-      const animals = ['bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin', 'loki', 'loverboy', 'killerclaws']
-      const result = Math.floor((Math.random() * animals.length))
+      const userCats = userdata.cats
+      const specialCats = ['bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin', 'loki', 'loverboy', 'killerclaws']
+      const result = Math.floor((Math.random() * specialCats.length))
       let catName
 
-      //* Check To See What Cat It Is Then Add It To Their Cats
-      if (result === 0) { userdata.cats.bandit += 1; catName = 'bandit' }
-      if (result === 1) { userdata.cats.bug += 1; catName = 'bug' }
-      if (result === 2) { userdata.cats.linda += 1; catName = 'linda' }
-      if (result === 3) { userdata.cats.mittens += 1; catName = 'mittens' }
-      if (result === 4) { userdata.cats.cash += 1; catName = 'cash' }
-      if (result === 5) { userdata.cats.jackson += 1; catName = 'jackson' }
-      if (result === 6) { userdata.cats.cottonball += 1; catName = 'cottonball' }
-      if (result === 7) { userdata.cats.sonny += 1; catName = 'sonny' }
-      if (result === 8) { userdata.cats.smokey += 1; catName = 'smokey' }
-      if (result === 9) { userdata.cats.lailah += 1; catName = 'lailah' }
-      if (result === 10) { userdata.cats.cher += 1; catName = 'cher' }
-      if (result === 11) { userdata.cats.marvin += 1; catName = 'marvin' }
-      if (result === 12) { userdata.cats.loki += 1; catName = 'loki' }
-      if (result === 13) { userdata.cats.loverboy += 1; catName = 'loverboy' }
-      if (result === 14) { userdata.cats.killerclaws += 1; catName = 'killerclaws' }
+      // Check To See What Cat Is Randomly Slected Then Add It To Their Cats
+      if (result === 0) { userCats.bandit += 1; catName = 'bandit' }
+      if (result === 1) { userCats.bug += 1; catName = 'bug' }
+      if (result === 2) { userCats.linda += 1; catName = 'linda' }
+      if (result === 3) { userCats.mittens += 1; catName = 'mittens' }
+      if (result === 4) { userCats.cash += 1; catName = 'cash' }
+      if (result === 5) { userCats.jackson += 1; catName = 'jackson' }
+      if (result === 6) { userCats.cottonball += 1; catName = 'cottonball' }
+      if (result === 7) { userCats.sonny += 1; catName = 'sonny' }
+      if (result === 8) { userCats.smokey += 1; catName = 'smokey' }
+      if (result === 9) { userCats.lailah += 1; catName = 'lailah' }
+      if (result === 10) { userCats.cher += 1; catName = 'cher' }
+      if (result === 11) { userCats.marvin += 1; catName = 'marvin' }
+      if (result === 12) { userCats.loki += 1; catName = 'loki' }
+      if (result === 13) { userCats.loverboy += 1; catName = 'loverboy' }
+      if (result === 14) { userCats.killerclaws += 1; catName = 'killerclaws' }
 
-      //* To send a DM to the user letting them know their rewards for voting
-
+      // To send a DM to the user letting them know their rewards for voting
       const votedEmbed = new Discord.RichEmbed()
         .setColor(bot.config.color.blue)
       if (vote.isWeekend === true) {
@@ -71,7 +64,7 @@ exports.run = async (bot) => {
       }
       bot.users.get(votedUser).send(votedEmbed)
 
-      //* Save value to database
+      // Save value to database
       userdata.save().catch(err => console.log(err))
     })
   })

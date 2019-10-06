@@ -12,7 +12,7 @@ exports.run = async (bot, message) => {
     prefix = 'cat'
   }
 
-  const permCheck = require('../handlers/permCheck.js')
+  const permCheck = require('../handlers/permCheck')
   const processCommand = require('../handlers/processCommand')
 
   const args = message.content.slice(prefix.length).trim().split(/ +/g)
@@ -22,13 +22,13 @@ exports.run = async (bot, message) => {
   processCommand.run(bot, message, cmd, args, prefix)
   if (!cmd || permCheck(message, bot, cmd, prefix) === false) return
   if (!message.content.trim().toLowerCase().startsWith(prefix)) return
-  bot.db.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
+  bot.database.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
     if (err) bot.log('error', err)
     if (userdata) {
       try {
         cmd.run(bot, message, args)
-      } catch (Error) {
-        bot.log('error', Error)
+      } catch (e) {
+        bot.log('error', e)
       }
     }
   })

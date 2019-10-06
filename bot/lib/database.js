@@ -7,12 +7,10 @@ const data = require('../moduls/userdata.js')
 const log = require('../moduls/logs.js')
 const guildsettings = require('../moduls/guildsettings.js')
 const total = require('../moduls/totals.js')
-const suggestion = require('../moduls/suggestions.js')
 
 module.exports = {
   Userdata: data,
   Logs: log,
   Guildsettings: guildsettings,
-  Totals: total,
-  Suggestion: suggestion
+  Totals: total
 }

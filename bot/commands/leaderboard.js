@@ -17,18 +17,17 @@ exports.run = async (bot, message, args) => {
   cooldown[message.author.id] = Date.now()
 
   // Select User Data From Database
-  bot.db.Userdata.find({}).sort([['money.catmoney', 'descending']]).exec((err, userdata) => {
+  bot.database.Userdata.find({}).sort([['money.catmoney', 'descending']]).exec((err, userdata) => {
     if (err) bot.log('error', err)
     let member
 
     // https://stackoverflow.com/questions/149055/how-can-i-format-numbers-as-dollars-currency-string-in-javascript
     function formatMoney (amount, decimalCount = 0, decimal = '.', thousands = ',') { try { decimalCount = Math.abs(decimalCount); decimalCount = isNaN(decimalCount) ? 2 : decimalCount; const negativeSign = amount < 0 ? '-' : ''; const i = parseInt(amount = Math.abs(Number(amount) || 0).toFixed(decimalCount)).toString(); const j = (i.length > 3) ? i.length % 3 : 0; return negativeSign + (j ? i.substr(0, j) + thousands : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, '$1' + thousands) + (decimalCount ? decimal + Math.abs(amount - i).toFixed(decimalCount).slice(2) : '') } catch (e) { console.log(e) } };
-    // end of code i copied
 
     const embed = new Discord.RichEmbed()
       .setTitle('**Leaderboard**')
 
-    //* If There Are No Results
+    // If There Are No Results
     if (userdata.length === 0) {
       embed.setColor(bot.config.color.red)
       embed.addField('No data found', 'Sell some cats to be on the leaderboard')

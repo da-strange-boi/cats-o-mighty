@@ -8,9 +8,7 @@ exports.run = async (bot, message, args) => {
     from looking in [cat collection]
   */
 
-  if (!args[0]) {
-    return message.channel.send('Check `cat help feed` for more info')
-  }
+  if (!args[0]) return message.channel.send('Check `cat help feed` for more info')
 
   // Set A Cooldown
   if (cooldown[message.author.id] && (Date.now() - cooldown[message.author.id]) > 0) {
@@ -20,7 +18,7 @@ exports.run = async (bot, message, args) => {
   }
   cooldown[message.author.id] = Date.now()
 
-  bot.db.Userdata.findOne({ userID: message.author.id }, (err, userdata) => {
+  bot.database.Userdata.findOne({ userID: message.author.id }, (err, userdata) => {
     if (err) bot.log('error', err)
     if (userdata) {
       const catBreed = args[0].toLowerCase().trim()

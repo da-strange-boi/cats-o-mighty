@@ -25,22 +25,14 @@ exports.run = async (bot, message) => {
       .setAuthor('Daily', message.author.displayAvatarURL)
       .setColor(bot.config.color.blue)
       .addField(':star2: Streak', `${dailyStreak}`)
-    if (note) {
-      embed.setDescription(note)
-    }
-    if (amtMoney) {
-      embed.addField(':moneybag: Collected Money', `$${amtMoney}`)
-    }
-    if (catName) {
-      embed.addField('Random stray cat you found', `${catName}`)
-    }
-    if (dailyStreak <= 7) {
-      embed.setFooter('after 7 days you\'ll get better rewards')
-    }
+    if (note) embed.setDescription(note)
+    if (amtMoney) embed.addField(':moneybag: Collected Money', `$${amtMoney}`)
+    if (catName) embed.addField('Random stray cat you found', `${catName}`)
+    if (dailyStreak <= 7) embed.setFooter('after 7 days you\'ll get better rewards')
     message.channel.send(embed)
   }
 
-  bot.db.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
+  bot.database.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
     if (err) bot.log('error', err)
 
     const timeout = 86400000 //* 24 hours (86400000)
@@ -61,11 +53,11 @@ exports.run = async (bot, message) => {
       userdata.times.dailyTime = Date.now()
       userdata.stats.dailyStreak = 1
 
-      //* Set Vars For Special Cats
+      // Set Vars For Special Cats
       const animals = specialCats
       const aResult = Math.floor((Math.random() * animals.length))
 
-      //* Check To See What Cat It Is Then Add It To Their Cats
+      // Check To See What Cat It Is Then Add It To Their Cats
       userdata.cats[animals[aResult]] += 1
 
       userdata.money.catmoney += 350
@@ -75,7 +67,7 @@ exports.run = async (bot, message) => {
       userdata.times.dailyTime = Date.now()
       userdata.stats.dailyStreak += 1
 
-      //* If User Has Under A 7 Day Daily Streak
+      // If User Has Under A 7 Day Daily Streak
       if (userdata.stats.dailyStreak < 7) {
         let catName
 
@@ -124,7 +116,7 @@ exports.run = async (bot, message) => {
       userdata.save().catch(err => console.log(err))
     }
   })
-  //* Delete The Cooldown // Resetting It
+  // Delete The Cooldown // Resetting It
   setTimeout(() => {
     delete cooldown[message.author.id]
   }, 3500)

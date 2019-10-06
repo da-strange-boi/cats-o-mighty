@@ -6,7 +6,7 @@ exports.run = async (bot, message, args) => {
 
   if (!message.member.hasPermission('MANAGE_GUILD')) message.channel.send('You need to have **Manage Guild** permission to use this command')
 
-  bot.db.Guildsettings.findOne({ guildID: message.guild.id }, async (err, guildSettings) => {
+  bot.database.Guildsettings.findOne({ guildID: message.guild.id }, async (err, guildSettings) => {
     if (err) bot.log('error', err)
     if (!guildSettings) { return }
 

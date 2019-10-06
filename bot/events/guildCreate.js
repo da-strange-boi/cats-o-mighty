@@ -1,9 +1,9 @@
 const Discord = require('discord.js')
 
 exports.run = async (bot, guild) => {
-  const catsomighty = bot.guilds.find(search => search.id === process.env.COM_GUILD_ID)
-  const logChannel = catsomighty.channels.find(search => search.name === 'bot-server-data')
-  if (!logChannel) return console.log("Can't find incidents channel.")
+  const catsomightyGuild = bot.guilds.find(search => search.id === process.env.COM_GUILD_ID)
+  const logChannelInGuild = catsomightyGuild.channels.find(search => search.name === 'bot-server-data')
+  if (!logChannelInGuild) return console.log("Can't find incidents channel.")
 
   const date = new Date()
   const guildCreateEmbed = new Discord.RichEmbed()
@@ -21,5 +21,5 @@ exports.run = async (bot, guild) => {
     guildCreateEmbed.addField('Verified', 'i dont know how to make this look good :p')
   }
 
-  logChannel.send(guildCreateEmbed)
+  logChannelInGuild.send(guildCreateEmbed)
 }

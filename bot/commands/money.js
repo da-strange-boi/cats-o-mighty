@@ -13,7 +13,7 @@ exports.run = async (bot, message, args) => {
   }
   cooldown[message.author.id] = Date.now()
 
-  bot.db.Userdata.findOne({ userID: message.author.id }, (err, userdata) => {
+  bot.database.Userdata.findOne({ userID: message.author.id }, (err, userdata) => {
     if (err) bot.log('error', err)
     if (userdata) {
       // https://stackoverflow.com/questions/149055/how-can-i-format-numbers-as-dollars-currency-string-in-javascript
@@ -42,7 +42,7 @@ exports.run = async (bot, message, args) => {
       message.channel.send(moneyEmbed)
     }
   })
-  //* Delete The Cooldown // Resetting It
+  // Delete The Cooldown // Resetting It
   setTimeout(() => {
     delete cooldown[message.author.id]
   }, 3500)

@@ -2,7 +2,7 @@ const Discord = require('discord.js')
 exports.run = async (bot, message, args) => {
   // {USAGE} cat help || cat help <command>
 
-  //* If User Just Puts "cat help" Send The Help Message
+  // If User Just Puts "cat help" Send The Help Message
   if (!args[0]) {
     const helpEmbed = new Discord.RichEmbed()
       .setColor(bot.config.color.darkblue)
@@ -16,13 +16,13 @@ exports.run = async (bot, message, args) => {
       return message.channel.send(helpEmbed)
     }
     if (message.author.id === '295255543596187650') {
-      helpEmbed.addField(':gem: Bot Admin Commands', '`addcat`, `addmoney`, `botinfo`, `clearcats`, `clearmoney`, `clearstats`, `deltesuggestion`, `showsuggestion`, `stop`')
+      helpEmbed.addField(':gem: Bot Admin Commands', '`addcat`, `addmoney`, `botinfo`, `clearcats`, `clearmoney`, `clearstats`, `stop`')
       return message.channel.send(helpEmbed)
     } else {
       return message.channel.send(helpEmbed)
     }
   }
-  //* If The User Specifies A Command Then Send A Detailed Help Message
+  // If The User Specifies A Command Then Send A Detailed Help Message
   if (args[0]) {
     const helpCommand = args[0].toLowerCase().trim()
 

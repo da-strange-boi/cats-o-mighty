@@ -3,7 +3,7 @@ const ms = require('parse-ms')
 exports.run = async (bot, message, args) => {
   // {USAGE} cat vote
 
-  bot.db.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
+  bot.database.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
     if (err) bot.log('error', err)
 
     const timeout = 43200000 // 12 hours

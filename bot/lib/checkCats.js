@@ -1,62 +1,62 @@
 /*
   this is just all one big mess that probably shouldn't be messed with
   unless a cat is being added or this method is being changed :)
+
+  all this does is check if a user has all the updated cats in their
+  database userdata otherwise the data would be undefined
 */
 exports.run = (bot, message) => {
-  //* Select A User Data From The Database
-  bot.db.Userdata.findOne({
-    userID: message.author.id
-  }, (err, userdata) => {
-    if (err) bot.log('databaseError', err)
-    if (userdata) {
-      if (userdata.cats.cursedcat === undefined) {
-        userdata.cats.cursedcat = 0
+  // Select A User Data From The Database
+  bot.database.Userdata.findOne({ userID: message.author.id }, (err, userData) => {
+    if (err) bot.log('error', err)
+    if (userData) {
+      const userCatAmt = userData.cats
+      if (userCatAmt.cursedcat === undefined) {
+        userCatAmt.cursedcat = 0
       }
-      if (userdata.cats.russianBlue === undefined && userdata.cats.munchkin === undefined) {
-        userdata.cats.russianBlue = 0
-        userdata.cats.munchkin = 0
+      if (userCatAmt.russianblue === undefined && userCatAmt.munchkin === undefined) {
+        userCatAmt.russianblue = 0
+        userCatAmt.munchkin = 0
       }
-      if (userdata.cats.turkishAngora === undefined) {
-        userdata.cats.turkishAngora = 0
+      if (userCatAmt.turkishangora === undefined) {
+        userCatAmt.turkishangora = 0
       }
-      if (userdata.cats.loki === undefined && userdata.cats.loverboy === undefined) {
-        userdata.cats.loki = 0
-        userdata.cats.loverboy = 0
+      if (userCatAmt.loki === undefined && userCatAmt.loverboy === undefined) {
+        userCatAmt.loki = 0
+        userCatAmt.loverboy = 0
       }
-      if (userdata.cats.uwu === undefined) {
-        userdata.cats.uwu = 0
+      if (userCatAmt.uwu === undefined) {
+        userCatAmt.uwu = 0
       }
-      if (userdata.cats.calico === undefined && userdata.cats.tabby === undefined && userdata.cats.norwegianforest === undefined && userdata.cats.britishshorthair === undefined && userdata.cats.tom === undefined && userdata.cats.demoncat === undefined) {
-        userdata.cats.calico = 0
-        userdata.cats.tabby = 0
-        userdata.cats.norwegianforest = 0
-        userdata.cats.britishshorthair = 0
-        userdata.cats.tom = 0
-        userdata.cats.demoncat = 0
+      if (userCatAmt.calico === undefined && userCatAmt.tabby === undefined && userCatAmt.norwegianforest === undefined && userCatAmt.britishshorthair === undefined && userCatAmt.tom === undefined && userCatAmt.demoncat === undefined) {
+        userCatAmt.calico = 0
+        userCatAmt.tabby = 0
+        userCatAmt.norwegianforest = 0
+        userCatAmt.britishshorthair = 0
+        userCatAmt.tom = 0
+        userCatAmt.demoncat = 0
       }
-      if (userdata.cats.killerclaws === undefined) {
-        userdata.cats.killerclaws = 0
+      if (userCatAmt.killerclaws === undefined) {
+        userCatAmt.killerclaws = 0
       }
-      if (userdata.cats.devonrex === undefined && userdata.cats.ojosazules === undefined && userdata.cats.bongocat === undefined && userdata.cats.grumpycat === undefined) {
-        userdata.cats.devonrex = 0
-        userdata.cats.ojosazules = 0
-        userdata.cats.bongocat = 0
-        userdata.cats.grumpycat = 0
+      if (userCatAmt.devonrex === undefined && userCatAmt.ojosazules === undefined && userCatAmt.bongocat === undefined && userCatAmt.grumpycat === undefined) {
+        userCatAmt.devonrex = 0
+        userCatAmt.ojosazules = 0
+        userCatAmt.bongocat = 0
+        userCatAmt.grumpycat = 0
       }
-      if (userdata.cats.ghostcat === undefined) {
-        userdata.cats.ghostcat = 0
+      if (userCatAmt.ghostcat === undefined) {
+        userCatAmt.ghostcat = 0
       }
-      userdata.userTag = message.author.tag
-      userdata.save().catch(err => console.log(err))
+      userData.userTag = message.author.tag
+      userData.save().catch(err => console.log(err))
     }
   })
 
-  bot.db.Guildsettings.findOne({
-    guildID: message.guild.id
-  }, (err, guildSettings) => {
-    if (err) bot.log('databaseError', err)
+  bot.database.Guildsettings.findOne({ guildID: message.guild.id }, (err, guildSettings) => {
+    if (err) bot.log('error', err)
     if (!guildSettings) {
-      const newSettings = new bot.db.Guildsettings({
+      const newSettings = new bot.database.Guildsettings({
         guildID: message.guild.id,
         CatGottenPopupMessage: 'disappear'
       })

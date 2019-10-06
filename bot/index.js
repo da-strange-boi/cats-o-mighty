@@ -9,8 +9,8 @@ const bot = new Discord.Client({
 })
 require('dotenv/config')
 bot.log = require('./lib/logging')
-bot.config = require('./config.json')
-bot.db = require('./lib/db.js')
+bot.config = require('./config')
+bot.database = require('./lib/database')
 bot.getCmd = require('./handlers/getCommands')
 require('./handlers/commandHandler')(bot)
 bot.commands = new Discord.Collection()
@@ -19,25 +19,23 @@ bot.aliases = new Discord.Collection()
 // have the bot login to discord
 bot.login(process.env.TOKEN)
 
-const dataStats = async (client) => {
-  if (process.env.DEBUG === 'false') {
-    const BFD = require('./lib/API/bfd.js')
-    const DB = require('./lib/API/db.js')
-    const DBGG = require('./lib/API/dbgg.js')
-    const DBL = require('./lib/API/dbl.js')
-    DB.run(client)
-    schedule.scheduleJob('0 */45 * * * *', function () {
-      BFD.run(client)
-      DBGG.run(client)
-      DBL.run(client)
-      bot.log('default', 'Stats posted to bot lists')
-    })
-  }
+if (process.env.DEBUG === 'false') {
+  const BFD = require('./lib/API/bfd.js')
+  const DB = require('./lib/API/db.js')
+  const DBGG = require('./lib/API/dbgg.js')
+  const DBL = require('./lib/API/dbl.js')
+  // discordbots.org gets declared out of the loop cause it has its own way of posting stats
+  DB.run(bot)
+  schedule.scheduleJob('* */45 * * * *', function () {
+    BFD.run(bot)
+    DBGG.run(bot)
+    DBL.run(bot)
+    bot.log('default', 'Stats posted to bot lists')
+  })
 }
-dataStats(bot)
 
-// setup events
 const init = async () => {
+  // Load Events
   fs.readdir('./bot/events/', (err, files) => {
     if (err) return bot.log('error', `Failed to load all events\n===============\n\n${err}`)
     files.forEach(file => {
@@ -46,12 +44,13 @@ const init = async () => {
       bot.on(eventName, (...args) => eventFunction.run(bot, ...args))
     })
   })
+  // Load Commands
   fs.readdir('./bot/commands/', (err, files) => {
     if (err) bot.log('error', `Failed to load all commands\n===============\n\n${err}`)
     files.forEach(f => {
       if (!f.endsWith('.js')) return
       const response = bot.loadCommand(f)
-      if (response) console.log(response)
+      if (response) bot.log('error', response)
     })
   })
   bot.log('system', 'The bot is launching and attempting to login to discord')
