@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
 const totalsSchema = mongoose.Schema({
   totalcat: String,
@@ -53,4 +53,4 @@ const totalsSchema = mongoose.Schema({
   }
 })
 
-module.exports = mongoose.model("totalList", totalsSchema);
+module.exports = mongoose.model('totalList', totalsSchema)

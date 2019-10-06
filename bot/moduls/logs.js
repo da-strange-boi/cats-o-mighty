@@ -1,7 +1,7 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
 const logsSchema = mongoose.Schema({
   botUsed: Number
-});
+})
 
-module.exports = mongoose.model("log", logsSchema);
+module.exports = mongoose.model('log', logsSchema)

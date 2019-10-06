@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
 const userdataSchema = mongoose.Schema({
   userID: String,
@@ -67,6 +67,6 @@ const userdataSchema = mongoose.Schema({
     dailyStreak: Number,
     voteStreak: Number
   }
-});
+})
 
-module.exports = mongoose.model("userdata", userdataSchema);
+module.exports = mongoose.model('userdata', userdataSchema)

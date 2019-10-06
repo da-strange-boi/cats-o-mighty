@@ -1,46 +1,43 @@
-const Discord = require("discord.js");
+const Discord = require('discord.js')
 exports.run = async (bot, message, args) => {
-
   //* Select User Data From Database
   bot.db.Suggestion.find({}, (err, res) => {
-    if(err) console.log(err);
-    if(!res){
-      let noSuggestionsEmbed = new Discord.RichEmbed()
-      .setColor(bot.config.color.error)
-      .setDescription("There are no suggestions :(");
-      message.channel.send(noSuggestionsEmbed);
-      return;
+    if (err) bot.log('error', err)
+    if (!res) {
+      const noSuggestionsEmbed = new Discord.RichEmbed()
+        .setColor(bot.config.color.red)
+        .setDescription('There are no suggestions :(')
+      message.channel.send(noSuggestionsEmbed)
+      return
     }
-    if(res){
-      let embed = new Discord.RichEmbed()
-      .setTitle("**Suggestions List**")
-      
-      u = 0;
+    if (res) {
+      const embed = new Discord.RichEmbed()
+        .setTitle('**Suggestions List**')
+
       //* If There Are No Results
-      if(res.length === 0){
-        embed.setColor(bot.config.color.error);
-        embed.addField("No data found", "No one has suggesed anything");
-          
+      if (res.length === 0) {
+        embed.setColor(bot.config.color.red)
+        embed.addField('No data found', 'No one has suggesed anything')
       } else {
-        embed.setColor(bot.config.color.owner);
-        if(res.length > 25){
-          for(i = 0; i < 25; i++){
-            embed.addField(`${res[i].userTag} (${res[i].userID}) || #${res[i].suggestionNumber}`, `${res[i].suggestion}`);
+        embed.setColor(bot.config.color.lightblue)
+        if (res.length > 25) {
+          for (let i = 0; i < 25; i++) {
+            embed.addField(`${res[i].userTag} (${res[i].userID}) || #${res[i].suggestionNumber}`, `${res[i].suggestion}`)
           }
-          embed.setFooter(`only 25 out of ${res.length} displayed`);
+          embed.setFooter(`only 25 out of ${res.length} displayed`)
         } else {
-            for(i = 0; i < res.length; i++) {
-            embed.addField(`${res[i].userTag} (${res[i].userID}) || #${res[i].suggestionNumber}`, `${res[i].suggestion}`);
+          for (let i = 0; i < res.length; i++) {
+            embed.addField(`${res[i].userTag} (${res[i].userID}) || #${res[i].suggestionNumber}`, `${res[i].suggestion}`)
           }
         }
       }
-      message.channel.send(embed);
+      message.channel.send(embed)
     }
-  });
+  })
 }
 
 exports.help = {
-  name: "showsuggestions",
+  name: 'showsuggestions',
   aliases: [],
   type: 'admin'
 }

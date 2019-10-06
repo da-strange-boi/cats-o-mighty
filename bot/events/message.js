@@ -1,33 +1,35 @@
 exports.run = async (bot, message) => {
-  if (!message.guild || message.IsPrivate || message.author.bot) return;
+  if (!message.guild || message.IsPrivate || message.author.bot) return
 
-  let prefix;
-  if(message.content.startsWith(`<@${bot.user.id}>`) || message.content.startsWith(`<@!${bot.user.id}>`)){
-    prefix = `<@${bot.user.id}>`;
-    if(message.content.trim() === `<@${bot.user.id}>`){
-      return message.channel.send(`**${message.author.username}**, my prefix is \`cat\` uwu`);
+  // Decide what prefix the user uses
+  let prefix
+  if (message.content.startsWith(`<@${bot.user.id}>`) || message.content.startsWith(`<@!${bot.user.id}>`)) {
+    prefix = `<@${bot.user.id}>`
+    if (message.content.trim() === `<@${bot.user.id}>`) {
+      return message.channel.send(`**${message.author.username}**, my prefix is \`cat\` uwu`)
     }
   } else {
-    prefix = 'cat';
+    prefix = 'cat'
   }
 
-  let permCheck = require("../handlers/permCheck.js");
-  let processCommand = require('../handlers/processCommand');
+  const permCheck = require('../handlers/permCheck.js')
+  const processCommand = require('../handlers/processCommand')
 
   const args = message.content.slice(prefix.length).trim().split(/ +/g)
-  const command = args.shift().toLowerCase();
+  const command = args.shift().toLowerCase()
 
-  let cmd = bot.getCmd(bot, message, command, args);
-  processCommand.run(bot, message, cmd, args, prefix);
-  if (!cmd || permCheck(message, bot, cmd, prefix) == false) return;
-  if(!message.content.trim().toLowerCase().startsWith(prefix)) return;
-  bot.db.Userdata.findOne({userID: message.author.id}, async (err, userdata) => {
-    if(userdata){
+  const cmd = bot.getCmd(bot, message, command, args)
+  processCommand.run(bot, message, cmd, args, prefix)
+  if (!cmd || permCheck(message, bot, cmd, prefix) === false) return
+  if (!message.content.trim().toLowerCase().startsWith(prefix)) return
+  bot.db.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
+    if (err) bot.log('error', err)
+    if (userdata) {
       try {
         cmd.run(bot, message, args)
       } catch (Error) {
-        bot.log("error", Error)
+        bot.log('error', Error)
       }
     }
-  });
+  })
 }

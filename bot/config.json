@@ -2,10 +2,10 @@
   "prefix": "cat",
   "color": {
     "white": "#FFFFFF",
-    "error": "#FF0000",
-    "cats": "#00afff",
-    "dex": "#D3FFCE",
-    "utility": "#98BDF0",
-    "owner": "#00fff9"
+    "red": "#FF0000",
+    "blue": "#00afff",
+    "tanish": "#D3FFCE",
+    "darkblue": "#98BDF0",
+    "lightblue": "#00fff9"
   }
 }

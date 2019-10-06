@@ -1,5 +1,6 @@
 # etc folders
 .vscode/
+.eslintrc.json
 node_modules/
 
 # images
