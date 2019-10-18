@@ -11,6 +11,7 @@ require('dotenv/config')
 bot.log = require('./lib/logging')
 bot.config = require('./config')
 bot.database = require('./lib/database')
+bot.getDate = require('./lib/getDate')
 bot.getCmd = require('./handlers/getCommands')
 require('./handlers/commandHandler')(bot)
 bot.commands = new Discord.Collection()
@@ -24,13 +25,13 @@ if (process.env.DEBUG === 'false') {
   const DB = require('./lib/API/db.js')
   const DBGG = require('./lib/API/dbgg.js')
   const DBL = require('./lib/API/dbl.js')
-  // discordbots.org gets declared out of the loop cause it has its own way of posting stats
+  // top.gg (discordbots.org) gets declared out of the loop cause it has its own way of posting stats
   DB.run(bot)
   schedule.scheduleJob('* */45 * * * *', function () {
     BFD.run(bot)
     DBGG.run(bot)
     DBL.run(bot)
-    bot.log('default', 'Stats posted to bot lists')
+    bot.log('statsPosted', 'Stats posted to bot lists')
   })
 }
 

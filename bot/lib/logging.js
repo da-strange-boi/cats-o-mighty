@@ -1,10 +1,10 @@
 const chalk = require('chalk')
-const dateformatter = require('@dastrangeboi/date-formatter')
+const getDate = require('./getDate')
 const config = require('../config')
 
 const getCurrentDate = () => {
   const date = new Date()
-  return `${dateformatter(date, 'number')}`
+  return getDate.run(date)
 }
 
 const logging = async function Log (logType, logMessage) {

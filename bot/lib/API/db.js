@@ -23,9 +23,6 @@ exports.run = async (bot) => {
 
       if (!userdata) return
 
-      // If It's The Weekend Add $5,000 To Their Account
-      userdata.money.catmoney += 5000
-
       // To reset their vote counter
       userdata.times.voteTime = Date.now()
 
@@ -56,6 +53,9 @@ exports.run = async (bot) => {
       const votedEmbed = new Discord.RichEmbed()
         .setColor(bot.config.color.blue)
       if (vote.isWeekend === true) {
+        // If It's The Weekend Add $5,000 To Their Account
+        userdata.money.catmoney += 5000
+
         votedEmbed.setAuthor('Thanks for upvoting Cats o Mighty • Weekend Rewards', bot.user.avatarURL)
         votedEmbed.setDescription(`**For upvoting Cats o Mighty you get:**\n\n:cat2: ${catName}\n:moneybag: $5,000\n\n:alarm_clock: **In 12 hours you can vote again to get more rewards!**`)
       } else {

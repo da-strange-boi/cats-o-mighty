@@ -37,6 +37,14 @@ exports.run = async (bot, message, args) => {
         }
 
         // Function To Display The Dex For The Cat
+        /**
+         * Display the embed of the cat
+         * @param {string} catName Name of the cat
+         * @param {string} sellAmount The amount the cat sell for
+         * @param {number} totalCat The number of how many times someone has got this cat
+         * @param {string} url The URL to the image of the cat
+         * @param {string} sidenote Any other data you wanna include to say
+         */
         const displayCatDex = (catName, sellAmount, totalCat, url, sidenote) => {
           if (catInfo === `${catName}`) {
             const dexHelp = new Discord.RichEmbed()

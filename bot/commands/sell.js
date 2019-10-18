@@ -242,6 +242,6 @@ exports.run = async (bot, message, args) => {
 
 exports.help = {
   name: 'sell',
-  aliases: ['kill'],
+  aliases: ['kill', 's'],
   type: 'normal'
 }

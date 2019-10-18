@@ -1,3 +1,7 @@
+/* Information
+  This is a big mess and probably shouldn't messed with unless you
+  fully understand what this does lol
+*/
 const Discord = require('discord.js')
 exports.run = async (bot, message, cmd, args, prefix) => {
   if (Object.prototype.hasOwnProperty.call(cmd, 'help')) {

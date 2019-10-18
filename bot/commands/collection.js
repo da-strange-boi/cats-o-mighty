@@ -3,7 +3,7 @@ const ms = require('parse-ms')
 const cooldown = {}
 
 exports.run = async (bot, message, args) => {
-  //* Select A User Data From The Database
+  // Select A User Data From The Database
   bot.database.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
     if (err) bot.log('error', err)
 
