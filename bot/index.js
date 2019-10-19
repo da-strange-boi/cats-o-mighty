@@ -4,10 +4,42 @@ const fs = require('fs')
 const bot = new Discord.Client({
   fetchAllMembers: false,
   disableEveryone: true,
-  disabledEvents: ['GUILD_MEMBER_ADD', 'GUILD_MEMBER_REMOVE', 'GUILD_MEMBER_UPDATE', 'GUILD_MEMBERS_CHUNK', 'GUILD_INTEGRATIONS_UPDATE', 'GUILD_ROLE_CREATE', 'GUILD_ROLE_DELETE', 'GUILD_ROLE_UPDATE', 'GUILD_BAN_ADD', 'GUILD_BAN_REMOVE', 'CHANNEL_CREATE', 'CHANNEL_DELETE', 'CHANNEL_UPDATE', 'CHANNEL_PINS_UPDATE', 'MESSAGE_DELETE', 'MESSAGE_UPDATE', 'MESSAGE_DELETE_BULK', 'MESSAGE_REACTION_ADD', 'MESSAGE_REACTION_REMOVE', 'MESSAGE_REACTION_REMOVE_ALL', 'USER_UPDATE', 'USER_NOTE_UPDATE', 'USER_SETTINGS_UPDATE', 'PRESENCE_UPDATE', 'VOICE_STATE_UPDATE', 'TYPING_START', 'VOICE_SERVER_UPDATE', 'RELATIONSHIP_ADD', 'RELATIONSHIP_REMOVE'],
+  disabledEvents: [
+    'GUILD_MEMBER_ADD',
+    'GUILD_MEMBER_REMOVE',
+    'GUILD_MEMBER_UPDATE',
+    'GUILD_MEMBERS_CHUNK',
+    'GUILD_INTEGRATIONS_UPDATE',
+    'GUILD_ROLE_CREATE',
+    'GUILD_ROLE_DELETE',
+    'GUILD_ROLE_UPDATE',
+    'GUILD_BAN_ADD',
+    'GUILD_BAN_REMOVE',
+    'CHANNEL_CREATE',
+    'CHANNEL_DELETE',
+    'CHANNEL_UPDATE',
+    'CHANNEL_PINS_UPDATE',
+    'MESSAGE_DELETE',
+    'MESSAGE_UPDATE',
+    'MESSAGE_DELETE_BULK',
+    'MESSAGE_REACTION_ADD',
+    'MESSAGE_REACTION_REMOVE',
+    'MESSAGE_REACTION_REMOVE_ALL',
+    'USER_UPDATE',
+    'USER_NOTE_UPDATE',
+    'USER_SETTINGS_UPDATE',
+    'PRESENCE_UPDATE',
+    'VOICE_STATE_UPDATE',
+    'TYPING_START',
+    'VOICE_SERVER_UPDATE',
+    'RELATIONSHIP_ADD',
+    'RELATIONSHIP_REMOVE'
+  ],
   http: { api: 'https://discordapp.com/api', version: 7 }
 })
 require('dotenv/config')
+
+// adding onto the bot variable
 bot.log = require('./lib/logging')
 bot.config = require('./config')
 bot.database = require('./lib/database')
@@ -38,7 +70,7 @@ if (process.env.DEBUG === 'false') {
 const init = async () => {
   // Load Events
   fs.readdir('./bot/events/', (err, files) => {
-    if (err) return bot.log('error', `Failed to load all events\n===============\n\n${err}`)
+    if (err) bot.log('error', `Failed to load all events\n===============\n\n${err}`)
     files.forEach(file => {
       const eventFunction = require(`./events/${file}`)
       const eventName = file.split('.')[0]

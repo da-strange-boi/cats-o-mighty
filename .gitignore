@@ -1,6 +1,5 @@
 # etc folders
 .vscode/
-.eslintrc.json
 node_modules/
 
 # images
@@ -14,8 +13,10 @@ bot/images/emojis
 bot/images/cat_o_mighty_pfp.jpg
 
 # just info
-INFO.txt
 templateCats.json
+
+# eslint
+.eslintrc.json
 
 # secret data stuff
 .env

@@ -7,7 +7,7 @@ exports.run = async (bot, message, args) => {
     const helpEmbed = new Discord.RichEmbed()
       .setColor(bot.config.color.darkblue)
       .setTitle('List of commands')
-      .setDescription('Here is all the commands!\nFor help on the commands, use `cat help {command}`\n[web version](https://www.dastrangeboi.tk/catsomighty/help.php)')
+      .setDescription('Here is all the commands!\nFor help on the commands, use `cat help {command}`')
       .addField(':cat2: General', '`chance`, `collection`, `daily`, `dex`, `feed`, `leaderboard`, `money`, `profile`, `sell`, `vote`')
       .addField(':cat: Fun', '`image`, `facts`')
       .addField(':gear: Utility', '`disable`, `help`, `invite`, `ping`, `settings`, `supportserver`')
