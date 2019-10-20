@@ -1,5 +1,6 @@
+/* eslint-disable no-new */
 const Discord = require('discord.js')
-const schedule = require('node-schedule')
+const CronJob = require('cron').CronJob
 const fs = require('fs')
 const bot = new Discord.Client({
   fetchAllMembers: false,
@@ -59,12 +60,12 @@ if (process.env.DEBUG === 'false') {
   const DBL = require('./lib/API/dbl.js')
   // top.gg (discordbots.org) gets declared out of the loop cause it has its own way of posting stats
   DB.run(bot)
-  schedule.scheduleJob('0 */45 * * * *', function () {
+  new CronJob('0 */45 * * * *', () => {
     BFD.run(bot)
     DBGG.run(bot)
     DBL.run(bot)
     bot.log('statsPosted', 'Stats posted to bot lists')
-  })
+  }, null, true, 'America/New_York')
 }
 
 const init = async () => {

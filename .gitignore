@@ -15,8 +15,5 @@ bot/images/cat_o_mighty_pfp.jpg
 # just info
 templateCats.json
 
-# eslint
-.eslintrc.json
-
 # secret data stuff
 .env
