@@ -10,7 +10,7 @@ exports.run = async (bot, message, cmd, args, prefix) => {
       // If The User Is A New Cat Collector And Runs 'cat start'
       bot.database.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
         if (err) bot.log('error', `processCommand userdata failed: ${err}`)
-        bot.db.Guildsettings.findOne({ guildID: message.guild.id }, async (err, settings) => {
+        bot.database.Guildsettings.findOne({ guildID: message.guild.id }, async (err, settings) => {
           if (err) bot.log('error', `processCommand guildsettings failed: ${err}`)
           if (userdata) {
             // make sure the prefix is being used when typing 'cat start'
