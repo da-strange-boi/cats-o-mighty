@@ -59,7 +59,7 @@ if (process.env.DEBUG === 'false') {
   const DBL = require('./lib/API/dbl.js')
   // top.gg (discordbots.org) gets declared out of the loop cause it has its own way of posting stats
   DB.run(bot)
-  schedule.scheduleJob('* */45 * * * *', function () {
+  schedule.scheduleJob('0 */45 * * * *', function () {
     BFD.run(bot)
     DBGG.run(bot)
     DBL.run(bot)
