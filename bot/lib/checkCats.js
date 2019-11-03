@@ -12,33 +12,39 @@ const newCatList = [
   'calico', 'tabby', 'norwegianforest', 'britishshorthair', 'tom', 'demoncat', 'killerclaws', 
   'devonrex', 'ojosazules', 'bongocat', 'grumpycat', 'ghostcat'
 ]
+const MongoClient = require('mongodb').MongoClient;
+const url = 'mongodb://localhost:27017';
 exports.run = (bot, message) => {
-  // Select A User Data From The Database
-  bot.database.Userdata.findOne({ userID: message.author.id }, (err, userData) => {
-    if (err) bot.log('error', err)
-    if (userData) {
-      const userCatAmt = userData.cats
 
+  // if someone is missing a cat from their account this will add it with default values
+  MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
+    const db = client.db('cats-o-mighty');
+    const userCol = db.collection('userdatas');
+    const guildCol = db.collection('guildsettings');
+
+    userCol.findOne({ userID: message.author.id }, (err, userData) => {
+      if (err) bot.log('error', err)
+      
       for (let i = 0; i < newCatList.length; i++) {
-        // if any values (of new cats) returns undefined (non existent) then add it and give it a value of 0
-        if (userCatAmt[newCatList[i]] === undefined) {
-          userCatAmt[newCatList[i]] = 0
+        let catDbname = `cats.${newCatList[i]}`
+        if (userData.cats[newCatList[i]] === undefined) {
+          userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[catDbname]: {amount: 0, totalGot: 0, discovered: false}}})
         }
       }
 
-      userData.userTag = message.author.tag
-      userData.save().catch(err => console.log(err))
-    }
-  })
+    });
 
-  bot.database.Guildsettings.findOne({ guildID: message.guild.id }, (err, guildSettings) => {
-    if (err) bot.log('error', err)
-    if (!guildSettings) {
-      const newSettings = new bot.database.Guildsettings({
-        guildID: message.guild.id,
-        CatGottenPopupMessage: 'disappear'
-      })
-      newSettings.save().catch(err => console.log(err))
-    }
-  })
+    guildCol.findOne({ guildID: message.guild.id }, (err, guildSettings) => {
+      if (err) bot.log('error', err)
+
+      if(!guildSettings) {
+        guildCol.insertOne({
+          guildID: message.guild.id,
+          CatGottenPopupMessage: 'disappear'
+        })
+      }
+    })
+
+  });
+
 }
