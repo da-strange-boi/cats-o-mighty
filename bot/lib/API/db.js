@@ -1,6 +1,9 @@
 const Discord = require('discord.js')
 const DBL = require('dblapi.js')
 
+const MongoClient = require('mongodb').MongoClient;
+const url = 'mongodb://localhost:27017';
+
 exports.run = async (bot) => {
   const dbl = new DBL(process.env.DISCORD_BOTS_AUTH, { webhookPort: 5454, webhookAuth: process.env.DISCORD_BOTS_WSAUTH, statsInterval: 2400000 }, bot)
 
@@ -18,54 +21,44 @@ exports.run = async (bot) => {
 
   // Whenever Someone Votes
   dbl.webhook.on('vote', vote => {
-    bot.database.Userdata.findOne({ userID: vote.user }, (err, userdata) => {
-      if (err) bot.log('error', `Discordbots.org API Error: ${err}`)
+    const votedUser = vote.user
+    MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
+      const db = client.db('cats-o-mighty')
+      const userCol = db.collection('userdatas')
 
-      if (!userdata) return
+      userCol.findOne({ userID: votedUser }, (err, userdata) => {
+        if (err) bot.log('error', `Discordbots.org API Error: ${err}`)
 
-      // To reset their vote counter
-      userdata.times.voteTime = Date.now()
+        if (!userdata) return
 
-      const votedUser = vote.user
-      const userCats = userdata.cats
-      const specialCats = ['bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin', 'loki', 'loverboy', 'killerclaws']
-      const result = Math.floor((Math.random() * specialCats.length))
-      let catName
+        // To reset their vote counter
+        let voteTime = `userdata.times.voteTime`
+        userCol.findOneAndUpdate({ userID: votedUser }, {$set: {[voteTime]: Date.now()}})
 
-      // Check To See What Cat Is Randomly Slected Then Add It To Their Cats
-      if (result === 0) { userCats.bandit += 1; catName = 'bandit' }
-      if (result === 1) { userCats.bug += 1; catName = 'bug' }
-      if (result === 2) { userCats.linda += 1; catName = 'linda' }
-      if (result === 3) { userCats.mittens += 1; catName = 'mittens' }
-      if (result === 4) { userCats.cash += 1; catName = 'cash' }
-      if (result === 5) { userCats.jackson += 1; catName = 'jackson' }
-      if (result === 6) { userCats.cottonball += 1; catName = 'cottonball' }
-      if (result === 7) { userCats.sonny += 1; catName = 'sonny' }
-      if (result === 8) { userCats.smokey += 1; catName = 'smokey' }
-      if (result === 9) { userCats.lailah += 1; catName = 'lailah' }
-      if (result === 10) { userCats.cher += 1; catName = 'cher' }
-      if (result === 11) { userCats.marvin += 1; catName = 'marvin' }
-      if (result === 12) { userCats.loki += 1; catName = 'loki' }
-      if (result === 13) { userCats.loverboy += 1; catName = 'loverboy' }
-      if (result === 14) { userCats.killerclaws += 1; catName = 'killerclaws' }
+        const specialCats = ['bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin', 'loki', 'loverboy', 'killerclaws']
+        const result = Math.floor((Math.random() * specialCats.length))
 
-      // To send a DM to the user letting them know their rewards for voting
-      const votedEmbed = new Discord.RichEmbed()
-        .setColor(bot.config.color.blue)
-      if (vote.isWeekend === true) {
-        // If It's The Weekend Add $5,000 To Their Account
-        userdata.money.catmoney += 5000
+        // Check To See What Cat Is Randomly Slected Then Add It To Their Cats
+        const catDbName = `cats.${specialCats[result]}`
+        userCol.findOneAndUpdate({ userID: votedUser }, {$set: {[catDbName]: userdata.cats[specialCats[result]] + 1}})
 
-        votedEmbed.setAuthor('Thanks for upvoting Cats o Mighty • Weekend Rewards', bot.user.avatarURL)
-        votedEmbed.setDescription(`**For upvoting Cats o Mighty you get:**\n\n:cat2: ${catName}\n:moneybag: $5,000\n\n:alarm_clock: **In 12 hours you can vote again to get more rewards!**`)
-      } else {
-        votedEmbed.setAuthor('Thanks for upvoting Cats o Mighty', bot.user.avatarURL)
-        votedEmbed.setDescription(`**For upvoting Cats o Mighty you get:**\n\n:cat2: ${catName}\n\n:alarm_clock: **In 12 hours you can vote again to get more rewards!**`)
-      }
-      bot.users.get(votedUser).send(votedEmbed)
+        // To send a DM to the user letting them know their rewards for voting
+        const votedEmbed = new Discord.RichEmbed()
+          .setColor(bot.config.color.blue)
+        if (vote.isWeekend === true) {
+          // If It's The Weekend Add $5,000 To Their Account
+          userCol.findOneAndUpdate({ userID: votedUser }, {$set: {'money.catmoney': userdata.money.catmoney + 5000}})
 
-      // Save value to database
-      userdata.save().catch(err => console.log(err))
+          votedEmbed.setAuthor('Thanks for upvoting Cats o Mighty • Weekend Rewards', bot.user.avatarURL)
+          votedEmbed.setDescription(`**For upvoting Cats o Mighty you get:**\n\n:cat2: ${specialCats[result]}\n:moneybag: $5,000\n\n:alarm_clock: **In 12 hours you can vote again to get more rewards!**`)
+        } else {
+          votedEmbed.setAuthor('Thanks for upvoting Cats o Mighty', bot.user.avatarURL)
+          votedEmbed.setDescription(`**For upvoting Cats o Mighty you get:**\n\n:cat2: ${specialCats[result]}\n\n:alarm_clock: **In 12 hours you can vote again to get more rewards!**`)
+        }
+        bot.users.get(votedUser).send(votedEmbed)
+
+      })
     })
+
   })
 }
