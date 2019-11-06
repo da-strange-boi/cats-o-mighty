@@ -1,3 +1,5 @@
+const MongoClient = require('mongodb').MongoClient;
+const url = 'mongodb://localhost:27017';
 exports.run = async (bot, message) => {
   if (!message.guild || message.IsPrivate || message.author.bot) return
 
@@ -22,14 +24,20 @@ exports.run = async (bot, message) => {
   processCommand.run(bot, message, cmd, args, prefix)
   if (!cmd || permCheck(message, bot, cmd, prefix) === false) return
   if (!message.content.trim().toLowerCase().startsWith(prefix)) return
-  bot.database.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
+  // make sure the user has an account before running any commands
+  MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
     if (err) bot.log('error', err)
-    if (userdata) {
-      try {
-        cmd.run(bot, message, args)
-      } catch (e) {
-        bot.log('error', e)
+    const db = client.db('cats-o-mighty')
+    const userCol = db.collection('userdatas')
+    userCol.findOne({ userID: message.author.id }, (err, userdata) => {
+      if (err) bot.log('error', err)
+      if (userdata) {
+        try {
+          cmd.run(bot, message,args)
+        } catch (e) {
+          bot.log('error', e)
+        }
       }
-    }
+    })
   })
 }

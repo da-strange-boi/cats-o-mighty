@@ -126,7 +126,7 @@ exports.run = async (bot, message, args) => {
 
         displayCatDex('ghostcat', "Can't sell", tGhostcat, 'https://i.imgur.com/qlbLgWj.jpg', '*Halloween of 2019*')
 
-        if (ifcat === 0) { message.channel.send('check `cat help dex` for how to use the command') };
+        if (ifcat === 0) { message.channel.send('check `cat help dex` for how to use the command') }
       }
     })
   }
