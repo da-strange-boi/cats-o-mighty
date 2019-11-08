@@ -43,7 +43,7 @@ require('dotenv/config')
 // adding onto the bot variable
 bot.log = require('./lib/logging')
 bot.config = require('./config')
-bot.database = require('./lib/database')
+// bot.database = require('./lib/database')
 bot.getDate = require('./lib/getDate')
 bot.getCmd = require('./handlers/getCommands')
 require('./handlers/commandHandler')(bot)

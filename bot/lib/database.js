@@ -1,17 +1,17 @@
-const mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost:27017/cats-o-mighty', {
-  useNewUrlParser: true,
-  useFindAndModify: false,
-  useUnifiedTopology: true
-})
-const data = require('../moduls/userdata.js')
-const log = require('../moduls/logs.js')
-const guildsettings = require('../moduls/guildsettings.js')
-const total = require('../moduls/totals.js')
+// const mongoose = require('mongoose')
+// mongoose.connect('mongodb://localhost:27017/cats-o-mighty', {
+//   useNewUrlParser: true,
+//   useFindAndModify: false,
+//   useUnifiedTopology: true
+// })
+// const data = require('../moduls/userdata.js')
+// const log = require('../moduls/logs.js')
+// const guildsettings = require('../moduls/guildsettings.js')
+// const total = require('../moduls/totals.js')
 
-module.exports = {
-  Userdata: data,
-  Logs: log,
-  Guildsettings: guildsettings,
-  Totals: total
-}
+// module.exports = {
+//   Userdata: data,
+//   Logs: log,
+//   Guildsettings: guildsettings,
+//   Totals: total
+// }

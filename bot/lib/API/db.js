@@ -23,8 +23,7 @@ exports.run = async (bot) => {
   dbl.webhook.on('vote', vote => {
     const votedUser = vote.user
     MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
-      const db = client.db('cats-o-mighty')
-      const userCol = db.collection('userdatas')
+      const userCol = client.db('cats-o-mighty').collection('userdatas')
 
       userCol.findOne({ userID: votedUser }, (err, userdata) => {
         if (err) bot.log('error', `Discordbots.org API Error: ${err}`)
@@ -32,8 +31,7 @@ exports.run = async (bot) => {
         if (!userdata) return
 
         // To reset their vote counter
-        let voteTime = `userdata.times.voteTime`
-        userCol.findOneAndUpdate({ userID: votedUser }, {$set: {[voteTime]: Date.now()}})
+        userCol.findOneAndUpdate({ userID: votedUser }, {$set: {'times.voteTime': Date.now()}})
 
         const specialCats = ['bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin', 'loki', 'loverboy', 'killerclaws']
         const result = Math.floor((Math.random() * specialCats.length))

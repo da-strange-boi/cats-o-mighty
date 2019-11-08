@@ -1,3 +1,5 @@
+const MongoClient = require('mongodb').MongoClient;
+const url = 'mongodb://localhost:27017';
 exports.run = async (bot, message, args) => {
   // {USAGE} cat addcat {cat name} {amount} || addcat {@user} {cat name} {amount}
 
@@ -12,41 +14,226 @@ exports.run = async (bot, message, args) => {
     if (!mentionedUser) return message.channel.send("That person doesn't exist")
     const amtCat = Number(args[2])
 
-    bot.database.Userdata.findOne({ userID: mentionedUser.id }, (err, userdata) => {
-      if (err) bot.log('error', err)
+    // bot.database.Userdata.findOne({ userID: mentionedUser.id }, (err, userdata) => {
+    MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
+      const userCol = client.db('cats-o-mighty').collection('userdatas')
+      userCol.findOne({ userID: message.author.id }, (err, userdata) => {
+        if (err) bot.log('error', err)
 
-      const userCats = userdata.cats
-      if (args[1] === 'siamese') { userCats.siamese += amtCat } if (args[1] === 'burmese') { userCats.burmese += amtCat } if (args[1] === 'ragdoll') { userCats.ragdoll += amtCat } if (args[1] === 'persian') { userCats.persian += amtCat } if (args[1] === 'maine coon' || args[1] === 'mainecoon') { userCats.mainecoon += amtCat } if (args[1] === 'russianblue') { userCats.russianblue += amtCat } if (args[1] === 'calico') { userCats.calico += amtCat } if (args[1] === 'tabby') { userCats.tabby += amtCat }
-      if (args[1] === 'abyssinian') { userCats.abyssinian += amtCat } if (args[1] === 'manx') { userCats.manx += amtCat } if (args[1] === 'sphynx') { userCats.sphynx += amtCat } if (args[1] === 'cyprus') { userCats.cyprus += amtCat } if (args[1] === 'foldex') { userCats.foldex += amtCat } if (args[1] === 'turkishangora') { userCats.turkishangora += amtCat } if (args[1] === 'norwegianforest') { userCats.norwegianforest += amtCat }
-      if (args[1] === 'korat') { userCats.korat += amtCat } if (args[1] === 'singapura') { userCats.singapura += amtCat } if (args[1] === 'tonkinese') { userCats.tonkinese += amtCat } if (args[1] === 'peterbald') { userCats.peterbald += amtCat } if (args[1] === 'chartreux') { userCats.chartreux += amtCat } if (args[1] === 'munchkin') { userCats.munchkin += amtCat } if (args[1] === 'britishshorthair') { userCats.britishshorthair += amtCat }
-      if (args[1] === 'bandit') { userCats.bandit += amtCat } if (args[1] === 'bug') { userCats.bug += amtCat } if (args[1] === 'linda') { userCats.linda += amtCat } if (args[1] === 'mittens') { userCats.mittens += amtCat } if (args[1] === 'cash') { userCats.cash += amtCat } if (args[1] === 'jackson') { userCats.jackson += amtCat } if (args[1] === 'cottonball') { userCats.cottonball += amtCat } if (args[1] === 'sonny') { userCats.sonny += amtCat } if (args[1] === 'smokey') { userCats.smokey += amtCat } if (args[1] === 'lailah') { userCats.lailah += amtCat } if (args[1] === 'cher') { userCats.cher += amtCat } if (args[1] === 'marvin') { userCats.marvin += amtCat } if (args[1] === 'loki') { userCats.loki += amtCat } if (args[1] === 'loverboy') { userCats.loverboy += amtCat } if (args[1] === 'killerclaws') { userCats.killerclaws += amtCat }
-      if (args[1] === 'squirtlett') { userCats.squirtlett += amtCat } if (args[1] === 'cursedcat') { userCats.cursedcat += amtCat } if (args[1] === 'uwu') { userCats.uwu += amtCat } if (args[1] === 'tom') { userCats.tom += amtCat } if (args[1] === 'demoncat') { userCats.demoncat += amtCat }
+        const userCats = userdata.cats
 
-      userdata.save().catch(err => console.log(err))
+        switch (args[1]) {
+          case 'siamese': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.siamese.amount': userCats.siamese.amount + amtCat}})
+            break
+          case 'burmese': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.burmese.amount': userCats.burmese.amount + amtCat}})
+            break
+          case 'ragdoll': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.ragdoll.amount': userCats.ragdoll.amount + amtCat}})
+            break
+          case 'persian': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.persian.amount': userCats.persian.amount + amtCat}})
+            break
+          case 'mainecoon': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.mainecoon.amount': userCats.mainecoon.amount + amtCat}})
+            break
+          case 'russianblue': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.burmese.amount': userCats.russianblue.amount + amtCat}})
+            break
+          case 'calico': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.calico.amount': userCats.calico.amount + amtCat}})
+            break
+          case 'tabby': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.tabby.amount': userCats.tabby.amount + amtCat}})
+            break
+          case 'abyssinian': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.abyssinian.amount': userCats.abyssinian.amount + amtCat}})
+            break
+          case 'manx': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.manx.amount': userCats.manx.amount + amtCat}})
+            break
+          case 'sphynx': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.sphynx.amount': userCats.sphynx.amount + amtCat}})
+            break
+          case 'cyprus': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.cyprus.amount': userCats.cyprus.amount + amtCat}})
+            break
+          case 'foldex': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.foldex.amount': userCats.foldex.amount + amtCat}})
+            break
+          case 'turkishangora': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.turkishangora.amount': userCats.turkishangora.amount + amtCat}})
+            break
+          case 'norwegianforest': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.tanorwegianforestbby.amount': userCats.norwegianforest.amount + amtCat}})
+            break
+          case 'korat': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.korat.amount': userCats.korat.amount + amtCat}})
+            break
+          case 'singapura': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.singapura.amount': userCats.singapura.amount + amtCat}})
+            break
+          case 'tonkinese': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.tonkinese.amount': userCats.tonkinese.amount + amtCat}})
+            break
+          case 'peterbald': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.peterbald.amount': userCats.peterbald.amount + amtCat}})
+            break
+          case 'chartreux': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.chartreux.amount': userCats.chartreux.amount + amtCat}})
+            break
+          case 'munchkin': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.munchkin.amount': userCats.munchkin.amount + amtCat}})
+            break
+          case 'britishshorthair': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.britishshorthair.amount': userCats.britishshorthair.amount + amtCat}})
+            break
+          case 'ojosazules': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.ojosazules.amount': userCats.ojosazules.amount + amtCat}})
+            break
+          case 'smokey': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.smokey.amount': userCats.smokey.amount + amtCat}})
+            break
+          case 'bandit': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.bandit.amount': userCats.bandit.amount + amtCat}})
+            break
+          case 'bug': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.bug.amount': userCats.bug.amount + amtCat}})
+            break
+          case 'linda': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.linda.amount': userCats.linda.amount + amtCat}})
+            break
+          case 'mittens': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.mittens.amount': userCats.mittens.amount + amtCat}})
+            break
+          case 'cash': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.cash.amount': userCats.cash.amount + amtCat}})
+            break
+          case 'jackson': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.jackson.amount': userCats.jackson.amount + amtCat}})
+            break
+          case 'cottonball': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.cottonball.amount': userCats.cottonball.amount + amtCat}})
+            break
+          case 'sonny': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.sonny.amount': userCats.sonny.amount + amtCat}})
+            break
+          case 'lailah': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.lailah.amount': userCats.lailah.amount + amtCat}})
+            break
+          case 'cher': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.cher.amount': userCats.cher.amount + amtCat}})
+            break
+          case 'marvin': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.marvin.amount': userCats.marvin.amount + amtCat}})
+            break
+          case 'loki': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.loki.amount': userCats.loki.amount + amtCat}})
+            break
+          case 'loverboy': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.loverboy.amount': userCats.loverboy.amount + amtCat}})
+            break
+          case 'killerclaws': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.killerclaws.amount': userCats.killerclaws.amount + amtCat}})
+            break
+          case 'squirtlett': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.squirtlett.amount': userCats.squirtlett.amount + amtCat}})
+            break
+          case 'cursedcat': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.cursedcat.amount': userCats.cursedcat.amount + amtCat}})
+            break
+          case 'uwu': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.uwu.amount': userCats.uwu.amount + amtCat}})
+            break
+          case 'tom': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.tom.amount': userCats.tom.amount + amtCat}})
+            break
+          case 'demoncat': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.demoncat.amount': userCats.demoncat.amount + amtCat}})
+            break
+          case 'bongocat': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.bongocat.amount': userCats.bongocat.amount + amtCat}})
+            break
+          case 'grumpycat': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.grumpycat.amount': userCats.grumpycat.amount + amtCat}})
+            break
+          case 'ghostcat': userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'cats.ghostcat.amount': userCats.ghostcat.amount + amtCat}})
+            break
+          default: return message.channel.send('Please use a correct cat type')
+        }
 
-      return message.channel.send(`${args[2]} ${args[1]}'s has been added to ${mentionedUser} account`)
+
+        return message.channel.send(`${args[2]} ${args[1]}'s has been added to ${mentionedUser} account`)
+      })
+      return
     })
-    return
   }
 
   // {USAGE} cat addcat {cat name} {amount}
-  if (args[1]) {
-    // Clears Cats Of The Message Author
-    bot.database.Userdata.findOne({ userID: message.author.id }, (err, userdata) => {
-      if (err) bot.log('error', err)
+  if (args[1] && !args[2]) {
+    // Adds Cats Of The Message Author
+    MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
+      const userCol = client.db('cats-o-mighty').collection('userdatas')
+      userCol.findOne({ userID: message.author.id }, (err, userdata) => {
+        if (err) bot.log('error', err)
 
-      const amtCat = Number(args[1])
-      const userCats = userdata.cats
+        const amtCat = Number(args[1])
+        const userCats = userdata.cats
 
-      if (args[0] === 'siamese') { userCats.siamese += amtCat } if (args[0] === 'burmese') { userCats.burmese += amtCat } if (args[0] === 'ragdoll') { userCats.ragdoll += amtCat } if (args[0] === 'persian') { userCats.persian += amtCat } if (args[0] === 'maine coon' || args[0] === 'mainecoon') { userCats.mainecoon += amtCat } if (args[0] === 'russianblue') { userCats.russianblue += amtCat } if (args[0] === 'calico') { userCats.calico += amtCat } if (args[0] === 'tabby') { userCats.tabby += amtCat }
-      if (args[0] === 'abyssinian') { userCats.abyssinian += amtCat } if (args[0] === 'manx') { userCats.manx += amtCat } if (args[0] === 'sphynx') { userCats.sphynx += amtCat } if (args[0] === 'cyprus') { userCats.cyprus += amtCat } if (args[0] === 'foldex') { userCats.foldex += amtCat } if (args[0] === 'turkishangora') { userCats.turkishangora += amtCat } if (args[0] === 'norwegianforest') { userCats.norwegianforest += amtCat }
-      if (args[0] === 'korat') { userCats.korat += amtCat } if (args[0] === 'singapura') { userCats.singapura += amtCat } if (args[0] === 'tonkinese') { userCats.tonkinese += amtCat } if (args[0] === 'peterbald') { userCats.peterbald += amtCat } if (args[0] === 'chartreux') { userCats.chartreux += amtCat } if (args[0] === 'munchkin') { userCats.munchkin += amtCat } if (args[0] === 'britishshorthair') { userCats.britishshorthair += amtCat }
-      if (args[0] === 'bandit') { userCats.bandit += amtCat } if (args[0] === 'bug') { userCats.bug += amtCat } if (args[0] === 'linda') { userCats.linda += amtCat } if (args[0] === 'mittens') { userCats.mittens += amtCat } if (args[0] === 'cash') { userCats.cash += amtCat } if (args[0] === 'jackson') { userCats.jackson += amtCat } if (args[0] === 'cottonball') { userCats.cottonball += amtCat } if (args[0] === 'sonny') { userCats.sonny += amtCat } if (args[0] === 'smokey') { userCats.smokey += amtCat } if (args[0] === 'lailah') { userCats.lailah += amtCat } if (args[0] === 'cher') { userCats.cher += amtCat } if (args[0] === 'marvin') { userCats.marvin += amtCat } if (args[0] === 'loki') { userCats.loki += amtCat } if (args[0] === 'loverboy') { userCats.loverboy += amtCat } if (args[0] === 'killerclaws') { userCats.killerclaws += amtCat }
-      if (args[0] === 'squirtlett') { userCats.squirtlett += amtCat } if (args[0] === 'cursedcat') { userCats.cursedcat += amtCat } if (args[0] === 'uwu') { userCats.uwu += amtCat } if (args[0] === 'tom') { userCats.tom += amtCat } if (args[0] === 'demoncat') { userCats.demoncat += amtCat }
+        switch (args[0]) {
+          case 'siamese': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.siamese.amount': userCats.siamese.amount + amtCat}})
+            break
+          case 'burmese': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.burmese.amount': userCats.burmese.amount + amtCat}})
+            break
+          case 'ragdoll': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.ragdoll.amount': userCats.ragdoll.amount + amtCat}})
+            break
+          case 'persian': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.persian.amount': userCats.persian.amount + amtCat}})
+            break
+          case 'mainecoon': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.mainecoon.amount': userCats.mainecoon.amount + amtCat}})
+            break
+          case 'russianblue': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.burmese.amount': userCats.russianblue.amount + amtCat}})
+            break
+          case 'calico': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.calico.amount': userCats.calico.amount + amtCat}})
+            break
+          case 'tabby': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.tabby.amount': userCats.tabby.amount + amtCat}})
+            break
+          case 'abyssinian': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.abyssinian.amount': userCats.abyssinian.amount + amtCat}})
+            break
+          case 'manx': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.manx.amount': userCats.manx.amount + amtCat}})
+            break
+          case 'sphynx': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.sphynx.amount': userCats.sphynx.amount + amtCat}})
+            break
+          case 'cyprus': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.cyprus.amount': userCats.cyprus.amount + amtCat}})
+            break
+          case 'foldex': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.foldex.amount': userCats.foldex.amount + amtCat}})
+            break
+          case 'turkishangora': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.turkishangora.amount': userCats.turkishangora.amount + amtCat}})
+            break
+          case 'norwegianforest': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.tanorwegianforestbby.amount': userCats.norwegianforest.amount + amtCat}})
+            break
+          case 'korat': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.korat.amount': userCats.korat.amount + amtCat}})
+            break
+          case 'singapura': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.singapura.amount': userCats.singapura.amount + amtCat}})
+            break
+          case 'tonkinese': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.tonkinese.amount': userCats.tonkinese.amount + amtCat}})
+            break
+          case 'peterbald': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.peterbald.amount': userCats.peterbald.amount + amtCat}})
+            break
+          case 'chartreux': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.chartreux.amount': userCats.chartreux.amount + amtCat}})
+            break
+          case 'munchkin': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.munchkin.amount': userCats.munchkin.amount + amtCat}})
+            break
+          case 'britishshorthair': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.britishshorthair.amount': userCats.britishshorthair.amount + amtCat}})
+            break
+          case 'ojosazules': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.ojosazules.amount': userCats.ojosazules.amount + amtCat}})
+            break
+          case 'smokey': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.smokey.amount': userCats.smokey.amount + amtCat}})
+            break
+          case 'bandit': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.bandit.amount': userCats.bandit.amount + amtCat}})
+            break
+          case 'bug': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.bug.amount': userCats.bug.amount + amtCat}})
+            break
+          case 'linda': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.linda.amount': userCats.linda.amount + amtCat}})
+            break
+          case 'mittens': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.mittens.amount': userCats.mittens.amount + amtCat}})
+            break
+          case 'cash': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.cash.amount': userCats.cash.amount + amtCat}})
+            break
+          case 'jackson': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.jackson.amount': userCats.jackson.amount + amtCat}})
+            break
+          case 'cottonball': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.cottonball.amount': userCats.cottonball.amount + amtCat}})
+            break
+          case 'sonny': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.sonny.amount': userCats.sonny.amount + amtCat}})
+            break
+          case 'lailah': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.lailah.amount': userCats.lailah.amount + amtCat}})
+            break
+          case 'cher': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.cher.amount': userCats.cher.amount + amtCat}})
+            break
+          case 'marvin': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.marvin.amount': userCats.marvin.amount + amtCat}})
+            break
+          case 'loki': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.loki.amount': userCats.loki.amount + amtCat}})
+            break
+          case 'loverboy': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.loverboy.amount': userCats.loverboy.amount + amtCat}})
+            break
+          case 'killerclaws': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.killerclaws.amount': userCats.killerclaws.amount + amtCat}})
+            break
+          case 'squirtlett': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.squirtlett.amount': userCats.squirtlett.amount + amtCat}})
+            break
+          case 'cursedcat': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.cursedcat.amount': userCats.cursedcat.amount + amtCat}})
+            break
+          case 'uwu': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.uwu.amount': userCats.uwu.amount + amtCat}})
+            break
+          case 'tom': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.tom.amount': userCats.tom.amount + amtCat}})
+            break
+          case 'demoncat': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.demoncat.amount': userCats.demoncat.amount + amtCat}})
+            break
+          case 'bongocat': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.bongocat.amount': userCats.bongocat.amount + amtCat}})
+            break
+          case 'grumpycat': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.grumpycat.amount': userCats.grumpycat.amount + amtCat}})
+            break
+          case 'ghostcat': userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.ghostcat.amount': userCats.ghostcat.amount + amtCat}})
+            break
+          default: return message.channel.send('Please use a correct cat type')
+        }
 
-      userdata.save().catch(err => console.log(err))
-
-      message.channel.send(`${args[1]} ${args[0]}'s has been added to your account`)
+        message.channel.send(`${args[1]} ${args[0]}'s has been added to your account`)
+      })
     })
   }
 }

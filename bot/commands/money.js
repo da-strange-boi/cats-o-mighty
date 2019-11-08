@@ -2,6 +2,9 @@ const Discord = require('discord.js')
 const ms = require('parse-ms')
 const cooldown = {}
 
+const MongoClient = require('mongodb').MongoClient;
+const url = 'mongodb://localhost:27017';
+
 exports.run = async (bot, message, args) => {
   // {USAGE} cat money
 
@@ -13,34 +16,40 @@ exports.run = async (bot, message, args) => {
   }
   cooldown[message.author.id] = Date.now()
 
-  bot.database.Userdata.findOne({ userID: message.author.id }, (err, userdata) => {
-    if (err) bot.log('error', err)
-    if (userdata) {
-      // https://stackoverflow.com/questions/149055/how-can-i-format-numbers-as-dollars-currency-string-in-javascript
-      const formatMoney = (amount, decimalCount = 0, decimal = '.', thousands = ',') => {
-        try {
-          decimalCount = Math.abs(decimalCount)
-          decimalCount = isNaN(decimalCount) ? 2 : decimalCount
+  MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
+    const db = client.db('cats-o-mighty')
+    const userCol = db.collection('userdatas')
 
-          const negativeSign = amount < 0 ? '-' : ''
+    userCol.findOne({ userID: message.author.id }, (err, userdata) => {
+      if (err) bot.log('error', err)
+      if (userdata) {
+        // https://stackoverflow.com/questions/149055/how-can-i-format-numbers-as-dollars-currency-string-in-javascript
+        const formatMoney = (amount, decimalCount = 0, decimal = '.', thousands = ',') => {
+          try {
+            decimalCount = Math.abs(decimalCount)
+            decimalCount = isNaN(decimalCount) ? 2 : decimalCount
 
-          const i = parseInt(amount = Math.abs(Number(amount) || 0).toFixed(decimalCount)).toString()
-          const j = (i.length > 3) ? i.length % 3 : 0
+            const negativeSign = amount < 0 ? '-' : ''
 
-          return negativeSign + (j ? i.substr(0, j) + thousands : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, '$1' + thousands) + (decimalCount ? decimal + Math.abs(amount - i).toFixed(decimalCount).slice(2) : '')
-        } catch (e) {
-          console.log(e)
+            const i = parseInt(amount = Math.abs(Number(amount) || 0).toFixed(decimalCount)).toString()
+            const j = (i.length > 3) ? i.length % 3 : 0
+
+            return negativeSign + (j ? i.substr(0, j) + thousands : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, '$1' + thousands) + (decimalCount ? decimal + Math.abs(amount - i).toFixed(decimalCount).slice(2) : '')
+          } catch (e) {
+            console.log(e)
+          }
         }
-      }
-      // end of code i copied
+        // end of code i copied
 
-      const uMoney = userdata.money.catmoney
-      const moneyEmbed = new Discord.RichEmbed()
-        .setAuthor(message.author.username, message.author.avatarURL)
-        .setColor(bot.config.color.blue)
-        .setDescription(`You have **$${formatMoney(uMoney)}**`)
-      message.channel.send(moneyEmbed)
-    }
+        const uMoney = userdata.money.catmoney
+        const moneyEmbed = new Discord.RichEmbed()
+          .setAuthor(message.author.username, message.author.avatarURL)
+          .setColor(bot.config.color.blue)
+          .setDescription(`You have **$${formatMoney(uMoney)}**`)
+        message.channel.send(moneyEmbed)
+      }
+    })
+
   })
   // Delete The Cooldown // Resetting It
   setTimeout(() => {
