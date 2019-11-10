@@ -27,11 +27,7 @@
     "cron": "^1.7.2",
     "dblapi.js": "^2.3.0",
     "discord.js": "^11.5.1",
-<<<<<<< HEAD
     "mongodb": "^3.3.3",
-=======
-    "mongoose": "^5.7.5",
->>>>>>> 7d97008ee88f623e5eec94a5facb4309ec9523f2
     "node-fetch": "^2.6.0",
     "parse-ms": "^2.1.0",
     "superagent": "^5.1.0"
