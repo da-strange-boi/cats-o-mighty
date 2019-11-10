@@ -1,13 +1,13 @@
 exports.run = async (bot, message, args) => {
   if (!args[0]) {
-    return message.channel.send("nuu that's not how you use that command")
+    return message.channel.send('nuu that\'s not how you use that command')
   }
 
   const userCol = bot.database.Userdata
 
   if (args[1]) {
     const mentionedUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]))
-    if (!mentionedUser) return message.channel.send("That person doesn't exist")
+    if (!mentionedUser) return message.channel.send('That person doesn\'t exist')
     const amtMoney = Number(args[1])
 
     userCol.findOne({ userID: mentionedUser.id }, (err, userdata) => {
@@ -16,7 +16,7 @@ exports.run = async (bot, message, args) => {
         message.channel.send('Yes')
       }
       if (!userdata) {
-        return message.channel.send("That person doesn't exist")
+        return message.channel.send('That person doesn\'t exist')
       }
     })
   } else if (args[0] && !args[1]) {

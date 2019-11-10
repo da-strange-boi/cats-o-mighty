@@ -32,10 +32,7 @@ exports.run = async (bot, message) => {
     message.channel.send(embed)
   }
 
-  //MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
-    //const db = client.db('cats-o-mighty')
   const userCol = bot.database.Userdata
-
   userCol.findOne({ userID: message.author.id }, async (err, userdata) => {
     if (err) bot.log('error', err)
 

@@ -3,7 +3,7 @@ exports.run = async (bot, message, args) => {
 
   if (args[0]) {
     const mentionedUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]))
-    if (!mentionedUser) return message.channel.send("That person doesn't exist")
+    if (!mentionedUser) return message.channel.send('That person doesn\'t exist')
 
     userCol.findOne({ userID: mentionedUser.id }, (err, userdata) => {
       if (err) bot.log('error', err)
@@ -14,7 +14,7 @@ exports.run = async (bot, message, args) => {
         }})
         message.channel.send('Yep')
       }
-      if (!userdata) return message.channel.send("That person doesn't exist")
+      if (!userdata) return message.channel.send('That person doesn\'t exist')
     })
 
   } else if (!args[0]) {

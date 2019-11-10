@@ -1,6 +1,6 @@
 {
   "name": "cats-o-mighty",
-  "version": "0.5.19",
+  "version": "6.0.0",
   "description": "A cat collector bot for discord",
   "main": "bot/index.js",
   "scripts": {

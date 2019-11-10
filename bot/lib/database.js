@@ -1,12 +1,12 @@
-const assert = require("assert")
-const client = require("mongodb").MongoClient
-const config = require("../config.json")
+const assert = require('assert')
+const client = require('mongodb').MongoClient
+const config = require('../config.json')
 
-let _db;
+let _db
 
 function initDb(callback) {
   if (_db) {
-    console.warn("trying to init DB again!")
+    console.warn('trying to init DB again!')
     return callback(null, _db)
   }
   client.connect(config.db.connectionString, config.db.connectionOptions, connected)
@@ -21,7 +21,7 @@ function initDb(callback) {
 }
 
 function getDb() {
-  assert.ok(_db, "Db has not been initialized. Please called init first.")
+  assert.ok(_db, 'Db has not been initialized. Please called init first.')
   return _db
 }
 

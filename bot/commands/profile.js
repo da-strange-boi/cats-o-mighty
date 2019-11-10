@@ -29,23 +29,6 @@ exports.run = async (bot, message) => {
   const ctx = canvas.getContext('2d')
   const background = await Canvas.loadImage('./bot/images/profileBackground.png')
 
-  // https://stackoverflow.com/questions/149055/how-can-i-format-numbers-as-dollars-currency-string-in-javascript
-  function formatMoney (amount, decimalCount = 0, decimal = '.', thousands = ',') {
-    try {
-      decimalCount = Math.abs(decimalCount)
-      decimalCount = isNaN(decimalCount) ? 2 : decimalCount
-
-      const negativeSign = amount < 0 ? '-' : ''
-
-      const i = parseInt(amount = Math.abs(Number(amount) || 0).toFixed(decimalCount)).toString()
-      const j = (i.length > 3) ? i.length % 3 : 0
-
-      return negativeSign + (j ? i.substr(0, j) + thousands : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, '$1' + thousands) + (decimalCount ? decimal + Math.abs(amount - i).toFixed(decimalCount).slice(2) : '')
-    } catch (e) {
-      console.log(e)
-    }
-  }
-  // end of code i copied
   bot.database.Userdata.findOne({ userID: message.author.id }, (err, userdata) => {
     if (err) bot.log('error', err)
     if (userdata) {
@@ -58,9 +41,9 @@ exports.run = async (bot, message) => {
 
       // Money Display On Image
       const uMoney = userdata.money.catmoney
-      ctx.font = applyText(canvas, 60, `Cat Money\n\n$${formatMoney(uMoney)}`)
+      ctx.font = applyText(canvas, 60, `Cat Money\n\n$${bot.functions.formatMoney(uMoney)}`)
       ctx.fillStyle = '#ffffff'
-      ctx.fillText(`Cat Money\n\n$${formatMoney(uMoney)}`, 30, 260)
+      ctx.fillText(`Cat Money\n\n$${bot.functions.formatMoney(uMoney)}`, 30, 260)
 
       // work in progress text
       ctx.font = applyText(canvas, 30, 'This is still a work in progress')

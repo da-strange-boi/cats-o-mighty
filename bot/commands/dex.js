@@ -34,11 +34,6 @@ exports.run = async (bot, message, args) => {
         const tSquirtlett = totalCats.squirtlett; const tCursedcat = totalCats.cursedcat; const tUWU = totalCats.uwu; const tTom = totalCats.tom; const tDemoncat = totalCats.demoncat; const tBongocat = totalCats.bongocat; const tGrumpycat = totalCats.grumpycat
         const tGhostcat = totalCats.ghostcat
 
-        // Function To Make The First Letter Of A Word Capitalized
-        const cap = (string) => {
-          return string.charAt(0).toUpperCase() + string.slice(1)
-        }
-
         // Function To Display The Dex For The Cat
         /**
          * Display the embed of the cat
@@ -51,7 +46,7 @@ exports.run = async (bot, message, args) => {
         const displayCatDex = (catName, sellAmount, totalCat, url, sidenote) => {
           if (catInfo === `${catName}`) {
             const dexHelp = new Discord.RichEmbed()
-              .setTitle(`${cap(catName)}`)
+              .setTitle(`${bot.functions.cap(catName)}`)
               .setColor(bot.config.color.tanish)
               .setImage(`${url}`)
             if (sidenote) {
@@ -127,7 +122,7 @@ exports.run = async (bot, message, args) => {
 
         // ------seasonal------
 
-        displayCatDex('ghostcat', "Can't sell", tGhostcat, 'https://i.imgur.com/qlbLgWj.jpg', '*Halloween of 2019*')
+        displayCatDex('ghostcat', 'Can\'t sell', tGhostcat, 'https://i.imgur.com/qlbLgWj.jpg', '*Halloween of 2019*')
 
         if (ifcat === 0) { message.channel.send('check `cat help dex` for how to use the command') }
       }

@@ -28,7 +28,7 @@ exports.run = (bot, message) => {
       }
     }
 
-  });
+  })
 
   guildCol.findOne({ guildID: message.guild.id }, (err, guildSettings) => {
     if (err) bot.log('error', err)

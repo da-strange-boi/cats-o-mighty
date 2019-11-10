@@ -3,7 +3,7 @@ const Discord = require('discord.js')
 exports.run = async (bot, guild) => {
   const catsomightyGuild = bot.guilds.find(search => search.id === process.env.COM_GUILD_ID)
   const logChannelInGuild = catsomightyGuild.channels.find(search => search.name === 'bot-server-data')
-  if (!logChannelInGuild) return console.log("Can't find incidents channel.")
+  if (!logChannelInGuild) return console.log('Can\'t find incidents channel.')
 
   const date = new Date()
   const guildDeleteEmbed = new Discord.RichEmbed()

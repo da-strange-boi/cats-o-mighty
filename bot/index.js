@@ -60,6 +60,7 @@ setTimeout(() => {
 bot.log = require('./lib/logging')
 bot.config = require('./config')
 bot.getDate = require('./lib/getDate')
+bot.functions = require('./lib/functions')
 bot.getCmd = require('./handlers/getCommands')
 require('./handlers/commandHandler')(bot)
 bot.commands = new Discord.Collection()

@@ -2,10 +2,7 @@ const Discord = require('discord.js')
 const ms = require('parse-ms')
 const cooldown = {}
 
-// const MongoClient = require('mongodb').MongoClient;
-// const url = 'mongodb://localhost:27017';
-
-exports.run = async (bot, message, args) => {
+exports.run = async (bot, message) => {
   // {USAGE} cat money
 
   // Set A Cooldown
@@ -19,29 +16,11 @@ exports.run = async (bot, message, args) => {
   bot.database.Userdata.findOne({ userID: message.author.id }, (err, userdata) => {
     if (err) bot.log('error', err)
     if (userdata) {
-      // https://stackoverflow.com/questions/149055/how-can-i-format-numbers-as-dollars-currency-string-in-javascript
-      const formatMoney = (amount, decimalCount = 0, decimal = '.', thousands = ',') => {
-        try {
-          decimalCount = Math.abs(decimalCount)
-          decimalCount = isNaN(decimalCount) ? 2 : decimalCount
-
-          const negativeSign = amount < 0 ? '-' : ''
-
-          const i = parseInt(amount = Math.abs(Number(amount) || 0).toFixed(decimalCount)).toString()
-          const j = (i.length > 3) ? i.length % 3 : 0
-
-          return negativeSign + (j ? i.substr(0, j) + thousands : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, '$1' + thousands) + (decimalCount ? decimal + Math.abs(amount - i).toFixed(decimalCount).slice(2) : '')
-        } catch (e) {
-          console.log(e)
-        }
-      }
-      // end of code i copied
-
       const uMoney = userdata.money.catmoney
       const moneyEmbed = new Discord.RichEmbed()
         .setAuthor(message.author.username, message.author.avatarURL)
         .setColor(bot.config.color.blue)
-        .setDescription(`You have **$${formatMoney(uMoney)}**`)
+        .setDescription(`You have **$${bot.functions.formatMoney(uMoney)}**`)
       message.channel.send(moneyEmbed)
     }
   })
