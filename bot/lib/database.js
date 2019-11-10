@@ -1,17 +1,31 @@
-// const mongoose = require('mongoose')
-// mongoose.connect('mongodb://localhost:27017/cats-o-mighty', {
-//   useNewUrlParser: true,
-//   useFindAndModify: false,
-//   useUnifiedTopology: true
-// })
-// const data = require('../moduls/userdata.js')
-// const log = require('../moduls/logs.js')
-// const guildsettings = require('../moduls/guildsettings.js')
-// const total = require('../moduls/totals.js')
+const assert = require("assert")
+const client = require("mongodb").MongoClient
+const config = require("../config.json")
 
-// module.exports = {
-//   Userdata: data,
-//   Logs: log,
-//   Guildsettings: guildsettings,
-//   Totals: total
-// }
+let _db;
+
+function initDb(callback) {
+  if (_db) {
+    console.warn("trying to init DB again!")
+    return callback(null, _db)
+  }
+  client.connect(config.db.connectionString, config.db.connectionOptions, connected)
+
+  function connected(err, db) {
+    if (err) {
+      return callback(err)
+    }
+    _db = db
+    return callback(null, _db)
+  }
+}
+
+function getDb() {
+  assert.ok(_db, "Db has not been initialized. Please called init first.")
+  return _db
+}
+
+module.exports = {
+  getDb,
+  initDb
+}

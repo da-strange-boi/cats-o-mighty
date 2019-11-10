@@ -40,10 +40,25 @@ const bot = new Discord.Client({
 })
 require('dotenv/config')
 
+// database connection
+const { initDb, getDb } = require("./lib/database.js")
+initDb((err) => {
+  if (err) throw err
+})
+setTimeout(() => {
+  const client = getDb()
+  const dbObject = {
+    db: client,
+    Userdata: client.db('cats-o-mighty').collection('userdatas'),
+    Totallist: client.db('cats-o-mighty').collection('totallists'),
+    Guildsettings: client.db('cats-o-mighty').collection('guildsettings')
+  }
+  bot.database = dbObject
+}, 3000)
+
 // adding onto the bot variable
 bot.log = require('./lib/logging')
 bot.config = require('./config')
-// bot.database = require('./lib/database')
 bot.getDate = require('./lib/getDate')
 bot.getCmd = require('./handlers/getCommands')
 require('./handlers/commandHandler')(bot)

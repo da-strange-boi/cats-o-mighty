@@ -1,5 +1,5 @@
 const Discord = require('discord.js')
-exports.run = async (bot, message, args) => {
+exports.run = async (bot, message) => {
   // {USAGE} cat supportserver
 
   const supportserverEmbed = new Discord.RichEmbed()

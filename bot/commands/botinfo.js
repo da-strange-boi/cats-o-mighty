@@ -1,5 +1,5 @@
 const Discord = require('discord.js')
-exports.run = async (bot, message, args) => {
+exports.run = async (bot, message) => {
   const msToTime = (ms) => {
     const days = Math.floor((ms / 86400000)) // 1 Day = 86400000 Milliseconds
     const hours = Math.floor((ms % 86400000) / 3600000) // 1 Hour = 3600000 Milliseconds

@@ -27,6 +27,7 @@ exports.run = async (bot, message, args) => {
 
   setTimeout(() => {
     bot.log('offline', 'shutdown')
+    bot.database.db.close()
     bot.destroy()
   }, 5000)
 }

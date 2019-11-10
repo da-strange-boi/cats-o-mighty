@@ -2,7 +2,7 @@ const superagent = require('superagent')
 const Discord = require('discord.js')
 const ms = require('parse-ms')
 const cooldown = {}
-exports.run = async (bot, message, args) => {
+exports.run = async (bot, message) => {
   // Set A Cooldown
   if (cooldown[message.author.id] && (Date.now() - cooldown[message.author.id]) > 0) {
     const time = ms(Date.now() - cooldown[message.author.id])

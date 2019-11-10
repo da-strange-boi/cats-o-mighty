@@ -3,9 +3,6 @@ const ms = require('parse-ms')
 const Canvas = require('canvas')
 const cooldown = {}
 
-const MongoClient = require('mongodb').MongoClient;
-const url = 'mongodb://localhost:27017';
-
 // A Simple Function To Format Text Properly
 const applyText = (canvas, size, text) => {
   const ctx = canvas.getContext('2d')
@@ -16,7 +13,7 @@ const applyText = (canvas, size, text) => {
   return ctx.font
 }
 
-exports.run = async (bot, message, args) => {
+exports.run = async (bot, message) => {
   // {USAGE} cat profile
 
   // Set A Cooldown
@@ -49,38 +46,33 @@ exports.run = async (bot, message, args) => {
     }
   }
   // end of code i copied
+  bot.database.Userdata.findOne({ userID: message.author.id }, (err, userdata) => {
+    if (err) bot.log('error', err)
+    if (userdata) {
+      ctx.drawImage(background, 0, 0, canvas.width, canvas.height)
 
-  // bot.database.Userdata.findOne({ userID: message.author.id }, (err, userdata) => {
-  MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
-    const userCol = client.db('cats-o-mighty').collection('userdatas')
-    userCol.findOne({ userID: message.author.id }, (err, userdata) => {
-      if (err) bot.log('error', err)
-      if (userdata) {
-        ctx.drawImage(background, 0, 0, canvas.width, canvas.height)
+      // Username & tag text on image
+      ctx.font = applyText(canvas, 1000, message.author.tag)
+      ctx.fillStyle = '#ffffff'
+      ctx.fillText(message.author.tag, 50, 70)
 
-        // Username & tag text on image
-        ctx.font = applyText(canvas, 1000, message.author.tag)
-        ctx.fillStyle = '#ffffff'
-        ctx.fillText(message.author.tag, 50, 70)
+      // Money Display On Image
+      const uMoney = userdata.money.catmoney
+      ctx.font = applyText(canvas, 60, `Cat Money\n\n$${formatMoney(uMoney)}`)
+      ctx.fillStyle = '#ffffff'
+      ctx.fillText(`Cat Money\n\n$${formatMoney(uMoney)}`, 30, 260)
 
-        // Money Display On Image
-        const uMoney = userdata.money.catmoney
-        ctx.font = applyText(canvas, 60, `Cat Money\n\n$${formatMoney(uMoney)}`)
-        ctx.fillStyle = '#ffffff'
-        ctx.fillText(`Cat Money\n\n$${formatMoney(uMoney)}`, 30, 260)
+      // work in progress text
+      ctx.font = applyText(canvas, 30, 'This is still a work in progress')
+      ctx.fillStyle = '#5E5E5E'
+      ctx.fillText('This is still a work in progress', 500, 450)
 
-        // work in progress text
-        ctx.font = applyText(canvas, 30, 'This is still a work in progress')
-        ctx.fillStyle = '#5E5E5E'
-        ctx.fillText('This is still a work in progress', 500, 450)
-
-        // Make a curile cutout for avater image
-        ctx.beginPath()
-        ctx.arc(407.7, 200, 100, 0, Math.PI * 2, true)
-        ctx.closePath()
-        ctx.clip()
-      }
-    })
+      // Make a curile cutout for avater image
+      ctx.beginPath()
+      ctx.arc(407.7, 200, 100, 0, Math.PI * 2, true)
+      ctx.closePath()
+      ctx.clip()
+    }
   })
 
   let avatar

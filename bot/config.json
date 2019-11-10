@@ -1,5 +1,9 @@
 {
   "prefix": "cat",
+  "db": {
+    "connectionString": "mongodb://localhost:27017",
+    "connectionOptions": { "useUnifiedTopology": true }
+  },
   "color": {
     "white": "#FFFFFF",
     "red": "#FF0000",

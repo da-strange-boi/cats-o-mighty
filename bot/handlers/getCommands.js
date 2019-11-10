@@ -1,4 +1,4 @@
-function cmdRun (bot, message, cmd, args) {
+function cmdRun (bot, message, cmd) {
   if (bot.commands.has(cmd)) return bot.commands.get(cmd)
   else if (bot.aliases.has(cmd)) return bot.commands.get(bot.aliases.get(cmd))
   else {
