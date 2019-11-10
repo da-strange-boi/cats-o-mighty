@@ -126,7 +126,7 @@ exports.run = async (bot, message) => {
                 const result = Math.floor(Math.random() * animals.length)
 
                 // Add Cat To Their Collection
-                let updatedNum = userdata.cats[animals[result]].amount + 1;
+                let updatedNum = userdata.cats[animals[result]].amount + 1
                 let updatedCat = `cats.${animals[result]}.amount`
                 let totalCat = `cats.${animals[result]}`
                 userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[updatedCat]: updatedNum}})
@@ -168,7 +168,7 @@ exports.run = async (bot, message) => {
                 ]
                 const result = Math.floor(Math.random() * animals.length)
 
-                let updatedNum = userdata.cats[animals[result]].amount + 1;
+                let updatedNum = userdata.cats[animals[result]].amount + 1
                 let updatedCat = `cats.${animals[result]}.amount`
                 let totalCat = `cats.${animals[result]}`
                 userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[updatedCat]: updatedNum}})
@@ -210,7 +210,7 @@ exports.run = async (bot, message) => {
                 ]
                 const result = Math.floor(Math.random() * animals.length)
 
-                let updatedNum = userdata.cats[animals[result]].amount + 1;
+                let updatedNum = userdata.cats[animals[result]].amount + 1
                 let updatedCat = `cats.${animals[result]}.amount`
                 let totalCat = `cats.${animals[result]}`
                 userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[updatedCat]: updatedNum}})
@@ -242,7 +242,7 @@ exports.run = async (bot, message) => {
                 ]
                 const result = Math.floor(Math.random() * animals.length)
 
-                let updatedNum = userdata.cats[animals[result]].amount + 1;
+                let updatedNum = userdata.cats[animals[result]].amount + 1
                 let updatedCat = `cats.${animals[result]}.amount`
                 let totalCat = `cats.${animals[result]}`
                 userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[updatedCat]: updatedNum}})
@@ -265,7 +265,7 @@ exports.run = async (bot, message) => {
                 ]
                 const result = Math.floor(Math.random() * animals.length)
 
-                let updatedNum = userdata.cats[animals[result]].amount + 1;
+                let updatedNum = userdata.cats[animals[result]].amount + 1
                 let updatedCat = `cats.${animals[result]}.amount`
                 let totalCat = `cats.${animals[result]}`
                 userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[updatedCat]: updatedNum}})
