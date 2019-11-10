@@ -41,7 +41,7 @@ const bot = new Discord.Client({
 require('dotenv/config')
 
 // database connection
-const { initDb, getDb } = require("./lib/database.js")
+const { initDb, getDb } = require('./lib/database.js')
 initDb((err) => {
   if (err) throw err
 })

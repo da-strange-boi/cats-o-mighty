@@ -18,7 +18,6 @@
     "semi": ["error", "never"],
     "no-var": ["error"],
     "eqeqeq": ["error", "smart"],
-    "no-magic-numbers": ["warn", {"enforceConst": true}],
     "yoda": ["error", "never", { "exceptRange": true }]
   }
 }
