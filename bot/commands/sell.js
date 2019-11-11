@@ -107,12 +107,7 @@ exports.run = async (bot, message, args) => {
           // Convert The Cats Numbers Into Money
 
           const userMoney = userdata.money.catmoney
-          userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'money.catmoney': userMoney + (commonCatTotal * 25)}})
-          userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'money.catmoney': userMoney + (uncommonCatTotal * 55)}})
-          userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'money.catmoney': userMoney + (rareCatTotal * 200)}})
-          userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'money.catmoney': userMoney + (specialCatTotal * 2500)}})
-          userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'money.catmoney': userMoney + (impossibleCatTotal * 10000)}})
-
+          userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'money.catmoney': (userMoney + (commonCatTotal * 25) + (uncommonCatTotal * 55) + (rareCatTotal * 200) + (specialCatTotal * 2500) + impossibleCatTotal * 10000)}})
           userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.siamese.amount': 0,'cats.burmese.amount': 0,'cats.ragdoll.amount': 0, 'cats.persian.amount': 0,'cats.mainecoon.amount': 0,'cats.russianblue.amount': 0,'cats.calico.amount': 0,'cats.tabby.amount': 0,'cats.abyssinian.amount': 0,'cats.manx.amount': 0,'cats.sphynx.amount': 0, 'cats.cyprus.amount': 0,'cats.foldex.amount': 0,'cats.turkishangora.amount': 0,'cats.norwegianforest.amount': 0,'cats.devonrex.amount': 0,'cats.korat.amount': 0,'cats.singapura.amount': 0,'cats.tonkinese.amount': 0, 'cats.peterbald.amount': 0,'cats.chartreux.amount': 0,'cats.munchkin.amount': 0,'cats.britishshorthair.amount': 0,'cats.ojosazules.amount': 0,'cats.bandit.amount': 0,'cats.bug.amount': 0,'cats.linda.amount': 0, 'cats.mittens.amount': 0,'cats.cash.amount': 0,'cats.jackson.amount': 0,'cats.cottonball.amount': 0,'cats.sonny.amount': 0,'cats.smokey.amount': 0,'cats.lailah.amount': 0,'cats.cher.amount': 0,'cats.marvin.amount': 0,'cats.loki.amount': 0,'cats.loverboy.amount': 0,'cats.killerclaws.amount': 0,'cats.squirtlett.amount': 0,'cats.cursedcat.amount': 0,'cats.uwu.amount': 0, 'cats.tom.amount': 0,'cats.demoncat.amount': 0,'cats.bongocat.amount': 0,'cats.grumpycat.amount': 0}})
           
           const catTotal = commonCatTotal + uncommonCatTotal + rareCatTotal + specialCatTotal + impossibleCatTotal
@@ -132,7 +127,7 @@ exports.run = async (bot, message, args) => {
               .setAuthor(message.author.username, message.author.avatarURL)
               .setColor(bot.config.color.red)
               .setDescription('you don\'t own any common cats to sell')
-              return message.channel.send(noCommonCats)
+            return message.channel.send(noCommonCats)
           }
           // Convert The Cats Numbers Into Money
           userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'money.catmoney': userdata.money.catmoney + (commonCatTotal * 25)}})

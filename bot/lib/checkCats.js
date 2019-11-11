@@ -26,6 +26,10 @@ exports.run = (bot, message) => {
       if (userData.cats[newCatList[i]] === undefined) {
         userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[catDbname]: {amount: 0, totalGot: 0, discovered: false}}})
       }
+      if (!isNaN(userData.cats[newCatList[i]])) {
+        let catDbname = `cats.${newCatList[i]}`
+        userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[catDbname]: {amount: userData.cats[newCatList[i]], totalGot: 0, discovered: false}}})
+      }
     }
 
   })

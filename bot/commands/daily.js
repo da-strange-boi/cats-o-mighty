@@ -81,7 +81,7 @@ exports.run = async (bot, message) => {
 
         if (specialCatAmt === specialBaseAmt) {
           //* Check To See What Cat It Is Then Add It To Their Cats
-          const catDbName = `cats.${animals[aResult]}`
+          const catDbName = `cats.${animals[aResult]}.amount`
           userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[catDbName]: userdata.cats[animals[aResult]].amount + 1}})
 
           displayEmbed(undefined, userdata.stats.dailyStreak, animals[aResult])

@@ -38,8 +38,7 @@ exports.run = async (bot, message, args) => {
             const commonCatAmt = Math.floor(Math.random() * 13) + 1
             const commonCatBase = Math.floor(Math.random() * 13) + 1
             if (commonCatAmt === commonCatBase) {
-              // userdata.cats[animalList[i]] += 1
-              const catDbName = `cats.${animalList[i]}`
+              const catDbName = `cats.${animalList[i]}.amount`
               userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[catDbName]: userdata.cats[animalList[i]].amount + 1}})
               const feedSucc = new Discord.RichEmbed()
                 .setTitle('ooo look at that!')
@@ -58,7 +57,7 @@ exports.run = async (bot, message, args) => {
             const uncommonCatAmt = Math.floor(Math.random() * 40) + 1
             const uncommonCatBase = Math.floor(Math.random() * 40) + 1
             if (uncommonCatAmt === uncommonCatBase) {
-              const catDbName = `cats.${animalList[i]}`
+              const catDbName = `cats.${animalList[i]}.amount`
               userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[catDbName]: userdata.cats[animalList[i]].amount + 1}})
               const feedSucc = new Discord.RichEmbed()
                 .setTitle('ooo look at that!')
@@ -78,7 +77,7 @@ exports.run = async (bot, message, args) => {
             const rareCatAmt = Math.floor(Math.random() * 73) + 1
             const rareCatBase = Math.floor(Math.random() * 73) + 1
             if (rareCatAmt === rareCatBase) {
-              const catDbName = `cats.${animalList[i]}`
+              const catDbName = `cats.${animalList[i]}.amount`
               userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[catDbName]: userdata.cats[animalList[i]].amount + 1}})
               const feedSucc = new Discord.RichEmbed()
                 .setTitle('ooo look at that!')
@@ -98,7 +97,7 @@ exports.run = async (bot, message, args) => {
             const specialCatAmt = Math.floor(Math.random() * 185) + 1
             const specialCatBase = Math.floor(Math.random() * 185) + 1
             if (specialCatAmt === specialCatBase) {
-              const catDbName = `cats.${animalList[i]}`
+              const catDbName = `cats.${animalList[i]}.amount`
               userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[catDbName]: userdata.cats[animalList[i]].amount + 1}})
               const feedSucc = new Discord.RichEmbed()
                 .setTitle('ooo look at that!')
@@ -118,7 +117,7 @@ exports.run = async (bot, message, args) => {
             const impossibleCatAmt = Math.floor(Math.random() * 370) + 1
             const impossibleCatBase = Math.floor(Math.random() * 370) + 1
             if (impossibleCatAmt === impossibleCatBase) {
-              const catDbName = `cats.${animalList[i]}`
+              const catDbName = `cats.${animalList[i]}.amount`
               userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[catDbName]: userdata.cats[animalList[i]].amount + 1}})
               const feedSucc = new Discord.RichEmbed()
                 .setTitle('ooo look at that!')
