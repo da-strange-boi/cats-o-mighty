@@ -7,21 +7,21 @@ exports.run = async (bot, message, args) => {
   bot.database.Userdata.findOne({ userID: message.author.id }, async (err, userdata) => {
     // set vars of cat numbers the user has || common, uncommon, rare, special
     const userCats = userdata.cats
-    const uSiamese = userCats.siamese.amount; const uBurmese = userCats.burmese.amount; const uRagdoll = userCats.ragdoll.amount; const uPersian = userCats.persian.amount; const uMaineCoon = userCats.mainecoon.amount; const uRussianBlue = userCats.russianblue.amount; const uCalico = userCats.calico.amount; const uTabby = userCats.tabby.amount
-    const uAbyssinian = userCats.abyssinian.amount; const uManx = userCats.manx.amount; const uSphynx = userCats.sphynx.amount; const uCyprus = userCats.cyprus.amount; const uFoldex = userCats.foldex.amount; const uTurkishAngora = userCats.turkishangora.amount; const uNorwegianForest = userCats.norwegianforest.amount; const uDevonrex = userCats.devonrex.amount
-    const uKorat = userCats.korat.amount; const uSingapura = userCats.singapura.amount; const uTonkinese = userCats.tonkinese.amount; const uPeterbald = userCats.peterbald.amount; const uChartreux = userCats.chartreux.amount; const uMunchkin = userCats.munchkin.amount; const uBritishShorthair = userCats.britishshorthair.amount; const uOjosazules = userCats.ojosazules.amount
-    const uBandit = userCats.bandit.amount; const uBug = userCats.bug.amount; const uLinda = userCats.linda.amount; const uMittens = userCats.mittens.amount; const uCash = userCats.cash.amount; const uJackson = userCats.jackson.amount; const uCottonball = userCats.cottonball.amount; const uSonny = userCats.sonny.amount; const uSmokey = userCats.smokey.amount; const uLailah = userCats.lailah.amount; const uCher = userCats.cher.amount; const uMarvin = userCats.marvin.amount; const uLoki = userCats.loki.amount; const uLoverboy = userCats.loverboy.amount; const uKillerClaws = userCats.killerclaws.amount
-    const uSquirtlett = userCats.squirtlett.amount; const uCursedcat = userCats.cursedcat.amount; const uUWU = userCats.uwu.amount; const uTom = userCats.tom.amount; const uDemoncat = userCats.demoncat.amount; const uBongocat = userCats.bongocat.amount; const uGrumpycat = userCats.grumpycat.amount
-    const uGhostcat = userCats.ghostcat.amount
+    const uSiamese = userCats.siamese; const uBurmese = userCats.burmese; const uRagdoll = userCats.ragdoll; const uPersian = userCats.persian; const uMaineCoon = userCats.mainecoon; const uRussianBlue = userCats.russianblue; const uCalico = userCats.calico; const uTabby = userCats.tabby
+    const uAbyssinian = userCats.abyssinian; const uManx = userCats.manx; const uSphynx = userCats.sphynx; const uCyprus = userCats.cyprus; const uFoldex = userCats.foldex; const uTurkishAngora = userCats.turkishangora; const uNorwegianForest = userCats.norwegianforest; const uDevonrex = userCats.devonrex
+    const uKorat = userCats.korat; const uSingapura = userCats.singapura; const uTonkinese = userCats.tonkinese; const uPeterbald = userCats.peterbald; const uChartreux = userCats.chartreux; const uMunchkin = userCats.munchkin; const uBritishShorthair = userCats.britishshorthair; const uOjosazules = userCats.ojosazules
+    const uBandit = userCats.bandit; const uBug = userCats.bug; const uLinda = userCats.linda; const uMittens = userCats.mittens; const uCash = userCats.cash; const uJackson = userCats.jackson; const uCottonball = userCats.cottonball; const uSonny = userCats.sonny; const uSmokey = userCats.smokey; const uLailah = userCats.lailah; const uCher = userCats.cher; const uMarvin = userCats.marvin; const uLoki = userCats.loki; const uLoverboy = userCats.loverboy; const uKillerClaws = userCats.killerclaws
+    const uSquirtlett = userCats.squirtlett; const uCursedcat = userCats.cursedcat; const uUWU = userCats.uwu; const uTom = userCats.tom; const uDemoncat = userCats.demoncat; const uBongocat = userCats.bongocat; const uGrumpycat = userCats.grumpycat
+    const uGhostcat = userCats.ghostcat
 
     // check if user has that rank of cat and assign a var depending if they do or not
     let hasCommonCats; let hasUncommonCats; let hasRareCats; let hasSpecialCats; let hasImpossibleCats; let hasSeasonalCats
-    if (uSiamese === 0 && uBurmese === 0 && uRagdoll === 0 && uPersian === 0 && uMaineCoon === 0 && uRussianBlue === 0 && uCalico === 0 && uTabby === 0) { hasCommonCats = false } else { hasCommonCats = true }
-    if (uAbyssinian === 0 && uManx === 0 && uSphynx === 0 && uCyprus === 0 && uFoldex === 0 && uTurkishAngora === 0 && uNorwegianForest === 0 && uDevonrex === 0) { hasUncommonCats = false } else { hasUncommonCats = true }
-    if (uKorat === 0 && uSingapura === 0 && uTonkinese === 0 && uPeterbald === 0 && uChartreux === 0 && uMunchkin === 0 && uBritishShorthair === 0 && uOjosazules === 0) { hasRareCats = false } else { hasRareCats = true }
-    if (uBandit === 0 && uBug === 0 && uLinda === 0 && uMittens === 0 && uCash === 0 && uJackson === 0 && uCottonball === 0 && uSonny === 0 && uSmokey === 0 && uLailah === 0 && uCher === 0 && uMarvin === 0 && uLoki === 0 && uLoverboy === 0 && uKillerClaws === 0) { hasSpecialCats = false } else { hasSpecialCats = true }
-    if (uSquirtlett === 0 && uCursedcat === 0 && uUWU === 0 && uTom === 0 && uDemoncat === 0 && uBongocat === 0 && uGrumpycat === 0) { hasImpossibleCats = false } else { hasImpossibleCats = true }
-    if (uGhostcat === 0) { hasSeasonalCats = false } else { hasSeasonalCats = true }
+    if (uSiamese.amount === 0 && uBurmese.amount === 0 && uRagdoll.amount === 0 && uPersian.amount === 0 && uMaineCoon.amount === 0 && uRussianBlue.amount === 0 && uCalico.amount === 0 && uTabby.amount === 0) { hasCommonCats = false } else { hasCommonCats = true }
+    if (uAbyssinian.amount === 0 && uManx.amount === 0 && uSphynx.amount === 0 && uCyprus.amount === 0 && uFoldex.amount === 0 && uTurkishAngora.amount === 0 && uNorwegianForest.amount === 0 && uDevonrex.amount === 0) { hasUncommonCats = false } else { hasUncommonCats = true }
+    if (uKorat.amount === 0 && uSingapura.amount === 0 && uTonkinese.amount === 0 && uPeterbald.amount === 0 && uChartreux.amount === 0 && uMunchkin.amount === 0 && uBritishShorthair.amount === 0 && uOjosazules.amount === 0) { hasRareCats = false } else { hasRareCats = true }
+    if (uBandit.amount === 0 && uBug.amount === 0 && uLinda.amount === 0 && uMittens.amount === 0 && uCash.amount === 0 && uJackson.amount === 0 && uCottonball.amount === 0 && uSonny.amount === 0 && uSmokey.amount === 0 && uLailah.amount === 0 && uCher.amount === 0 && uMarvin.amount === 0 && uLoki.amount === 0 && uLoverboy.amount === 0 && uKillerClaws.amount === 0) { hasSpecialCats = false } else { hasSpecialCats = true }
+    if (uSquirtlett.amount === 0 && uCursedcat.amount === 0 && uUWU.amount === 0 && uTom.amount === 0 && uDemoncat.amount === 0 && uBongocat.amount === 0 && uGrumpycat.amount === 0) { hasImpossibleCats = false } else { hasImpossibleCats = true }
+    if (uGhostcat.amount === 0) { hasSeasonalCats = false } else { hasSeasonalCats = true }
 
     // If User Owns No Common Cats (no cats) Tell Them
     if (hasCommonCats === false && hasUncommonCats === false && hasRareCats === false && hasSpecialCats === false && hasImpossibleCats === false && hasSeasonalCats === false) {
@@ -29,6 +29,14 @@ exports.run = async (bot, message, args) => {
         .setColor(bot.config.color.red)
         .setDescription(`Sorry **${message.author.username}** you dont have any cats`)
       return message.channel.send(noCatsEmbed)
+    }
+
+    const catProcess = (catObject, catName) => {
+      if (catObject.discovered === false) {
+        return catName.replace(/[a-zA-Z ]/g, '?')
+      } else {
+        return `${bot.functions.cap(catName)}: **\`${catObject.amount}\`**`
+      }
     }
 
     // {USAGE} cat collection
@@ -46,25 +54,26 @@ exports.run = async (bot, message, args) => {
         .setAuthor(message.author.username + ' cat collection!')
         .setColor(bot.config.color.blue)
 
-      //* See What Categories Of Cats The User Has Then Add Them
+      // See What Categories Of Cats The User Has Then Add Them
       if (hasCommonCats === true) {
-        catsEmbed.addField(':heart: Common :heart:', `Siamese: ${uSiamese}\nBurmese: ${uBurmese}\nRagdoll: ${uRagdoll}\nPersian: ${uPersian}\nMaine Coon: ${uMaineCoon}\nRussian Blue: ${uRussianBlue}\nCalico: ${uCalico}\nTabby: ${uTabby}`, true)
+        catsEmbed.addField(':heart: Common :heart:', `${catProcess(uSiamese, 'siamese')}\n${catProcess(uBurmese, 'burmese')}\n${catProcess(uRagdoll, 'ragdoll')}\n${catProcess(uPersian, 'persian')}\n${catProcess(uMaineCoon, 'maine Coon')}\n${catProcess(uRussianBlue, 'russian Blue')}\n${catProcess(uCalico, 'calico')}\n${catProcess(uTabby, 'tabby')}`, true)
       }
       if (hasUncommonCats === true) {
-        catsEmbed.addField(':blue_heart: Uncommon :blue_heart:', `Abyssinian: ${uAbyssinian}\nManx: ${uManx}\nSphynx: ${uSphynx}\nCyprus: ${uCyprus}\nFoldex: ${uFoldex}\nTurkish Angora: ${uTurkishAngora}\nNorwegian Forest: ${uNorwegianForest}\nDevon Rex: ${uDevonrex}`, true)
+        catsEmbed.addField(':blue_heart: Uncommon :blue_heart:', `${catProcess(uAbyssinian, 'abyssinian')}\n${catProcess(uManx, 'manx')}\n${catProcess(uSphynx, 'sphynx')}\n${catProcess(uCyprus, 'cyprus')}\n${catProcess(uFoldex, 'foldex')}\n${catProcess(uTurkishAngora, 'turkish Angora')}\n${catProcess(uNorwegianForest, 'norwegian Forest')}\n${catProcess(uDevonrex, 'devon Rex')}`, true)
       }
       if (hasRareCats === true) {
-        catsEmbed.addField(':yellow_heart: Rare :yellow_heart:', `Korat: ${uKorat}\nSingapura: ${uSingapura}\nTonkinese: ${uTonkinese}\nPeterbald: ${uPeterbald}\nChartreux: ${uChartreux}\nMunchkin: ${uMunchkin}\nBritish Shorthair: ${uBritishShorthair}\nOjos Azules: ${uOjosazules}`, true)
+        catsEmbed.addField(':yellow_heart: Rare :yellow_heart:', `${catProcess(uKorat, 'korat')}\n${catProcess(uSingapura, 'singapura')}\n${catProcess(uTonkinese, 'tonkinese')}\n${catProcess(uPeterbald, 'peterbald')}\n${catProcess(uChartreux, 'chartreux')}\n${catProcess(uMunchkin, 'munchkin')}\n${catProcess(uBritishShorthair, 'british Shorthair')}\n${catProcess(uOjosazules, 'ojos Azules')}`, true)
       }
       if (hasSpecialCats === true) {
-        catsEmbed.addField(':sparkling_heart: Special :sparkling_heart:', `Smokey: ${uSmokey}\nBandit: ${uBandit}\nBug: ${uBug}\nLinda: ${uLinda}\nMittens: ${uMittens}\nCash: ${uCash}\nJackson: ${uJackson}\nCottonball: ${uCottonball}\nSonny: ${uSonny}\nLailah: ${uLailah}\nCher: ${uCher}\nMarvin: ${uMarvin}\nLoki: ${uLoki}\nLoverboy: ${uLoverboy}\nKiller Claws: ${uKillerClaws}`, true)
+        catsEmbed.addField(':sparkling_heart: Special :sparkling_heart:', `${catProcess(uSmokey, 'smokey')}\n${catProcess(uBandit, 'bandit')}\n${catProcess(uBug, 'bug')}\n${catProcess(uLinda, 'linda')}\n${catProcess(uMittens, 'mittens')}\n${catProcess(uCash, 'cash')}\n${catProcess(uJackson, 'jackson')}\n${catProcess(uCottonball, 'cottonball')}\n${catProcess(uSonny, 'sonny')}\n${catProcess(uLailah, 'lailah')}\n${catProcess(uCher, 'cher')}\n${catProcess(uMarvin, 'marvin')}\n${catProcess(uLoki, 'loki')}\n${catProcess(uLoverboy, 'loverboy')}\n${catProcess(uKillerClaws, 'killer Claws')}`, true)
       }
       if (hasImpossibleCats === true) {
-        catsEmbed.addField(':gem: Impossible :gem:', `Squirtlett: ${uSquirtlett}\nCursed Cat: ${uCursedcat}\nUWU: ${uUWU}\nTom: ${uTom}\nDemon Cat: ${uDemoncat}\nBongo Cat: ${uBongocat}\nGrumpy Cat: ${uGrumpycat}`, true)
+        catsEmbed.addField(':gem: Impossible :gem:', `${catProcess(uSquirtlett, 'squirtlett')}\n${catProcess(uCursedcat, 'cursedcat')}\n${catProcess(uUWU, 'uwu')}\n${catProcess(uTom, 'tom')}\n${catProcess(uDemoncat, 'demoncat')}\n${catProcess(uBongocat, 'bongocat')}\n${catProcess(uGrumpycat, 'grumpycat')}`, true)
       }
       if (hasSeasonalCats === true) {
-        catsEmbed.addField(':ghost: Seasonal :ghost:', `Ghost Cat: ${uGhostcat}`)
+        catsEmbed.addField(':ghost: Seasonal :ghost:', `${catProcess(uGhostcat, 'ghostcat')}`)
       }
+
       message.channel.send(catsEmbed)
 
       //* Delete The Cooldown // Resetting It
@@ -73,7 +82,7 @@ exports.run = async (bot, message, args) => {
       }, 30000)
     }
 
-    // {USAGE} cat collection {common|uncommon|rare|special|impossible}
+    // {USAGE} cat collection {common|uncommon|rare|special|impossible|seasonal}
     if (args[0]) {
       const catType = args[0].toLowerCase().trim()
       const allCatType = ['common', 'uncommon', 'rare', 'special', 'impossible', 'seasonal']
@@ -91,22 +100,22 @@ exports.run = async (bot, message, args) => {
             .setAuthor(message.author.username + `'s ${allCatType[i]} cat collection!`)
             .setColor(bot.config.color.blue)
           if (allCatType[i] === 'common') {
-            catsEmbed.addField(':heart: Common :heart:', `Siamese: ${uSiamese}\nBurmese: ${uBurmese}\nRagdoll: ${uRagdoll}\nPersian: ${uPersian}\nMaine Coon: ${uMaineCoon}\nRussian Blue: ${uRussianBlue}\nCalico: ${uCalico}\nTabby: ${uTabby}`, true)
+            catsEmbed.addField(':heart: Common :heart:', `${catProcess(uSiamese, 'siamese')}\n${catProcess(uBurmese, 'burmese')}\n${catProcess(uRagdoll, 'ragdoll')}\n${catProcess(uPersian, 'persian')}\n${catProcess(uMaineCoon, 'maine Coon')}\n${catProcess(uRussianBlue, 'russian Blue')}\n${catProcess(uCalico, 'calico')}\n${catProcess(uTabby, 'tabby')}`, true)
           }
           if (allCatType[i] === 'uncommon') {
-            catsEmbed.addField(':blue_heart: Uncommon :blue_heart:', `Abyssinian: ${uAbyssinian}\nManx: ${uManx}\nSphynx: ${uSphynx}\nCyprus: ${uCyprus}\nFoldex: ${uFoldex}\nTurkish Angora: ${uTurkishAngora}\nNorwegian Forest: ${uNorwegianForest}\nDevon Rex: ${uDevonrex}`, true)
+            catsEmbed.addField(':blue_heart: Uncommon :blue_heart:', `${catProcess(uAbyssinian, 'abyssinian')}\n${catProcess(uManx, 'manx')}\n${catProcess(uSphynx, 'sphynx')}\n${catProcess(uCyprus, 'cyprus')}\n${catProcess(uFoldex, 'foldex')}\n${catProcess(uTurkishAngora, 'turkish Angora')}\n${catProcess(uNorwegianForest, 'norwegian Forest')}\n${catProcess(uDevonrex, 'devon Rex')}`, true)
           }
           if (allCatType[i] === 'rare') {
-            catsEmbed.addField(':yellow_heart: Rare :yellow_heart:', `Korat: ${uKorat}\nSingapura: ${uSingapura}\nTonkinese: ${uTonkinese}\nPeterbald: ${uPeterbald}\nChartreux: ${uChartreux}\nMunchkin: ${uMunchkin}\nBritish Shorthair: ${uBritishShorthair}\nOjos Azules: ${uOjosazules}`, true)
+            catsEmbed.addField(':yellow_heart: Rare :yellow_heart:', `${catProcess(uKorat, 'korat')}\n${catProcess(uSingapura, 'singapura')}\n${catProcess(uTonkinese, 'tonkinese')}\n${catProcess(uPeterbald, 'peterbald')}\n${catProcess(uChartreux, 'chartreux')}\n${catProcess(uMunchkin, 'munchkin')}\n${catProcess(uBritishShorthair, 'british Shorthair')}\n${catProcess(uOjosazules, 'ojos Azules')}`, true)
           }
           if (allCatType[i] === 'special') {
-            catsEmbed.addField(':sparkling_heart: Special :sparkling_heart:', `Smokey: ${uSmokey}\nBandit: ${uBandit}\nBug: ${uBug}\nLinda: ${uLinda}\nMittens: ${uMittens}\nCash: ${uCash}\nJackson: ${uJackson}\nCottonball: ${uCottonball}\nSonny: ${uSonny}\nLailah: ${uLailah}\nCher: ${uCher}\nMarvin: ${uMarvin}\nLoki: ${uLoki}\nLoverboy: ${uLoverboy}\nKiller Claws: ${uKillerClaws}`, true)
+            catsEmbed.addField(':sparkling_heart: Special :sparkling_heart:', `${catProcess(uSmokey, 'smokey')}\n${catProcess(uBandit, 'bandit')}\n${catProcess(uBug, 'bug')}\n${catProcess(uLinda, 'linda')}\n${catProcess(uMittens, 'mittens')}\n${catProcess(uCash, 'cash')}\n${catProcess(uJackson, 'jackson')}\n${catProcess(uCottonball, 'cottonball')}\n${catProcess(uSonny, 'sonny')}\n${catProcess(uLailah, 'lailah')}\n${catProcess(uCher, 'cher')}\n${catProcess(uMarvin, 'marvin')}\n${catProcess(uLoki, 'loki')}\n${catProcess(uLoverboy, 'loverboy')}\n${catProcess(uKillerClaws, 'killer Claws')}`, true)
           }
           if (allCatType[i] === 'impossible') {
-            catsEmbed.addField(':gem: Impossible :gem:', `Squirtlett: ${uSquirtlett}\nCursed Cat: ${uCursedcat}\nUWU: ${uUWU}\nTom: ${uTom}\nDemon Cat: ${uDemoncat}\nBongo Cat: ${uBongocat}\nGrumpy Cat: ${uGrumpycat}`, true)
+            catsEmbed.addField(':gem: Impossible :gem:', `${catProcess(uSquirtlett, 'squirtlett')}\n${catProcess(uCursedcat, 'cursedcat')}\n${catProcess(uUWU, 'uwu')}\n${catProcess(uTom, 'tom')}\n${catProcess(uDemoncat, 'demoncat')}\n${catProcess(uBongocat, 'bongocat')}\n${catProcess(uGrumpycat, 'grumpycat')}`, true)
           }
           if (allCatType[i] === 'seasonal') {
-            catsEmbed.addField(':ghost: Seasonal :ghost:', `Ghost Cat: ${uGhostcat}`)
+            catsEmbed.addField(':ghost: Seasonal :ghost:', `${catProcess(uGhostcat, 'ghostcat')}`)
           }
           message.channel.send(catsEmbed)
           return
