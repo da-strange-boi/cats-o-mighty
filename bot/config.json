@@ -11,6 +11,14 @@
     "tanish": "#D3FFCE",
     "darkblue": "#98BDF0",
     "lightblue": "#00fff9",
-    "seagreeen": "#006E6E"
+    "seagreeen": "#006E6E",
+    "rarities": {
+      "common": "#78b159",
+      "uncommon": "#5dadec",
+      "rare": "#aa8ed6",
+      "special": "#dd2e44",
+      "impossible": "#fdcb58",
+      "seasonal": "#e6e7e8"
+    }
   }
 }
