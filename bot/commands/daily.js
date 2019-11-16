@@ -63,7 +63,7 @@ exports.run = async (bot, message) => {
       userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[catDbName]: userdata.cats[animals[aResult]].amount + 1}})
 
       userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'money.catmoney': userdata.money.catmoney + 350}})
-      displayEmbed('300', userdata.stats.dailyStreak, animals[aResult], 'Your streak has restarted')
+      displayEmbed('350', userdata.stats.dailyStreak, animals[aResult], 'Your streak has restarted')
     } else {
       userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'times.dailyTime': Date.now()}})
       userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'stats.dailyStreak': 1}})
@@ -89,7 +89,7 @@ exports.run = async (bot, message) => {
           const moneyList = [200, 250, 300, 350, 400, 500, 1000]
           const mResult = Math.floor((Math.random() * moneyList.length))
 
-          userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'money.catmoney': moneyList[mResult]}})
+          userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'money.catmoney': userdata.money.catmoney + moneyList[mResult]}})
 
           displayEmbed(moneyList[mResult], userdata.stats.dailyStreak, catName)
         }
@@ -105,7 +105,7 @@ exports.run = async (bot, message) => {
 
         const moneyList = [800, 1000, 1700, 2000, 15000]
         const mResult = Math.floor((Math.random() * moneyList.length))
-        userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'money.catmoney': moneyList[mResult]}})
+        userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'money.catmoney': userdata.money.catmoney + moneyList[mResult]}})
 
         if (specialCatAmt === specialBaseAmt) {
           // Check To See What Cat It Is Then Add It To Their Cats

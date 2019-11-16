@@ -33,8 +33,8 @@ exports.run = async (bot) => {
       const result = Math.floor((Math.random() * specialCats.length))
 
       // Check To See What Cat Is Randomly Slected Then Add It To Their Cats
-      const catDbName = `cats.${specialCats[result]}`
-      userCol.findOneAndUpdate({ userID: votedUser }, {$set: {[catDbName]: userdata.cats[specialCats[result]] + 1}})
+      const catDbName = `cats.${specialCats[result]}.amount`
+      userCol.findOneAndUpdate({ userID: votedUser }, {$set: {[catDbName]: userdata.cats[specialCats[result]].amount + 1}})
 
       // To send a DM to the user letting them know their rewards for voting
       const votedEmbed = new Discord.RichEmbed()

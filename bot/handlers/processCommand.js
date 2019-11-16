@@ -5,7 +5,6 @@
 const Discord = require('discord.js')
 exports.run = async (bot, message, cmd, args, prefix) => {
 
-  //MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
   const userCol = bot.database.Userdata
   const guildCol = bot.database.Guildsettings
 
@@ -114,7 +113,7 @@ exports.run = async (bot, message, cmd, args, prefix) => {
           const newPersonEmbed = new Discord.RichEmbed()
             .setAuthor(message.author.username, message.author.avatarURL)
             .setColor(bot.config.color.darkblue)
-            .setDescription("hmm it looks like you're a new cat collector!!\nDo `cat start` to start collecting cats")
+            .setDescription('hmm it looks like you\'re a new cat collector!!\nDo `cat start` to start collecting cats')
           return message.channel.send(newPersonEmbed)
         }
       }

@@ -18,7 +18,6 @@ exports.run = async (bot, message, args) => {
   }
   cooldown[message.author.id] = Date.now()
 
-  //MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
   const userCol = bot.database.Userdata
   userCol.findOne({ userID: message.author.id }, (err, userdata) => {
     if (err) bot.log('error', err)
