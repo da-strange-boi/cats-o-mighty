@@ -132,7 +132,7 @@ exports.run = async (bot, message, args) => {
           // Convert The Cats Numbers Into Money
           userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'money.catmoney': userdata.money.catmoney + (commonCatTotal * 25)}})
           userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.siamese.amount': 0,'cats.burmese.amount': 0,'cats.ragdoll.amount': 0, 'cats.persian.amount': 0,'cats.mainecoon.amount': 0,'cats.russianblue.amount': 0,'cats.calico.amount': 0,'cats.tabby.amount': 0}})
-          const sellCommonCatsEmbed = new Discord.RichEmbed().setAuthor(message.author.username, message.author.avatarURL).setColor(bot.config.color.blue).setDescription(`You sold ${commonCatTotal} cats for $${(commonCatTotal * 25)}`)
+          const sellCommonCatsEmbed = new Discord.RichEmbed().setAuthor(message.author.username, message.author.avatarURL).setColor(bot.config.color.rarities.common).setDescription(`You sold ${commonCatTotal} cats for $${(commonCatTotal * 25)}`)
           return message.channel.send(sellCommonCatsEmbed)
 
         } else if (sellOption === 'uncommon' || sellOption === 'uncommoncat' || sellOption === 'uncommons') {
@@ -147,7 +147,7 @@ exports.run = async (bot, message, args) => {
           // Convert The Cats Numbers Into Money
           userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'money.catmoney': userdata.money.catmoney + (uncommonCatTotal * 55)}})
           userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.abyssinian.amount': 0,'cats.manx.amount': 0,'cats.sphynx.amount': 0, 'cats.cyprus.amount': 0,'cats.foldex.amount': 0,'cats.turkishangora.amount': 0,'cats.norwegianforest.amount': 0,'cats.devonrex.amount': 0}})
-          const sellUncommonCatsEmbed = new Discord.RichEmbed().setAuthor(message.author.username, message.author.avatarURL).setColor(bot.config.color.blue).setDescription(`You sold ${uncommonCatTotal} cats for $${(uncommonCatTotal * 55)}`)
+          const sellUncommonCatsEmbed = new Discord.RichEmbed().setAuthor(message.author.username, message.author.avatarURL).setColor(bot.config.color.rarities.uncommon).setDescription(`You sold ${uncommonCatTotal} cats for $${(uncommonCatTotal * 55)}`)
           return message.channel.send(sellUncommonCatsEmbed)
 
         } else if (sellOption === 'rare' || sellOption === 'rarecat' || sellOption === 'rarecats') {
@@ -162,7 +162,7 @@ exports.run = async (bot, message, args) => {
           // Convert The Cats Numbers Into Money
           userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'money.catmoney': userdata.money.catmoney + (uncommonCatTotal * 200)}})
           userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.korat.amount': 0,'cats.singapura.amount': 0,'cats.tonkinese.amount': 0, 'cats.peterbald.amount': 0,'cats.chartreux.amount': 0,'cats.munchkin.amount': 0,'cats.britishshorthair.amount': 0,'cats.ojosazules.amount': 0}})
-          const sellRareCatsEmbed = new Discord.RichEmbed().setAuthor(message.author.username, message.author.avatarURL).setColor(bot.config.color.blue).setDescription(`You sold ${rareCatTotal} cats for $${(rareCatTotal * 200)}`)
+          const sellRareCatsEmbed = new Discord.RichEmbed().setAuthor(message.author.username, message.author.avatarURL).setColor(bot.config.color.rarities.rare).setDescription(`You sold ${rareCatTotal} cats for $${(rareCatTotal * 200)}`)
           return message.channel.send(sellRareCatsEmbed)
 
         } else if (sellOption === 'special' || sellOption === 'specialcat' || sellOption === 'specialcats') {
@@ -177,7 +177,7 @@ exports.run = async (bot, message, args) => {
           // Convert The Cats Numbers Into Money
           userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'money.catmoney': userdata.money.catmoney + (uncommonCatTotal * 2500)}})
           userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.bandit.amount': 0,'cats.bug.amount': 0,'cats.linda.amount': 0, 'cats.mittens.amount': 0,'cats.cash.amount': 0,'cats.jackson.amount': 0,'cats.cottonball.amount': 0,'cats.sonny.amount': 0,'cats.smokey.amount': 0,'cats.lailah.amount': 0,'cats.cher.amount': 0,'cats.marvin.amount': 0,'cats.loki.amount': 0,'cats.loverboy.amount': 0,'cats.killerclaws.amount': 0}})
-          const sellSpecialCatsEmbed = new Discord.RichEmbed().setAuthor(message.author.username, message.author.avatarURL).setColor(bot.config.color.blue).setDescription(`You sold ${specialCatTotal} cats for $${(specialCatTotal * 2500)}`)
+          const sellSpecialCatsEmbed = new Discord.RichEmbed().setAuthor(message.author.username, message.author.avatarURL).setColor(bot.config.color.rarities.special).setDescription(`You sold ${specialCatTotal} cats for $${(specialCatTotal * 2500)}`)
           return message.channel.send(sellSpecialCatsEmbed)
 
         } else if (sellOption === 'impossible' || sellOption === 'impossiblecat' || sellOption === 'impossiblecats') {
@@ -193,7 +193,7 @@ exports.run = async (bot, message, args) => {
           // Convert The Cats Numbers Into Money
           userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'money.catmoney': userdata.money.catmoney + (uncommonCatTotal * 10000)}})
           userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.squirtlett.amount': 0,'cats.cursedcat.amount': 0,'cats.uwu.amount': 0, 'cats.tom.amount': 0,'cats.demoncat.amount': 0,'cats.bongocat.amount': 0,'cats.grumpycat.amount': 0}})
-          const sellImpossibleCatsEmbed = new Discord.RichEmbed().setAuthor(message.author.username, message.author.avatarURL).setColor(bot.config.color.blue).setDescription(`You sold ${impossibleCatTotal} cats for $${(impossibleCatTotal * 10000)}`)
+          const sellImpossibleCatsEmbed = new Discord.RichEmbed().setAuthor(message.author.username, message.author.avatarURL).setColor(bot.config.color.rarities.impossible).setDescription(`You sold ${impossibleCatTotal} cats for $${(impossibleCatTotal * 10000)}`)
           return message.channel.send(sellImpossibleCatsEmbed)
 
         } else {

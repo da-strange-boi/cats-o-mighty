@@ -1,4 +1,5 @@
 const { inspect } = require('util')
+const Discord = require('discord.js')
 exports.run = async (bot, message, args) => {
   const toEval = args.join(' ')
   // eslint-disable-next-line no-eval

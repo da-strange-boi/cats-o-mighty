@@ -35,7 +35,7 @@ exports.run = async (bot, message, args) => {
     if (helpCommand === 'collection') {
       message.channel.send('```< cat collection [rank of cat] >```')
       message.channel.send('```What it does:\nshows your collection of cats```')
-      message.channel.send("```* Other explanes are:\n'cat collection common'```")
+      message.channel.send('```* Other explanes are:\n\'cat collection common\'```')
       message.channel.send('```Aliases: cattos, c```')
     }
     // display help for daily \\
@@ -84,7 +84,7 @@ exports.run = async (bot, message, args) => {
     if (helpCommand === 'sell') {
       message.channel.send('```< cat sell {cat name (NO SPACES) } {amount}>```')
       message.channel.send('```* What it does:\nsells the cat for a curtain amount of money```')
-      message.channel.send("```* Other explanes are:\n'cat sell siamese 3' 'cat sell common' 'cat sell all'```")
+      message.channel.send('```* Other explanes are:\n\'cat sell siamese 3\' \'cat sell common\' \'cat sell all\'```')
     }
     // display help for botinfo \\
     if (helpCommand === 'botinfo') {
@@ -114,10 +114,10 @@ exports.run = async (bot, message, args) => {
     // display help for settings \\
     if (helpCommand === 'settings') {
       message.channel.send('```< cat settings {module} {args} >```')
-      message.channel.send("```What it does:\nsets the bot settings of the current server [Manage Server permission needed]\n- for more info on modules do 'cat help modules'```")
+      message.channel.send('```What it does:\nsets the bot settings of the current server [Manage Server permission needed]\n- for more info on modules do \'cat help modules\'```')
     }
     if (helpCommand === 'modules') {
-      message.channel.send("```CatGottenPopupMessage {show/hidden/disappear}\nshow - message won't delete\nhidden - messages won't show\ndisappar - messages will delete after 6 seconds```")
+      message.channel.send('```CatGottenPopupMessage {show/hidden/disappear}\nshow - message won\'t delete\nhidden - messages won\'t show\ndisappar - messages will delete after 6 seconds```')
     }
     // display help for suggest \\
     if (helpCommand === 'suggest') {
