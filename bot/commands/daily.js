@@ -36,7 +36,7 @@ exports.run = async (bot, message) => {
   userCol.findOne({ userID: message.author.id }, async (err, userdata) => {
     if (err) bot.log('error', err)
 
-    const timeout = 1 //* 24 hours (86400000)
+    const timeout = 86400000 //* 24 hours (86400000)
     const resetTime = 172800000 //* 48 hours (172800000)
     const daily = userdata.times.dailyTime
 
