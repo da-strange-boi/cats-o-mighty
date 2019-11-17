@@ -26,6 +26,11 @@ exports.run = async (bot, message, args) => {
       const animalList = ['siamese', 'burmese', 'ragdoll', 'persian', 'mainecoon', 'russianblue', 'calico', 'tabby', 'abyssinian', 'manx', 'sphynx', 'cyprus', 'foldex', 'turkishangora', 'norwegianforest', 'devonrex', 'korat', 'singapura', 'tonkinese', 'peterbald', 'chartreux', 'munchkin', 'britishshorthair', 'ojosazules', 'bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin', 'loki', 'loverboy', 'killerclaws', 'squirtlett', 'cursedcat', 'uwu', 'tom', 'demoncat', 'bongocat', 'grumpycat']
       for (let i = 0; i < animalList.length; i++) {
         if (catBreed === animalList[i]) {
+
+          if (userdata.cats[animalList[i]].discovered === false) {
+            return message.channel.send('You have not discovered this cat breed')
+          }
+
           let catType
           if (i <= 7) { catType = 'common' } // common
           if (i >= 8 && i <= 15) { catType = 'uncommon' } // uncommon

@@ -36,6 +36,11 @@ exports.run = async (bot) => {
       const catDbName = `cats.${specialCats[result]}.amount`
       userCol.findOneAndUpdate({ userID: votedUser }, {$set: {[catDbName]: userdata.cats[specialCats[result]].amount + 1}})
 
+      if (userdata.cats[specialCats[result]].discovered === false) {
+        const catDbNameDis = `cats.${specialCats[result]}.discovered`
+        userCol.findOneAndUpdate({ userID: votedUser }, {$set: {[catDbNameDis]: true}})
+      }
+
       // To send a DM to the user letting them know their rewards for voting
       const votedEmbed = new Discord.RichEmbed()
         .setColor(bot.config.color.blue)

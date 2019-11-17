@@ -128,9 +128,14 @@ exports.run = async (bot, message) => {
                 // Add Cat To Their Collection
                 let updatedNum = userdata.cats[animals[result]].amount + 1
                 let updatedCat = `cats.${animals[result]}.amount`
+                let updatedDis = `cats.${animals[result]}.discovered`
                 let totalCat = `cats.${animals[result]}`
                 userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[updatedCat]: updatedNum}})
                 totalCol.findOneAndUpdate({}, {$set: {[totalCat]: totalList.cats[animals[result]] + 1}})
+
+                if (userdata.cats[animals[result]].discovered === false) {
+                  userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[updatedDis]: true}})
+                }
 
                 showCatEmbed(animals[result])
 
@@ -170,9 +175,14 @@ exports.run = async (bot, message) => {
 
                 let updatedNum = userdata.cats[animals[result]].amount + 1
                 let updatedCat = `cats.${animals[result]}.amount`
+                let updatedDis = `cats.${animals[result]}.discovered`
                 let totalCat = `cats.${animals[result]}`
                 userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[updatedCat]: updatedNum}})
                 totalCol.findOneAndUpdate({}, {$set: {[totalCat]: totalList.cats[animals[result]] + 1}})
+
+                if (userdata.cats[animals[result]].discovered === false) {
+                  userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[updatedDis]: true}})
+                }
 
                 showCatEmbed(animals[result])
 
@@ -212,9 +222,14 @@ exports.run = async (bot, message) => {
 
                 let updatedNum = userdata.cats[animals[result]].amount + 1
                 let updatedCat = `cats.${animals[result]}.amount`
+                let updatedDis = `cats.${animals[result]}.discovered`
                 let totalCat = `cats.${animals[result]}`
                 userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[updatedCat]: updatedNum}})
                 totalCol.findOneAndUpdate({}, {$set: {[totalCat]: totalList.cats[animals[result]] + 1}})
+
+                if (userdata.cats[animals[result]].discovered === false) {
+                  userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[updatedDis]: true}})
+                }
 
                 showCatEmbed(animals[result])
 
@@ -244,9 +259,14 @@ exports.run = async (bot, message) => {
 
                 let updatedNum = userdata.cats[animals[result]].amount + 1
                 let updatedCat = `cats.${animals[result]}.amount`
+                let updatedDis = `cats.${animals[result]}.discovered`
                 let totalCat = `cats.${animals[result]}`
                 userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[updatedCat]: updatedNum}})
                 totalCol.findOneAndUpdate({}, {$set: {[totalCat]: totalList.cats[animals[result]] + 1}})
+
+                if (userdata.cats[animals[result]].discovered === false) {
+                  userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[updatedDis]: true}})
+                }
 
                 showCatEmbed(animals[result])
 
@@ -267,9 +287,14 @@ exports.run = async (bot, message) => {
 
                 let updatedNum = userdata.cats[animals[result]].amount + 1
                 let updatedCat = `cats.${animals[result]}.amount`
+                let updatedDis = `cats.${animals[result]}.discovered`
                 let totalCat = `cats.${animals[result]}`
                 userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[updatedCat]: updatedNum}})
                 totalCol.findOneAndUpdate({}, {$set: {[totalCat]: totalList.cats[animals[result]] + 1}})
+
+                if (userdata.cats[animals[result]].discovered === false) {
+                  userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[updatedDis]: true}})
+                }
 
                 showCatEmbed(animals[result])
 

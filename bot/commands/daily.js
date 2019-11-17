@@ -36,7 +36,7 @@ exports.run = async (bot, message) => {
   userCol.findOne({ userID: message.author.id }, async (err, userdata) => {
     if (err) bot.log('error', err)
 
-    const timeout = 86400000 //* 24 hours (86400000)
+    const timeout = 1 //* 24 hours (86400000)
     const resetTime = 172800000 //* 48 hours (172800000)
     const daily = userdata.times.dailyTime
 
@@ -62,6 +62,11 @@ exports.run = async (bot, message) => {
       const catDbName = `cats.${animals[aResult]}.amount`
       userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[catDbName]: userdata.cats[animals[aResult]].amount + 1}})
 
+      if (userdata.cats[animals[aResult]].discovered === false) {
+        const catDbNameDis = `cats.${animals[aResult]}.discovered`
+        userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[catDbNameDis]: true}})
+      }
+
       userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'money.catmoney': userdata.money.catmoney + 350}})
       displayEmbed('350', userdata.stats.dailyStreak, animals[aResult], 'Your streak has restarted')
     } else {
@@ -83,6 +88,11 @@ exports.run = async (bot, message) => {
           //* Check To See What Cat It Is Then Add It To Their Cats
           const catDbName = `cats.${animals[aResult]}.amount`
           userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[catDbName]: userdata.cats[animals[aResult]].amount + 1}})
+
+          if (userdata.cats[animals[aResult]].discovered === false) {
+            const catDbNameDis = `cats.${animals[aResult]}.discovered`
+            userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[catDbNameDis]: true}})
+          }
 
           displayEmbed(undefined, userdata.stats.dailyStreak, animals[aResult])
         } else {
@@ -111,6 +121,10 @@ exports.run = async (bot, message) => {
           // Check To See What Cat It Is Then Add It To Their Cats
           const catDbName = `cats.${animals[aResult]}.amount`
           userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[catDbName]: userdata.cats[animals[aResult]].amount + 1}})
+          if (userdata.cats[animals[aResult]].discovered === false) {
+            const catDbNameDis = `cats.${animals[aResult]}.discovered`
+            userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[catDbNameDis]: true}})
+          }
           displayEmbed(moneyList[mResult], userdata.stats.dailyStreak, animals[aResult])
         } else {
           displayEmbed(moneyList[mResult], userdata.stats.dailyStreak, undefined)
