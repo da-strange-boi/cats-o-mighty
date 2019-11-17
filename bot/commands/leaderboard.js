@@ -12,7 +12,7 @@ exports.run = async (bot, message) => {
   cooldown[message.author.id] = Date.now()
 
   // Select User Data From Database
-  bot.database.Userdata.find({}).sort({'money.catmoney':-1}).toArray((err, userdata) => {
+  bot.database.Userdata.find({}).sort({'money.catmoney':-1}).toArray( async (err, userdata) => {
     if (err) bot.log('error', err)
     let member
 
@@ -51,7 +51,7 @@ exports.run = async (bot, message) => {
             member = userdata[i].userTag
           }
         }
-        if (i === 0) { embed.addField(`${i + 1}. <:gold:579860509264969739> \`${member}\` <:gold:579860509264969739>`, `Cat Money: **$${bot.functions.formatMoney(userdata[i].money.catmoney)}**`) } else if (i === 1) { embed.addField(`${i + 1}. <:silver:579860480500301844> \`${member}\` <:silver:579860480500301844>`, `Cat Money: **$${bot.functions.formatMoney(userdata[i].money.catmoney)}**`) } else if (i === 2) { embed.addField(`${i + 1}. <:bronze:579860359196704770> \`${member}\` <:bronze:579860359196704770>`, `Cat Money: **$${bot.functions.formatMoney(userdata[i].money.catmoney)}**`) } else if (i > 2) { embed.addField(`${i + 1}. \`${member}\``, `Cat Money: **$${bot.functions.formatMoney(userdata[i].money.catmoney)}**`) }
+        if (i === 0) { embed.addField(`${i + 1}. ${await bot.getEmoji.run(bot, 'gold')} \`${member}\` ${await bot.getEmoji.run(bot, 'gold')}`, `Cat Money: **$${bot.functions.formatMoney(userdata[i].money.catmoney)}**`) } else if (i === 1) { embed.addField(`${i + 1}. ${await bot.getEmoji.run(bot, 'silver')} \`${member}\` ${await bot.getEmoji.run(bot, 'silver')}`, `Cat Money: **$${bot.functions.formatMoney(userdata[i].money.catmoney)}**`) } else if (i === 2) { embed.addField(`${i + 1}. ${await bot.getEmoji.run(bot, 'bronze')} \`${member}\` ${await bot.getEmoji.run(bot, 'bronze')}`, `Cat Money: **$${bot.functions.formatMoney(userdata[i].money.catmoney)}**`) } else if (i > 2) { embed.addField(`${i + 1}. \`${member}\``, `Cat Money: **$${bot.functions.formatMoney(userdata[i].money.catmoney)}**`) }
       }
     }
     message.channel.send(embed)
