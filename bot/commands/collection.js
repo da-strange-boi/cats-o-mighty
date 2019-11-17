@@ -71,7 +71,7 @@ exports.run = async (bot, message, args) => {
         catsEmbed.addField(':yellow_heart: Impossible :yellow_heart:', `${catProcess(uSquirtlett, 'squirtlett')}\n${catProcess(uCursedcat, 'cursedcat')}\n${catProcess(uUWU, 'uwu')}\n${catProcess(uTom, 'tom')}\n${catProcess(uDemoncat, 'demoncat')}\n${catProcess(uBongocat, 'bongocat')}\n${catProcess(uGrumpycat, 'grumpycat')}`, true)
       }
       if (hasSeasonalCats === true) {
-        catsEmbed.addField(':heart_white: Seasonal :heart_white:', `${catProcess(uGhostcat, 'ghostcat')}`)
+        catsEmbed.addField(`${await bot.getEmoji.run(bot, 'whiteHeart')} Seasonal ${await bot.getEmoji.run(bot, 'whiteHeart')}`, `${catProcess(uGhostcat, 'ghostcat')}`)
       }
 
       message.channel.send(catsEmbed)
@@ -119,7 +119,7 @@ exports.run = async (bot, message, args) => {
             catsEmbed.setColor(bot.config.color.rarities.impossible)
           }
           if (allCatType[i] === 'seasonal') {
-            catsEmbed.addField('<:heart_white:645372678760562718> Seasonal <:heart_white:645372678760562718>', `${catProcess(uGhostcat, 'ghostcat')}`)
+            catsEmbed.addField(`${await bot.getEmoji.run(bot, 'whiteHeart')} Seasonal ${await bot.getEmoji.run(bot, 'whiteHeart')}`, `${catProcess(uGhostcat, 'ghostcat')}`)
             catsEmbed.setColor(bot.config.color.rarities.seasonal)
           }
           message.channel.send(catsEmbed)
