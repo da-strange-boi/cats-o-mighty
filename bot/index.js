@@ -75,12 +75,14 @@ if (process.env.DEBUG === 'false') {
   const DB = require('./lib/API/db.js')
   const DBGG = require('./lib/API/dbgg.js')
   const DBL = require('./lib/API/dbl.js')
+  const DBOATS = require('./lib/API/dboats.js')
   // top.gg (discordbots.org) gets declared out of the loop cause it has its own way of posting stats
   DB.run(bot)
   new CronJob('0 */45 * * * *', () => {
     BFD.run(bot)
     DBGG.run(bot)
     DBL.run(bot)
+    DBOATS.run(bot)
     bot.log('statsPosted', 'Stats posted to bot lists')
   }, null, true, 'America/New_York')
 }
