@@ -30,12 +30,11 @@ exports.run = async (bot, message, args) => {
           if (userCondition !== 'show' && userCondition !== 'hidden' && userCondition !== 'disappear') {
             return message.channel.send('Please enter **show**, **hidden**, **disappear**')
           }
-          if (userCondition === 'show') {
-            guildCol.findOneAndUpdate({ guildID: message.guild.id }, {$set: {'CatGottenPopupMessage': 'show'}})
-          } else if (userCondition === 'hidden') {
-            guildCol.findOneAndUpdate({ guildID: message.guild.id }, {$set: {'CatGottenPopupMessage': 'hidden'}})
-          } else if (userCondition === 'disappear') {
-            guildCol.findOneAndUpdate({ guildID: message.guild.id }, {$set: {'CatGottenPopupMessage': 'disappear'}})
+
+          switch(userCondition){
+            case('show'): guildCol.findOneAndUpdate({ guildID: message.guild.id }, {$set: {'CatGottenPopupMessage': 'show'}}); break
+            case('hidden'): guildCol.findOneAndUpdate({ guildID: message.guild.id }, {$set: {'CatGottenPopupMessage': 'hidden'}}); break
+            case('disappear'): guildCol.findOneAndUpdate({ guildID: message.guild.id }, {$set: {'CatGottenPopupMessage': 'disappear'}}); break
           }
           return message.channel.send(`module: CatGottenPopupMessage\nhas been set to: **${userCondition}**`)
         }

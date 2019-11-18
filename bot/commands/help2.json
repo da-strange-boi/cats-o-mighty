@@ -1,0 +1,136 @@
+{
+        "commands": [],
+        "help": {
+            "image,pic,picture": {
+                "usage": "**`cat image`**",
+                "description": "Sends a random picture of a cat!",
+                "aliases": [
+                    "image",
+                    "pic",
+                    "picture"
+                ]
+            },
+            "collection,cattos,c": {
+                "usage": "**`cat collection <rarity>`**",
+                "description": "Shows your cat collection! If a rarity is specified, your collection for that specific rarity will be shown.",
+                "aliases": [
+                    "collection",
+                    "cattos",
+                    "c"
+                ]
+            },
+            "daily": {
+                "usage": "**`cat daily`**",
+                "description": "Claims your daily reward! Refreshes after 24 hours.",
+                "aliases": []
+            },
+            "dex,catinfo": {
+                "usage": "**`cat dex <breed>`**",
+                "description": "Displays information about the specified cat!",
+                "aliases": [
+                    "dex",
+                    "catinfo"
+                ]
+            },
+            "disable": {
+                "usage": "**`cat disable`**",
+                "description": "Toggles whether or not you get cats from sending messages.",
+                "aliases": []
+            },
+            "facts,fact": {
+                "usage": "**`cat facts`**",
+                "description": "Gives a random cat fact!",
+                "aliases": [
+                    "facts",
+                    "fact"
+                ]
+            },
+            "feed,f": {
+                "usage": "**`cat feed <breed>`**",
+                "description": "Random chance to receive the specified cat!",
+                "aliases": [
+                    "feed",
+                    "f"
+                ]
+            },
+            "leaderboard,lb": {
+                "usage": "**`cat leaderboard`**",
+                "description": "Shows the global leaderboard of who has the most money!",
+                "aliases": [
+                    "leaderboard",
+                    "lb"
+                ]
+            },
+            "money,cash": {
+                "usage": "**`cat money`**",
+                "description": "Shows how much money you have!",
+                "aliases": [
+                    "money",
+                    "cash"
+                ]
+            },
+            "profile": {
+                "usage": "**`cat profile`**",
+                "description": "Shows your dashboard stats!",
+                "aliases": []
+            },
+            "sell,kill": {
+                "usage": "**`cat sell <breed> <amount>`**",
+                "description": "Sells your cats.",
+                "parameters": [
+                    ["<breed>", "The cat you wish to feed, or the keyword **'all'**."],
+                    ["<amount>", "The amount you wish to sell. If no amount is specified then all of the specified cat will be sold."]
+                ],
+                "aliases": [
+                    "sell",
+                    "kill"
+                ]
+            },
+            "botinfo": {
+                "usage": "**`cat botinfo`**",
+                "description": "Gives information about the bot.",
+                "aliases": []
+            },
+            "chance": {
+                "usage": "**`cat chance`**",
+                "description": "Shows the chances of receiving each rarity of cat.",
+                "aliases": []
+            },
+            "help": {
+                "usage": "**`cat help`**",
+                "description": "Gives info about the specified command.",
+                "aliases": []
+            },
+            "invite": {
+                "usage": "**`cat invite`**",
+                "description": "Sends the link to add **Cats o' Mighty** to your server!",
+                "aliases": []
+            },
+            "settings": {
+                "usage": "**`cat settings <module> <args>`**",
+                "description": "Sets the bot settings for the server (Manage Server permissions needed).",
+                "parameters": [
+                    ["CatGottenPopupMessage <show/hidden/disappear>", "**`show`** - message won't delete\n**`hidden`** - messages won't show\n**`disappear`** - messages will delete after 6 seconds"]
+                ],
+                "aliases": []
+            },
+            "ping": {
+                "usage": "**`cat ping`**",
+                "description": "Shows the latency between Discord and the bot",
+                "aliases": []
+            },
+            "server,support,supportserver": {
+                "usage": "**`cat server`**",
+                "description": "Sends the link to join the official **Cats o' Mighty** Support Server!",
+                "aliases": [
+                    "support",
+                    "supportserver"
+                ]
+            },
+            "vote": {
+                "usage": "**`cat vote`**",
+                "description": "Sends the link to vote for **Cats o' Mighty**! For voting, you will receive a random cat and a random amount of money!",
+                "aliases": []
+            }
+        }
+}
