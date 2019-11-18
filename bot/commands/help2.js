@@ -38,6 +38,7 @@ exports.run = async (bot, message, args) => {
         .setTimestamp()
         .setFooter('Made by da strange boi#7087')
         .addField('**Usage**', `${hCmd.usage}`)
+        .setColor('#0d00ff')
       
       // get paramaters for command
       if(hCmd.parameters !== undefined){
