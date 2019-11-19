@@ -1,5 +1,5 @@
-const Discord = require('discord.js')
-const helpJSON = require('./help2.json').help
+const { RichEmbed } = require('discord.js')
+const helpJSON = require('../lib/helpCommandData.json').help
 const HELP = {}
 
 for (const key in helpJSON) {
@@ -10,15 +10,34 @@ for (const key in helpJSON) {
   }
 }
 exports.run = async (bot, message, args) => {
+  // {USAGE} cat help || cat help <command>
+  
   // if no argument(s) given
   if (!args[0]) {
-    message.channel.send('**`[HELP COMMAND FILLER]`**')
+    const helpEmbed = new RichEmbed()
+      .setColor(bot.config.color.darkblue)
+      .setTitle('List of commands')
+      .setDescription('Here is all the commands!\nFor help on the commands, use `cat help {command}`')
+      .addField(':cat2: General', '`chance`, `collection`, `daily`, `dex`, `feed`, `leaderboard`, `money`, `profile`, `sell`, `vote`')
+      .addField(':cat: Fun', '`image`, `facts`')
+      .addField(':gear: Utility', '`disable`, `help`, `invite`, `ping`, `settings`, `supportserver`')
+
+    if (message.author.id === '481318379907579916' || message.author.id === '552316796439494658') {
+      helpEmbed.addField(':beginner: Bot Admin Commands', '`userinfo`')
+      return message.channel.send(helpEmbed)
+    }
+    if (message.author.id === '295255543596187650') {
+      helpEmbed.addField(':gem: Bot Admin Commands', '`addcat`, `addmoney`, `botinfo`, `clearcats`, `clearmoney`, `clearstats`, `stop`')
+      return message.channel.send(helpEmbed)
+    } else {
+      return message.channel.send(helpEmbed)
+    }
   } else {
 
     const hCmd = HELP[args[0]]
 
     if (hCmd !== undefined) {
-      const embed = new Discord.RichEmbed()
+      const embed = new RichEmbed()
         .setTitle(hCmd.description)
         .setAuthor('Cats o\' Mighty Help', bot.user.avatarURL)
         .setTimestamp()

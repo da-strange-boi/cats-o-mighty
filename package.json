@@ -1,6 +1,6 @@
 {
   "name": "cats-o-mighty",
-  "version": "6.8.3",
+  "version": "6.8.1.3",
   "description": "A cat collector bot for discord",
   "main": "bot/index.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "cat collector",
     "cats o mighty"
   ],
-  "author": "da-strange-boi",
+  "author": "da-strange-boi, benluelo",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/da-strange-boi/cats-o-mighty/issues"
