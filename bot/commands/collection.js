@@ -39,47 +39,77 @@ exports.run = async (bot, message, args) => {
       }
     }
 
-    // {USAGE} cat collection
-    if (!args[0]) {
-      // Set A Cooldown
-      if (cooldown[message.author.id] && (Date.now() - cooldown[message.author.id]) > 0) {
-        const time = ms(Date.now() - cooldown[message.author.id])
-        await message.channel.send(`hmm **${message.author.username}**, you gotta wait **${30 - time.seconds}s**`).then(msg => msg.delete(1000 * (30 - time.seconds)))
-        return
-      }
-      cooldown[message.author.id] = Date.now()
+    // {USAGE} cat collection full
+    if (args[0] === 'full') {
 
-      // Make Embed To Display The Cats The User Has
-      const catsEmbed = new Discord.RichEmbed()
-        .setAuthor(message.author.username + ' cat collection!')
-        .setColor(bot.config.color.blue)
+      if (args[1] === 'short') {
 
-      // See What Categories Of Cats The User Has Then Add Them
-      if (hasCommonCats === true) {
-        catsEmbed.addField(':green_heart: Common :green_heart:', `${catProcess(uSiamese, 'siamese')}\n${catProcess(uBurmese, 'burmese')}\n${catProcess(uRagdoll, 'ragdoll')}\n${catProcess(uPersian, 'persian')}\n${catProcess(uMaineCoon, 'maine Coon')}\n${catProcess(uRussianBlue, 'russian Blue')}\n${catProcess(uCalico, 'calico')}\n${catProcess(uTabby, 'tabby')}`, true)
-      }
-      if (hasUncommonCats === true) {
-        catsEmbed.addField(':blue_heart: Uncommon :blue_heart:', `${catProcess(uAbyssinian, 'abyssinian')}\n${catProcess(uManx, 'manx')}\n${catProcess(uSphynx, 'sphynx')}\n${catProcess(uCyprus, 'cyprus')}\n${catProcess(uFoldex, 'foldex')}\n${catProcess(uTurkishAngora, 'turkish Angora')}\n${catProcess(uNorwegianForest, 'norwegian Forest')}\n${catProcess(uDevonrex, 'devon Rex')}`, true)
-      }
-      if (hasRareCats === true) {
-        catsEmbed.addField(':purple_heart: Rare :purple_heart:', `${catProcess(uKorat, 'korat')}\n${catProcess(uSingapura, 'singapura')}\n${catProcess(uTonkinese, 'tonkinese')}\n${catProcess(uPeterbald, 'peterbald')}\n${catProcess(uChartreux, 'chartreux')}\n${catProcess(uMunchkin, 'munchkin')}\n${catProcess(uBritishShorthair, 'british Shorthair')}\n${catProcess(uOjosazules, 'ojos Azules')}`, true)
-      }
-      if (hasSpecialCats === true) {
-        catsEmbed.addField(':sparkling_heart: Special :sparkling_heart:', `${catProcess(uSmokey, 'smokey')}\n${catProcess(uBandit, 'bandit')}\n${catProcess(uBug, 'bug')}\n${catProcess(uLinda, 'linda')}\n${catProcess(uMittens, 'mittens')}\n${catProcess(uCash, 'cash')}\n${catProcess(uJackson, 'jackson')}\n${catProcess(uCottonball, 'cottonball')}\n${catProcess(uSonny, 'sonny')}\n${catProcess(uLailah, 'lailah')}\n${catProcess(uCher, 'cher')}\n${catProcess(uMarvin, 'marvin')}\n${catProcess(uLoki, 'loki')}\n${catProcess(uLoverboy, 'loverboy')}\n${catProcess(uKillerClaws, 'killer Claws')}`, true)
-      }
-      if (hasImpossibleCats === true) {
-        catsEmbed.addField(':yellow_heart: Impossible :yellow_heart:', `${catProcess(uSquirtlett, 'squirtlett')}\n${catProcess(uCursedcat, 'cursedcat')}\n${catProcess(uUWU, 'uwu')}\n${catProcess(uTom, 'tom')}\n${catProcess(uDemoncat, 'demoncat')}\n${catProcess(uBongocat, 'bongocat')}\n${catProcess(uGrumpycat, 'grumpycat')}`, true)
-      }
-      if (hasSeasonalCats === true) {
-        catsEmbed.addField(`${await bot.getEmoji.run(bot, 'whiteHeart')} Seasonal ${await bot.getEmoji.run(bot, 'whiteHeart')}`, `${catProcess(uGhostcat, 'ghostcat')}`)
+        let numOfCommonDis = 0
+        if (uSiamese.discovered === true) numOfCommonDis++
+        if (uBurmese.discovered === true) numOfCommonDis++
+        if (uRagdoll.discovered === true) numOfCommonDis++
+        if (uPersian.discovered === true) numOfCommonDis++
+        if (uMaineCoon.discovered === true) numOfCommonDis++
+        if (uRussianBlue.discovered === true) numOfCommonDis++
+        if (uCalico.discovered === true) numOfCommonDis++
+        if (uTabby.discovered === true) numOfCommonDis++
+
+        const totalCommonCatsDisPer = ((numOfCommonDis / 8) * 100).toFixed(0)
+
+        const totalCommonCats = uSiamese.amount + uBurmese.amount + uRagdoll.amount + uPersian.amount + uMaineCoon.amount + uRussianBlue.amount + uCalico.amount + uTabby.amount
+        let description = ''
+        const catsEmbed = new Discord.RichEmbed()
+          .setAuthor(message.author.username + ' cat collection!')
+          .setColor(bot.config.color.blue)
+
+        if (hasCommonCats === true) {
+          description += `:green_heart: Common :green_heart:: ${totalCommonCats} total cats, ${totalCommonCatsDisPer}% discovered`
+        }
+        catsEmbed.setDescription(description)
+        message.channel.send(catsEmbed)
       }
 
-      message.channel.send(catsEmbed)
+      if (args[1] === 'full') {
+        // Set A Cooldown
+        if (cooldown[message.author.id] && (Date.now() - cooldown[message.author.id]) > 0) {
+          const time = ms(Date.now() - cooldown[message.author.id])
+          await message.channel.send(`hmm **${message.author.username}**, you gotta wait **${30 - time.seconds}s**`).then(msg => msg.delete(1000 * (30 - time.seconds)))
+          return
+        }
+        cooldown[message.author.id] = Date.now()
 
-      //* Delete The Cooldown // Resetting It
-      setTimeout(() => {
-        delete cooldown[message.author.id]
-      }, 30000)
+        // Make Embed To Display The Cats The User Has
+        const catsEmbed = new Discord.RichEmbed()
+          .setAuthor(message.author.username + ' cat collection!')
+          .setColor(bot.config.color.blue)
+
+        // See What Categories Of Cats The User Has Then Add Them
+        if (hasCommonCats === true) {
+          catsEmbed.addField(':green_heart: Common :green_heart:', `${catProcess(uSiamese, 'siamese')}\n${catProcess(uBurmese, 'burmese')}\n${catProcess(uRagdoll, 'ragdoll')}\n${catProcess(uPersian, 'persian')}\n${catProcess(uMaineCoon, 'maine Coon')}\n${catProcess(uRussianBlue, 'russian Blue')}\n${catProcess(uCalico, 'calico')}\n${catProcess(uTabby, 'tabby')}`, true)
+        }
+        if (hasUncommonCats === true) {
+          catsEmbed.addField(':blue_heart: Uncommon :blue_heart:', `${catProcess(uAbyssinian, 'abyssinian')}\n${catProcess(uManx, 'manx')}\n${catProcess(uSphynx, 'sphynx')}\n${catProcess(uCyprus, 'cyprus')}\n${catProcess(uFoldex, 'foldex')}\n${catProcess(uTurkishAngora, 'turkish Angora')}\n${catProcess(uNorwegianForest, 'norwegian Forest')}\n${catProcess(uDevonrex, 'devon Rex')}`, true)
+        }
+        if (hasRareCats === true) {
+          catsEmbed.addField(':purple_heart: Rare :purple_heart:', `${catProcess(uKorat, 'korat')}\n${catProcess(uSingapura, 'singapura')}\n${catProcess(uTonkinese, 'tonkinese')}\n${catProcess(uPeterbald, 'peterbald')}\n${catProcess(uChartreux, 'chartreux')}\n${catProcess(uMunchkin, 'munchkin')}\n${catProcess(uBritishShorthair, 'british Shorthair')}\n${catProcess(uOjosazules, 'ojos Azules')}`, true)
+        }
+        if (hasSpecialCats === true) {
+          catsEmbed.addField(':sparkling_heart: Special :sparkling_heart:', `${catProcess(uSmokey, 'smokey')}\n${catProcess(uBandit, 'bandit')}\n${catProcess(uBug, 'bug')}\n${catProcess(uLinda, 'linda')}\n${catProcess(uMittens, 'mittens')}\n${catProcess(uCash, 'cash')}\n${catProcess(uJackson, 'jackson')}\n${catProcess(uCottonball, 'cottonball')}\n${catProcess(uSonny, 'sonny')}\n${catProcess(uLailah, 'lailah')}\n${catProcess(uCher, 'cher')}\n${catProcess(uMarvin, 'marvin')}\n${catProcess(uLoki, 'loki')}\n${catProcess(uLoverboy, 'loverboy')}\n${catProcess(uKillerClaws, 'killer Claws')}`, true)
+        }
+        if (hasImpossibleCats === true) {
+          catsEmbed.addField(':yellow_heart: Impossible :yellow_heart:', `${catProcess(uSquirtlett, 'squirtlett')}\n${catProcess(uCursedcat, 'cursedcat')}\n${catProcess(uUWU, 'uwu')}\n${catProcess(uTom, 'tom')}\n${catProcess(uDemoncat, 'demoncat')}\n${catProcess(uBongocat, 'bongocat')}\n${catProcess(uGrumpycat, 'grumpycat')}`, true)
+        }
+        if (hasSeasonalCats === true) {
+          catsEmbed.addField(`${await bot.getEmoji.run(bot, 'whiteHeart')} Seasonal ${await bot.getEmoji.run(bot, 'whiteHeart')}`, `${catProcess(uGhostcat, 'ghostcat')}`)
+        }
+
+        message.channel.send(catsEmbed)
+
+        //* Delete The Cooldown // Resetting It
+        setTimeout(() => {
+          delete cooldown[message.author.id]
+        }, 30000)
+      }
     }
 
     // {USAGE} cat collection {common|uncommon|rare|special|impossible|seasonal}
