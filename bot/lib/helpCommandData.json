@@ -5,7 +5,6 @@
                 "usage": "**`cat image`**",
                 "description": "Sends a random picture of a cat!",
                 "aliases": [
-                    "image",
                     "pic",
                     "picture"
                 ]
@@ -14,7 +13,6 @@
                 "usage": "**`cat collection <rarity>`**",
                 "description": "Shows your cat collection! If a rarity is specified, your collection for that specific rarity will be shown.",
                 "aliases": [
-                    "collection",
                     "cattos",
                     "c"
                 ]
@@ -24,12 +22,12 @@
                 "description": "Claims your daily reward! Refreshes after 24 hours.",
                 "aliases": []
             },
-            "dex,catinfo": {
-                "usage": "**`cat dex <breed>`**",
+            "dex,catinfo,catdex": {
+                "usage": "**`cat dex {breed}`**",
                 "description": "Displays information about the specified cat!",
                 "aliases": [
-                    "dex",
-                    "catinfo"
+                    "catinfo",
+                    "catdex"
                 ]
             },
             "disable": {
@@ -41,7 +39,6 @@
                 "usage": "**`cat facts`**",
                 "description": "Gives a random cat fact!",
                 "aliases": [
-                    "facts",
                     "fact"
                 ]
             },
@@ -49,15 +46,14 @@
                 "usage": "**`cat feed <breed>`**",
                 "description": "Random chance to receive the specified cat!",
                 "aliases": [
-                    "feed",
                     "f"
                 ]
             },
-            "leaderboard,lb": {
+            "leaderboard,leaderboards,lb": {
                 "usage": "**`cat leaderboard`**",
                 "description": "Shows the global leaderboard of who has the most money!",
                 "aliases": [
-                    "leaderboard",
+                    "leaderboards",
                     "lb"
                 ]
             },
@@ -65,7 +61,6 @@
                 "usage": "**`cat money`**",
                 "description": "Shows how much money you have!",
                 "aliases": [
-                    "money",
                     "cash"
                 ]
             },
@@ -74,16 +69,16 @@
                 "description": "Shows your dashboard stats!",
                 "aliases": []
             },
-            "sell,kill": {
-                "usage": "**`cat sell <breed> <amount>`**",
+            "sell,kill,s": {
+                "usage": "**`cat sell {breed} <amount>`**",
                 "description": "Sells your cats.",
                 "parameters": [
-                    ["<breed>", "The cat you wish to feed, or the keyword **'all'**."],
+                    ["{breed}", "The cat you wish to feed, or the keyword **'all'**."],
                     ["<amount>", "The amount you wish to sell. If no amount is specified then all of the specified cat will be sold."]
                 ],
                 "aliases": [
-                    "sell",
-                    "kill"
+                    "kill",
+                    "s"
                 ]
             },
             "botinfo": {
@@ -97,7 +92,7 @@
                 "aliases": []
             },
             "help": {
-                "usage": "**`cat help`**",
+                "usage": "**`cat help <command>`**",
                 "description": "Gives info about the specified command.",
                 "aliases": []
             },
@@ -114,17 +109,19 @@
                 ],
                 "aliases": []
             },
-            "ping": {
+            "ping,pong": {
                 "usage": "**`cat ping`**",
                 "description": "Shows the latency between Discord and the bot",
-                "aliases": []
+                "aliases": [
+                    "pong"
+                ]
             },
-            "server,support,supportserver": {
-                "usage": "**`cat server`**",
+            "supportserver,server,support": {
+                "usage": "**`cat supportserver`**",
                 "description": "Sends the link to join the official **Cats o' Mighty** Support Server!",
                 "aliases": [
-                    "support",
-                    "supportserver"
+                    "server",
+                    "support"
                 ]
             },
             "vote": {
@@ -133,10 +130,10 @@
                 "aliases": []
             },
             "addcat,ac": {
-                "usage": "**`cat addcat {@user} <cat name> <amount>`**",
+                "usage": "**`cat addcat <@user> <cat name> <amount>`**",
                 "description": "**Admin Command**. Adds cats to the selected persons account.",
                 "parameters": [
-                    ["{@user}", "Optional. The account to add the cats to. If omitted, the cats will be added to the account of whoever issued the command."]
+                    ["<@user>", "Optional. The account to add the cats to. If omitted, the cats will be added to the account of whoever issued the command."]
                 ],
                 "aliases": [
                     "ac"
@@ -146,27 +143,20 @@
                 "usage": "**`cat addmoney {@user} <amount>`**",
                 "description": "**Admin Command**. Adds cats to the selected persons account.",
                 "parameters": [
-                    ["{@user}", "Optional. The account to add money to. If omitted, the money will be added to the account of whoever issued the command."]
+                    ["<@user>", "Optional. The account to add money to. If omitted, the money will be added to the account of whoever issued the command."]
                 ],
                 "aliases": [
                     "am"
                 ]
             },
             "clearcats,cc": {
-                "usage": "**`cat clearcats {@user}`**",
+                "usage": "**`cat clearcats <@user>`**",
                 "description": "**Admin Command**. Adds cats to the selected persons account.",
                 "parameters": [
-                    ["{@user}", "Optional. The account to have their cats cleared. If omitted, the cats will be cleard from the account of whoever issued the command."]
+                    ["<@user>", "Optional. The account to have their cats cleared. If omitted, the cats will be cleard from the account of whoever issued the command."]
                 ],
                 "aliases": [
                     "cc"
-                ]
-            },
-            "showsuggestions,ss": {
-                "usage": "**`cat showsuggestions`**",
-                "description": "**Admin Command**. Shows any user-submitted suggestions for the bot.",
-                "aliases": [
-                    "ss"
                 ]
             },
             "stop": {
@@ -183,6 +173,11 @@
                 "aliases": [
                     "userdata"
                 ]
+            },
+            "eval": {
+                "usage": "**`cat eval {code}`**",
+                "description": "**no**",
+                "aliases": []
             }
         }
 }

@@ -1,187 +1,80 @@
-const Discord = require('discord.js')
+const { RichEmbed } = require('discord.js')
+const helpJSON = require('../lib/helpCommandData.json').help
+const HELP = {}
+
+for (const key in helpJSON) {
+  const h = key.split(',')
+
+  for (const i in h) {
+    HELP[h[i]] = helpJSON[key]
+  }
+}
 exports.run = async (bot, message, args) => {
   // {USAGE} cat help || cat help <command>
-
-  // If User Just Puts "cat help" Send The Help Message
+  
+  // if no argument(s) given
   if (!args[0]) {
-    const helpEmbed = new Discord.RichEmbed()
+    const helpEmbed = new RichEmbed()
       .setColor(bot.config.color.darkblue)
       .setTitle('List of commands')
       .setDescription('Here is all the commands!\nFor help on the commands, use `cat help {command}`')
       .addField(':cat2: General', '`chance`, `collection`, `daily`, `dex`, `feed`, `leaderboard`, `money`, `profile`, `sell`, `vote`')
       .addField(':cat: Fun', '`image`, `facts`')
       .addField(':gear: Utility', '`disable`, `help`, `invite`, `ping`, `settings`, `supportserver`')
-    if (message.author.id === '481318379907579916' || message.author.id === '552316796439494658') {
-      helpEmbed.addField(':beginner: Bot Admin Commands', '`userinfo`')
-      return message.channel.send(helpEmbed)
-    }
-    if (message.author.id === '295255543596187650') {
-      helpEmbed.addField(':gem: Bot Admin Commands', '`addcat`, `addmoney`, `botinfo`, `clearcats`, `clearmoney`, `clearstats`, `stop`')
-      return message.channel.send(helpEmbed)
-    } else {
-      return message.channel.send(helpEmbed)
-    }
-  }
-  // If The User Specifies A Command Then Send A Detailed Help Message
-  if (args[0]) {
-    const helpCommand = args[0].toLowerCase().trim()
 
-    // display help for image \\
-    if (helpCommand === 'image') {
-      message.channel.send('```< cat image >```')
-      message.channel.send('```What it does:\nsends a random picture of a cat```')
+    if (message.author.id === '295255543596187650' || message.author.id === '481318379907579916' || message.author.id === '552316796439494658' || message.author.id === '527729016849956874') {
+      helpEmbed.addField(':beginner: Bot Admin Commands', '`userinfo`, `botinfo`')
     }
-    // display help for  collection \\
-    if (helpCommand === 'collection') {
-      message.channel.send('```< cat collection [rank of cat] >```')
-      message.channel.send('```What it does:\nshows your collection of cats```')
-      message.channel.send('```* Other explanes are:\n\'cat collection common\'```')
-      message.channel.send('```Aliases: cattos, c```')
+    if (message.author.id === '295255543596187650' || message.author.id === '527729016849956874') {
+      helpEmbed.addField(':gem: Bot Admin Commands', '`addcat`, `addmoney`, `clearcats`, `clearmoney`, `clearstats`, `eval`, `stop`')
     }
-    // display help for daily \\
-    if (helpCommand === 'daily') {
-      message.channel.send('```< cat daily >```')
-      message.channel.send('```What is does:\nallows you to collect your daily reward```')
-    }
-    // display help for dex \\
-    if (helpCommand === 'dex') {
-      message.channel.send('```< cat dex {cat name} >```')
-      message.channel.send('```What it does:\nshows info on the cat```')
-      message.channel.send('```Aliases: catinfo```')
-    }
-    // display help for disable \\
-    if (helpCommand === 'disable') {
-      message.channel.send('```< cat disable >```')
-      message.channel.send('```What it does:\ntoggles getting cats from messages```')
-    }
-    // display help for facts \\
-    if (helpCommand === 'facts') {
-      message.channel.send('```< cat facts >```')
-      message.channel.send('```What it does:\ngives you a random cat fact```')
-    }
-    // display help for feed \\
-    if (helpCommand === 'feed') {
-      message.channel.send('```< cat feed {cat breed} >```')
-      message.channel.send('```What it does:\nallows you to possibly get the cat you fed```')
-    }
-    // display help for leaderboard \\
-    if (helpCommand === 'leaderboard') {
-      message.channel.send('```< cat leaderboard >```')
-      message.channel.send('```What it does:\ndisplay leaderboard of who has the most money```')
-    }
-    // display help for money \\
-    if (helpCommand === 'money') {
-      message.channel.send('```< cat money >```')
-      message.channel.send('```What it does:\ndisplay the money you currently have```')
-      message.channel.send('```Aliases: cash```')
-    }
-    // display help for profile \\
-    if (helpCommand === 'profile') {
-      message.channel.send('```< cat profile >```')
-      message.channel.send('```What it does:\nshows you your dashboard stats```')
-    }
-    // display help for sell \\
-    if (helpCommand === 'sell') {
-      message.channel.send('```< cat sell {cat name (NO SPACES) } {amount}>```')
-      message.channel.send('```* What it does:\nsells the cat for a curtain amount of money```')
-      message.channel.send('```* Other explanes are:\n\'cat sell siamese 3\' \'cat sell common\' \'cat sell all\'```')
-    }
-    // display help for botinfo \\
-    if (helpCommand === 'botinfo') {
-      message.channel.send('``` < cat botinfo >```')
-      message.channel.send('```What it does:\ngives info about the bot```')
-    }
-    // display help for chance \\
-    if (helpCommand === 'chance') {
-      message.channel.send('``` < cat chance >```')
-      message.channel.send('```What it does:\ngives info about the chances of getting cats and thier prices```')
-    }
-    // display help for help \\
-    if (helpCommand === 'help') {
-      message.channel.send('```< cat help {command} >```')
-      message.channel.send('```What it does:\ngives info about the selected command```')
-    }
-    // display help for invite \\
-    if (helpCommand === 'invite') {
-      message.channel.send('```< cat invite >```')
-      message.channel.send('```What it does:\ngives you a link to invite *Cats o Mighty* to your server!```')
-    }
-    // display help for ping \\
-    if (helpCommand === 'ping') {
-      message.channel.send('```< cat ping >```')
-      message.channel.send('```What it does:\ncheck the latency between discord and the bot```')
-    }
-    // display help for settings \\
-    if (helpCommand === 'settings') {
-      message.channel.send('```< cat settings {module} {args} >```')
-      message.channel.send('```What it does:\nsets the bot settings of the current server [Manage Server permission needed]\n- for more info on modules do \'cat help modules\'```')
-    }
-    if (helpCommand === 'modules') {
-      message.channel.send('```CatGottenPopupMessage {show/hidden/disappear}\nshow - message won\'t delete\nhidden - messages won\'t show\ndisappar - messages will delete after 6 seconds```')
-    }
-    // display help for suggest \\
-    if (helpCommand === 'suggest') {
-      message.channel.send('```< cat suggest {the suggestion} >```')
-      message.channel.send('```What it does:\nallows you to suggest a change to be made to the bot```')
-    }
-    // display help for supportserver \\
-    if (helpCommand === 'supportserver') {
-      message.channel.send('```< cat supportserver >```')
-      message.channel.send('```What it does:\ngives you a link to join the *Cats o Mighty* support server!```')
-    }
-    // display help for vote \\
-    if (helpCommand === 'vote') {
-      message.channel.send('```< cat vote >```')
-      message.channel.send('```What it does:\ngives you a link to vote for the bot\n(you will not get a DM about the rewards you get (yet) but you will still get them)```')
-    }
-    // display help for addcat \\
-    if (helpCommand === 'addcat') {
-      message.channel.send('***Bot Owner Command***')
-      message.channel.send('```< cat addcat {cat name} {amount} || addcat {@user} {cat name} {amount} >```')
-      message.channel.send('```What it does:\nadds the cat to the selected persons account```')
-      message.channel.send('```Aliases: ac```')
-    }
-    // display help for addmoney \\
-    if (helpCommand === 'addmoney') {
-      message.channel.send('***Bot Owner Command***')
-      message.channel.send('```< cat addmoney {amount} || addmoney {@user} {amount}>```')
-      message.channel.send('```What it does:\nadds money to the selected persons account```')
-      message.channel.send('```Aliases: am```')
-    }
-    // display help for clearcats \\
-    if (helpCommand === 'clearcats') {
-      message.channel.send('***Bot Owner Command***')
-      message.channel.send('```< cat clearcats || clearcats {@user} >```')
-      message.channel.send('```What it does:\nclears the cats of the selected persons account```')
-      message.channel.send('```Aliases: cc```')
-    }
-    // display help for clearmoney \\
-    if (helpCommand === 'clearmoney') {
-      message.channel.send('***Bot Owner Command***')
-      message.channel.send('```< cat clearmoney || clearmoney {@user} >```')
-      message.channel.send('```What it does:\nclears the money of the selected persons account```')
-      message.channel.send('```Aliases: cm```')
-    }
-    // display help for showsuggestions \\
-    if (helpCommand === 'showsuggestions') {
-      message.channel.send('***Bot Owner Command***')
-      message.channel.send('```< cat showsuggestions >```')
-      message.channel.send('```What it does:\nshows the suggestions (if any)```')
-    }
-    // display help for stop \\
-    if (helpCommand === 'stop') {
-      message.channel.send('***Bot Owner Command***')
-      message.channel.send('```< cat stop >```')
-      message.channel.send('```What it does:\ndisconnects the bot from discord turing it offline```')
-    }
-    // display help for userinfo \\
-    if (helpCommand === 'userinfo') {
-      message.channel.send('***Admin Command***')
-      message.channel.send('```< cat userinfo {user id} >```')
-      message.channel.send('```What it does:\ndisplays a users progress with the bot```')
-    }
+
+    return message.channel.send(helpEmbed)
+
+  } else {
+
+    const hCmd = HELP[args[0]]
+
+    if (hCmd !== undefined) {
+      const embed = new RichEmbed()
+        .setDescription(hCmd.description)
+        .setAuthor('Cats o\' Mighty Help', bot.user.avatarURL)
+        .setColor(bot.config.color.blue)
+        .addField('**Usage**', `${hCmd.usage}`)
+        .setFooter('<>  =  optional     |     {}  =  required')
+        //.setTimestamp()    // maybe re-add later
+      
+      // get paramaters for command
+      if (hCmd.parameters !== undefined) {
+        let params = ''
+        for (const i in hCmd.parameters) {
+          params += '`' + hCmd.parameters[i][0] + '`' + '\n' + hCmd.parameters[i][1]
+          if (i !== hCmd.parameters.length) {
+            params += '\n'
+          }
+        }
+        embed.addField('**Parameters**', params)
+      }
+      
+      //get aliases for command
+      if ((hCmd.aliases !== undefined) && (hCmd.aliases.length !== 0)) {
+        let als = ''
+        for (const i in hCmd.aliases) {
+          als += '`' + hCmd.aliases[i] + '`'
+          if (i < hCmd.aliases.length) {
+            als += ', '
+          }
+        }
+        embed.addField('**Aliases**', als.slice(0, -2))
+      }
+
+      message.channel.send(embed)
+    } else {
+      message.channel.send('Unknown command! Maybe you misspelled it?')
+    }      
   }
 }
+
 exports.help = {
   name: 'help',
   aliases: [],

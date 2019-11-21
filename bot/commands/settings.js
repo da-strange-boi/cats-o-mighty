@@ -31,7 +31,7 @@ exports.run = async (bot, message, args) => {
             return message.channel.send('Please enter **show**, **hidden**, **disappear**')
           }
 
-          switch(userCondition){
+          switch (userCondition) {
             case('show'): guildCol.findOneAndUpdate({ guildID: message.guild.id }, {$set: {'CatGottenPopupMessage': 'show'}}); break
             case('hidden'): guildCol.findOneAndUpdate({ guildID: message.guild.id }, {$set: {'CatGottenPopupMessage': 'hidden'}}); break
             case('disappear'): guildCol.findOneAndUpdate({ guildID: message.guild.id }, {$set: {'CatGottenPopupMessage': 'disappear'}}); break

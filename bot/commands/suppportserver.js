@@ -9,6 +9,6 @@ exports.run = async (bot, message) => {
 }
 exports.help = {
   name: 'supportserver',
-  aliases: [],
+  aliases: ['server', 'support'],
   type: 'normal'
 }
