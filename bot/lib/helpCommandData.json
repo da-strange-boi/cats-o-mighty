@@ -131,6 +131,58 @@
                 "usage": "**`cat vote`**",
                 "description": "Sends the link to vote for **Cats o' Mighty**! For voting, you will receive a random cat and a random amount of money!",
                 "aliases": []
+            },
+            "addcat,ac": {
+                "usage": "**`cat addcat {@user} <cat name> <amount>`**",
+                "description": "**Admin Command**. Adds cats to the selected persons account.",
+                "parameters": [
+                    ["{@user}", "Optional. The account to add the cats to. If omitted, the cats will be added to the account of whoever issued the command."]
+                ],
+                "aliases": [
+                    "ac"
+                ]
+            },
+            "addmoney,am": {
+                "usage": "**`cat addmoney {@user} <amount>`**",
+                "description": "**Admin Command**. Adds cats to the selected persons account.",
+                "parameters": [
+                    ["{@user}", "Optional. The account to add money to. If omitted, the money will be added to the account of whoever issued the command."]
+                ],
+                "aliases": [
+                    "am"
+                ]
+            },
+            "clearcats,cc": {
+                "usage": "**`cat clearcats {@user}`**",
+                "description": "**Admin Command**. Adds cats to the selected persons account.",
+                "parameters": [
+                    ["{@user}", "Optional. The account to have their cats cleared. If omitted, the cats will be cleard from the account of whoever issued the command."]
+                ],
+                "aliases": [
+                    "cc"
+                ]
+            },
+            "showsuggestions,ss": {
+                "usage": "**`cat showsuggestions`**",
+                "description": "**Admin Command**. Shows any user-submitted suggestions for the bot.",
+                "aliases": [
+                    "ss"
+                ]
+            },
+            "stop": {
+                "usage": "**`cat stop`**",
+                "description": "**Admin Command**. Kills the bot. You monster!",
+                "aliases": []
+            },
+            "userinfo,userdata": {
+                "usage": "**`cat userinfo <@user>`**",
+                "description": "**Admin Command**. Displays the specified user's Cats o' Mighty statistics.",
+                "parameters": [
+                    ["<@user>", "The account to get the data for."]
+                ],
+                "aliases": [
+                    "userdata"
+                ]
             }
         }
 }

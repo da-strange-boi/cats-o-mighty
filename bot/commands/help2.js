@@ -22,7 +22,7 @@ exports.run = async (bot, message, args) => {
       .addField(':cat: Fun', '`image`, `facts`')
       .addField(':gear: Utility', '`disable`, `help`, `invite`, `ping`, `settings`, `supportserver`')
 
-    if (message.author.id === '481318379907579916' || message.author.id === '552316796439494658') {
+    if (message.author.id === '481318379907579916' || message.author.id === '552316796439494658' || message.author.id === '527729016849956874') {
       helpEmbed.addField(':beginner: Bot Admin Commands', '`userinfo`')
       return message.channel.send(helpEmbed)
     }
@@ -38,7 +38,7 @@ exports.run = async (bot, message, args) => {
 
     if (hCmd !== undefined) {
       const embed = new RichEmbed()
-        .setTitle(hCmd.description)
+        .setDescription(hCmd.description)
         .setAuthor('Cats o\' Mighty Help', bot.user.avatarURL)
         .setTimestamp()
         .setFooter('Made by da strange boi#7087')
@@ -62,7 +62,7 @@ exports.run = async (bot, message, args) => {
         let als = ''
         for (const i in hCmd.aliases) {
           als += '`' + hCmd.aliases[i] + '`'
-          if (i !== hCmd.aliases.length) {
+          if (i < hCmd.aliases.length) {
             als += ', '
           }
         }
