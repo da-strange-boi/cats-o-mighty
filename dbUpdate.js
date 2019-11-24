@@ -1,18 +1,18 @@
 const MongoClient = require('mongodb').MongoClient
 const config = require('./bot/config.json')
 
-MongoClient.connect(config.db.connectionString, config.db.connectionOptions, (err, client) => {
+MongoClient.connect(config.db.connectionString, config.db.connectionOptions, async (err, client) => {
   if (err) throw err
 
   let collection = client.db('cats-o-mighty').collection('userdatas')
 
   let documentsModified_SET = 0
 
-  collection.find({}).forEach(element => {
+  await collection.find({}).forEach(element => {
     collection.updateOne({'_id': element._id},
       {
         $set: {
-          'cats.common': {
+          'cats.a_common': {
             siamese: element.cats.siamese,
             burmese: element.cats.burmese,
             ragdoll: element.cats.ragdoll,
@@ -22,7 +22,7 @@ MongoClient.connect(config.db.connectionString, config.db.connectionOptions, (er
             calico: element.cats.calico,
             tabby: element.cats.tabby
           },
-          'cats.uncommon': {
+          'cats.b_uncommon': {
             abyssinian: element.cats.abyssinian,
             manx: element.cats.manx,
             sphynx: element.cats.sphynx,
@@ -32,7 +32,7 @@ MongoClient.connect(config.db.connectionString, config.db.connectionOptions, (er
             norwegianforest: element.cats.norwegianforest,
             devonrex: element.cats.devonrex
           },
-          'cats.rare': {
+          'cats.c_rare': {
             korat: element.cats.korat,
             singapura: element.cats.singapura,
             tonkinese: element.cats.tonkinese,
@@ -42,7 +42,7 @@ MongoClient.connect(config.db.connectionString, config.db.connectionOptions, (er
             britishshorthair: element.cats.britishshorthair,
             ojosazules: element.cats.ojosazules
           },
-          'cats.special': {
+          'cats.d_special': {
             smokey: element.cats.smokey,
             bandit: element.cats.bandit,
             bug: element.cats.bug,
@@ -59,7 +59,7 @@ MongoClient.connect(config.db.connectionString, config.db.connectionOptions, (er
             loverboy: element.cats.loverboy,
             killerclaws: element.cats.killerclaws
           },
-          'cats.impossible': {
+          'cats.e_impossible': {
             squirtlett: element.cats.squirtlett,
             cursedcat: element.cats.cursedcat,
             uwu: element.cats.uwu,
@@ -68,7 +68,7 @@ MongoClient.connect(config.db.connectionString, config.db.connectionOptions, (er
             bongocat: element.cats.bongocat,
             grumpycat: element.cats.grumpycat
           },
-          'cats.seasonal': {
+          'cats.f_seasonal': {
             ghostcat: element.cats.ghostcat
           }
         }
@@ -82,7 +82,7 @@ MongoClient.connect(config.db.connectionString, config.db.connectionOptions, (er
   })
   console.log(documentsModified_SET)
 
-  collection.updateMany({},
+  await collection.updateMany({},
     {
       $unset: {
         // common

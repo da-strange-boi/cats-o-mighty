@@ -1,11 +1,11 @@
 const MongoClient = require('mongodb').MongoClient
-const config = require('./config')
-const Discord = require('discord.js').RichEmbed
+const config = require('../config')
+const RichEmbed = require('discord.js').RichEmbed
 
 exports.run = async (bot, message, args) => {
   MongoClient.connect(config.db.connectionString, config.db.connectionOptions, (err, client) => {
 
-    const col2Embed = new Discord.RichEmbed()
+    const col2Embed = new RichEmbed()
       .setTitle('Collection 2')
 
     if (err) throw err
@@ -32,7 +32,7 @@ exports.run = async (bot, message, args) => {
         }
 
         // add rarity field to embed
-        col2Embed.addField(rarities[rarity], rarityField)
+        col2Embed.addField(rarities[rarity].slice(2), rarityField, true)
       }
 
       // finally, send the embed
@@ -49,7 +49,7 @@ exports.help = {
 
 const catProcess = (catObject, catName) => {
   if (catObject.discovered === false) {
-    return '?'.repeat(catName.length)
+    return ('?'.repeat(catName.length) + '\n')
   } else {
     return `${catName.charAt(0).toUpperCase() + catName.slice(1)}: **\`${catObject.amount}\`\n**`
   }
