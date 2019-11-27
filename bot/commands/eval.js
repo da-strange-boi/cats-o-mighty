@@ -2,9 +2,9 @@ const { inspect } = require('util')
 const Discord = require('discord.js')
 exports.run = async (bot, message, args) => {
   const toEval = args.join(' ')
-  // eslint-disable-next-line no-eval
-  const evaluated = inspect(eval(toEval, { depth: 0 }))
   try {
+    // eslint-disable-next-line no-eval
+    const evaluated = inspect(eval(toEval, { depth: 0 }))
     if (toEval) {
       const hrStart = process.hrtime()
       const hrDiff = process.hrtime(hrStart)

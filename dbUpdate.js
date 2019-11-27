@@ -82,7 +82,7 @@ MongoClient.connect(config.db.connectionString, config.db.connectionOptions, asy
   })
   console.log(documentsModified_SET)
 
-  await collection.updateMany({},
+  collection.updateMany({},
     {
       $unset: {
         // common
