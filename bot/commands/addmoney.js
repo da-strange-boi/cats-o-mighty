@@ -8,12 +8,12 @@ exports.run = async (bot, message, args) => {
   if (args[1]) {
     const mentionedUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]))
     if (!mentionedUser) return message.channel.send('That person doesn\'t exist')
-    const amtMoney = Number(args[1])
+    const amtMoney = Math.round(parseInt(args[1]))
 
     userCol.findOne({ userID: mentionedUser.id }, (err, userdata) => {
       if (userdata) {
         userCol.findOneAndUpdate({ userID: mentionedUser.id }, {$set: {'money.catmoney': userdata.money.catmoney + amtMoney}})
-        message.channel.send('Yes')
+        message.channel.send(`Yes $${amtMoney}`)
       }
       if (!userdata) {
         return message.channel.send('That person doesn\'t exist')
