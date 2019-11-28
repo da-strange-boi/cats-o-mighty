@@ -1,0 +1,251 @@
+{
+	"common": {
+		"siamese": {
+			"URL": "https://i.imgur.com/Q72dhHH.jpg",
+			"value": 25,
+			"credit": null
+		},
+		"burmese": {
+			"URL": "https://i.imgur.com/i2wLXer.jpg",
+			"value": 25,
+			"credit": null
+		},
+		"ragdoll": {
+			"URL": "https://i.imgur.com/BHI2A5B.jpg",
+			"value": 25,
+			"credit": null
+		},
+		"persian": {
+			"URL": "https://i.imgur.com/7zk7qMR.jpg",
+			"value": 25,
+			"credit": null
+		},
+		"maineCoon": {
+			"URL": "https://i.imgur.com/BdqURwX.png",
+			"value": 25,
+			"credit": null
+		},
+		"russianBlue": {
+			"URL": "https://i.imgur.com/XWmYcSC.jpg",
+			"value": 25,
+			"credit": ["jana"]
+		},
+		"calico": {
+			"URL": "https://i.imgur.com/yD6sXrt.jpg",
+			"value": 25,
+			"credit": ["n u g g e t", "Chad"]
+		},
+		"tabby": {
+			"URL": "https://i.imgur.com/frXE4oN.jpg",
+			"value": 25,
+			"credit": ["Chad"]
+		}
+	},
+	"uncommon": {
+		"abyssinian": {
+			"URL": "https://i.imgur.com/davptxh.jpg",
+			"value": 55,
+			"credit": null
+		},
+		"manx": {
+			"URL": "https://i.imgur.com/udgcttj.jpg",
+			"value": 55,
+			"credit": null
+		},
+		"sphynx": {
+			"URL": "https://i.imgur.com/xuwnwbe.jpg",
+			"value": 55,
+			"credit": null
+		},
+		"cyprus": {
+			"URL": "https://i.imgur.com/mcedtms.jpg",
+			"value": 55,
+			"credit": null
+		},
+		"foldex": {
+			"URL": "https://i.imgur.com/aql6z6t.jpg",
+			"value": 55,
+			"credit": null
+		},
+		"turkishangora": {
+			"URL": "https://i.imgur.com/lkkpajh.jpg",
+			"value": 55,
+			"credit": ["๑DelusionalHermit๑"]
+		},
+		"norwegianforest": {
+			"URL": "https://i.imgur.com/s54hq6d.jpg",
+			"value": 55,
+			"credit": ["mxrningstar", "Cactus Cat"]
+		},
+		"devonrex": {
+			"URL": "https://i.imgur.com/dg20uzj.jpg",
+			"value": 55,
+			"credit": null
+		}
+	},
+	"rare": {
+		"korat": {
+			"URL": "https://i.imgur.com/yogvgow.jpg",
+			"value": 200,
+			"credit": null
+		},
+		"singapura": {
+			"URL": "https://i.imgur.com/1wjvreo.jpg",
+			"value": 200,
+			"credit": null
+		},
+		"tonkinese": {
+			"URL": "https://i.imgur.com/bvvq89v.jpg",
+			"value": 200,
+			"credit": null
+		},
+		"peterbald": {
+			"URL": "https://i.imgur.com/oslqoj7.jpg",
+			"value": 200,
+			"credit": null
+		},
+		"chartreux": {
+			"URL": "https://i.imgur.com/dbrf5ir.jpg",
+			"value": 200,
+			"credit": null
+		},
+		"munchkin": {
+			"URL": "https://i.imgur.com/iuiokgr.jpg",
+			"value": 200,
+			"credit": ["[C] [R] [K] [N] [I]"]
+		},
+		"britishshorthair": {
+			"URL": "https://i.imgurr.com/u8zg7fg.jpg",
+			"value": 200,
+			"credit": ["TheRealNicole"]
+		},
+		"ojosazules": {
+			"URL": "https://i.imgur.com/vzyywnk.jpg",
+			"value": 200,
+			"credit": null
+		}
+	},
+	"special": {
+		"bandit": {
+			"URL": "https://i.imgur.com/yxiaiqe.jpg",
+			"value": 2500,
+			"credit": null
+		},
+		"bug": {
+			"URL": "https://i.imgur.com/umopzou.jpg",
+			"value": 2500,
+			"credit": null
+		},
+		"linda": {
+			"URL": "https://i.imgur.com/uierlr9.jpg",
+			"value": 2500,
+			"credit": null
+		},
+		"mittens": {
+			"URL": "https://i.imgur.com/vpyisrd.jpg",
+			"value": 2500,
+			"credit": null
+		},
+		"cash": {
+			"URL": "https://i.imgur.com/21odrlh.jpg",
+			"value": 2500,
+			"credit": null
+		},
+		"jackson": {
+			"URL": "https://i.imgur.com/nde2s2e.jpg",
+			"value": 2500,
+			"credit": null
+		},
+		"cottonball": {
+			"URL": "https://i.imgur.com/ceqspx4.jpg",
+			"value": 2500,
+			"credit": null
+		},
+		"sonny": {
+			"URL": "https://i.imgur.com/r7fb0xu.jpg",
+			"value": 2500,
+			"credit": null
+		},
+		"smokey": {
+			"URL": "https://i.imgur.com/z2vz3un.jpg",
+			"value": 2500,
+			"credit": null
+		},
+		"lailah": {
+			"URL": "https://i.imgur.com/xeby623.jpg",
+			"value": 2500,
+			"credit": null
+		},
+		"cher": {
+			"URL": "https://i.imgur.com/i06qynx.jpg",
+			"value": 2500,
+			"credit": null
+		},
+		"marvin": {
+			"URL": "https://i.imgur.com/ao3qmau.jpg",
+			"value": 2500,
+			"credit": null
+		},
+		"loki": {
+			"URL": "https://i.imgur.com/pbv6ijq.jpg",
+			"value": 2500,
+			"credit": null
+		},
+		"loverboy": {
+			"URL": "https://i.imgur.com/sj40y1e.jpg",
+			"value": 2500,
+			"credit": null
+		},
+		"killerclaws": {
+			"URL": "https://i.imgur.com/ero5bk5.jpg",
+			"value": 2500,
+			"credit": null
+		}
+	},
+	"impossible": {
+		"squirtlett": {
+			"URL": "https://i.imgur.com/6rcjxap.png",
+			"value": 10000,
+			"credit": ["utiyi#3353"]
+		},
+		"cursedcat": {
+			"URL": "https://i.imgur.com/yifiyjq.jpg",
+			"value": 10000,
+			"credit": ["Hispanic Ｓｔｉｎｋｙ Bean#5474"]
+		},
+		"uwu": {
+			"URL": "https://i.imgur.com/wj87ffu.jpg",
+			"value": 10000,
+			"credit": null
+		},
+		"tom": {
+			"URL": "https://i.imgur.com/nj05cmm.png",
+			"value": 10000,
+			"credit": ["˙ssǝlǝs∩"]
+		},
+		"demoncat": {
+			"URL": "https://i.imgur.com/li7ucff.png",
+			"value": 10000,
+			"credit": null
+		},
+		"bongocat": {
+			"URL": "https://i.imgur.com/dzpzdeo.gif",
+			"value": 10000,
+			"credit": null
+		},
+		"grumpycat": {
+			"URL": "https://i.imgur.com/sgilydc.jpg",
+			"value": 10000,
+			"credit": null,
+			"sidenote": "R.I.P. Tardar Sauce"
+		}
+	},
+	"seasonal": {
+		"ghostcat": {
+			"URL": "https://i.imgur.com/qlbLgWj.jpg",
+			"value": null,
+			"credit": null,
+			"sidenote": "Halloween 2019!"
+		}
+	}
+}
