@@ -1,12 +1,11 @@
 async function clearCats(udata, uCol, user){
-  for(let rarity in udata.cats){
-    for(let cat in udata.cats[rarity]){
-      await uCol.findOneAndUpdate({ userID: user.id }, 
-        {
-          $set: {
-            [`userdata.cats.${rarity}.${cat}.amount`]: 0
-          }
-        })
+  for (let rarity in udata.cats) {
+    for (let cat in udata.cats[rarity]) {
+      await uCol.findOneAndUpdate({ userID: user }, {
+        $set: {
+          [`cats.${rarity}.${cat}.amount`]: 0
+        }
+      })
     }
   }
 }
