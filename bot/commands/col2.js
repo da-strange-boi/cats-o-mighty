@@ -12,7 +12,7 @@ const catProcess = (catObject, catName) => {
 
 const categoryHearts = [':green_heart:', ':blue_heart:', ':purple_heart:', ':sparkling_heart:', ':yellow_heart:']
 
-exports.run = async (bot, message, args) => {
+exports.run = async (bot, message) => {
 
   const col2Embed = new RichEmbed()
     .setAuthor(message.author.username + ' cat collection!')
@@ -22,6 +22,7 @@ exports.run = async (bot, message, args) => {
     if (err) throw err
 
     if (userdata) {
+      const rarities = Object.keys(userdata.cats) // array containing all the keys (rarities) of userdata.cats
     
       // Set A Cooldown
       if (cooldown[message.author.id] && (Date.now() - cooldown[message.author.id]) > 0) {
@@ -33,9 +34,10 @@ exports.run = async (bot, message, args) => {
 
       // Check to see if user has cats
       let noCatsQ = 0
-      for (let rarity in userdata.rarities) {
-        for (let cat in userdata.rarities[rarity]) {
-          noCatsQ += userdata.cats[rarity][cat].amount
+      for (let rarity in rarities) {
+        const catsInCatogry = Object.keys(userdata.cats[rarities[rarity]])
+        for (let cat in catsInCatogry) {
+          noCatsQ += userdata.cats[rarities[rarity]][catsInCatogry[cat]].amount
         }
       }
       if (noCatsQ === 0) {
@@ -46,32 +48,33 @@ exports.run = async (bot, message, args) => {
       }
 
       // loop through rarities || put together the collection
-      for (let rarity in userdata.rarities) {
+      for (let rarity in rarities) {
 
         let rarityField = ''
+        const catsInCatogry = Object.keys(userdata.cats[rarities[rarity]]) // array containing all the keys (cats) of userdata.cats.{rarity}
 
         // loop through the cats in each rarity
         let amountCats = 0
-        for (let cat in userdata.rarities[rarity]){
-          rarityField += catProcess(userdata.cats[rarity][cat], cat)
-          amountCats += userdata.cats[rarity][cat].amount
+        for (let cat in catsInCatogry){
+          rarityField += catProcess(userdata.cats[rarities[rarity]][catsInCatogry[cat]], catsInCatogry[cat])
+          amountCats += userdata.cats[rarities[rarity]][catsInCatogry[cat]].amount
         }
 
         // adds hearts to either side of the category (only way i could think of doing this)
-        let catCategoryHeart
+        let catCatogryHeart
         const whiteHeart = await bot.getEmoji.run(bot, 'whiteHeart')
         switch (rarity) {
-          case '0': catCategoryHeart = categoryHearts[0]; break
-          case '1': catCategoryHeart = categoryHearts[1]; break
-          case '2': catCategoryHeart = categoryHearts[2]; break
-          case '3': catCategoryHeart = categoryHearts[3]; break
-          case '4': catCategoryHeart = categoryHearts[4]; break
-          case '5': catCategoryHeart = whiteHeart
+          case '0': catCatogryHeart = categoryHearts[0]; break
+          case '1': catCatogryHeart = categoryHearts[1]; break
+          case '2': catCatogryHeart = categoryHearts[2]; break
+          case '3': catCatogryHeart = categoryHearts[3]; break
+          case '4': catCatogryHeart = categoryHearts[4]; break
+          case '5': catCatogryHeart = whiteHeart
         }
 
         if (amountCats !== 0) {
           // add rarity field to embed
-          col2Embed.addField(`${catCategoryHeart} ${bot.functions.cap(userdata.rarities[rarity].slice(2))} ${catCategoryHeart}`, rarityField, true)
+          col2Embed.addField(`${catCatogryHeart} ${bot.functions.cap(rarities[rarity].slice(2))} ${catCatogryHeart}`, rarityField, true)
         }
         amountCats = 0
       }
