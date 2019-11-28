@@ -22,7 +22,6 @@ exports.run = async (bot, message, args) => {
     if (err) throw err
 
     if (userdata) {
-      const rarities = Object.keys(userdata.cats) // array containing all the keys (rarities) of userdata.cats
     
       // Set A Cooldown
       if (cooldown[message.author.id] && (Date.now() - cooldown[message.author.id]) > 0) {
@@ -34,10 +33,9 @@ exports.run = async (bot, message, args) => {
 
       // Check to see if user has cats
       let noCatsQ = 0
-      for (let rarity in rarities) {
-        const o = Object.keys(userdata.cats[rarities[rarity]])
-        for (let i in o) {
-          noCatsQ += userdata.cats[rarities[rarity]][o[i]].amount
+      for (let rarity in userdata.rarities) {
+        for (let cat in userdata.rarities[rarity]) {
+          noCatsQ += userdata.cats[rarity][cat].amount
         }
       }
       if (noCatsQ === 0) {
@@ -48,33 +46,32 @@ exports.run = async (bot, message, args) => {
       }
 
       // loop through rarities || put together the collection
-      for (let rarity in rarities) {
+      for (let rarity in userdata.rarities) {
 
         let rarityField = ''
-        const o = Object.keys(userdata.cats[rarities[rarity]]) // array containing all the keys (cats) of userdata.cats.{rarity}
 
         // loop through the cats in each rarity
         let amountCats = 0
-        for (let i in o){
-          rarityField += catProcess(userdata.cats[rarities[rarity]][o[i]], o[i])
-          amountCats += userdata.cats[rarities[rarity]][o[i]].amount
+        for (let cat in userdata.rarities[rarity]){
+          rarityField += catProcess(userdata.cats[rarity][cat], cat)
+          amountCats += userdata.cats[rarity][cat].amount
         }
 
         // adds hearts to either side of the category (only way i could think of doing this)
-        let catCatogryHeart
+        let catCategoryHeart
         const whiteHeart = await bot.getEmoji.run(bot, 'whiteHeart')
         switch (rarity) {
-          case '0': catCatogryHeart = categoryHearts[0]; break
-          case '1': catCatogryHeart = categoryHearts[1]; break
-          case '2': catCatogryHeart = categoryHearts[2]; break
-          case '3': catCatogryHeart = categoryHearts[3]; break
-          case '4': catCatogryHeart = categoryHearts[4]; break
-          case '5': catCatogryHeart = whiteHeart
+          case '0': catCategoryHeart = categoryHearts[0]; break
+          case '1': catCategoryHeart = categoryHearts[1]; break
+          case '2': catCategoryHeart = categoryHearts[2]; break
+          case '3': catCategoryHeart = categoryHearts[3]; break
+          case '4': catCategoryHeart = categoryHearts[4]; break
+          case '5': catCategoryHeart = whiteHeart
         }
 
         if (amountCats !== 0) {
           // add rarity field to embed
-          col2Embed.addField(`${catCatogryHeart} ${bot.functions.cap(rarities[rarity].slice(2))} ${catCatogryHeart}`, rarityField, true)
+          col2Embed.addField(`${catCategoryHeart} ${bot.functions.cap(userdata.rarities[rarity].slice(2))} ${catCategoryHeart}`, rarityField, true)
         }
         amountCats = 0
       }

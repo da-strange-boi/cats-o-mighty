@@ -95,7 +95,6 @@ exports.run = async (bot, message, cmd, args, prefix) => {
               .setColor(bot.config.color.darkblue)
               .setDescription('Welcome new cat collector!\nto get started do `cat help` to get the list of commands')
             return message.channel.send(newUserEmbed)
-
           }
         })
       })
@@ -120,7 +119,7 @@ exports.run = async (bot, message, cmd, args, prefix) => {
     }
 
     if (userdata) {
-      // Don't Show 'level messages' In (DBL && DBGG && BFD (discord bot list servers) ) As It Is Agaest The Rules
+      // Don't Show 'level messages' In (DBL && DBGG && BFD (discord bot list servers) ) As It Is Against The Rules
       if (
         message.guild.id !== '264445053596991498' &&
         message.guild.id !== '110373943822540800' &&
