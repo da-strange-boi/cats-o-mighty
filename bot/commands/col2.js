@@ -10,9 +10,16 @@ const catProcess = (catObject, catName) => {
   }
 }
 
-const categoryHearts = [':green_heart:', ':blue_heart:', ':purple_heart:', ':sparkling_heart:', ':yellow_heart:']
+exports.run = async (bot, message, args) => {
 
-exports.run = async (bot, message) => {
+  const categoryHearts = {
+    common: ':green_heart:',
+    uncommon: ':blue_heart:',
+    rare:':purple_heart:',
+    special:':sparkling_heart:',
+    impossible:':yellow_heart:',
+    seasonal: await bot.getEmoji.run(bot, 'whiteHeart')
+  }
 
   const col2Embed = new RichEmbed()
     .setAuthor(message.author.username + ' cat collection!')
@@ -22,7 +29,6 @@ exports.run = async (bot, message) => {
     if (err) throw err
 
     if (userdata) {
-      const rarities = Object.keys(userdata.cats) // array containing all the keys (rarities) of userdata.cats
     
       // Set A Cooldown
       if (cooldown[message.author.id] && (Date.now() - cooldown[message.author.id]) > 0) {
@@ -32,12 +38,19 @@ exports.run = async (bot, message) => {
       }
       cooldown[message.author.id] = Date.now()
 
+      //* Delete The Cooldown // Resetting It
+      console.log(cooldown[message.author.id])
+
+      setTimeout(() => {
+        delete cooldown[message.author.id]
+      }, 30000)
+
       // Check to see if user has cats
       let noCatsQ = 0
-      for (let rarity in rarities) {
-        const catsInCatogry = Object.keys(userdata.cats[rarities[rarity]])
-        for (let cat in catsInCatogry) {
-          noCatsQ += userdata.cats[rarities[rarity]][catsInCatogry[cat]].amount
+      for (let rarity in userdata.cats) {
+        console.log(rarity)
+        for (let cat in userdata.cats[rarity]) {
+          noCatsQ += userdata.cats[rarity][cat].amount
         }
       }
       if (noCatsQ === 0) {
@@ -48,44 +61,27 @@ exports.run = async (bot, message) => {
       }
 
       // loop through rarities || put together the collection
-      for (let rarity in rarities) {
+      for (let rarity in userdata.cats) {
 
         let rarityField = ''
-        const catsInCatogry = Object.keys(userdata.cats[rarities[rarity]]) // array containing all the keys (cats) of userdata.cats.{rarity}
 
         // loop through the cats in each rarity
         let amountCats = 0
-        for (let cat in catsInCatogry){
-          rarityField += catProcess(userdata.cats[rarities[rarity]][catsInCatogry[cat]], catsInCatogry[cat])
-          amountCats += userdata.cats[rarities[rarity]][catsInCatogry[cat]].amount
-        }
-
-        // adds hearts to either side of the category (only way i could think of doing this)
-        let catCatogryHeart
-        const whiteHeart = await bot.getEmoji.run(bot, 'whiteHeart')
-        switch (rarity) {
-          case '0': catCatogryHeart = categoryHearts[0]; break
-          case '1': catCatogryHeart = categoryHearts[1]; break
-          case '2': catCatogryHeart = categoryHearts[2]; break
-          case '3': catCatogryHeart = categoryHearts[3]; break
-          case '4': catCatogryHeart = categoryHearts[4]; break
-          case '5': catCatogryHeart = whiteHeart
+        for (let cat in userdata.cats[rarity]){
+          rarityField += catProcess(userdata.cats[rarity][cat], cat)
+          amountCats += userdata.cats[rarity][cat].amount
         }
 
         if (amountCats !== 0) {
           // add rarity field to embed
-          col2Embed.addField(`${catCatogryHeart} ${bot.functions.cap(rarities[rarity].slice(2))} ${catCatogryHeart}`, rarityField, true)
+          console.log(categoryHearts)
+          col2Embed.addField(`${categoryHearts[rarity.slice(2)]} ${bot.functions.cap(rarity.slice(2))} ${categoryHearts[rarity.slice(2)]}`, rarityField, true)
         }
         amountCats = 0
       }
 
       // finally, send the embed
       message.channel.send(col2Embed)
-
-      //* Delete The Cooldown // Resetting It
-      setTimeout(() => {
-        delete cooldown[message.author.id]
-      }, 30000)
     }
   })
 }

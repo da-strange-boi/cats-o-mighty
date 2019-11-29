@@ -5,8 +5,8 @@
 const Discord = require('discord.js')
 exports.run = async (bot, message, cmd, args, prefix) => {
 
-  const userCol = bot.database.Userdata
-  const guildCol = bot.database.Guildsettings
+  const userCol = await bot.database.Userdata
+  const guildCol = await bot.database.Guildsettings
 
   if (Object.prototype.hasOwnProperty.call(cmd, 'help')) {
     if (!message.content.trim().toLowerCase().startsWith(prefix)) return

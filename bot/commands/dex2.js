@@ -41,13 +41,17 @@ exports.run = async (bot, message, args) => {
             if (totalList) {
               const dexEmbed = new Discord.RichEmbed()
                 .setThumbnail(bot.user.avatarURL)
-                .setTitle(`Cat dex for ${cat.toUpperCase()}`)
+                .setTitle(`Cat dex for ${bot.functions.cap(cat)}`)
                 .setColor(bot.config.color.rarities[rarity])
                 .addField('Total found:', `**${totalList.cats[cat]}**`, true)
-                .addField('Sell Value:', `**${catData[rarity][cat].value !== null? catData[rarity][cat].value: 'Priceless!'}**`, true)
+                .addField('Sell value:', `**${catData[rarity][cat].value !== null? catData[rarity][cat].value: 'Priceless!'}**`, true)
                 .setImage(catData[rarity][cat].URL)
               if(catData[rarity][cat].credit !== null){
-                dexEmbed.addField('Suggested by:', `**${catData[rarity][cat].credit}**`, true)
+                let creditNames = ''
+                for(let name in catData[rarity][cat].credit){
+                  creditNames += catData[rarity][cat].credit[name] + (name < catData[rarity][cat].credit[name].length? ', ': '')
+                }
+                dexEmbed.addField('Suggested by:', `**${creditNames}**`, true)
               }
               if(catData[rarity][cat].sidenote){
                 dexEmbed.setDescription(catData[rarity][cat].sidenote)
