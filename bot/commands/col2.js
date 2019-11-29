@@ -38,12 +38,12 @@ exports.run = async (bot, message, args) => {
         return
       }
       cooldown[message.author.id] = Date.now()
-      // #endregion cooldown
 
       //* Delete The Cooldown // Resetting It
       setTimeout(() => {
         delete cooldown[message.author.id]
       }, 30000)
+      // #endregion cooldown
 
       // assume no cats to start
       let noCatsQ = 0
