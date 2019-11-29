@@ -22,14 +22,15 @@ exports.run = async (bot, message, args) => {
   }
 
   const col2Embed = new RichEmbed()
-    .setAuthor(message.author.username + ' cat collection!')
+    .setAuthor(message.author.username + 's cat collection!')
     .setColor(bot.config.color.blue)
 
   bot.database.Userdata.findOne({ userID: message.author.id  }, async (err, userdata) => {
     if (err) throw err
 
     if (userdata) {
-    
+
+      // #region cooldown
       // Set A Cooldown
       if (cooldown[message.author.id] && (Date.now() - cooldown[message.author.id]) > 0) {
         const time = ms(Date.now() - cooldown[message.author.id])
@@ -37,30 +38,31 @@ exports.run = async (bot, message, args) => {
         return
       }
       cooldown[message.author.id] = Date.now()
+      // #endregion cooldown
 
       //* Delete The Cooldown // Resetting It
-      console.log(cooldown[message.author.id])
-
       setTimeout(() => {
         delete cooldown[message.author.id]
       }, 30000)
 
-      // Check to see if user has cats
+      // assume no cats to start
       let noCatsQ = 0
       for (let rarity in userdata.cats) {
         console.log(rarity)
         for (let cat in userdata.cats[rarity]) {
-          noCatsQ += userdata.cats[rarity][cat].amount
+          noCatsQ += userdata.cats[rarity][cat].amount // add the amount for that cat to the total cat amount
         }
       }
       if (noCatsQ === 0) {
         const noCatsEmbed = new RichEmbed()
           .setColor(bot.config.color.red)
-          .setDescription(`Sorry **${message.author.username}** you dont have any cats`)
+          .setThumbnail(bot.user.avatarURL)
+          .setTitle('Uh-oh :(')
+          .setDescription(`It looks like you don't have any cats, **${message.author.username}**! Start sending messages to find some!`)
         return message.channel.send(noCatsEmbed)
       }
 
-      // loop through rarities || put together the collection
+      // loop through rarities and put together the collection
       for (let rarity in userdata.cats) {
 
         let rarityField = ''
@@ -72,6 +74,7 @@ exports.run = async (bot, message, args) => {
           amountCats += userdata.cats[rarity][cat].amount
         }
 
+        // check if user has no cats
         if (amountCats !== 0) {
           // add rarity field to embed
           console.log(categoryHearts)
