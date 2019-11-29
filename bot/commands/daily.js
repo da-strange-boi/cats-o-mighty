@@ -2,7 +2,10 @@ const Discord = require('discord.js')
 const ms = require('parse-ms')
 const cooldown = {}
 
-const specialCats = ['bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin', 'loki', 'loverboy', 'killerclaws']
+const timeout = 86400000 //* 24 hours (86400000)
+const resetTime = 172800000 //* 48 hours (172800000)
+
+const specialCats = Object.keys(require('../lib/catData.json').special)
 
 exports.run = async (bot, message) => {
   // {USAGE} cat daily
@@ -12,6 +15,7 @@ exports.run = async (bot, message) => {
      If your streak is above a 7 (over a week) then you get special rewards
   */
 
+  // #region cooldown
   // Set A Cooldown
   if (cooldown[message.author.id] && (Date.now() - cooldown[message.author.id]) > 0) {
     const time = ms(Date.now() - cooldown[message.author.id])
@@ -19,6 +23,12 @@ exports.run = async (bot, message) => {
     return
   }
   cooldown[message.author.id] = Date.now()
+
+  // Delete The Cooldown // Resetting It
+  setTimeout(() => {
+    delete cooldown[message.author.id]
+  }, 3500)
+  // #endregion cooldown
 
   const displayEmbed = async (amtMoney, dailyStreak, catName, note) => {
     const embed = new Discord.RichEmbed()
@@ -35,9 +45,6 @@ exports.run = async (bot, message) => {
   const userCol = bot.database.Userdata
   userCol.findOne({ userID: message.author.id }, async (err, userdata) => {
     if (err) bot.log('error', err)
-
-    const timeout = 86400000 //* 24 hours (86400000)
-    const resetTime = 172800000 //* 48 hours (172800000)
     const daily = userdata.times.dailyTime
 
     if (daily !== null && timeout - (Date.now() - daily) > 0) {
@@ -132,11 +139,6 @@ exports.run = async (bot, message) => {
       }
     }
   })
-
-  // Delete The Cooldown // Resetting It
-  setTimeout(() => {
-    delete cooldown[message.author.id]
-  }, 3500)
 }
 
 module.exports.help = {
