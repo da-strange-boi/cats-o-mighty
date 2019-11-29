@@ -10,7 +10,7 @@ const specialCats = Object.keys(require('../lib/catData.json').special)
 exports.run = async (bot, message) => {
   // {USAGE} cat daily
 
-  /* the system works by checking your daily streak (does not reset if you miss a day)
+  /* the system works by checking your daily streak
      If your streak is below a 7 (under a week) then you get common rewards
      If your streak is above a 7 (over a week) then you get special rewards
   */

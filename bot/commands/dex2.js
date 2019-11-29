@@ -64,8 +64,7 @@ exports.run = async (bot, message, args) => {
         }
       }
     }
-    console.log(catFound)
-    if(!catFound) message.channel.send('Cat not found!')
+    if (!catFound) return message.channel.send('Cat not found!')
   }
 }
 
