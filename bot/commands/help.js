@@ -1,17 +1,17 @@
 const { RichEmbed } = require('discord.js')
-const helpJSON = require('../lib/helpCommandData.json').help
 const HELP = {}
 
-for (const key in helpJSON) {
-  const h = key.split(',')
-
-  for (const i in h) {
-    HELP[h[i]] = helpJSON[key]
-  }
-}
 exports.run = async (bot, message, args) => {
   // {USAGE} cat help || cat help <command>
   
+  for (const key in bot.helpCommand.help) {
+    const h = key.split(',')
+  
+    for (const i in h) {
+      HELP[h[i]] = bot.helpCommand.help[key]
+    }
+  }
+
   // if no argument(s) given
   if (!args[0]) {
     const helpEmbed = new RichEmbed()

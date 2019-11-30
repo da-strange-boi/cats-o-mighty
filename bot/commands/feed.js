@@ -2,10 +2,11 @@ const Discord = require('discord.js')
 const ms = require('parse-ms')
 const cooldown = {}
 exports.run = async (bot, message, args) => {
-  /* User suggestion
+  /* User suggestion (from chad lol)
     Maybe do [cat feed] then insert a cat breed then there will be a chance
-    you'll get the cat. The chance varies depending on how high the cat is
-    from looking in [cat collection]
+    you'll get the cat. 
+    -The chance varies depending on how high the cat is
+    from looking in [cat collection] / 2
   */
 
   if (!args[0]) return message.channel.send('Check `cat help feed` for more info')

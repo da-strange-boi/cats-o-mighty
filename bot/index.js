@@ -59,6 +59,8 @@ setTimeout(() => {
 // adding onto the bot variable
 bot.log = require('./lib/logging')
 bot.config = require('./config')
+bot.catData = require('./data/catData')
+bot.helpCommand = require('./data/helpCommandData')
 bot.getDate = require('./lib/getDate')
 bot.functions = require('./lib/functions')
 bot.getCmd = require('./handlers/getCommands')

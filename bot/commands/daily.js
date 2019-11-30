@@ -5,8 +5,6 @@ const cooldown = {}
 const timeout = 86400000 //* 24 hours (86400000)
 const resetTime = 172800000 //* 48 hours (172800000)
 
-const specialCats = Object.keys(require('../lib/catData.json').special)
-
 exports.run = async (bot, message) => {
   // {USAGE} cat daily
 
@@ -14,6 +12,8 @@ exports.run = async (bot, message) => {
      If your streak is below a 7 (under a week) then you get common rewards
      If your streak is above a 7 (over a week) then you get special rewards
   */
+
+  const specialCats = Object.keys(bot.catData.special)
 
   // #region cooldown
   // Set A Cooldown

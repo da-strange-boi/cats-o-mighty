@@ -1,6 +1,5 @@
 const Discord = require('discord.js')
 const ms = require('parse-ms')
-const catData = require('../lib/catData.json')
 const cooldown = {}
 
 exports.run = async (bot, message, args) => {
@@ -21,6 +20,8 @@ exports.run = async (bot, message, args) => {
   setTimeout(() => {
     delete cooldown[message.author.id]
   }, 3500)
+
+  const catData = bot.catData
 
   // If User Does Specifiy The Cat Type
   if (args[0]) {
