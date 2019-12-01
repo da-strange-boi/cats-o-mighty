@@ -77,8 +77,14 @@ exports.run = async (bot, message) => {
       userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'money.catmoney': userdata.money.catmoney + 350}})
       displayEmbed('350', userdata.stats.dailyStreak, animals[aResult], 'Your streak has restarted')
     } else {
-      userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'times.dailyTime': Date.now()}})
-      userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'stats.dailyStreak': userdata.stats.dailyStreak + 1}})
+      userCol.findOneAndUpdate({ userID: message.author.id },
+        {
+          $set: {
+            'times.dailyTime': Date.now(),
+            'stats.dailyStreak': userdata.stats.dailyStreak + 1
+          }
+        }
+      )
 
       // If User Has Under A 7 Day Daily Streak
       if (userdata.stats.dailyStreak < 7) {
