@@ -58,8 +58,13 @@ exports.run = async (bot, message) => {
         .addField(':star2: Streak', `${userdata.stats.dailyStreak}`)
       message.channel.send(embed)
     } else if ((Date.now() - daily) > resetTime) {
-      userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'times.dailyTime': Date.now()}})
-      userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'stats.dailyStreak': 1}})
+      userCol.findOneAndUpdate({ userID: message.author.id },
+        {
+          $set: {
+            'times.dailyTime': Date.now(),
+            'stats.dailyStreak': 1
+          }
+        })
 
       // Set Vars For Special Cats
       const animals = specialCats
