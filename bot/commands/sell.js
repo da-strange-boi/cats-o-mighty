@@ -28,7 +28,7 @@ exports.run = async (bot, message, args) => {
       // If The User Doesn't Specify Anything (cat sell)
       if (!args[0]) return message.channel.send(`**${message.author.username}**, please use the command correctly, check \`cat help sell\``)
 
-      // {USAGE}cat sell simese 1
+      // {USAGE}cat sell siamese 1
       if (args[1]) {
         let animalSellName
         const animal = args[0].toLowerCase().trim()

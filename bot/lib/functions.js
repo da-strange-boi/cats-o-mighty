@@ -40,9 +40,22 @@ const formatMoney = (amount, decimalCount = 0, decimal = '.', thousands = ',') =
   }
 }
 
+const parseRarityForDB = (rarity) => {
+  switch(rarity){
+    case('common'):     return 'a_' + rarity
+    case('uncommon'):   return 'b_' + rarity
+    case('rare'):       return 'c_' + rarity
+    case('special'):    return 'd_' + rarity
+    case('impossible'): return 'e_' + rarity
+    case('seasonal'):   return 'f_' + rarity
+    default:            return false
+  }
+}
+
 module.exports = {
   msToTime: msToTime,
   cap: cap,
   formatMoney: formatMoney,
-  hasTag: hasTag
+  hasTag: hasTag,
+  parseRarityForDB: parseRarityForDB
 }

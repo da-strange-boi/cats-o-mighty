@@ -26,6 +26,7 @@ exports.run = async (bot, message, args) => {
   bot.database.Userdata.findOne({ userID: message.author.id  }, async (err, userdata) => {
     if (err) throw err
 
+    // if the user is in the database, do stuff
     if (userdata) {
 
       // #region cooldown
@@ -37,7 +38,7 @@ exports.run = async (bot, message, args) => {
       }
       cooldown[message.author.id] = Date.now()
 
-      //* Delete The Cooldown // Resetting It
+      // Delete The Cooldown // Resetting It
       setTimeout(() => {
         delete cooldown[message.author.id]
       }, 30000)
