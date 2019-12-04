@@ -3,15 +3,7 @@ const ms = require('parse-ms')
 const chalk = require('chalk')
 let cooldown = {}
 
-// console.log(catData)
-
-// // rebuild catData
-// let catData = {}
-// for(let rarity in catDataTemp){
-//   console.log(rarity)
-//   catData[rarity.slice(2)] = catDataTemp[rarity]
-// }
-// console.log(catData)
+const DEBUG = false
 
 module.exports.run = async (bot, message, args) => {
 
@@ -21,9 +13,6 @@ module.exports.run = async (bot, message, args) => {
   userCol.findOne({ userID: message.author.id }, async (err, userdata) => {
 
     if(err) bot.log('error', err)
-
-    // console.log('args[0]', args[0])
-    // console.log('args[1]', args[1])
 
     if(!userdata) message.channel.send('Account Error')
 
@@ -55,7 +44,7 @@ module.exports.run = async (bot, message, args) => {
 
           // debug
           rCount++
-          console.log(`${(rCount < Object.keys(bot.catData).length)? `${( rarity === sellRequest ) || ( sellRequest in bot.catData[rarity] )? '└': '├'}`: '└'}───${rarity === sellRequest? chalk.green.bold(rarity): rarity}`)
+          if(DEBUG){ console.log(`${(rCount < Object.keys(bot.catData).length)? `${( rarity === sellRequest ) || ( sellRequest in bot.catData[rarity] )? '└': '├'}`: '└'}───${rarity === sellRequest? chalk.green.bold(rarity): rarity}`) }
 
           // check if the sale requested is a rarity; if it is, set `sale` to 'rarity' and then break
           if(rarity === sellRequest){
@@ -73,7 +62,7 @@ module.exports.run = async (bot, message, args) => {
 
             // debug
             cCount++
-            console.log(`${(cCount < Object.keys(bot.catData[rarity]).length)? `${sellRequest in bot.catData[rarity]? ' ': '│'}   ${sellRequest === cat? '└': '├'}`: `${( rCount < Object.keys(bot.catData).length )? '│': ' '}   └`}───${cat === sellRequest? chalk.green.bold(cat): cat}`)
+            if(DEBUG){ console.log(`${(cCount < Object.keys(bot.catData[rarity]).length)? `${sellRequest in bot.catData[rarity]? ' ': '│'}   ${sellRequest === cat? '└': '├'}`: `${( rCount < Object.keys(bot.catData).length )? '│': ' '}   └`}───${cat === sellRequest? chalk.green.bold(cat): cat}`) }
 
             // check if the sale requested is a cat; if it is, set `sale` to 'cat' and then break
             if(cat === sellRequest){
@@ -86,23 +75,21 @@ module.exports.run = async (bot, message, args) => {
         }
       }
 
-      console.log(chalk.keyword('lime').inverse('saleType:', saleType))
+      if(DEBUG){ console.log(chalk.keyword('lime').inverse('saleType:', saleType)) }
 
       // do stuff based on what the sale is
       switch(saleType){
 
         // selling all
         case('all'): {
-          console.log(chalk.yellow.inverse(`${saleType}: ${saleData}`))
-
-          const parse = bot.functions.parseRarityForDB
+          if(DEBUG){ console.log(chalk.yellow.inverse(`${saleType}: ${saleData}`)) }
 
           let catValue = 0
           let catAmount = 0
 
           // loop through all the rarities / cats
           for(let rarity in userdata.cats){
-            console.log(chalk.keyword('purple')('\n' + rarity + ': ' + rarity.slice(2)))
+            if(DEBUG){ console.log(chalk.keyword('purple')('\n' + rarity + ': ' + rarity.slice(2))) }
             for(let cat in userdata.cats[rarity]){
 
               if(bot.catData[rarity.slice(2)][cat].value){
@@ -116,7 +103,7 @@ module.exports.run = async (bot, message, args) => {
                 {
                   $set: { [`cats.${rarity}.${cat}.amount`]: 0 }
                 }).then(res => {
-                process.stdout.write(chalk.blue(cat) + ': ' + (res.value.cats[rarity][cat].amount? chalk.green(res.value.cats[rarity][cat].amount): chalk.red(res.value.cats[rarity][cat].amount)) + ' sold | ')
+                if(DEBUG){ process.stdout.write(chalk.blue(cat) + ': ' + (res.value.cats[rarity][cat].amount? chalk.green(res.value.cats[rarity][cat].amount): chalk.red(res.value.cats[rarity][cat].amount)) + ' sold | ') }
               })
             }
           }
@@ -127,7 +114,7 @@ module.exports.run = async (bot, message, args) => {
               {
                 $inc: { 'money.catmoney': catValue}
               }).then(res => {
-              console.log(res.value.money.catmoney)
+              if(DEBUG){ console.log(res.value.money.catmoney) }
               // tell the user how many cats they sold and for how much
               return message.channel.send(`${catAmount} cats sold for ${catValue}.`)
             })
