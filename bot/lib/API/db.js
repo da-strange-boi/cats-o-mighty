@@ -20,6 +20,7 @@ exports.run = async (bot) => {
   dbl.webhook.on('vote', vote => {
     const votedUser = vote.user
     const userCol = bot.database.Userdata
+    const parse = bot.functions.parseRarityForDB
 
     userCol.findOne({ userID: votedUser }, (err, userdata) => {
       if (err) bot.log('error', `Discordbots.org API Error: ${err}`)
@@ -29,16 +30,14 @@ exports.run = async (bot) => {
       // To reset their vote counter
       userCol.findOneAndUpdate({ userID: votedUser }, {$set: {'times.voteTime': Date.now()}})
 
-      const specialCats = ['bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin', 'loki', 'loverboy', 'killerclaws']
-      const result = Math.floor((Math.random() * specialCats.length))
+      const specialCats = Object.keys(bot.catData.special)
+      const result = specialCats[Math.floor((Math.random() * specialCats.length))]
 
       // Check To See What Cat Is Randomly Slected Then Add It To Their Cats
-      const catDbName = `cats.${specialCats[result]}.amount`
-      userCol.findOneAndUpdate({ userID: votedUser }, {$set: {[catDbName]: userdata.cats[specialCats[result]].amount + 1}})
+      userCol.findOneAndUpdate({ userID: votedUser }, {$inc: { [`cats.${parse('special')}.${result}.amount`]: 1 }})
 
-      if (userdata.cats[specialCats[result]].discovered === false) {
-        const catDbNameDis = `cats.${specialCats[result]}.discovered`
-        userCol.findOneAndUpdate({ userID: votedUser }, {$set: {[catDbNameDis]: true}})
+      if (userdata.cats[parse('special')][result].discovered === false) {
+        userCol.findOneAndUpdate({ userID: votedUser }, {$set: {[`cats.${parse('special')}.${result}.discovered`]: true}})
       }
 
       // To send a DM to the user letting them know their rewards for voting
@@ -48,11 +47,11 @@ exports.run = async (bot) => {
         // If It's The Weekend Add $5,000 To Their Account
         userCol.findOneAndUpdate({ userID: votedUser }, {$set: {'money.catmoney': userdata.money.catmoney + 5000}})
 
-        votedEmbed.setAuthor('Thanks for upvoting Cats o Mighty • Weekend Rewards', bot.user.avatarURL)
-        votedEmbed.setDescription(`**For upvoting Cats o Mighty you get:**\n\n:cat2: ${specialCats[result]}\n:moneybag: $5,000\n\n:alarm_clock: **In 12 hours you can vote again to get more rewards!**`)
+        votedEmbed.setAuthor('Thanks for upvoting Cats o\' Mighty • Weekend Rewards', bot.user.avatarURL)
+        votedEmbed.setDescription(`**For upvoting Cats o' Mighty you get:**\n\n:cat2: ${result}\n:moneybag: $5,000\n\n:alarm_clock: **In 12 hours you can vote again to get more rewards!**`)
       } else {
-        votedEmbed.setAuthor('Thanks for upvoting Cats o Mighty', bot.user.avatarURL)
-        votedEmbed.setDescription(`**For upvoting Cats o Mighty you get:**\n\n:cat2: ${specialCats[result]}\n\n:alarm_clock: **In 12 hours you can vote again to get more rewards!**`)
+        votedEmbed.setAuthor('Thanks for upvoting Cats o\' Mighty', bot.user.avatarURL)
+        votedEmbed.setDescription(`**For upvoting Cats o' Mighty you get:**\n\n:cat2: ${result}\n\n:alarm_clock: **In 12 hours you can vote again to get more rewards!**`)
       }
       bot.users.get(votedUser).send(votedEmbed)
 
