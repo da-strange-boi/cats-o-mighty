@@ -41,16 +41,19 @@ exports.run = async (bot, message, args) => {
       // Delete The Cooldown // Resetting It
       setTimeout(() => {
         delete cooldown[message.author.id]
-      }, 30000)
+      }, 3000)                                                        // DON'T FORGET TO RESET THIS TO 30 SECONDS
       // #endregion cooldown
 
       // assume no cats to start
       let noCatsQ = 0
       for (let rarity in userdata.cats) {
+        // console.log(rarity)
         for (let cat in userdata.cats[rarity]) {
+          // console.log(cat, userdata.cats[rarity][cat].amount, noCatsQ)
           noCatsQ += userdata.cats[rarity][cat].amount // add the amount for that cat to the total cat amount
         }
       }
+      // console.log(noCatsQ === 0)
       if (noCatsQ === 0) {
         const noCatsEmbed = new RichEmbed()
           .setColor(bot.config.color.red)
@@ -63,6 +66,8 @@ exports.run = async (bot, message, args) => {
       let embedTotalCats = 0
       // loop through rarities and put together the collection
       for (let rarity in userdata.cats) {
+
+        console.log(rarity)
 
         let rarityField = ''
 
@@ -84,7 +89,7 @@ exports.run = async (bot, message, args) => {
             rarityField += catProcess(userdata.cats[rarity][cat], cat)
             amountCats += userdata.cats[rarity][cat].amount
           }
-          embedTotalCats = amountCats
+          embedTotalCats += amountCats
         }
 
         // check if user has no cats
