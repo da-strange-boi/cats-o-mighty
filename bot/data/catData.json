@@ -1,5 +1,5 @@
 {
-	"common": {
+	"a_common": {
 		"siamese": {
 			"URL": "https://i.imgur.com/Q72dhHH.jpg",
 			"value": 25,
@@ -41,7 +41,7 @@
 			"credit": ["Chad"]
 		}
 	},
-	"uncommon": {
+	"b_uncommon": {
 		"abyssinian": {
 			"URL": "https://i.imgur.com/DaVPTXH.jpg",
 			"value": 55,
@@ -83,7 +83,7 @@
 			"credit": null
 		}
 	},
-	"rare": {
+	"c_rare": {
 		"korat": {
 			"URL": "https://i.imgur.com/yoGvgow.jpg",
 			"value": 200,
@@ -125,7 +125,7 @@
 			"credit": null
 		}
 	},
-	"special": {
+	"d_special": {
 		"bandit": {
 			"URL": "https://i.imgur.com/yxIaIqe.jpg",
 			"value": 2500,
@@ -202,7 +202,7 @@
 			"credit": null
 		}
 	},
-	"impossible": {
+	"e_impossible": {
 		"squirtlett": {
 			"URL": "https://i.imgur.com/6RcJXap.png",
 			"value": 10000,
@@ -240,7 +240,7 @@
 			"sidenote": "R.I.P. Tardar Sauce"
 		}
 	},
-	"seasonal": {
+	"f_seasonal": {
 		"ghostcat": {
 			"URL": "https://i.imgur.com/qlbLgWj.jpg",
 			"value": null,

@@ -7,43 +7,45 @@
   all this does is check if a user has all the updated cats in their
   database userdata otherwise the data would be undefined
 */
-const newCatList = [
-  'siamese', 'burmese', 'ragdoll', 'persian', 'mainecoon', 'russianblue', 'calico', 'tabby',
-  'abyssinian', 'manx', 'sphynx', 'cyprus', 'foldex', 'turkishangora', 'norwegianforest', 'devonrex',
-  'korat', 'singapura', 'tonkinese', 'peterbald', 'chartreux', 'munchkin', 'britishshorthair', 'ojosazules',
-  'bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin', 'loki', 'loverboy', 'killerclaws',
-  'squirtlett', 'cursedcat', 'uwu', 'tom', 'demoncat','devonrex', 'ojosazules', 'bongocat', 'grumpycat', 
-  'ghostcat'
-]
+
 exports.run = (bot, message) => {
   const userCol = bot.database.Userdata
   const guildCol = bot.database.Guildsettings
 
-  userCol.findOne({ userID: message.author.id }, (err, userData) => {
+  userCol.findOne({ userID: message.author.id }, (err, userdata) => {
     if (err) bot.log('error', err)
-    
-    for (let i = 0; i < newCatList.length; i++) {
+
+    for (let rarity in userdata.cats) {
       // if someone is missing a cat from their account this will add it with default values
-      if (userData.cats[newCatList[i]] === undefined) {
-        let catDbname = `cats.${newCatList[i]}`
-        userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[catDbname]: {amount: 0, totalGot: 0, discovered: false}}})
-      }
-      // if someone has the wrong format of cat object add it
-      if (!isNaN(userData.cats[newCatList[i]])) {
-        let catDbname = `cats.${newCatList[i]}`
-        userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[catDbname]: {amount: userData.cats[newCatList[i]], totalGot: 0, discovered: false}}})
-      }
-      // add the discovered
-      if (userData.cats[newCatList[i]].amount > 0) {
-        if (userData.cats[newCatList[i]].discovered === false) {
-          let catDbname = `cats.${newCatList[i]}.discovered`
-          userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[catDbname]: true}})
+      Object.keys(bot.catData[rarity]).forEach(cat => {
+        if (!Object.keys(userdata.cats[rarity]).includes(cat.toString())) {
+          userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[`cats.${rarity}.${cat}`]: {amount: 0, totalGot: 0, discovered: false}}})
+        }
+      })
+      for (let cat in userdata.cats[rarity]) {
+        /* 
+          if someone has the wrong format of cat object (the old one) then update it 
+          not sure if this is even needed (or will even work)
+        */
+        if (!isNaN(userdata.cats[cat])) {
+          userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[`cats.${rarity}.${cat}`]: {amount: userdata.cats[cat], totalGot: 0, discovered: false}}})
+        }
+
+        // add the discovered
+        if (userdata.cats[rarity][cat].amount > 0) {
+          if (userdata.cats[rarity][cat].discovered === false) {
+            userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[`cats.${rarity}.${cat}.discovered`]: true}})
+          }
         }
       }
     }
 
   })
 
+  /* 
+    Makes sure there is a guild entry for the guild the user is sending the message 
+    if not create one
+  */
   guildCol.findOne({ guildID: message.guild.id }, (err, guildSettings) => {
     if (err) bot.log('error', err)
 

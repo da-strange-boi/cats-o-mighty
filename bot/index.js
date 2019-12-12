@@ -54,6 +54,7 @@ setTimeout(() => {
     Guildsettings: client.db('cats-o-mighty').collection('guildsettings')
   }
   bot.database = dbObject
+  bot.log('dbConnected')
 }, 4000)
 
 // adding onto the bot variable

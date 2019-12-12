@@ -23,7 +23,7 @@ exports.run = async (bot) => {
     const parse = bot.functions.parseRarityForDB
 
     userCol.findOne({ userID: votedUser }, (err, userdata) => {
-      if (err) bot.log('error', `Discordbots.org API Error: ${err}`)
+      if (err) bot.log('error', `topp.org API Error: ${err}`)
 
       if (!userdata) return
 

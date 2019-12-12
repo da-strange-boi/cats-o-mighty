@@ -30,53 +30,65 @@ exports.run = async (bot, message, cmd, args, prefix) => {
               userID: message.author.id,
               userTag: message.author.tag,
               cats: {
-                siamese: {amount: 0, totalGot: 0, discovered: false},
-                burmese: {amount: 0, totalGot: 0, discovered: false},
-                ragdoll: {amount: 0, totalGot: 0, discovered: false},
-                persian: {amount: 0, totalGot: 0, discovered: false},
-                mainecoon: {amount: 0, totalGot: 0, discovered: false},
-                russianblue: {amount: 0, totalGot: 0, discovered: false},
-                calico: {amount: 0, totalGot: 0, discovered: false},
-                tabby: {amount: 0, totalGot: 0, discovered: false},
-                abyssinian: {amount: 0, totalGot: 0, discovered: false},
-                manx: {amount: 0, totalGot: 0, discovered: false},
-                sphynx: {amount: 0, totalGot: 0, discovered: false},
-                cyprus: {amount: 0, totalGot: 0, discovered: false},
-                foldex: {amount: 0, totalGot: 0, discovered: false},
-                turkishangora: {amount: 0, totalGot: 0, discovered: false},
-                norwegianforest: {amount: 0, totalGot: 0, discovered: false},
-                devonrex: {amount: 0, totalGot: 0, discovered: false},
-                korat: {amount: 0, totalGot: 0, discovered: false},
-                singapura: {amount: 0, totalGot: 0, discovered: false},
-                tonkinese: {amount: 0, totalGot: 0, discovered: false},
-                peterbald: {amount: 0, totalGot: 0, discovered: false},
-                chartreux: {amount: 0, totalGot: 0, discovered: false},
-                munchkin: {amount: 0, totalGot: 0, discovered: false},
-                britishshorthair: {amount: 0, totalGot: 0, discovered: false},
-                ojosazules: {amount: 0, totalGot: 0, discovered: false},
-                bandit: {amount: 0, totalGot: 0, discovered: false},
-                bug: {amount: 0, totalGot: 0, discovered: false},
-                linda: {amount: 0, totalGot: 0, discovered: false},
-                mittens: {amount: 0, totalGot: 0, discovered: false},
-                cash: {amount: 0, totalGot: 0, discovered: false},
-                jackson: {amount: 0, totalGot: 0, discovered: false},
-                cottonball: {amount: 0, totalGot: 0, discovered: false},
-                sonny: {amount: 0, totalGot: 0, discovered: false},
-                smokey: {amount: 0, totalGot: 0, discovered: false},
-                lailah: {amount: 0, totalGot: 0, discovered: false},
-                cher: {amount: 0, totalGot: 0, discovered: false},
-                marvin: {amount: 0, totalGot: 0, discovered: false},
-                loki: {amount: 0, totalGot: 0, discovered: false},
-                loverboy: {amount: 0, totalGot: 0, discovered: false},
-                killerclaws: {amount: 0, totalGot: 0, discovered: false},
-                squirtlett: {amount: 0, totalGot: 0, discovered: false},
-                cursedcat: {amount: 0, totalGot: 0, discovered: false},
-                uwu: {amount: 0, totalGot: 0, discovered: false},
-                tom: {amount: 0, totalGot: 0, discovered: false},
-                demoncat: {amount: 0, totalGot: 0, discovered: false},
-                bongocat: {amount: 0, totalGot: 0, discovered: false},
-                grumpycat: {amount: 0, totalGot: 0, discovered: false},
-                ghostcat: {amount: 0, totalGot: 0, discovered: false}
+                a_common: {
+                  siamese: {amount: 0, totalGot: 0, discovered: false},
+                  burmese: {amount: 0, totalGot: 0, discovered: false},
+                  ragdoll: {amount: 0, totalGot: 0, discovered: false},
+                  persian: {amount: 0, totalGot: 0, discovered: false},
+                  mainecoon: {amount: 0, totalGot: 0, discovered: false},
+                  russianblue: {amount: 0, totalGot: 0, discovered: false},
+                  calico: {amount: 0, totalGot: 0, discovered: false},
+                  tabby: {amount: 0, totalGot: 0, discovered: false}
+                },
+                b_uncommon: {
+                  abyssinian: {amount: 0, totalGot: 0, discovered: false},
+                  manx: {amount: 0, totalGot: 0, discovered: false},
+                  sphynx: {amount: 0, totalGot: 0, discovered: false},
+                  cyprus: {amount: 0, totalGot: 0, discovered: false},
+                  foldex: {amount: 0, totalGot: 0, discovered: false},
+                  turkishangora: {amount: 0, totalGot: 0, discovered: false},
+                  norwegianforest: {amount: 0, totalGot: 0, discovered: false},
+                  devonrex: {amount: 0, totalGot: 0, discovered: false}
+                },
+                c_rare: {
+                  korat: {amount: 0, totalGot: 0, discovered: false},
+                  singapura: {amount: 0, totalGot: 0, discovered: false},
+                  tonkinese: {amount: 0, totalGot: 0, discovered: false},
+                  peterbald: {amount: 0, totalGot: 0, discovered: false},
+                  chartreux: {amount: 0, totalGot: 0, discovered: false},
+                  munchkin: {amount: 0, totalGot: 0, discovered: false},
+                  britishshorthair: {amount: 0, totalGot: 0, discovered: false},
+                  ojosazules: {amount: 0, totalGot: 0, discovered: false}
+                },
+                d_special: {
+                  bandit: {amount: 0, totalGot: 0, discovered: false},
+                  bug: {amount: 0, totalGot: 0, discovered: false},
+                  linda: {amount: 0, totalGot: 0, discovered: false},
+                  mittens: {amount: 0, totalGot: 0, discovered: false},
+                  cash: {amount: 0, totalGot: 0, discovered: false},
+                  jackson: {amount: 0, totalGot: 0, discovered: false},
+                  cottonball: {amount: 0, totalGot: 0, discovered: false},
+                  sonny: {amount: 0, totalGot: 0, discovered: false},
+                  smokey: {amount: 0, totalGot: 0, discovered: false},
+                  lailah: {amount: 0, totalGot: 0, discovered: false},
+                  cher: {amount: 0, totalGot: 0, discovered: false},
+                  marvin: {amount: 0, totalGot: 0, discovered: false},
+                  loki: {amount: 0, totalGot: 0, discovered: false},
+                  loverboy: {amount: 0, totalGot: 0, discovered: false},
+                  killerclaws: {amount: 0, totalGot: 0, discovered: false}
+                },
+                e_impossible: {
+                  squirtlett: {amount: 0, totalGot: 0, discovered: false},
+                  cursedcat: {amount: 0, totalGot: 0, discovered: false},
+                  uwu: {amount: 0, totalGot: 0, discovered: false},
+                  tom: {amount: 0, totalGot: 0, discovered: false},
+                  demoncat: {amount: 0, totalGot: 0, discovered: false},
+                  bongocat: {amount: 0, totalGot: 0, discovered: false},
+                  grumpycat: {amount: 0, totalGot: 0, discovered: false}
+                },
+                f_seasonal: {
+                  ghostcat: {amount: 0, totalGot: 0, discovered: false}
+                }
               },
               money: { catmoney: 0 },
               times: { dailyTime: 0, voteTime: 0, usedBotLast: date },
@@ -119,15 +131,18 @@ exports.run = async (bot, message, cmd, args, prefix) => {
     }
 
     if (userdata) {
-      // Don't Show 'level messages' In (DBL && DBGG && BFD (discord bot list servers) ) As It Is Against The Rules
+      // Don't Show 'level messages' In (TOP && DBGG && BFD && DBL && BOATS && DDBL (discord bot list servers) ) As It Is Against The Rules
       if (
         message.guild.id !== '264445053596991498' &&
         message.guild.id !== '110373943822540800' &&
-        message.guild.id !== '374071874222686211'
+        message.guild.id !== '374071874222686211' &&
+        message.guild.id !== '450100127256936458' &&
+        message.guild.id !== '439866052684283905' &&
+        message.guild.id !== '454933217666007052'
       ) {
         const checkCats = require('../lib/checkCats')
         const getCats = require('./getCats')
-        // checkCats.run(bot, message)
+        checkCats.run(bot, message)
         getCats.run(bot, message)
       }
 

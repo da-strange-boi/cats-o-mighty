@@ -41,7 +41,7 @@ exports.run = async (bot, message, args) => {
       // Delete The Cooldown // Resetting It
       setTimeout(() => {
         delete cooldown[message.author.id]
-      }, 3000)                                                        // DON'T FORGET TO RESET THIS TO 30 SECONDS
+      }, 30000)                                                        // DON'T FORGET TO RESET THIS TO 30 SECONDS
       // #endregion cooldown
 
       // assume no cats to start
@@ -67,7 +67,7 @@ exports.run = async (bot, message, args) => {
       // loop through rarities and put together the collection
       for (let rarity in userdata.cats) {
 
-        console.log(rarity)
+        // console.log(rarity)
 
         let rarityField = ''
 
