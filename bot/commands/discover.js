@@ -55,8 +55,6 @@ exports.run = async (bot, message, args) => {
       for (let rarity in userCats) {
         for (let cat in userCats[rarity]) {
 
-          console.log(cat, userdata.cats[rarity][cat].discovered)
-
           if (catName === cat) {
             await userCol.findOneAndUpdate({ userID: message.author.id },
               {

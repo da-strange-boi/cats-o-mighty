@@ -23,10 +23,10 @@ exports.run = async (bot, message, args) => {
       .addField(':gear: Utility', '`disable`, `help`, `invite`, `ping`, `settings`, `supportserver`')
 
     if (message.author.id === '295255543596187650' || message.author.id === '481318379907579916' || message.author.id === '552316796439494658' || message.author.id === '527729016849956874') {
-      helpEmbed.addField(':beginner: Bot Admin Commands', '`userinfo`, `botinfo`')
+      helpEmbed.addField(':beginner: Moderator Commands', '`userinfo`, `botinfo`')
     }
     if (message.author.id === '295255543596187650' || message.author.id === '527729016849956874') {
-      helpEmbed.addField(':gem: Bot Admin Commands', '`addcat`, `addmoney`, `clearcats`, `clearmoney`, `clearstats`, `eval`, `stop`')
+      helpEmbed.addField(':gem: Admin Commands', '`addcat`, `addmoney`, `clearcats`, `clearmoney`, `clearstats`, `discover`, `eval`, `stop`')
     }
 
     return message.channel.send(helpEmbed)

@@ -1,4 +1,4 @@
-const Discord = require('discord.js')
+const { RichEmbed } = require('discord.js')
 const DBL = require('dblapi.js')
 
 exports.run = async (bot) => {
@@ -30,18 +30,18 @@ exports.run = async (bot) => {
       // To reset their vote counter
       userCol.findOneAndUpdate({ userID: votedUser }, {$set: {'times.voteTime': Date.now()}})
 
-      const specialCats = Object.keys(bot.catData.special)
-      const result = specialCats[Math.floor((Math.random() * specialCats.length))]
+      const specialCats = Object.keys(bot.catData.d_special)
+      const result = specialCats[Math.floor(Math.random() * specialCats.length)]
 
       // Check To See What Cat Is Randomly Slected Then Add It To Their Cats
-      userCol.findOneAndUpdate({ userID: votedUser }, {$inc: { [`cats.${parse('special')}.${result}.amount`]: 1 }})
+      userCol.findOneAndUpdate({ userID: votedUser }, {$inc: {[`cats.${parse('special')}.${result}.amount`]: 1}})
 
       if (userdata.cats[parse('special')][result].discovered === false) {
         userCol.findOneAndUpdate({ userID: votedUser }, {$set: {[`cats.${parse('special')}.${result}.discovered`]: true}})
       }
 
       // To send a DM to the user letting them know their rewards for voting
-      const votedEmbed = new Discord.RichEmbed()
+      const votedEmbed = new RichEmbed()
         .setColor(bot.config.color.blue)
       if (vote.isWeekend === true) {
         // If It's The Weekend Add $5,000 To Their Account

@@ -14,12 +14,12 @@
     "seagreeen": "#006E6E",
     "orangered": "#FF4500",
     "rarities": {
-      "common": "#78b159",
-      "uncommon": "#5dadec",
-      "rare": "#aa8ed6",
-      "special": "#dd2e44",
-      "impossible": "#fdcb58",
-      "seasonal": "#e6e7e8"
+      "a_common": "#78b159",
+      "b_uncommon": "#5dadec",
+      "c_rare": "#aa8ed6",
+      "d_special": "#dd2e44",
+      "e_impossible": "#fdcb58",
+      "f_seasonal": "#e6e7e8"
     }
   }
 }

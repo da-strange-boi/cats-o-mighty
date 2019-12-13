@@ -1,9 +1,4 @@
 /*
-  this is just all one big mess that probably shouldn't be messed with
-  unless a cat is being added or this method is being changed :)
-
-  - (edit 10/23/19) its not that messey now that i used a for loop and not just a bunch of if statements
-
   all this does is check if a user has all the updated cats in their
   database userdata otherwise the data would be undefined
 */

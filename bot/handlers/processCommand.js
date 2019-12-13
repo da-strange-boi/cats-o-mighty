@@ -2,8 +2,8 @@
   This is a big mess and probably shouldn't messed with unless you
   fully understand what this does lol
 */
-const Discord = require('discord.js')
-exports.run = async (bot, message, cmd, args, prefix) => {
+const { RichEmbed } = require('discord.js')
+exports.run = async (bot, message, cmd, prefix) => {
 
   const userCol = await bot.database.Userdata
   const guildCol = await bot.database.Guildsettings
@@ -102,7 +102,7 @@ exports.run = async (bot, message, cmd, args, prefix) => {
               }).catch(err => bot.log('error', `processCommand guildsettings saving failed: ${err}`))
             }
 
-            const newUserEmbed = new Discord.RichEmbed()
+            const newUserEmbed = new RichEmbed()
               .setAuthor(message.author.username, message.author.avatarURL)
               .setColor(bot.config.color.darkblue)
               .setDescription('Welcome new cat collector!\nto get started do `cat help` to get the list of commands')
@@ -121,7 +121,7 @@ exports.run = async (bot, message, cmd, args, prefix) => {
       if (Object.prototype.hasOwnProperty.call(cmd, 'help')) {
         if (cmd.help.name !== 'start') {
           if (!message.content.trim().toLowerCase().startsWith(prefix)) return
-          const newPersonEmbed = new Discord.RichEmbed()
+          const newPersonEmbed = new RichEmbed()
             .setAuthor(message.author.username, message.author.avatarURL)
             .setColor(bot.config.color.darkblue)
             .setDescription('hmm it looks like you\'re a new cat collector!!\nDo `cat start` to start collecting cats')

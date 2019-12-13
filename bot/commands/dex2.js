@@ -1,4 +1,4 @@
-const Discord = require('discord.js')
+const { RichEmbed } = require('discord.js')
 const ms = require('parse-ms')
 const cooldown = {}
 
@@ -40,7 +40,7 @@ exports.run = async (bot, message, args) => {
             if (err) bot.log('error', err)
 
             if (totalList) {
-              const dexEmbed = new Discord.RichEmbed()
+              const dexEmbed = new RichEmbed()
                 .setThumbnail(bot.user.avatarURL)
                 .setTitle(`Cat dex for ${bot.functions.cap(cat)}`)
                 .setColor(bot.config.color.rarities[rarity])

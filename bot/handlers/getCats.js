@@ -1,6 +1,6 @@
-const Discord = require('discord.js')
+const { RichEmbed } = require('discord.js')
 exports.run = async (bot, message) => {
-  if (!message.guild || message.IsPrivate || message.author.bot) return
+  if (!message.guild || message.author.bot) return
 
   let prefix = bot.config.prefix
   if (message.content.startsWith(`<@${bot.user.id}>`)) {
@@ -49,7 +49,7 @@ exports.run = async (bot, message) => {
 
             if (guildSettings) {
               const showCatEmbed = catName => {
-                const embed = new Discord.RichEmbed()
+                const embed = new RichEmbed()
                   .setAuthor(message.author.username, message.author.avatarURL)
                   .setColor(bot.config.color.blue)
                   .setDescription(`You got a ${catName}! uwu`)

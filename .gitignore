@@ -2,18 +2,5 @@
 .vscode/
 node_modules/
 
-# images
-bot/images/common
-bot/images/uncommon
-bot/images/rare
-bot/images/special
-bot/images/impossible
-bot/images/seasonal
-bot/images/emojis
-bot/images/cat_o_mighty_pfp.jpg
-
-# just info
-templateCats.json
-
 # secret data stuff
 .env

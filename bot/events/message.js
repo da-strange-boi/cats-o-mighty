@@ -1,5 +1,5 @@
 exports.run = async (bot, message) => {
-  if (!message.guild || message.IsPrivate || message.author.bot) return
+  if (!message.guild || message.author.bot) return
 
   // Decide what prefix the user uses
   let prefix
@@ -18,10 +18,11 @@ exports.run = async (bot, message) => {
   const args = message.content.slice(prefix.length).trim().split(/ +/g)
   const command = args.shift().toLowerCase()
 
-  const cmd = bot.getCmd(bot, message, command, args)
-  processCommand.run(bot, message, cmd, args, prefix)
-  if (!cmd || permCheck(message, bot, cmd, prefix) === false) return
+  const cmd = bot.getCmd(bot, command)
+  processCommand.run(bot, message, cmd, prefix)
+  if (!cmd || permCheck(message, cmd, prefix) === false) return
   if (!message.content.trim().toLowerCase().startsWith(prefix)) return
+  
   // make sure the user has an account before running any commands
   bot.database.Userdata.findOne({ userID: message.author.id }, (err, userdata) => {
     if (err) bot.log('error', err)
