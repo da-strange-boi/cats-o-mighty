@@ -24,7 +24,7 @@ exports.run = async (bot, message, args) => {
     if (err) bot.log('error', err)
     if (userdata) {
       const catBreed = args[0].toLowerCase().trim()
-      const animalList = ['siamese', 'burmese', 'ragdoll', 'persian', 'mainecoon', 'russianblue', 'calico', 'tabby', 'abyssinian', 'manx', 'sphynx', 'cyprus', 'foldex', 'turkishangora', 'norwegianforest', 'devonrex', 'korat', 'singapura', 'tonkinese', 'peterbald', 'chartreux', 'munchkin', 'britishshorthair', 'ojosazules', 'bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin', 'loki', 'loverboy', 'killerclaws', 'squirtlett', 'cursedcat', 'uwu', 'tom', 'demoncat', 'bongocat', 'grumpycat']
+      const animalList = bot.catData.a_common + bot.catData.b_uncommon + bot.catData.c_rare
       for (let i = 0; i < animalList.length; i++) {
         if (catBreed === animalList[i]) {
 

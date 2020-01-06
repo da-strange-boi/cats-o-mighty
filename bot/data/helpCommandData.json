@@ -14,6 +14,7 @@
                 "description": "Shows your cat collection! If a rarity is specified, your collection for that specific rarity will be shown.",
                 "aliases": [
                     "cattos",
+		            "tos",
                     "c"
                 ]
             },

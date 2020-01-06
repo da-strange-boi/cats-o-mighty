@@ -10,16 +10,17 @@ const catProcess = (catObject, catName) => {
   }
 }
 
+const categoryHearts = {
+  common: ':green_heart:',
+  uncommon: ':blue_heart:',
+  rare:':purple_heart:',
+  special:':sparkling_heart:',
+  impossible:':yellow_heart:'
+}
+
 exports.run = async (bot, message, args) => {
 
-  const categoryHearts = {
-    common: ':green_heart:',
-    uncommon: ':blue_heart:',
-    rare:':purple_heart:',
-    special:':sparkling_heart:',
-    impossible:':yellow_heart:',
-    seasonal: await bot.getEmoji.run(bot, 'whiteHeart')
-  }
+  categoryHearts.seasonal = await bot.getEmoji.run(bot, 'whiteHeart')
 
   const col2Embed = new RichEmbed()
 
@@ -44,16 +45,14 @@ exports.run = async (bot, message, args) => {
       }, 30000)                                                        // DON'T FORGET TO RESET THIS TO 30 SECONDS
       // #endregion cooldown
 
-      // assume no cats to start
+      
       let noCatsQ = 0
       for (let rarity in userdata.cats) {
-        // console.log(rarity)
         for (let cat in userdata.cats[rarity]) {
-          // console.log(cat, userdata.cats[rarity][cat].amount, noCatsQ)
           noCatsQ += userdata.cats[rarity][cat].amount // add the amount for that cat to the total cat amount
         }
       }
-      // console.log(noCatsQ === 0)
+      
       if (noCatsQ === 0) {
         const noCatsEmbed = new RichEmbed()
           .setColor(bot.config.color.red)
@@ -66,8 +65,6 @@ exports.run = async (bot, message, args) => {
       let embedTotalCats = 0
       // loop through rarities and put together the collection
       for (let rarity in userdata.cats) {
-
-        // console.log(rarity)
 
         let rarityField = ''
 

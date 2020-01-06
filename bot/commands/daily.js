@@ -13,7 +13,7 @@ exports.run = async (bot, message) => {
      If your streak is above a 7 (over a week) then you get special rewards
   */
 
-  const specialCats = Object.keys(bot.catData.special)
+  const specialCats = Object.keys(bot.catData.d_special)
 
   // #region cooldown
   // Set A Cooldown
@@ -72,6 +72,7 @@ exports.run = async (bot, message) => {
 
       // Check To See What Cat It Is Then Add It To Their Cats
       const catDbName = `cats.${animals[aResult]}.amount`
+      console.log(catDbName)
       userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[catDbName]: userdata.cats[animals[aResult]].amount + 1}})
 
       if (userdata.cats[animals[aResult]].discovered === false) {

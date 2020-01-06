@@ -36,6 +36,12 @@ exports.run = async (bot, message, args) => {
     const hCmd = HELP[args[0]]
 
     if (hCmd !== undefined) {
+
+      // this is just temp until things can be worked around
+      if (args[0] === 'profile') {
+        message.channel.send('**This command is very broken!**');
+      }
+
       const embed = new RichEmbed()
         .setDescription(hCmd.description)
         .setAuthor('Cats o\' Mighty Help', bot.user.avatarURL)
