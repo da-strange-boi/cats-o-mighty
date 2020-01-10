@@ -3,7 +3,7 @@ const ms = require('parse-ms')
 const chalk = require('chalk')
 let cooldown = {}
 
-const DEBUG = false
+const DEBUG = true
 
 module.exports.run = async (bot, message, args) => {
 
@@ -31,7 +31,7 @@ module.exports.run = async (bot, message, args) => {
 
       // check if selling all
       if(sellRequest === 'all'){
-        saleType = 'all'
+        saleType = sellRequest
       // check if the object requested to be sold is a valid cat OR rarity:
       }else{
 
@@ -82,7 +82,7 @@ module.exports.run = async (bot, message, args) => {
 
         // selling all
         case('all'): {
-          if(DEBUG){ console.log(chalk.yellow.inverse(`${saleType}: ${saleData}`)) }
+          if(DEBUG){ console.log(chalk.yellow(`${saleType}: ${chalk.inverse(saleData)}`)) }
 
           let catValue = 0
           let catAmount = 0
@@ -92,10 +92,10 @@ module.exports.run = async (bot, message, args) => {
             if(DEBUG){ console.log(chalk.keyword('purple')('\n' + rarity + ': ' + rarity.slice(2))) }
             for(let cat in userdata.cats[rarity]){
 
-              if(bot.catData[rarity.slice(2)][cat].value){
+              if(bot.catData[rarity][cat].value){
                 // increment the total value and total amount variables by the amount sold, if the cat can be sold
                 catAmount += userdata.cats[rarity][cat].amount
-                catValue += (userdata.cats[rarity][cat].amount * bot.catData[rarity.slice(2)][cat].value)
+                catValue += (userdata.cats[rarity][cat].amount * bot.catData[rarity][cat].value)
               }
 
               // set the amount of cats in the user's collection for the aformentioned cat to zero
@@ -119,7 +119,7 @@ module.exports.run = async (bot, message, args) => {
               return message.channel.send(`${catAmount} cats sold for ${catValue}.`)
             })
           }else{
-            return message.channel.send(`${message.author.id}, you don't have any cats!`)
+            return message.channel.send(`${message.author.username}, you don't have any cats!`)
           }
           break
         }
@@ -161,7 +161,7 @@ module.exports.run = async (bot, message, args) => {
               return message.channel.send(`${catAmount} ${saleData} cats sold for ${catValue}.`)
             })
           }else{
-            return message.channel.send(`${message.author.id}, you don't have any ${saleData} cats!`)
+            return message.channel.send(`${message.author.username}, you don't have any ${saleData} cats!`)
           }
           break
         }
@@ -206,7 +206,7 @@ module.exports.run = async (bot, message, args) => {
                     return message.channel.send(`${amountToSell} ${saleData.cat} cats sold for ${catValue}.`)
                   })
                 }else{
-                  return message.channel.send(`${message.author.id}, you don't have any ${saleData} cats!`)
+                  return message.channel.send(`${message.author.username}, you don't have any ${saleData} cats!`)
                 }
               }
             }
