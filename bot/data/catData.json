@@ -3,240 +3,286 @@
 		"siamese": {
 			"URL": "https://i.imgur.com/Q72dhHH.jpg",
 			"value": 25,
-			"credit": null
+			"credit": null,
+			"chance": 0.04
 		},
 		"burmese": {
 			"URL": "https://i.imgur.com/i2wLXer.jpg",
 			"value": 25,
-			"credit": null
+			"credit": null,
+			"chance": 0.04
 		},
 		"ragdoll": {
 			"URL": "https://i.imgur.com/BHI2A5B.jpg",
 			"value": 25,
-			"credit": null
+			"credit": null,
+			"chance": 0.04
 		},
 		"persian": {
 			"URL": "https://i.imgur.com/7zk7qMR.jpg",
 			"value": 25,
-			"credit": null
+			"credit": null,
+			"chance": 0.04
 		},
 		"mainecoon": {
 			"URL": "https://i.imgur.com/BdqURwX.png",
 			"value": 25,
-			"credit": null
+			"credit": null,
+			"chance": 0.04
 		},
 		"russianblue": {
 			"URL": "https://i.imgur.com/XWmYcSC.jpg",
 			"value": 25,
-			"credit": ["jana"]
+			"credit": ["jana"],
+			"chance": 0.04
 		},
 		"calico": {
 			"URL": "https://i.imgur.com/yD6sXrt.jpg",
 			"value": 25,
-			"credit": ["n u g g e t", "Chad"]
+			"credit": ["n u g g e t", "Chad"],
+			"chance": 0.04
 		},
 		"tabby": {
 			"URL": "https://i.imgur.com/frXE4oN.jpg",
 			"value": 25,
-			"credit": ["Chad"]
+			"credit": ["Chad"],
+			"chance": 0.04
 		}
 	},
 	"b_uncommon": {
 		"abyssinian": {
 			"URL": "https://i.imgur.com/DaVPTXH.jpg",
 			"value": 55,
-			"credit": null
+			"credit": null,
+			"chance": 0.0125
 		},
 		"manx": {
 			"URL": "https://i.imgur.com/uDgcTTJ.jpg",
 			"value": 55,
-			"credit": null
+			"credit": null,
+			"chance": 0.0125
 		},
 		"sphynx": {
 			"URL": "https://i.imgur.com/XuwNWBE.jpg",
 			"value": 55,
-			"credit": null
+			"credit": null,
+			"chance": 0.0125
 		},
 		"cyprus": {
 			"URL": "https://i.imgur.com/McEdtMS.jpg",
 			"value": 55,
-			"credit": null
+			"credit": null,
+			"chance": 0.0125
 		},
 		"foldex": {
 			"URL": "https://i.imgur.com/AQl6z6t.jpg",
 			"value": 55,
-			"credit": null
+			"credit": null,
+			"chance": 0.0125
 		},
 		"turkishangora": {
 			"URL": "https://i.imgur.com/LkkPAJh.jpg",
 			"value": 55,
-			"credit": ["๑DelusionalHermit๑"]
+			"credit": ["๑DelusionalHermit๑"],
+			"chance": 0.0125
 		},
 		"norwegianforest": {
 			"URL": "https://i.imgur.com/s54Hq6D.jpg",
 			"value": 55,
-			"credit": ["mxrningstar", "Cactus Cat"]
+			"credit": ["mxrningstar", "Cactus Cat"],
+			"chance": 0.0125
 		},
 		"devonrex": {
 			"URL": "https://i.imgur.com/Dg20uZJ.jpg",
 			"value": 55,
-			"credit": null
+			"credit": null,
+			"chance": 0.0125
 		}
 	},
 	"c_rare": {
 		"korat": {
 			"URL": "https://i.imgur.com/yoGvgow.jpg",
 			"value": 200,
-			"credit": null
+			"credit": null,
+			"chance": 0.00689655172
 		},
 		"singapura": {
 			"URL": "https://i.imgur.com/1wjvREo.jpg",
 			"value": 200,
-			"credit": null
+			"credit": null,
+			"chance": 0.00689655172
 		},
 		"tonkinese": {
 			"URL": "https://i.imgur.com/BVVQ89V.jpg",
 			"value": 200,
-			"credit": null
+			"credit": null,
+			"chance": 0.00689655172
 		},
 		"peterbald": {
 			"URL": "https://i.imgur.com/OSlqoj7.jpg",
 			"value": 200,
-			"credit": null
+			"credit": null,
+			"chance": 0.00689655172
 		},
 		"chartreux": {
 			"URL": "https://i.imgur.com/dBRF5iR.jpg",
 			"value": 200,
-			"credit": null
+			"credit": null,
+			"chance": 0.00689655172
 		},
 		"munchkin": {
 			"URL": "https://i.imgur.com/iUIOKGR.jpg",
 			"value": 200,
-			"credit": ["[C] [R] [K] [N] [I]"]
+			"credit": ["[C] [R] [K] [N] [I]"],
+			"chance": 0.00689655172
 		},
 		"britishshorthair": {
 			"URL": "https://i.imgurr.com/u8zG7fG.jpg",
 			"value": 200,
-			"credit": ["TheRealNicole"]
+			"credit": ["TheRealNicole"],
+			"chance": 0.00689655172
 		},
 		"ojosazules": {
 			"URL": "https://i.imgur.com/vzYywnk.jpg",
 			"value": 200,
-			"credit": null
+			"credit": null,
+			"chance": 0.00689655172
 		}
 	},
 	"d_special": {
 		"bandit": {
 			"URL": "https://i.imgur.com/yxIaIqe.jpg",
 			"value": 2500,
-			"credit": null
+			"credit": null,
+			"chance": 0.0027027027
 		},
 		"bug": {
 			"URL": "https://i.imgur.com/umoPzou.jpg",
 			"value": 2500,
-			"credit": null
+			"credit": null,
+			"chance": 0.0027027027
 		},
 		"linda": {
 			"URL": "https://i.imgur.com/uieRlR9.jpg",
 			"value": 2500,
-			"credit": null
+			"credit": null,
+			"chance": 0.0027027027
 		},
 		"mittens": {
 			"URL": "https://i.imgur.com/vPyIsRd.jpg",
 			"value": 2500,
-			"credit": null
+			"credit": null,
+			"chance": 0.0027027027
 		},
 		"cash": {
 			"URL": "https://i.imgur.com/21odRlh.jpg",
 			"value": 2500,
-			"credit": null
+			"credit": null,
+			"chance": 0.0027027027
 		},
 		"jackson": {
 			"URL": "https://i.imgur.com/NdE2s2E.jpg",
 			"value": 2500,
-			"credit": null
+			"credit": null,
+			"chance": 0.0027027027
 		},
 		"cottonball": {
 			"URL": "https://i.imgur.com/ceqsPX4.jpg",
 			"value": 2500,
-			"credit": null
+			"credit": null,
+			"chance": 0.0027027027
 		},
 		"sonny": {
 			"URL": "https://i.imgur.com/r7Fb0xU.jpg",
 			"value": 2500,
-			"credit": null
+			"credit": null,
+			"chance": 0.0027027027
 		},
 		"smokey": {
 			"URL": "https://i.imgur.com/Z2vz3un.jpg",
 			"value": 2500,
-			"credit": null
+			"credit": null,
+			"chance": 0.0027027027
 		},
 		"lailah": {
 			"URL": "https://i.imgur.com/XEBy623.jpg",
 			"value": 2500,
-			"credit": null
+			"credit": null,
+			"chance": 0.0027027027
 		},
 		"cher": {
 			"URL": "https://i.imgur.com/I06Qynx.jpg",
 			"value": 2500,
-			"credit": null
+			"credit": null,
+			"chance": 0.0027027027
 		},
 		"marvin": {
 			"URL": "https://i.imgur.com/AO3QmAU.jpg",
 			"value": 2500,
-			"credit": null
+			"credit": null,
+			"chance": 0.0027027027
 		},
 		"loki": {
 			"URL": "https://i.imgur.com/PBV6Ijq.jpg",
 			"value": 2500,
-			"credit": null
+			"credit": null,
+			"chance": 0.0027027027
 		},
 		"loverboy": {
 			"URL": "https://i.imgur.com/SJ40Y1E.jpg",
 			"value": 2500,
-			"credit": null
+			"credit": null,
+			"chance": 0.0027027027
 		},
 		"killerclaws": {
 			"URL": "https://i.imgur.com/eRO5bK5.jpg",
 			"value": 2500,
-			"credit": null
+			"credit": null,
+			"chance": 0.0027027027
 		}
 	},
 	"e_impossible": {
 		"squirtlett": {
 			"URL": "https://i.imgur.com/6RcJXap.png",
 			"value": 10000,
-			"credit": ["utiyi#3353"]
+			"credit": ["utiyi#3353"],
+			"chance": 0.00135135135
 		},
 		"cursedcat": {
 			"URL": "https://i.imgur.com/yIFIyJq.jpg",
 			"value": 10000,
-			"credit": ["Hispanic Ｓｔｉｎｋｙ Bean#5474"]
+			"credit": ["Hispanic Ｓｔｉｎｋｙ Bean#5474"],
+			"chance": 0.00135135135
 		},
 		"uwu": {
 			"URL": "https://i.imgur.com/WJ87FfU.jpg",
 			"value": 10000,
-			"credit": null
+			"credit": null,
+			"chance": 0.00135135135
 		},
 		"tom": {
 			"URL": "https://i.imgur.com/Nj05cMm.png",
 			"value": 10000,
-			"credit": ["˙ssǝlǝs∩"]
+			"credit": ["˙ssǝlǝs∩"],
+			"chance": 0.00135135135
 		},
 		"demoncat": {
 			"URL": "https://i.imgur.com/Li7UCFf.png",
 			"value": 10000,
-			"credit": null
+			"credit": null,
+			"chance": 0.00135135135
 		},
 		"bongocat": {
 			"URL": "https://i.imgur.com/DZPzDEo.gif",
 			"value": 10000,
-			"credit": null
+			"credit": null,
+			"chance": 0.00135135135
 		},
 		"grumpycat": {
 			"URL": "https://i.imgur.com/sGIlYdc.jpg",
 			"value": 10000,
 			"credit": null,
+			"chance": 0.00135135135,
 			"sidenote": "R.I.P. Tardar Sauce"
 		}
 	},
@@ -245,7 +291,9 @@
 			"URL": "https://i.imgur.com/qlbLgWj.jpg",
 			"value": null,
 			"credit": null,
-			"sidenote": "Halloween 2019!"
+			"sidenote": "Halloween 2019!",
+			"chance": 0,
+			"discontinued": true
 		}
 	}
 }
