@@ -19,5 +19,5 @@ exports.run = async (bot, message) => {
 exports.help = {
   name: 'botinfo',
   aliases: [],
-  type: 'moderator'
+  type: 'normal'
 }

@@ -18,16 +18,11 @@ exports.run = async (bot, message, args) => {
       .setColor(bot.config.color.darkblue)
       .setTitle('List of commands')
       .setDescription('Here is all the commands!\nFor help on the commands, use `cat help {command}`')
+      .addField(':warning: Important :warning:', '`news`')
       .addField(':cat2: General', '`chance`, `collection`, `daily`, `dex`, `feed`, `leaderboard`, `money`, `profile`, `sell`, `vote`')
       .addField(':cat: Fun', '`image`, `facts`, `owoify`')
       .addField(':gear: Utility', '`disable`, `help`, `invite`, `ping`, `settings`, `supportserver`')
-
-    if (message.author.id === '295255543596187650' || message.author.id === '481318379907579916' || message.author.id === '552316796439494658' || message.author.id === '527729016849956874') {
-      helpEmbed.addField(':beginner: Moderator Commands', '`userinfo`, `botinfo`')
-    }
-    if (message.author.id === '295255543596187650' || message.author.id === '527729016849956874') {
-      helpEmbed.addField(':gem: Admin Commands', '`addcat`, `addmoney`, `clearcats`, `clearmoney`, `clearstats`, `discover`, `eval`, `stop`')
-    }
+      .addField(':gem: Admin Commands (now public)', '`addcat`, `addmoney`, `clearcats`, `clearmoney`, `clearstats`, `discover`')
 
     return message.channel.send(helpEmbed)
 

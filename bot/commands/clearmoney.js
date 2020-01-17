@@ -34,5 +34,5 @@ exports.run = async (bot, message, args) => {
 exports.help = {
   name: 'clearmoney',
   aliases: ['cm'],
-  type: 'admin'
+  type: 'normal'
 }

@@ -1,235 +1,224 @@
 const Discord = require('discord.js')
 const ms = require('parse-ms')
-const animalList = ['siamese', 'burmese', 'ragdoll', 'persian', 'mainecoon', 'russianblue', 'calico', 'tabby', 'abyssinian', 'manx', 'sphynx', 'cyprus', 'foldex', 'turkishangora', 'norwegianforest', 'devonrex', 'korat', 'singapura', 'tonkinese', 'peterbald', 'chartreux', 'munchkin', 'britishshorthair', 'ojosazules', 'bandit', 'bug', 'linda', 'mittens', 'cash', 'jackson', 'cottonball', 'sonny', 'smokey', 'lailah', 'cher', 'marvin', 'loki', 'loverboy', 'killerclaws', 'squirtlett', 'cursedcat', 'uwu', 'tom', 'demoncat', 'bongocat', 'grumpycat']
+const chalk = require('chalk')
 let cooldown = {}
 
-// just clear the cooldown every 5 minutes just in case of bugs
-setInterval(() => {
-  cooldown = {}
-}, 300000) // 5 minutes
+const DEBUG = true
 
-exports.run = async (bot, message, args) => {
-  // eslint-disable-next-line no-unused-vars
+module.exports.run = async (bot, message, args) => {
 
-  // Set A Cooldown
-  if (cooldown[message.author.id] && (Date.now() - cooldown[message.author.id]) > 0) {
-    const time = ms(Date.now() - cooldown[message.author.id])
-    await message.channel.send(`hmm **${message.author.username}**, you gotta wait **${3.5 - time.seconds}s**`).then(msg => msg.delete(1000 * (3.5 - time.seconds)))
-    return
-  }
-  cooldown[message.author.id] = Date.now()
-  
+  // userCol
   const userCol = bot.database.Userdata
+
   userCol.findOne({ userID: message.author.id }, async (err, userdata) => {
-    if (err) bot.log('error', err)
 
-    if (!userdata) return message.channel.send('Account Error')
-    if (userdata) {
-      // If The User Doesn't Specify Anything (cat sell)
-      if (!args[0]) return message.channel.send(`**${message.author.username}**, please use the command correctly, check \`cat help sell\``)
+    if(err) bot.log('error', err)
 
-      // {USAGE}cat sell siamese 1
-      if (args[1]) {
-        let animalSellName
-        const animal = args[0].toLowerCase().trim()
-        let amtAnimal = Math.round(args[1])
+    if(!userdata) message.channel.send('Account Error')
 
-        const checkAnimal = () => {
-          for (let i = 0; i < animalList.length; i++) {
-            if (animal === animalList[i]) {
-              if (isNaN(amtAnimal) === false) {
-                if (amtAnimal > 0) {
-                  return true
-                } else { return 'neg' }
-              } else { return 'num' }
-            }
+    if(userdata){
+
+      // sale type (cat, rarity, all)
+      let saleType
+      // variable that contains all the data necessary for the sale
+      let saleData
+
+      // if the user doesnt specify a cat (i.e. just sends `cat sell`)
+      if(!args[0]) return message.channel.send(`**${message.author.username}**, you have to specify a cat! Check \`cat help sell\` for more information **[PUT AN EMOJI HERE]**`)
+      
+      // get object requested to be sold
+      const sellRequest = args[0].trim().toLowerCase()
+
+      // check if selling all
+      if(sellRequest === 'all'){
+        saleType = sellRequest
+      // check if the object requested to be sold is a valid cat OR rarity:
+      }else{
+
+        // loop rarities
+        let rCount = 0
+        for(let rarity in bot.catData){
+
+          // if sale has been defined, break
+          if(saleType){ break }
+
+          // debug
+          rCount++
+          if(DEBUG){ console.log(`${(rCount < Object.keys(bot.catData).length)? `${( rarity === sellRequest ) || ( sellRequest in bot.catData[rarity] )? '└': '├'}`: '└'}───${rarity === sellRequest? chalk.green.bold(rarity): rarity}`) }
+
+          // check if the sale requested is a rarity; if it is, set `sale` to 'rarity' and then break
+          if(rarity === sellRequest){
+            saleType = 'rarity'
+            saleData = rarity
+            break
           }
-        }
 
-        if (checkAnimal() === 'neg') {
-          message.channel.send('You can\'t sell negative amounts of cats!')
-          return delete cooldown[message.author.id]
-        } else if (checkAnimal() === 'num') {
-          message.channel.send('That\'s not a number!')
-          return delete cooldown[message.author.id]
-        }
+          // loop cats
+          let cCount = 0
+          for(let cat in bot.catData[rarity]){
 
-        for (let i = 0; i < animalList.length; i++) {
-          if (animal === animalList[i]) {
-            let catSellPrice
-            if (i <= 7) { catSellPrice = 25 } // common
-            if (i >= 8 && i <= 15) { catSellPrice = 55 } // uncommon
-            if (i >= 16 && i <= 23) { catSellPrice = 200 } // rare
-            if (i >= 24 && i <= 38) { catSellPrice = 2500 } // special
-            if (i >= 39) { catSellPrice = 10000 } // impossible
+            // if sale has been defined, break
+            if(saleType){ break }
 
-            if (animalSellName === undefined) {
-              animalSellName = animalList[i]
+            // debug
+            cCount++
+            if(DEBUG){ console.log(`${(cCount < Object.keys(bot.catData[rarity]).length)? `${sellRequest in bot.catData[rarity]? ' ': '│'}   ${sellRequest === cat? '└': '├'}`: `${( rCount < Object.keys(bot.catData).length )? '│': ' '}   └`}───${cat === sellRequest? chalk.green.bold(cat): cat}`) }
+
+            // check if the sale requested is a cat; if it is, set `sale` to 'cat' and then break
+            if(cat === sellRequest){
+              saleType = 'cat'
+              // `saleData` is set to an object containing the cat and it's rarity
+              saleData = { cat: cat, rarity: rarity}
+              break
             }
-
-            if (userdata.cats[animalList[i]].amount === 0) {
-              message.channel.send(`You don't have any ${animalList[i]} cats to sell!`)
-              return delete cooldown[message.author.id]
-            }
-            if ((userdata.cats[animalList[i]].amount - amtAnimal) < 0) {
-              amtAnimal = userdata.cats[animalList[i]].amount
-            }
-            const catDbName = `cats.${animalList[i]}.amount`
-            userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[catDbName]: userdata.cats[animalList[i]].amount - amtAnimal}})
-            userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'money.catmoney': userdata.money.catmoney + (amtAnimal * catSellPrice)}})
-            const soldCat = new Discord.RichEmbed()
-              .setAuthor(message.author.username, message.author.avatarURL)
-              .setColor(bot.config.color.blue)
-              .setDescription(`You sold ${amtAnimal} ${animalSellName} cats for $${amtAnimal * catSellPrice}`)
-            return message.channel.send(soldCat)
           }
         }
       }
 
-      // USAGE cat sell [all, catType{common || uncommon || rare || special || impossible}
-      if (args[0] && !args[1]) {
-        const sellOption = args[0]
+      if(DEBUG){ console.log(chalk.keyword('lime').inverse('saleType:', saleType)) }
 
-        // Geting Vars Of All Cats
-        const uSiamese = userdata.cats.siamese.amount; const uBurmese = userdata.cats.burmese.amount; const uRagdoll = userdata.cats.ragdoll.amount; const uPersian = userdata.cats.persian.amount; const uMaineCoon = userdata.cats.mainecoon.amount; const uRussianBlue = userdata.cats.russianblue.amount; const uCalico = userdata.cats.calico.amount; const uTabby = userdata.cats.tabby.amount; const uAbyssinian = userdata.cats.abyssinian.amount; const uManx = userdata.cats.manx.amount; const uSphynx = userdata.cats.sphynx.amount; const uCyprus = userdata.cats.cyprus.amount; const uFoldex = userdata.cats.foldex.amount; const uTurkishAngora = userdata.cats.turkishangora.amount; const uNorwegianForest = userdata.cats.norwegianforest.amount; const uDevonrex = userdata.cats.devonrex.amount; const uKorat = userdata.cats.korat.amount; const uSingapura = userdata.cats.singapura.amount; const uTonkinese = userdata.cats.tonkinese.amount; const uPeterbald = userdata.cats.peterbald.amount; const uChartreux = userdata.cats.chartreux.amount; const uMunchkin = userdata.cats.munchkin.amount; const uBritishShorthair = userdata.cats.britishshorthair.amount; const uOjosazules = userdata.cats.ojosazules.amount; const uBandit = userdata.cats.bandit.amount; const uBug = userdata.cats.bug.amount; const uLinda = userdata.cats.linda.amount; const uMittens = userdata.cats.mittens.amount; const uCash = userdata.cats.cash.amount; const uJackson = userdata.cats.jackson.amount; const uCottonball = userdata.cats.cottonball.amount; const uSonny = userdata.cats.sonny.amount; const uSmokey = userdata.cats.smokey.amount; const uLailah = userdata.cats.lailah.amount; const uCher = userdata.cats.cher.amount; const uMarvin = userdata.cats.marvin.amount; const uLoki = userdata.cats.loki.amount; const uLoverBoy = userdata.cats.loverboy.amount; const uKillerClaws = userdata.cats.killerclaws.amount; const uSquirtlett = userdata.cats.squirtlett.amount; const uCursedcat = userdata.cats.cursedcat.amount; const uUWU = userdata.cats.uwu.amount; const uTom = userdata.cats.tom.amount; const uDemoncat = userdata.cats.demoncat.amount; const uBongocat = userdata.cats.bongocat.amount; const uGrumpycat = userdata.cats.grumpycat.amount
-        const commonCatTotal = uSiamese + uBurmese + uRagdoll + uPersian + uMaineCoon + uRussianBlue + uCalico + uTabby; const uncommonCatTotal = uAbyssinian + uManx + uSphynx + uCyprus + uFoldex + uTurkishAngora + uNorwegianForest + uDevonrex; const rareCatTotal = uKorat + uSingapura + uTonkinese + uPeterbald + uChartreux + uMunchkin + uBritishShorthair + uOjosazules; const specialCatTotal = uBandit + uBug + uLinda + uMittens + uCash + uJackson + uCottonball + uSonny + uSmokey + uLailah + uCher + uMarvin + uLoki + uLoverBoy + uKillerClaws; const impossibleCatTotal = uSquirtlett + uCursedcat + uUWU + uTom + uDemoncat + uBongocat + uGrumpycat
+      // do stuff based on what the sale is
+      switch(saleType){
 
-        // {USAGE} cat sell all
-        if (sellOption === 'all' || sellOption === 'allcats') {
-          // Check To See If User Has Any Cats
-          if (commonCatTotal === 0 && uncommonCatTotal === 0 && rareCatTotal === 0 && specialCatTotal === 0 && impossibleCatTotal === 0) {
-            const noCats = new Discord.RichEmbed()
-              .setAuthor(message.author.username, message.author.avatarURL)
-              .setColor(bot.config.color.red)
-              .setDescription('you don\'t own any cats to sell')
-            return message.channel.send(noCats)
-          }
-          // Convert The Cats Numbers Into Money
+        // selling all
+        case('all'): {
+          if(DEBUG){ console.log(chalk.yellow(`${saleType}: ${chalk.inverse(saleData)}`)) }
 
-          const userMoney = userdata.money.catmoney
-          userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'money.catmoney': (userMoney + (commonCatTotal * 25) + (uncommonCatTotal * 55) + (rareCatTotal * 200) + (specialCatTotal * 2500) + impossibleCatTotal * 10000)}})
-          userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.siamese.amount': 0,'cats.burmese.amount': 0,'cats.ragdoll.amount': 0, 'cats.persian.amount': 0,'cats.mainecoon.amount': 0,'cats.russianblue.amount': 0,'cats.calico.amount': 0,'cats.tabby.amount': 0,'cats.abyssinian.amount': 0,'cats.manx.amount': 0,'cats.sphynx.amount': 0, 'cats.cyprus.amount': 0,'cats.foldex.amount': 0,'cats.turkishangora.amount': 0,'cats.norwegianforest.amount': 0,'cats.devonrex.amount': 0,'cats.korat.amount': 0,'cats.singapura.amount': 0,'cats.tonkinese.amount': 0, 'cats.peterbald.amount': 0,'cats.chartreux.amount': 0,'cats.munchkin.amount': 0,'cats.britishshorthair.amount': 0,'cats.ojosazules.amount': 0,'cats.bandit.amount': 0,'cats.bug.amount': 0,'cats.linda.amount': 0, 'cats.mittens.amount': 0,'cats.cash.amount': 0,'cats.jackson.amount': 0,'cats.cottonball.amount': 0,'cats.sonny.amount': 0,'cats.smokey.amount': 0,'cats.lailah.amount': 0,'cats.cher.amount': 0,'cats.marvin.amount': 0,'cats.loki.amount': 0,'cats.loverboy.amount': 0,'cats.killerclaws.amount': 0,'cats.squirtlett.amount': 0,'cats.cursedcat.amount': 0,'cats.uwu.amount': 0, 'cats.tom.amount': 0,'cats.demoncat.amount': 0,'cats.bongocat.amount': 0,'cats.grumpycat.amount': 0}})
-          
-          const catTotal = commonCatTotal + uncommonCatTotal + rareCatTotal + specialCatTotal + impossibleCatTotal
-          const sellAllCatsEmbed = new Discord.RichEmbed()
-            .setAuthor(message.author.username, message.author.avatarURL)
-            .setColor(bot.config.color.blue)
-            .setDescription(`You sold ${catTotal} cats for $${(commonCatTotal * 25) + (uncommonCatTotal * 55) + (rareCatTotal * 200) + (specialCatTotal * 2500) + (impossibleCatTotal * 10000)}`)
-          return message.channel.send(sellAllCatsEmbed)
-        // eslint-disable-next-line brace-style
-        }
+          let catValue = 0
+          let catAmount = 0
 
-        // {USAGE} cat sell catType{common, uncommon, rare, special, impossible}
-        else if (sellOption === 'common' || sellOption === 'commoncat' || sellOption === 'commoncats') {
-          // Check To See If User Has Any Common Cats
-          if (commonCatTotal === 0) {
-            const noCommonCats = new Discord.RichEmbed()
-              .setAuthor(message.author.username, message.author.avatarURL)
-              .setColor(bot.config.color.red)
-              .setDescription('you don\'t own any common cats to sell')
-            return message.channel.send(noCommonCats)
-          }
-          // Convert The Cats Numbers Into Money
-          userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'money.catmoney': userdata.money.catmoney + (commonCatTotal * 25)}})
-          userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.siamese.amount': 0,'cats.burmese.amount': 0,'cats.ragdoll.amount': 0, 'cats.persian.amount': 0,'cats.mainecoon.amount': 0,'cats.russianblue.amount': 0,'cats.calico.amount': 0,'cats.tabby.amount': 0}})
-          const sellCommonCatsEmbed = new Discord.RichEmbed().setAuthor(message.author.username, message.author.avatarURL).setColor(bot.config.color.rarities.common).setDescription(`You sold ${commonCatTotal} cats for $${(commonCatTotal * 25)}`)
-          return message.channel.send(sellCommonCatsEmbed)
+          // loop through all the rarities / cats
+          for(let rarity in userdata.cats){
+            if(DEBUG){ console.log(chalk.keyword('purple')('\n' + rarity + ': ' + rarity.slice(2))) }
+            for(let cat in userdata.cats[rarity]){
 
-        } else if (sellOption === 'uncommon' || sellOption === 'uncommoncat' || sellOption === 'uncommons') {
-          // Check To See If User Has Any Uncommon Cats
-          if (uncommonCatTotal === 0) {
-            const noUncommonCats = new Discord.RichEmbed()
-              .setAuthor(message.author.username, message.author.avatarURL)
-              .setColor(bot.config.color.red)
-              .setDescription('you don\'t own any uncommon cats to sell')
-            return message.channel.send(noUncommonCats)
-          }
-          // Convert The Cats Numbers Into Money
-          userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'money.catmoney': userdata.money.catmoney + (uncommonCatTotal * 55)}})
-          userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.abyssinian.amount': 0,'cats.manx.amount': 0,'cats.sphynx.amount': 0, 'cats.cyprus.amount': 0,'cats.foldex.amount': 0,'cats.turkishangora.amount': 0,'cats.norwegianforest.amount': 0,'cats.devonrex.amount': 0}})
-          const sellUncommonCatsEmbed = new Discord.RichEmbed().setAuthor(message.author.username, message.author.avatarURL).setColor(bot.config.color.rarities.uncommon).setDescription(`You sold ${uncommonCatTotal} cats for $${(uncommonCatTotal * 55)}`)
-          return message.channel.send(sellUncommonCatsEmbed)
-
-        } else if (sellOption === 'rare' || sellOption === 'rarecat' || sellOption === 'rarecats') {
-          // Check To See If User Has Any Rare Cats
-          if (rareCatTotal === 0) {
-            const noRareCats = new Discord.RichEmbed()
-              .setAuthor(message.author.username, message.author.avatarURL)
-              .setColor(bot.config.color.red)
-              .setDescription('you don\'t own any rare cats to sell')
-            return message.channel.send(noRareCats)
-          }
-          // Convert The Cats Numbers Into Money
-          userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'money.catmoney': userdata.money.catmoney + (uncommonCatTotal * 200)}})
-          userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.korat.amount': 0,'cats.singapura.amount': 0,'cats.tonkinese.amount': 0, 'cats.peterbald.amount': 0,'cats.chartreux.amount': 0,'cats.munchkin.amount': 0,'cats.britishshorthair.amount': 0,'cats.ojosazules.amount': 0}})
-          const sellRareCatsEmbed = new Discord.RichEmbed().setAuthor(message.author.username, message.author.avatarURL).setColor(bot.config.color.rarities.rare).setDescription(`You sold ${rareCatTotal} cats for $${(rareCatTotal * 200)}`)
-          return message.channel.send(sellRareCatsEmbed)
-
-        } else if (sellOption === 'special' || sellOption === 'specialcat' || sellOption === 'specialcats') {
-          // Check To See If User Has Any Special Cats
-          if (specialCatTotal === 0) {
-            const noSpecialCats = new Discord.RichEmbed()
-              .setAuthor(message.author.username, message.author.avatarURL)
-              .setColor(bot.config.color.red)
-              .setDescription('you don\'t own any special cats to sell')
-            return message.channel.send(noSpecialCats)
-          }
-          // Convert The Cats Numbers Into Money
-          userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'money.catmoney': userdata.money.catmoney + (uncommonCatTotal * 2500)}})
-          userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.bandit.amount': 0,'cats.bug.amount': 0,'cats.linda.amount': 0, 'cats.mittens.amount': 0,'cats.cash.amount': 0,'cats.jackson.amount': 0,'cats.cottonball.amount': 0,'cats.sonny.amount': 0,'cats.smokey.amount': 0,'cats.lailah.amount': 0,'cats.cher.amount': 0,'cats.marvin.amount': 0,'cats.loki.amount': 0,'cats.loverboy.amount': 0,'cats.killerclaws.amount': 0}})
-          const sellSpecialCatsEmbed = new Discord.RichEmbed().setAuthor(message.author.username, message.author.avatarURL).setColor(bot.config.color.rarities.special).setDescription(`You sold ${specialCatTotal} cats for $${(specialCatTotal * 2500)}`)
-          return message.channel.send(sellSpecialCatsEmbed)
-
-        } else if (sellOption === 'impossible' || sellOption === 'impossiblecat' || sellOption === 'impossiblecats') {
-          // Check To See If User Has Any Impossible Cats
-          if (impossibleCatTotal === 0) {
-            const noImpossibleCats = new Discord.RichEmbed()
-              .setAuthor(message.author.username, message.author.avatarURL)
-              .setColor(bot.config.color.red)
-              .setDescription('you don\'t own any impossible cats to sell')
-            return message.channel.send(noImpossibleCats)
-
-          }
-          // Convert The Cats Numbers Into Money
-          userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'money.catmoney': userdata.money.catmoney + (uncommonCatTotal * 10000)}})
-          userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'cats.squirtlett.amount': 0,'cats.cursedcat.amount': 0,'cats.uwu.amount': 0, 'cats.tom.amount': 0,'cats.demoncat.amount': 0,'cats.bongocat.amount': 0,'cats.grumpycat.amount': 0}})
-          const sellImpossibleCatsEmbed = new Discord.RichEmbed().setAuthor(message.author.username, message.author.avatarURL).setColor(bot.config.color.rarities.impossible).setDescription(`You sold ${impossibleCatTotal} cats for $${(impossibleCatTotal * 10000)}`)
-          return message.channel.send(sellImpossibleCatsEmbed)
-
-        } else {
-          for (let i = 0; i < animalList.length; i++) {
-            if (sellOption === animalList[i]) {
-              let catSellPrice
-              if (i <= 7) { catSellPrice = 25 } // common
-              if (i >= 8 && i <= 15) { catSellPrice = 55 } // uncommon
-              if (i >= 16 && i <= 23) { catSellPrice = 200 } // rare
-              if (i >= 24 && i <= 38) { catSellPrice = 2500 } // special
-              if (i >= 39) { catSellPrice = 10000 } // impossible
-              if (userdata.cats[animalList[i]].amount === 0) {
-                return message.channel.send(`You don't have any ${animalList[i]} cats to sell!`)
+              if(bot.catData[rarity][cat].value){
+                // increment the total value and total amount variables by the amount sold, if the cat can be sold
+                catAmount += userdata.cats[rarity][cat].amount
+                catValue += (userdata.cats[rarity][cat].amount * bot.catData[rarity][cat].value)
               }
-              const amtAnimal = userdata.cats[animalList[i]].amount
-              const catDbName = `cats.${animalList[i]}.amount`
-              userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[catDbName]: userdata.cats[animalList[i]].amount - amtAnimal}})
-              userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {'money.catmoney': userdata.money.catmoney + (amtAnimal * catSellPrice)}})
-              const soldCat = new Discord.RichEmbed()
-                .setAuthor(message.author.username, message.author.avatarURL)
-                .setColor(bot.config.color.blue)
-                .setDescription(`You sold ${amtAnimal} ${animalList[i]} cats for $${amtAnimal * catSellPrice}`)
-              return message.channel.send(soldCat)
 
+              // set the amount of cats in the user's collection for the aformentioned cat to zero
+              await userCol.findOneAndUpdate({ userID: message.author.id },
+                {
+                  $set: { [`cats.${rarity}.${cat}.amount`]: 0 }
+                }).then(res => {
+                if(DEBUG){ process.stdout.write(chalk.blue(cat) + ': ' + (res.value.cats[rarity][cat].amount? chalk.green(res.value.cats[rarity][cat].amount): chalk.red(res.value.cats[rarity][cat].amount)) + ' sold | ') }
+              })
             }
           }
+
+          // increment the user's money by the total value of cats sold, if any were sold
+          if(catAmount !== 0){
+            await userCol.findOneAndUpdate({ userID: message.author.id },
+              {
+                $inc: { 'money.catmoney': catValue}
+              }).then(res => {
+              if(DEBUG){ console.log(res.value.money.catmoney) }
+              // tell the user how many cats they sold and for how much
+              return message.channel.send(`${catAmount} cats sold for ${catValue}.`)
+            })
+          }else{
+            return message.channel.send(`${message.author.username}, you don't have any cats!`)
+          }
+          break
         }
+
+        // selling a rarity
+        case('rarity'): {
+
+          const parse = bot.functions.parseRarityForDB
+
+          console.log(chalk.yellow.inverse(`${saleType}: ${parse(saleData)}`))
+
+          let catValue = 0
+          let catAmount = 0
+
+          // loop through all the cats in the specified rarity
+          for(let cat in bot.catData[saleData]){
+
+            // increment the total value and total amount variables by the amount sold
+            catValue += (userdata.cats[parse(saleData)][cat].amount*bot.catData[saleData][cat].value)
+            catAmount += userdata.cats[parse(saleData)][cat].amount
+
+            // set the amount of cats in the user's collection for the aformentioned cat to zero
+            await userCol.findOneAndUpdate({ userID: message.author.id },
+              {
+                $set: { [`cats.${parse(saleData)}.${cat}.amount`]: 0 }
+              }).then(res => {
+              console.log(chalk.blue(cat) + ' : ' + res.value.cats[parse(saleData)][cat].amount + ' sold')
+            })
+          }
+
+          // increment the user's money by the total value of cats sold, if any were sold
+          if(catAmount !== 0){
+            await userCol.findOneAndUpdate({ userID: message.author.id },
+              {
+                $inc: { 'money.catmoney': catValue}
+              }).then(res => {
+              console.log(res.value.money.catmoney)
+              // tell the user how many cats they sold and for how much
+              return message.channel.send(`${catAmount} ${saleData} cats sold for ${catValue}.`)
+            })
+          }else{
+            return message.channel.send(`${message.author.username}, you don't have any ${saleData} cats!`)
+          }
+          break
+        }
+
+        // selling a specific cat
+        case('cat'): {
+
+          const parse = bot.functions.parseRarityForDB
+
+          console.log(chalk.yellow.inverse(`${saleType}: ${JSON.stringify(saleData)}`))
+          
+          // if the user does specifiy what to sell
+
+          let amountToSell = (args[1]? Number(args[1]): 'all')
+
+          if(!amountToSell){ return message.channel.send('Invalid amount') }
+        
+          // check if the amount to sell is valid (i.e. positive whole number above zero, or all)
+          if(( amountToSell > 0 && Number.isInteger(amountToSell) ) || ( amountToSell === 'all' )){
+            if(Number.isInteger(amountToSell)){
+              // sell that amount of cats, if possible
+              // check how many of that cat the user has
+              if(amountToSell > userdata.cats[parse(saleData.rarity)][saleData.cat].amount){
+                return message.channel.send(`You don't have that many ${saleData.cat} cats, ${message.author.username}!`)
+              }else{
+                if(userdata.cats[parse(saleData.rarity)][saleData.cat].amount !== 0){
+
+                  // temp variables
+                  let catValue = (amountToSell*bot.catData[saleData.rarity][saleData.cat].value)
+
+                  // update the database
+                  await userCol.findOneAndUpdate({ userID: message.author.id },
+                    {
+                      $inc : {
+                        [`cats.${parse(saleData.rarity)}.${saleData.cat}.amount`]:  (- amountToSell),
+                        'money.catmoney': catValue
+                      }
+                    }).then(res => {
+                    console.log(res.value.money.catmoney)
+                    // tell the user how many cats they sold and for how much
+                    return message.channel.send(`${amountToSell} ${saleData.cat} cats sold for ${catValue}.`)
+                  })
+                }else{
+                  return message.channel.send(`${message.author.username}, you don't have any ${saleData} cats!`)
+                }
+              }
+            }
+            if(amountToSell === 'all'){
+              // sell all of the specified amount of cats
+            }
+          }
+          break
+        }
+        case(undefined): message.channel.send('What The Fuck')
       }
     }
   })
-
-  // Delete The Cooldown // Resetting It
-  setTimeout(() => {
-    delete cooldown[message.author.id]
-  }, 3500)
-
 }
 
 exports.help = {
@@ -237,3 +226,4 @@ exports.help = {
   aliases: ['kill', 's'],
   type: 'normal'
 }
+  

@@ -1,3 +1,7 @@
+/*
+    NOT UPDATED TO CURRENT DB TEMPLATE
+*/
+
 const Discord = require('discord.js')
 const ms = require('parse-ms')
 exports.run = async (bot, message, args) => {

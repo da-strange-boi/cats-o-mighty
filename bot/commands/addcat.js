@@ -60,5 +60,5 @@ exports.run = async (bot, message, args) => {
 exports.help = {
   name: 'addcat',
   aliases: ['ac'],
-  type: 'admin'
+  type: 'normal'
 }

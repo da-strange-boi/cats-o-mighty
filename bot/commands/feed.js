@@ -1,6 +1,9 @@
+// eslint-disable-next-line no-unused-vars
 const Discord = require('discord.js')
 const ms = require('parse-ms')
 const cooldown = {}
+const chalk = require('chalk')
+
 exports.run = async (bot, message, args) => {
   /* User suggestion (from chad lol)
     Maybe do [cat feed] then insert a cat breed then there will be a chance
@@ -19,126 +22,64 @@ exports.run = async (bot, message, args) => {
   }
   cooldown[message.author.id] = Date.now()
 
-  const userCol = bot.database.Userdata
-  userCol.findOne({ userID: message.author.id }, (err, userdata) => {
+  bot.database.Userdata.findOne({ userID: message.author.id }, (err, userdata) => {
     if (err) bot.log('error', err)
     if (userdata) {
-      const catBreed = args[0].toLowerCase().trim()
-      const animalList = bot.catData.a_common + bot.catData.b_uncommon + bot.catData.c_rare
-      for (let i = 0; i < animalList.length; i++) {
-        if (catBreed === animalList[i]) {
+      /**
+       * 
+       * @param {String} catToFeed - the name of the cat that is to be fed.
+       * @param {Object} userCats - the `userdata.cats` for the user.
+       * @param {Number} chance - a number between 0 and 1 that determines the chance of getting a cat.
+       */
+      // eslint-disable-next-line no-inner-declarations
+      function feedCat(catToFeed, userCats, chance){
 
-          if (userdata.cats[animalList[i]].discovered === false) {
-            return message.channel.send('You have not discovered this cat breed')
-          }
+        for(let rarity in bot.catData){
+          
+          if(catToFeed in bot.catData[rarity]){
 
-          let catType
-          if (i <= 7) { catType = 'common' } // common
-          if (i >= 8 && i <= 15) { catType = 'uncommon' } // uncommon
-          if (i >= 16 && i <= 23) { catType = 'rare' } // rare
-          if (i >= 24 && i <= 38) { catType = 'special' } // special
-          if (i >= 39) { catType = 'impossible' } // impossible
-
-          if (catType === 'common') {
-            const commonCatAmt = Math.floor(Math.random() * 13) + 1
-            const commonCatBase = Math.floor(Math.random() * 13) + 1
-            if (commonCatAmt === commonCatBase) {
-              const catDbName = `cats.${animalList[i]}.amount`
-              userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[catDbName]: userdata.cats[animalList[i]].amount + 1}})
-              const feedSucc = new Discord.RichEmbed()
-                .setTitle('ooo look at that!')
-                .setColor(bot.config.color.rarities.common)
-                .setDescription(`a ${animalList[i]} decied to like that you fed it and hopped into your arms`)
-              message.channel.send(feedSucc)
-            } else {
-              const feedFail = new Discord.RichEmbed()
-                .setTitle('hmm nothing')
-                .setColor(bot.config.color.rarities.common)
-                .setDescription(`a ${animalList[i]} liked that you fed it but it ran away`)
-              message.channel.send(feedFail)
+            if(bot.catData[rarity][catToFeed].chance === 0){
+              if(bot.catData[rarity][catToFeed].discontinued === true){
+                message.channel.send('that cat can\'t be found anymore :(')
+                return
+              }
+              message.channel.send('that cat doesn\'t want to be fed... maybe try chatting to see if you can find one!')
+              return
             }
-          }
-          if (catType === 'uncommon') {
-            const uncommonCatAmt = Math.floor(Math.random() * 40) + 1
-            const uncommonCatBase = Math.floor(Math.random() * 40) + 1
-            if (uncommonCatAmt === uncommonCatBase) {
-              const catDbName = `cats.${animalList[i]}.amount`
-              userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[catDbName]: userdata.cats[animalList[i]].amount + 1}})
-              const feedSucc = new Discord.RichEmbed()
-                .setTitle('ooo look at that!')
-                .setColor(bot.config.color.rarities.uncommon)
-                .setDescription(`a ${animalList[i]} decied to like that you fed it and hopped into your arms`)
-              message.channel.send(feedSucc)
-            } else {
-              const feedFail = new Discord.RichEmbed()
-                .setTitle('hmm nothing')
-                .setColor(bot.config.color.rarities.uncommon)
-                .setDescription(`a ${animalList[i]} liked that you fed it but it ran away`)
-              message.channel.send(feedFail)
-            }
-          }
 
-          if (catType === 'rare') {
-            const rareCatAmt = Math.floor(Math.random() * 73) + 1
-            const rareCatBase = Math.floor(Math.random() * 73) + 1
-            if (rareCatAmt === rareCatBase) {
-              const catDbName = `cats.${animalList[i]}.amount`
-              userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[catDbName]: userdata.cats[animalList[i]].amount + 1}})
-              const feedSucc = new Discord.RichEmbed()
-                .setTitle('ooo look at that!')
-                .setColor(bot.config.color.rarities.rare)
-                .setDescription(`a ${animalList[i]} decied to like that you fed it and hopped into your arms`)
-              message.channel.send(feedSucc)
-            } else {
-              const feedFail = new Discord.RichEmbed()
-                .setTitle('hmm nothing')
-                .setColor(bot.config.color.rarities.rare)
-                .setDescription(`a ${animalList[i]} liked that you fed it but it ran away`)
-              message.channel.send(feedFail)
+            if(userCats[rarity][catToFeed].discovered){
+              if(chance <= bot.catData[rarity][catToFeed].chance*2){
+                bot.database.Userdata.findOneAndUpdate({ userID: message.author.id },
+                  { 
+                    $inc: {
+                      [`cats.${rarity}.${catToFeed}.amount`]: 1
+                    }
+                  }
+                ).then(res => {
+                  if(res){
+                    message.channel.send(`obtained a ${catToFeed} cat, you now have ${res.value.cats[rarity][catToFeed].amount + 1}`)
+                  }else{
+                    message.channel.send('there was an issue with the database :( please try again!')
+                  }
+                }).catch(err => {
+                  bot.log('error', err)
+                })
+              }else{
+                message.channel.send(`the ${catToFeed} ran away :(`)
+                return
+              }
+            }else{
+              message.channel.send('you haven\'t discovered that cat yet!')
+              return
             }
-          }
-
-          if (catType === 'special') {
-            const specialCatAmt = Math.floor(Math.random() * 185) + 1
-            const specialCatBase = Math.floor(Math.random() * 185) + 1
-            if (specialCatAmt === specialCatBase) {
-              const catDbName = `cats.${animalList[i]}.amount`
-              userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[catDbName]: userdata.cats[animalList[i]].amount + 1}})
-              const feedSucc = new Discord.RichEmbed()
-                .setTitle('ooo look at that!')
-                .setColor(bot.config.color.rarities.special)
-                .setDescription(`a ${animalList[i]} decied to like that you fed it and hopped into your arms`)
-              message.channel.send(feedSucc)
-            } else {
-              const feedFail = new Discord.RichEmbed()
-                .setTitle('hmm nothing')
-                .setColor(bot.config.color.rarities.special)
-                .setDescription(`a ${animalList[i]} liked that you fed it but it ran away`)
-              message.channel.send(feedFail)
-            }
-          }
-
-          if (catType === 'impossible') {
-            const impossibleCatAmt = Math.floor(Math.random() * 370) + 1
-            const impossibleCatBase = Math.floor(Math.random() * 370) + 1
-            if (impossibleCatAmt === impossibleCatBase) {
-              const catDbName = `cats.${animalList[i]}.amount`
-              userCol.findOneAndUpdate({ userID: message.author.id }, {$set: {[catDbName]: userdata.cats[animalList[i]].amount + 1}})
-              const feedSucc = new Discord.RichEmbed()
-                .setTitle('ooo look at that!')
-                .setColor(bot.config.color.rarities.impossible)
-                .setDescription(`a ${animalList[i]} decied to like that you fed it and hopped into your arms`)
-              message.channel.send(feedSucc)
-            } else {
-              const feedFail = new Discord.RichEmbed()
-                .setTitle('hmm nothing')
-                .setColor(bot.config.color.rarities.impossible)
-                .setDescription(`a ${animalList[i]} liked that you fed it but it ran away`)
-              message.channel.send(feedFail)
-            }
+            return
           }
         }
+        message.channel.send('*that\'s not a cat*')
+        return
       }
+
+      feedCat(args[0], userdata.cats, Math.random())
     }
   })
 

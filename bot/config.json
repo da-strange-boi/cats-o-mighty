@@ -1,7 +1,7 @@
 {
   "prefix": "cat",
   "db": {
-    "connectionString": "mongodb://localhost:27017",
+    "connectionString": "mongodb://localhost:27017/cats-o-mighty",
     "connectionOptions": { "useUnifiedTopology": true }
   },
   "color": {

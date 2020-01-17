@@ -142,7 +142,7 @@ exports.run = async (bot, message, cmd, prefix) => {
       ) {
         const checkCats = require('../lib/checkCats')
         const getCats = require('./getCats')
-        checkCats.run(bot, message)
+        // checkCats.run(bot, message)
         getCats.run(bot, message)
       }
 
