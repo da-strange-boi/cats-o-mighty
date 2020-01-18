@@ -48,7 +48,7 @@ const parseRarityForDB = (rarity) => {
     case('special'):    return 'd_' + rarity
     case('impossible'): return 'e_' + rarity
     case('seasonal'):   return 'f_' + rarity
-    default:            return false
+    default:            return rarity
   }
 }
 

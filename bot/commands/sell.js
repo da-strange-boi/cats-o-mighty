@@ -44,12 +44,12 @@ module.exports.run = async (bot, message, args) => {
 
           // debug
           rCount++
-          if(DEBUG){ console.log(`${(rCount < Object.keys(bot.catData).length)? `${( rarity === sellRequest ) || ( sellRequest in bot.catData[rarity] )? '└': '├'}`: '└'}───${rarity === sellRequest? chalk.green.bold(rarity): rarity}`) }
+          if(DEBUG){ console.log(`${(rCount < Object.keys(bot.catData).length)? `${( rarity === sellRequest ) || ( bot.functions.parseRarityForDB(sellRequest) in bot.catData[rarity] )? '└': '├'}`: '└'}───${rarity === sellRequest? chalk.green.bold(rarity): rarity}`) }
 
           // check if the sale requested is a rarity; if it is, set `sale` to 'rarity' and then break
-          if(rarity === sellRequest){
+          if(rarity.substring(2) === sellRequest){
             saleType = 'rarity'
-            saleData = rarity
+            saleData = sellRequest
             break
           }
 
@@ -129,16 +129,16 @@ module.exports.run = async (bot, message, args) => {
 
           const parse = bot.functions.parseRarityForDB
 
-          console.log(chalk.yellow.inverse(`${saleType}: ${parse(saleData)}`))
+          console.log(chalk.yellow.inverse(`${saleType}: ${saleData}, ${parse(saleData)}`))
 
           let catValue = 0
           let catAmount = 0
 
           // loop through all the cats in the specified rarity
-          for(let cat in bot.catData[saleData]){
+          for(let cat in bot.catData[parse(saleData)]){
 
             // increment the total value and total amount variables by the amount sold
-            catValue += (userdata.cats[parse(saleData)][cat].amount*bot.catData[saleData][cat].value)
+            catValue += (userdata.cats[parse(saleData)][cat].amount*bot.catData[parse(saleData)][cat].value)
             catAmount += userdata.cats[parse(saleData)][cat].amount
 
             // set the amount of cats in the user's collection for the aformentioned cat to zero
@@ -190,7 +190,7 @@ module.exports.run = async (bot, message, args) => {
                 if(userdata.cats[parse(saleData.rarity)][saleData.cat].amount !== 0){
 
                   // temp variables
-                  let catValue = (amountToSell*bot.catData[saleData.rarity][saleData.cat].value)
+                  let catValue = (amountToSell*bot.catData[parse(saleData.rarity)][saleData.cat].value)
 
                   // update the database
                   await userCol.findOneAndUpdate({ userID: message.author.id },
@@ -210,7 +210,31 @@ module.exports.run = async (bot, message, args) => {
               }
             }
             if(amountToSell === 'all'){
-              // sell all of the specified amount of cats
+              // sell all of the specified cat
+
+              if(bot.catData[parse(saleData.rarity)][saleData.cat].value === null){
+                return message.channel.send(`You can't sell ${saleData.cat} cats!`)
+              }
+
+              // temp variables
+              const uDataAmount = userdata.cats[parse(saleData.rarity)][saleData.cat].amount
+              let catValue = (uDataAmount * bot.catData[parse(saleData.rarity)][saleData.cat].value)
+
+              if(catValue === 0){
+                return message.channel.send(`You don't have any ${saleData.cat} cats!`)
+              }
+              // update the database
+              await userCol.findOneAndUpdate({ userID: message.author.id },
+                {
+                  $inc : {
+                    [`cats.${parse(saleData.rarity)}.${saleData.cat}.amount`]:  (- uDataAmount),
+                    'money.catmoney': catValue
+                  }
+                }).then(res => {
+                console.log(res.value.money.catmoney)
+                // tell the user how many cats they sold and for how much
+                return message.channel.send(`${uDataAmount} ${saleData.cat} cats sold for ${catValue}.`)
+              })
             }
           }
           break
