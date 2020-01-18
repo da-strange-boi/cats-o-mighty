@@ -127,6 +127,11 @@ module.exports.run = async (bot, message, args) => {
         // selling a rarity
         case('rarity'): {
 
+          // eslint-disable-next-line no-constant-condition
+          if(saleData === 'seasonal'){
+            return message.channel.send('you can\'t sell seasonal cats!')
+          }
+
           const parse = bot.functions.parseRarityForDB
 
           console.log(chalk.yellow.inverse(`${saleType}: ${saleData}, ${parse(saleData)}`))
